@@ -29,7 +29,7 @@
 		5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897327F6C6290010EAA1 /* UIScreen+.swift */; };
 		5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */; };
 		5BA3897827F6C6E10010EAA1 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897727F6C6E10010EAA1 /* UITextField+.swift */; };
-		92A5D472280553FD00BCEFC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92A5D471280553FD00BCEFC5 /* GoogleService-Info.plist */; };
+		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
 		EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,8 +58,8 @@
 		5BA3897327F6C6290010EAA1 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		5BA3897727F6C6E10010EAA1 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		9209959E280D13B8008C3491 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
-		92A5D471280553FD00BCEFC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		5BA3893027F6B94F0010EAA1 /* WAL */ = {
 			isa = PBXGroup;
 			children = (
-				92A5D471280553FD00BCEFC5 /* GoogleService-Info.plist */,
+				9209959E280D13B8008C3491 /* GoogleService-Info.plist */,
 				92322AAD28049C2C002E281F /* WAL.entitlements */,
 				5BA3894527F6C01D0010EAA1 /* Network */,
 				5BA3894627F6C03A0010EAA1 /* Global */,
@@ -365,7 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
-				92A5D472280553FD00BCEFC5 /* GoogleService-Info.plist in Resources */,
+				9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */,
 				5BA3893B27F6B9540010EAA1 /* Assets.xcassets in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
 			);
