@@ -30,10 +30,10 @@
 		5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897327F6C6290010EAA1 /* UIScreen+.swift */; };
 		5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */; };
 		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
-		E29B1427281E7B8B005275B2 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29B1423281E7B8B005275B2 /* Pretendard-Bold.otf */; };
-		E29B1428281E7B8B005275B2 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29B1424281E7B8B005275B2 /* Pretendard-Regular.otf */; };
-		E29B1429281E7B8B005275B2 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29B1425281E7B8B005275B2 /* Pretendard-Medium.otf */; };
-		E29B142A281E7B8B005275B2 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29B1426281E7B8B005275B2 /* Pretendard-SemiBold.otf */; };
+		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
+		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
+		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
+		E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F6A281E7EB700576135 /* Pretendard-Medium.otf */; };
 		EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,10 +66,10 @@
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
-		E29B1423281E7B8B005275B2 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../../../../../../Library/Fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
-		E29B1424281E7B8B005275B2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../../../../../../Library/Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
-		E29B1425281E7B8B005275B2 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../../../../../../Library/Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		E29B1426281E7B8B005275B2 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../../../../../../Library/Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		E2082F67281E7EB700576135 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "WAL/Resource/Font/Pretendard-Bold.otf"; sourceTree = SOURCE_ROOT; };
+		E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "WAL/Resource/Font/Pretendard-SemiBold.otf"; sourceTree = SOURCE_ROOT; };
+		E2082F69281E7EB700576135 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "WAL/Resource/Font/Pretendard-Regular.otf"; sourceTree = SOURCE_ROOT; };
+		E2082F6A281E7EB700576135 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "WAL/Resource/Font/Pretendard-Medium.otf"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,10 +323,10 @@
 		E29B141A281E7A39005275B2 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				E29B1423281E7B8B005275B2 /* Pretendard-Bold.otf */,
-				E29B1425281E7B8B005275B2 /* Pretendard-Medium.otf */,
-				E29B1424281E7B8B005275B2 /* Pretendard-Regular.otf */,
-				E29B1426281E7B8B005275B2 /* Pretendard-SemiBold.otf */,
+				E2082F67281E7EB700576135 /* Pretendard-Bold.otf */,
+				E2082F6A281E7EB700576135 /* Pretendard-Medium.otf */,
+				E2082F69281E7EB700576135 /* Pretendard-Regular.otf */,
+				E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -397,12 +397,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E29B1429281E7B8B005275B2 /* Pretendard-Medium.otf in Resources */,
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
-				E29B1428281E7B8B005275B2 /* Pretendard-Regular.otf in Resources */,
-				E29B142A281E7B8B005275B2 /* Pretendard-SemiBold.otf in Resources */,
-				E29B1427281E7B8B005275B2 /* Pretendard-Bold.otf in Resources */,
+				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
 				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
+				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
+				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
+				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
 				9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
 			);
