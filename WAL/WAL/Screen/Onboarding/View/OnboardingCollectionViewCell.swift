@@ -15,7 +15,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     // MARK: - Properties
     
     private let textCount: Int = 0
-    private var maxLength: Int = 10
+    private let maxLength: Int = 10
     
     private let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
@@ -130,9 +130,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
             name: UITextField.textDidChangeNotification,
             object: nicknameTextField)
     }
-    
-    // MARK: - Custom Method
-    
+        
     // MARK: - @objc
     
     @objc private func textDidChange(_ notification: Notification) {
