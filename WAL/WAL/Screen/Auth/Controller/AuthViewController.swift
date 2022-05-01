@@ -7,23 +7,40 @@
 
 import UIKit
 
-class AuthViewController: UIViewController {
+import SnapKit
+import Then
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+final class AuthViewController: UIViewController {
 
-        // Do any additional setup after loading the view.
+    // MARK: - Properties
+    
+    private let appleLoginButton = WALAuthButton().then {
+        $0.authType = .apple
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configUI()
+        setupLayout()
     }
-    */
+    
+    // MARK: - InitUI
+    
+    private func configUI() {
+        view.backgroundColor = .white
+    }
+    
+    private func setupLayout() {
+        view.addSubview(appleLoginButton)
+        
+        appleLoginButton.snp.makeConstraints { make in
+            make.top.equalTo(100)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+    }
+    
+    // MARK: - Custom Method
 
 }

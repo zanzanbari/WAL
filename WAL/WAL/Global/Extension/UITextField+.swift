@@ -8,15 +8,13 @@
 import UIKit
 
 extension UITextField {
-    func addLeftPadding(width: CGFloat = 14) {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.size.height))
+    func setupPadding() {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.frame.height))
+        
         self.leftView = paddingView
-        self.leftViewMode = .always
-    }
-    
-    func addRightPadding(width: CGFloat = 14) {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.size.height))
+        self.leftViewMode = ViewMode.always
+        
         self.rightView = paddingView
-        self.rightViewMode = .always
+        self.rightViewMode = ViewMode.always
     }
 }

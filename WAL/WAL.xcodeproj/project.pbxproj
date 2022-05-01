@@ -7,19 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B00AEC6281679AD00EA3EE7 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B00AEC5281679AD00EA3EE7 /* WALKit */; };
+		5B3489F3281E3728006FEFDA /* WALTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3489F2281E3728006FEFDA /* WALTextField.swift */; };
+		5B3489F5281E37D2006FEFDA /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3489F4281E37D2006FEFDA /* Color.xcassets */; };
+		5B3489FD281E37F7006FEFDA /* WALIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3489FC281E37F7006FEFDA /* WALIcon.swift */; };
+		5B3489FF281E3855006FEFDA /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3489FE281E3855006FEFDA /* Matrix.swift */; };
+		5B348A01281E3884006FEFDA /* WALNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A00281E3884006FEFDA /* WALNavigationBar.swift */; };
+		5B348A04281E38DE006FEFDA /* WALPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A03281E38DE006FEFDA /* WALPlainButton.swift */; };
+		5B348A06281E38EC006FEFDA /* WALAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A05281E38EC006FEFDA /* WALAuthButton.swift */; };
+		5B348A08281E39C2006FEFDA /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A07281E39C2006FEFDA /* UIFont+.swift */; };
+		5B348A0A281E39E4006FEFDA /* WALFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A09281E39E4006FEFDA /* WALFont.swift */; };
+		5B348A10281E3A9A006FEFDA /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0C281E3A9A006FEFDA /* Pretendard-SemiBold.otf */; };
+		5B348A11281E3A9A006FEFDA /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0D281E3A9A006FEFDA /* Pretendard-Medium.otf */; };
+		5B348A12281E3A9A006FEFDA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0E281E3A9A006FEFDA /* Pretendard-Bold.otf */; };
+		5B348A13281E3A9A006FEFDA /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0F281E3A9A006FEFDA /* Pretendard-Regular.otf */; };
+		5B348A17281E3B8F006FEFDA /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A16281E3B8F006FEFDA /* UIColor+.swift */; };
+		5B348A1E281E402B006FEFDA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* AuthViewController.swift */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
-		5BA3893B27F6B9540010EAA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893A27F6B9540010EAA1 /* Assets.xcassets */; };
 		5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893C27F6B9540010EAA1 /* LaunchScreen.storyboard */; };
 		5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* TempModel.swift */; };
 		5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* TempView.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
-		5BA3895F27F6C25E0010EAA1 /* TempTypo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895E27F6C25E0010EAA1 /* TempTypo.swift */; };
 		5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896027F6C2680010EAA1 /* UIView+.swift */; };
-		5BA3896327F6C2740010EAA1 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896227F6C2740010EAA1 /* UIViewController+.swift */; };
 		5BA3896527F6C2830010EAA1 /* TempDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896427F6C2830010EAA1 /* TempDataModel.swift */; };
 		5BA3896727F6C28C0010EAA1 /* TempService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896627F6C28C0010EAA1 /* TempService.swift */; };
 		5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896827F6C2930010EAA1 /* TempAPI.swift */; };
@@ -35,20 +46,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B3489F2281E3728006FEFDA /* WALTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALTextField.swift; sourceTree = "<group>"; };
+		5B3489F4281E37D2006FEFDA /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Color.xcassets; path = ../../../../../WALKit/Sources/WALKit/Color/Color.xcassets; sourceTree = "<group>"; };
+		5B3489FB281E37F1006FEFDA /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
+		5B3489FC281E37F7006FEFDA /* WALIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALIcon.swift; sourceTree = "<group>"; };
+		5B3489FE281E3855006FEFDA /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		5B348A00281E3884006FEFDA /* WALNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALNavigationBar.swift; sourceTree = "<group>"; };
+		5B348A03281E38DE006FEFDA /* WALPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALPlainButton.swift; sourceTree = "<group>"; };
+		5B348A05281E38EC006FEFDA /* WALAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALAuthButton.swift; sourceTree = "<group>"; };
+		5B348A07281E39C2006FEFDA /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		5B348A09281E39E4006FEFDA /* WALFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALFont.swift; sourceTree = "<group>"; };
+		5B348A0C281E3A9A006FEFDA /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		5B348A0D281E3A9A006FEFDA /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		5B348A0E281E3A9A006FEFDA /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		5B348A0F281E3A9A006FEFDA /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		5B348A16281E3B8F006FEFDA /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		5B348A1D281E402B006FEFDA /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		5BA3892E27F6B94F0010EAA1 /* WAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5BA3893527F6B94F0010EAA1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5BA3893827F6B94F0010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5BA3893A27F6B9540010EAA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BA3893D27F6B9540010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BA3893F27F6B9540010EAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BA3895727F6C2260010EAA1 /* TempModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempModel.swift; sourceTree = "<group>"; };
 		5BA3895927F6C22F0010EAA1 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		5BA3895B27F6C23B0010EAA1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
-		5BA3895E27F6C25E0010EAA1 /* TempTypo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTypo.swift; sourceTree = "<group>"; };
 		5BA3896027F6C2680010EAA1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-		5BA3896227F6C2740010EAA1 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		5BA3896427F6C2830010EAA1 /* TempDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempDataModel.swift; sourceTree = "<group>"; };
 		5BA3896627F6C28C0010EAA1 /* TempService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempService.swift; sourceTree = "<group>"; };
 		5BA3896827F6C2930010EAA1 /* TempAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAPI.swift; sourceTree = "<group>"; };
@@ -71,7 +95,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B00AEC6281679AD00EA3EE7 /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +117,60 @@
 				A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B348A02281E389A006FEFDA /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				5B348A05281E38EC006FEFDA /* WALAuthButton.swift */,
+				5B348A03281E38DE006FEFDA /* WALPlainButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		5B348A0B281E3A8C006FEFDA /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				5B348A0E281E3A9A006FEFDA /* Pretendard-Bold.otf */,
+				5B348A0D281E3A9A006FEFDA /* Pretendard-Medium.otf */,
+				5B348A0F281E3A9A006FEFDA /* Pretendard-Regular.otf */,
+				5B348A0C281E3A9A006FEFDA /* Pretendard-SemiBold.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		5B348A19281E3F8E006FEFDA /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				5B3489F2281E3728006FEFDA /* WALTextField.swift */,
+				5B348A00281E3884006FEFDA /* WALNavigationBar.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		5B348A1A281E3FA9006FEFDA /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				5B348A09281E39E4006FEFDA /* WALFont.swift */,
+				5B3489FC281E37F7006FEFDA /* WALIcon.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		5B348A1B281E400E006FEFDA /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				5B348A1C281E4018006FEFDA /* Controller */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		5B348A1C281E4018006FEFDA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5B348A1D281E402B006FEFDA /* AuthViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		5BA3892527F6B94F0010EAA1 = {
@@ -142,8 +219,8 @@
 			isa = PBXGroup;
 			children = (
 				5BA3895D27F6C2420010EAA1 /* DesignSystem */,
-				5BA3894E27F6C1230010EAA1 /* Protocol */,
 				5BA3894927F6C0B10010EAA1 /* Extension */,
+				5BA3894E27F6C1230010EAA1 /* Protocol */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -162,6 +239,7 @@
 		5BA3894827F6C0750010EAA1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				5B348A1B281E400E006FEFDA /* Auth */,
 				5BA3895327F6C1E80010EAA1 /* Main */,
 			);
 			path = Screen;
@@ -170,9 +248,10 @@
 		5BA3894927F6C0B10010EAA1 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				5B348A16281E3B8F006FEFDA /* UIColor+.swift */,
+				5B348A07281E39C2006FEFDA /* UIFont+.swift */,
 				5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */,
 				5BA3896027F6C2680010EAA1 /* UIView+.swift */,
-				5BA3896227F6C2740010EAA1 /* UIViewController+.swift */,
 				5BA3897327F6C6290010EAA1 /* UIScreen+.swift */,
 				5BA3897127F6C45D0010EAA1 /* UIStackView+.swift */,
 				5BA3897727F6C6E10010EAA1 /* UITextField+.swift */,
@@ -231,7 +310,9 @@
 		5BA3895127F6C1570010EAA1 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3893A27F6B9540010EAA1 /* Assets.xcassets */,
+				5B348A0B281E3A8C006FEFDA /* Font */,
+				5B3489F4281E37D2006FEFDA /* Color.xcassets */,
+				5B3489FB281E37F1006FEFDA /* Icon.xcassets */,
 			);
 			path = Asset;
 			sourceTree = "<group>";
@@ -283,7 +364,10 @@
 		5BA3895D27F6C2420010EAA1 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3895E27F6C25E0010EAA1 /* TempTypo.swift */,
+				5B348A1A281E3FA9006FEFDA /* Foundation */,
+				5B348A02281E389A006FEFDA /* Button */,
+				5B348A19281E3F8E006FEFDA /* Component */,
+				5B3489FE281E3855006FEFDA /* Matrix.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -317,7 +401,6 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B00AEC5281679AD00EA3EE7 /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -348,7 +431,6 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B00AEC4281679AD00EA3EE7 /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -366,8 +448,12 @@
 			files = (
 				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
 				9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */,
-				5BA3893B27F6B9540010EAA1 /* Assets.xcassets in Resources */,
+				5B348A12281E3A9A006FEFDA /* Pretendard-Bold.otf in Resources */,
+				5B348A10281E3A9A006FEFDA /* Pretendard-SemiBold.otf in Resources */,
+				5B3489F5281E37D2006FEFDA /* Color.xcassets in Resources */,
+				5B348A13281E3A9A006FEFDA /* Pretendard-Regular.otf in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
+				5B348A11281E3A9A006FEFDA /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,21 +508,29 @@
 			files = (
 				5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
+				5B3489F3281E3728006FEFDA /* WALTextField.swift in Sources */,
+				5B3489FD281E37F7006FEFDA /* WALIcon.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* TempService.swift in Sources */,
+				5B348A04281E38DE006FEFDA /* WALPlainButton.swift in Sources */,
+				5B348A1E281E402B006FEFDA /* AuthViewController.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */,
+				5B348A0A281E39E4006FEFDA /* WALFont.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				5BA3897827F6C6E10010EAA1 /* UITextField+.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* TempDataModel.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
-				5BA3896327F6C2740010EAA1 /* UIViewController+.swift in Sources */,
-				5BA3895F27F6C25E0010EAA1 /* TempTypo.swift in Sources */,
+				5B348A06281E38EC006FEFDA /* WALAuthButton.swift in Sources */,
+				5B3489FF281E3855006FEFDA /* Matrix.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
+				5B348A01281E3884006FEFDA /* WALNavigationBar.swift in Sources */,
+				5B348A08281E39C2006FEFDA /* UIFont+.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
+				5B348A17281E3B8F006FEFDA /* UIColor+.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 			);
@@ -662,25 +756,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		5B00AEC4281679AD00EA3EE7 /* XCRemoteSwiftPackageReference "WALKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5B00AEC5281679AD00EA3EE7 /* WALKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5B00AEC4281679AD00EA3EE7 /* XCRemoteSwiftPackageReference "WALKit" */;
-			productName = WALKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5BA3892627F6B94F0010EAA1 /* Project object */;
 }

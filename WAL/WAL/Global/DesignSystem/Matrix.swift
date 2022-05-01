@@ -17,7 +17,11 @@ public struct Matrix {
     static let textFieldCornerRadius: CGFloat = 12
     static let textFieldMargin: CGFloat = 16
     
-    // Button
+    // Plain Button
     static let buttonCornerRadius: CGFloat = 23
     static let buttonHeight: CGFloat = 52
+    
+    // Auth Button
+    static let authButtonCornerRadius: CGFloat = 23
+    static let authButtonHeight: CGFloat = 52
 }
