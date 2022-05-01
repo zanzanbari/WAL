@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5B3489F3281E3728006FEFDA /* WALTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3489F2281E3728006FEFDA /* WALTextField.swift */; };
-		5B3489F5281E37D2006FEFDA /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3489F4281E37D2006FEFDA /* Color.xcassets */; };
 		5B3489FD281E37F7006FEFDA /* WALIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3489FC281E37F7006FEFDA /* WALIcon.swift */; };
 		5B3489FF281E3855006FEFDA /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3489FE281E3855006FEFDA /* Matrix.swift */; };
 		5B348A01281E3884006FEFDA /* WALNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A00281E3884006FEFDA /* WALNavigationBar.swift */; };
@@ -16,12 +15,13 @@
 		5B348A06281E38EC006FEFDA /* WALAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A05281E38EC006FEFDA /* WALAuthButton.swift */; };
 		5B348A08281E39C2006FEFDA /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A07281E39C2006FEFDA /* UIFont+.swift */; };
 		5B348A0A281E39E4006FEFDA /* WALFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A09281E39E4006FEFDA /* WALFont.swift */; };
-		5B348A10281E3A9A006FEFDA /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0C281E3A9A006FEFDA /* Pretendard-SemiBold.otf */; };
-		5B348A11281E3A9A006FEFDA /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0D281E3A9A006FEFDA /* Pretendard-Medium.otf */; };
-		5B348A12281E3A9A006FEFDA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0E281E3A9A006FEFDA /* Pretendard-Bold.otf */; };
-		5B348A13281E3A9A006FEFDA /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A0F281E3A9A006FEFDA /* Pretendard-Regular.otf */; };
 		5B348A17281E3B8F006FEFDA /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A16281E3B8F006FEFDA /* UIColor+.swift */; };
 		5B348A1E281E402B006FEFDA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* AuthViewController.swift */; };
+		5B348A49281E558B006FEFDA /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A48281E558B006FEFDA /* Color.xcassets */; };
+		5B348A4F281E55F9006FEFDA /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A4B281E55F9006FEFDA /* Pretendard-Regular.otf */; };
+		5B348A50281E55F9006FEFDA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A4C281E55F9006FEFDA /* Pretendard-Bold.otf */; };
+		5B348A51281E55F9006FEFDA /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A4D281E55F9006FEFDA /* Pretendard-Medium.otf */; };
+		5B348A52281E55F9006FEFDA /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A4E281E55F9006FEFDA /* Pretendard-SemiBold.otf */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
@@ -47,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		5B3489F2281E3728006FEFDA /* WALTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALTextField.swift; sourceTree = "<group>"; };
-		5B3489F4281E37D2006FEFDA /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Color.xcassets; path = ../../../../../WALKit/Sources/WALKit/Color/Color.xcassets; sourceTree = "<group>"; };
 		5B3489FB281E37F1006FEFDA /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
 		5B3489FC281E37F7006FEFDA /* WALIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALIcon.swift; sourceTree = "<group>"; };
 		5B3489FE281E3855006FEFDA /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -56,12 +55,13 @@
 		5B348A05281E38EC006FEFDA /* WALAuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALAuthButton.swift; sourceTree = "<group>"; };
 		5B348A07281E39C2006FEFDA /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		5B348A09281E39E4006FEFDA /* WALFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALFont.swift; sourceTree = "<group>"; };
-		5B348A0C281E3A9A006FEFDA /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
-		5B348A0D281E3A9A006FEFDA /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		5B348A0E281E3A9A006FEFDA /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
-		5B348A0F281E3A9A006FEFDA /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../../../../../../WALKit/Sources/WALKit/Font/Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		5B348A16281E3B8F006FEFDA /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		5B348A1D281E402B006FEFDA /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		5B348A48281E558B006FEFDA /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		5B348A4B281E55F9006FEFDA /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../../../../../../../../Library/Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		5B348A4C281E55F9006FEFDA /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../../../../../../../../Library/Fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		5B348A4D281E55F9006FEFDA /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../../../../../../../../Library/Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		5B348A4E281E55F9006FEFDA /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../../../../../../../../Library/Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		5BA3892E27F6B94F0010EAA1 /* WAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,17 +128,6 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
-		5B348A0B281E3A8C006FEFDA /* Font */ = {
-			isa = PBXGroup;
-			children = (
-				5B348A0E281E3A9A006FEFDA /* Pretendard-Bold.otf */,
-				5B348A0D281E3A9A006FEFDA /* Pretendard-Medium.otf */,
-				5B348A0F281E3A9A006FEFDA /* Pretendard-Regular.otf */,
-				5B348A0C281E3A9A006FEFDA /* Pretendard-SemiBold.otf */,
-			);
-			path = Font;
-			sourceTree = "<group>";
-		};
 		5B348A19281E3F8E006FEFDA /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +160,17 @@
 				5B348A1D281E402B006FEFDA /* AuthViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		5B348A4A281E55CC006FEFDA /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				5B348A4C281E55F9006FEFDA /* Pretendard-Bold.otf */,
+				5B348A4D281E55F9006FEFDA /* Pretendard-Medium.otf */,
+				5B348A4B281E55F9006FEFDA /* Pretendard-Regular.otf */,
+				5B348A4E281E55F9006FEFDA /* Pretendard-SemiBold.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		5BA3892527F6B94F0010EAA1 = {
@@ -310,9 +310,9 @@
 		5BA3895127F6C1570010EAA1 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
-				5B348A0B281E3A8C006FEFDA /* Font */,
-				5B3489F4281E37D2006FEFDA /* Color.xcassets */,
+				5B348A4A281E55CC006FEFDA /* Font */,
 				5B3489FB281E37F1006FEFDA /* Icon.xcassets */,
+				5B348A48281E558B006FEFDA /* Color.xcassets */,
 			);
 			path = Asset;
 			sourceTree = "<group>";
@@ -446,14 +446,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B348A51281E55F9006FEFDA /* Pretendard-Medium.otf in Resources */,
 				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
+				5B348A50281E55F9006FEFDA /* Pretendard-Bold.otf in Resources */,
+				5B348A52281E55F9006FEFDA /* Pretendard-SemiBold.otf in Resources */,
+				5B348A49281E558B006FEFDA /* Color.xcassets in Resources */,
+				5B348A4F281E55F9006FEFDA /* Pretendard-Regular.otf in Resources */,
 				9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */,
-				5B348A12281E3A9A006FEFDA /* Pretendard-Bold.otf in Resources */,
-				5B348A10281E3A9A006FEFDA /* Pretendard-SemiBold.otf in Resources */,
-				5B3489F5281E37D2006FEFDA /* Color.xcassets in Resources */,
-				5B348A13281E3A9A006FEFDA /* Pretendard-Regular.otf in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
-				5B348A11281E3A9A006FEFDA /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
