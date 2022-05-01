@@ -13,7 +13,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
     
     var keyboardHeight: CGFloat = 0
     
-    // MARK: - Life Cycle
+    // MARK: - Initialize
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +32,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
             object: nil)
     }
     
-    // MARK: - Selector
+    // MARK: - @objc
     
     @objc func keyboardWillShow(_ notification:NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
