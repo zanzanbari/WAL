@@ -41,6 +41,10 @@ final class OnboardingViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - InitUI
     
     private func configUI() {

@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class OnboardingCollectionViewCell: UICollectionViewCell {
+class OnboardingCollectionViewCell: BaseCollectionViewCell {
         
     // MARK: - Properties
     
@@ -138,10 +138,18 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     @objc private func textDidChange(_ notification: Notification) {
         if let textField = notification.object as? UITextField {
             if let text = textField.text {
-                if text.trimmingCharacters(in: .whitespacesAndNewlines).count > maxLength {
+                if text.count > maxLength {
                     textField.deleteBackward()
                 }
             }
+        }
+    }
+    
+    @objc override func keyboardWillShow(_ notification: NSNotification) {
+        super.keyboardWillShow(notification)
+        let offset = UIScreen.main.hasNotch ? 32.0 : 29.0
+        UIView.animate(withDuration: 0.1) {
+            self.nextButton.transform = CGAffineTransform(translationX: 0, y: offset-(self.keyboardHeight))
         }
     }
 }
@@ -162,6 +170,9 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         warnIconView.isHidden = true
         warnLabel.isHidden = true
+        UIView.animate(withDuration: 0.25) {
+            self.nextButton.transform = .identity
+        }
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -185,7 +196,6 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
         guard let text = nicknameTextField.text else { return false }
         let utf8Char = string.cString(using: .utf8)
         let isBackSpace = strcmp(utf8Char, "\\b")
-        
         if string.hasCharacters() || isBackSpace == -92 {
             warnIconView.isHidden = true
             warnLabel.isHidden = true
