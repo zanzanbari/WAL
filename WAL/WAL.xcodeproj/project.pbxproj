@@ -22,6 +22,7 @@
 		5B348A50281E55F9006FEFDA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A4C281E55F9006FEFDA /* Pretendard-Bold.otf */; };
 		5B348A51281E55F9006FEFDA /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A4D281E55F9006FEFDA /* Pretendard-Medium.otf */; };
 		5B348A52281E55F9006FEFDA /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A4E281E55F9006FEFDA /* Pretendard-SemiBold.otf */; };
+		5B348A53281E561B006FEFDA /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3489FB281E37F1006FEFDA /* Icon.xcassets */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
@@ -449,6 +450,7 @@
 				5B348A51281E55F9006FEFDA /* Pretendard-Medium.otf in Resources */,
 				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
 				5B348A50281E55F9006FEFDA /* Pretendard-Bold.otf in Resources */,
+				5B348A53281E561B006FEFDA /* Icon.xcassets in Resources */,
 				5B348A52281E55F9006FEFDA /* Pretendard-SemiBold.otf in Resources */,
 				5B348A49281E558B006FEFDA /* Color.xcassets in Resources */,
 				5B348A4F281E55F9006FEFDA /* Pretendard-Regular.otf in Resources */,
