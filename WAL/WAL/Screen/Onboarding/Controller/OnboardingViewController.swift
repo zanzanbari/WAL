@@ -24,7 +24,7 @@ final class OnboardingViewController: UIViewController {
             $0.allowsSelection = false
             $0.contentInsetAdjustmentBehavior = .never
             $0.showsHorizontalScrollIndicator = false
-            $0.isScrollEnabled = true
+            $0.isScrollEnabled = false
         }
     
     private let collectionViewFlowLayout = UICollectionViewFlowLayout().then {
@@ -38,6 +38,7 @@ final class OnboardingViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
+        hideKeyboardWhenTappedAround()
     }
     
     // MARK: - InitUI
