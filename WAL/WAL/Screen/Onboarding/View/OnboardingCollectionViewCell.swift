@@ -55,7 +55,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         $0.isHidden = true
     }
     
-    private let nextButton = WALPlainButton().then {
+    public let nextButton = WALPlainButton().then {
         $0.title = "다음"
         $0.isDisabled = true
     }
@@ -121,7 +121,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func setupTextField() {
+    private func setupTextField() {
         nicknameTextField.delegate = self
         nicknameTextField.becomeFirstResponder()
         NotificationCenter.default.addObserver(
@@ -194,6 +194,7 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
         guard let text = nicknameTextField.text else { return false }
         let utf8Char = string.cString(using: .utf8)
         let isBackSpace = strcmp(utf8Char, "\\b")
+        
         if string.hasCharacters() || isBackSpace == -92 {
             warnIconView.isHidden = true
             warnLabel.isHidden = true

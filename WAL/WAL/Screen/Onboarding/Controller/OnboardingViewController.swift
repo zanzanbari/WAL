@@ -14,8 +14,13 @@ final class OnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let progressView = UIView().then {
-        $0.backgroundColor = .gray600
+    private lazy var progressView = UIView().then {
+        $0.backgroundColor = .white100
+        $0.addSubview(pageControl)
+    }
+    
+    private let pageControl = UIImageView().then {
+        $0.image = WALIcon.icnProgress1.image
     }
     
     private lazy var collectionView = UICollectionView(
@@ -53,12 +58,17 @@ final class OnboardingViewController: UIViewController {
     
     private func setupLayout() {
         view.addSubviews([progressView, collectionView])
+                
+        pageControl.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(102)
+            make.centerX.equalToSuperview()
+        }
         
         progressView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(121)
         }
-        
+                
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(progressView.snp.bottom)
             make.leading.bottom.trailing.equalToSuperview()
@@ -68,9 +78,23 @@ final class OnboardingViewController: UIViewController {
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(
-            OnboardingCollectionViewCell.self,
+        collectionView.register(OnboardingCollectionViewCell.self,
             forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
+        collectionView.register(CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: "CategoryCollectionViewCell")
+        collectionView.register(AlarmCollectionViewCell.self,
+            forCellWithReuseIdentifier: "AlarmCollectionViewCell")
+    }
+
+    // MARK: - @objc
+    
+    @objc func scrollToSecond() {
+        collectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .left, animated: true)
+    }
+    
+    @objc func scrollToThird() {
+        collectionView.scrollToItem(at: IndexPath(row: 2, section: 0), at: .left, animated: true)
+        pageControl.image = WALIcon.icnProgress3.image
     }
 }
 
@@ -78,15 +102,36 @@ final class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "OnboardingCollectionViewCell",
-            for: indexPath) as? OnboardingCollectionViewCell
-        else { return UICollectionViewCell() }
-        return cell
+        switch indexPath.row {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCollectionViewCell",
+                for: indexPath) as? OnboardingCollectionViewCell
+            else { return UICollectionViewCell() }
+            cell.nextButton.addTarget(self, action: #selector(scrollToSecond), for: .touchUpInside)
+            pageControl.image = WALIcon.icnProgress1.image
+            return cell
+            
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell",
+                for: indexPath) as? CategoryCollectionViewCell
+            else { return UICollectionViewCell() }
+            cell.nextButton.addTarget(self, action: #selector(scrollToThird), for: .touchUpInside)
+            pageControl.image = WALIcon.icnProgress2.image
+            return cell
+            
+        case 2:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlarmCollectionViewCell",
+                for: indexPath) as? AlarmCollectionViewCell
+            else { return UICollectionViewCell() }
+            return cell
+            
+        default:
+            return UICollectionViewCell()
+        }
     }
 }
 

@@ -10,6 +10,8 @@
 		5B020D37281EAF020057F9B7 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D36281EAF020057F9B7 /* String+.swift */; };
 		5B020D39281F107C0057F9B7 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D38281F107C0057F9B7 /* UIViewController+.swift */; };
 		5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3A281F22790057F9B7 /* BaseCollectionViewCell.swift */; };
+		5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */; };
+		5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */; };
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A28281E4A88006FEFDA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B348A27281E4A88006FEFDA /* WALKit */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
@@ -44,6 +46,8 @@
 		5B020D36281EAF020057F9B7 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		5B020D38281F107C0057F9B7 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		5B020D3A281F22790057F9B7 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A2C281E4EB4006FEFDA /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 			children = (
 				5B020D3A281F22790057F9B7 /* BaseCollectionViewCell.swift */,
 				5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */,
+				5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */,
+				5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -474,12 +480,14 @@
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
+				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
 				5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
+				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* TempDataModel.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
