@@ -12,6 +12,7 @@
 		5B348A28281E4A88006FEFDA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B348A27281E4A88006FEFDA /* WALKit */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
+		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
@@ -22,8 +23,8 @@
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
 		5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896027F6C2680010EAA1 /* UIView+.swift */; };
 		5BA3896527F6C2830010EAA1 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896427F6C2830010EAA1 /* Login.swift */; };
-		5BA3896727F6C28C0010EAA1 /* TempService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896627F6C28C0010EAA1 /* TempService.swift */; };
-		5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896827F6C2930010EAA1 /* TempAPI.swift */; };
+		5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896627F6C28C0010EAA1 /* AuthService.swift */; };
+		5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896827F6C2930010EAA1 /* AuthAPI.swift */; };
 		5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896B27F6C3260010EAA1 /* GenericResponse.swift */; };
 		5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896D27F6C37B0010EAA1 /* NetworkResult.swift */; };
 		5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896F27F6C3C50010EAA1 /* GeneralAPI.swift */; };
@@ -43,6 +44,7 @@
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A2C281E4EB4006FEFDA /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
+		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5BA3892E27F6B94F0010EAA1 /* WAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,8 +57,8 @@
 		5BA3895B27F6C23B0010EAA1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5BA3896027F6C2680010EAA1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		5BA3896427F6C2830010EAA1 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		5BA3896627F6C28C0010EAA1 /* TempService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempService.swift; sourceTree = "<group>"; };
-		5BA3896827F6C2930010EAA1 /* TempAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAPI.swift; sourceTree = "<group>"; };
+		5BA3896627F6C28C0010EAA1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		5BA3896827F6C2930010EAA1 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		5BA3896B27F6C3260010EAA1 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		5BA3896D27F6C37B0010EAA1 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		5BA3896F27F6C3C50010EAA1 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
@@ -143,6 +145,15 @@
 				5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5B7EE87A2822D643007BC265 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				5BA3896827F6C2930010EAA1 /* AuthAPI.swift */,
+				5BA3896627F6C28C0010EAA1 /* AuthService.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		5BA3892527F6B94F0010EAA1 = {
@@ -240,7 +251,7 @@
 		5BA3894B27F6C0BF0010EAA1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3896627F6C28C0010EAA1 /* TempService.swift */,
+				5B7EE87A2822D643007BC265 /* Auth */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -248,7 +259,6 @@
 		5BA3894C27F6C0C60010EAA1 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3896827F6C2930010EAA1 /* TempAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -332,6 +342,7 @@
 		5BA3896A27F6C3190010EAA1 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */,
 				5BA3896B27F6C3260010EAA1 /* GenericResponse.swift */,
 				5BA3896D27F6C37B0010EAA1 /* NetworkResult.swift */,
 				5BA3896F27F6C3C50010EAA1 /* GeneralAPI.swift */,
@@ -479,11 +490,11 @@
 				5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
-				5BA3896727F6C28C0010EAA1 /* TempService.swift in Sources */,
+				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
-				5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */,
+				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
@@ -491,6 +502,7 @@
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
+				5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
