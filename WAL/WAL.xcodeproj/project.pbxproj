@@ -21,7 +21,7 @@
 		5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* TempView.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
 		5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896027F6C2680010EAA1 /* UIView+.swift */; };
-		5BA3896527F6C2830010EAA1 /* TempDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896427F6C2830010EAA1 /* TempDataModel.swift */; };
+		5BA3896527F6C2830010EAA1 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896427F6C2830010EAA1 /* Login.swift */; };
 		5BA3896727F6C28C0010EAA1 /* TempService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896627F6C28C0010EAA1 /* TempService.swift */; };
 		5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896827F6C2930010EAA1 /* TempAPI.swift */; };
 		5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896B27F6C3260010EAA1 /* GenericResponse.swift */; };
@@ -54,7 +54,7 @@
 		5BA3895927F6C22F0010EAA1 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		5BA3895B27F6C23B0010EAA1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5BA3896027F6C2680010EAA1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-		5BA3896427F6C2830010EAA1 /* TempDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempDataModel.swift; sourceTree = "<group>"; };
+		5BA3896427F6C2830010EAA1 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		5BA3896627F6C28C0010EAA1 /* TempService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempService.swift; sourceTree = "<group>"; };
 		5BA3896827F6C2930010EAA1 /* TempAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAPI.swift; sourceTree = "<group>"; };
 		5BA3896B27F6C3260010EAA1 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		5BA3894A27F6C0B90010EAA1 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3896427F6C2830010EAA1 /* TempDataModel.swift */,
+				5BA3896427F6C2830010EAA1 /* Login.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -488,7 +488,7 @@
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
-				5BA3896527F6C2830010EAA1 /* TempDataModel.swift in Sources */,
+				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
