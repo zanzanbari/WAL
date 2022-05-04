@@ -45,6 +45,7 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
+        checkToken()
     }
     
     // MARK: - InitUI
@@ -86,6 +87,43 @@ final class LoginViewController: UIViewController {
         let onboardingViewController = OnboardingViewController()
         present(onboardingViewController, animated: true, completion: nil)
     }
+    
+    private func checkToken() {
+        // MARK: - 토큰 존재 여부 확인하기
+        if (AuthApi.hasToken()) {
+            UserApi.shared.accessTokenInfo { (accessTokenInfo, error) in
+                if let error = error {
+                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
+                        //로그인 필요
+                        
+                    }
+                    else {
+                        //기타 에러
+                        
+                    }
+                }
+                else {
+                    //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+                }
+            }
+        }
+        else {
+            //로그인 필요
+        }
+        
+        // MARK: - 토큰 정보 보기
+        
+        UserApi.shared.accessTokenInfo {(accessTokenInfo, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("------------액세스 토큰 : accessTokenInfo() success.")
+
+                _ = accessTokenInfo
+            }
+        }
+    }
 
     // MARK: - @objc
     
@@ -114,18 +152,18 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     private func loginWithKakaoApp() {
         UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-            if let error = error {
-                print(error)
+            if let error = error { print(error)
             } else {
                 UserApi.shared.me {(user, error) in
-                    if let error = error {
-                        print("ERROR : loginWithKakaoTalk() :", error)
+                    if let error = error { print("----------- 카카오 로그인 앱 에러:", error)
                     } else {
-                        self.pushToHome()
+                        guard let oauthToken = oauthToken else { return  }
                         AuthAPI.shared.postSocialLogin(
-                            social: "kakao", token: oauthToken!.accessToken) { model, data, err in
-                                print("SUCCESS : loginWithKakaoTalk()")
-                        }
+                            social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
+                                guard let kakaoData = kakaoData else { return }
+                                print("----------- 카카오 로그인 앱 :", kakaoData)
+                            }
+                        self.pushToHome()
                     }
                 }
             }
@@ -134,17 +172,17 @@ extension LoginViewController {
     
     private func loginWithKakaoWeb() {
         UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-            if let error = error {
-                print(error)
+            if let error = error { print(error)
             } else {
                 UserApi.shared.me {(user, error) in
-                    if let error = error {
-                        print("ERROR : loginWithKakaoAccount()", error)
+                    if let error = error { print("----------- 카카오 로그인 웹 에러 :", error)
                     } else {
                         AuthAPI.shared.postSocialLogin(
-                            social: "kakao", token: oauthToken!.accessToken) { model, data, err in
-                            print("SUCCESS : loginWithKakaoAccount()")
-                        }
+                            social: "kakao", socialToken: oauthToken!.accessToken, fcmToken: nil) { (kakaoData, err) in
+                                guard let kakaoData = kakaoData else { return }
+                                print("----------- 카카오 로그인 웹 :", kakaoData)
+                            }
+                        self.pushToHome()
                     }
                 }
             }
@@ -152,7 +190,7 @@ extension LoginViewController {
     }
 }
 
-// MARK: - 애플 로그인
+// MARK: - 애플 로그인 ASAuthorizationControllerDelegate
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -170,7 +208,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     }
 }
 
-// MARK: - ASAuthorizationControllerPresentationContextProviding
+// MARK: - 애플 로그인 ASAuthorizationControllerPresentationContextProviding
 
 extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {

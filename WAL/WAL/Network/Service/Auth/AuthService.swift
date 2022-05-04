@@ -8,7 +8,7 @@
 import Moya
 
 enum AuthService {
-    case social(social: String, token: String, fcmToken: String?)
+    case social(social: String, socialToken: String, fcmToken: String?)
 //    case logout
 //    case reissue
 //    case resign
@@ -30,17 +30,14 @@ extension AuthService: BaseTargetType {
     
     var task: Task {
         switch self {
-        case .social(_, let token, let fcmToken):
+        case .social(_, let socialToken, let fcmToken):
             if let fcmToken = fcmToken {
                 return .requestParameters(
-                    parameters: [
-                        "token": token,
-                        "fcmToken": fcmToken],
+                    parameters: ["socialtoken": socialToken, "fcmToken": fcmToken],
                     encoding: URLEncoding.queryString)
             } else {
                 return .requestParameters(
-                    parameters: [
-                        "token": token],
+                    parameters: [ "socialtoken": socialToken],
                     encoding: URLEncoding.queryString)
             }
         }
