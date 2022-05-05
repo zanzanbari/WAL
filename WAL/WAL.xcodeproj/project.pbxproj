@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
-		5B348A28281E4A88006FEFDA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B348A27281E4A88006FEFDA /* WALKit */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
@@ -30,6 +29,11 @@
 		5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897327F6C6290010EAA1 /* UIScreen+.swift */; };
 		5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */; };
 		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
+		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
+		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
+		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
+		927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F328211017001AEB78 /* HistoryDataModel.swift */; };
+		927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
 		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
@@ -63,6 +67,11 @@
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		9209959E280D13B8008C3491 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
+		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
+		927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCompleteHeaderView.swift; sourceTree = "<group>"; };
+		927D10F328211017001AEB78 /* HistoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataModel.swift; sourceTree = "<group>"; };
+		927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -77,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B348A28281E4A88006FEFDA /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +201,7 @@
 		5BA3894827F6C0750010EAA1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				927D10E928210F3A001AEB78 /* History */,
 				5B348A1B281E400E006FEFDA /* Onboarding */,
 				5BA3895327F6C1E80010EAA1 /* Main */,
 			);
@@ -320,6 +329,42 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		927D10E928210F3A001AEB78 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				927D10EC28210F6D001AEB78 /* Model */,
+				927D10EB28210F68001AEB78 /* View */,
+				927D10EA28210F5C001AEB78 /* Controller */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		927D10EA28210F5C001AEB78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				927D10ED28210F81001AEB78 /* HistoryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		927D10EB28210F68001AEB78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */,
+				927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */,
+				927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		927D10EC28210F6D001AEB78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				927D10F328211017001AEB78 /* HistoryDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E29B141A281E7A39005275B2 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,7 +395,6 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B348A27281E4A88006FEFDA /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -381,7 +425,6 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B348A26281E4A88006FEFDA /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -459,20 +502,25 @@
 			files = (
 				5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
+				927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* TempService.swift in Sources */,
+				927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
+				927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* TempDataModel.swift in Sources */,
+				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
+				927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 			);
@@ -625,7 +673,7 @@
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -655,7 +703,7 @@
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -698,25 +746,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		5B348A26281E4A88006FEFDA /* XCRemoteSwiftPackageReference "WALKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5B348A27281E4A88006FEFDA /* WALKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5B348A26281E4A88006FEFDA /* XCRemoteSwiftPackageReference "WALKit" */;
-			productName = WALKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5BA3892627F6B94F0010EAA1 /* Project object */;
 }
