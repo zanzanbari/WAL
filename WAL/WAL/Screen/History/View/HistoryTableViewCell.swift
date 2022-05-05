@@ -103,8 +103,14 @@ class HistoryTableViewCell: UITableViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubviews([backView, coverView])
+        contentView.addSubviews([backView, coverView, lineView])
         backView.addSubviews([lineView, reserveLabel, contentLabel, recieveLabel])
+        
+        lineView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
+        }
         
         backView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
@@ -112,12 +118,6 @@ class HistoryTableViewCell: UITableViewCell {
         
         coverView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
-        }
-        
-        lineView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(1)
         }
         
         reserveLabel.snp.makeConstraints {
