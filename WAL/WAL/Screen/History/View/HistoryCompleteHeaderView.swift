@@ -12,6 +12,10 @@ import Then
 
 import WALKit
 
+protocol HistoryCompleteHeaderViewDelegate: AnyObject {
+    func touchUpInformationButton()
+}
+
 final class HistoryCompleteHeaderView: UIView {
     
     // MARK: - Properties
@@ -31,9 +35,34 @@ final class HistoryCompleteHeaderView: UIView {
         $0.backgroundColor = .gray600
     }
     
-    private var informationButton = UIButton().then {
+    private lazy var informationButton = UIButton().then {
         $0.setTitle("", for: .normal)
-        $0.setImage(WALKit.WALIcon.btnInfo.image, for: .normal)
+        $0.setImage(WALIcon.btnInfo.image, for: .normal)
+        $0.addTarget(self, action: #selector(touchUpInformationButton), for: .touchUpInside)
+    }
+    
+    private var bubbleImageView = UIImageView().then {
+        $0.backgroundColor = .orange100
+        $0.isHidden = true
+    }
+    
+    private var informationTitleLabel = UILabel().then {
+        $0.text = "박스를 옆으로 밀어 재전송 할 수 있어요"
+        $0.textColor = .white
+        $0.font = WALFont.body9.font
+        $0.addLetterSpacing()
+    }
+    
+    weak var delegate: HistoryCompleteHeaderViewDelegate?
+    
+    var informationIsHidden: Bool = false {
+        didSet {
+            if informationIsHidden {
+                bubbleImageView.isHidden = false
+            } else {
+                bubbleImageView.isHidden = true
+            }
+        }
     }
 
     // MARK: - Initializer
@@ -55,7 +84,8 @@ final class HistoryCompleteHeaderView: UIView {
     }
     
     private func setupLayout() {
-        addSubviews([titleLabel, divideView, informationButton])
+        addSubviews([titleLabel, bubbleImageView, divideView, informationButton])
+        bubbleImageView.addSubview(informationTitleLabel)
         
         divideView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
@@ -72,5 +102,23 @@ final class HistoryCompleteHeaderView: UIView {
             $0.leading.equalToSuperview().inset(45)
             $0.width.height.equalTo(30)
         }
+        
+        bubbleImageView.snp.makeConstraints {
+            $0.centerY.equalTo(informationButton.snp.centerY)
+            $0.leading.equalTo(informationButton.snp.trailing)
+            $0.width.equalTo(217)
+            $0.height.equalTo(26)
+        }
+        
+        informationTitleLabel.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(5)
+            $0.leading.equalToSuperview().inset(15)
+        }
+    }
+    
+    // MARK: - @objc
+    
+    @objc func touchUpInformationButton() {
+        delegate?.touchUpInformationButton()
     }
 }

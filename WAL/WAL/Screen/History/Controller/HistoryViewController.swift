@@ -20,6 +20,9 @@ final class HistoryViewController: UIViewController {
     
     private var historyTableView = UITableView(frame: .zero, style: .grouped)
     
+    private let reserveHeader = HistoryReserveHeaderView()
+    private let completeHeader = HistoryCompleteHeaderView()
+    
     private var expandCellDatasource =  ExpandTableViewCellContent()
     private var pressCellDatasource =  LongPressTableViewCellContent()
 
@@ -121,13 +124,12 @@ extension HistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            let header = HistoryReserveHeaderView()
-            header.title = "보내는 중"
-            return header
+            reserveHeader.title = "보내는 중"
+            return reserveHeader
         case 1:
-            let header = HistoryCompleteHeaderView()
-            header.title = "완료"
-            return header
+            completeHeader.delegate = self
+            completeHeader.title = "완료"
+            return completeHeader
         default:
             return UIView()
         }
@@ -159,7 +161,7 @@ extension HistoryViewController: UITableViewDelegate {
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
             cell.contentView.frame = cell.contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
             if cell.isExpanded {
-                resendAction.image = WALKit.WALIcon.icnReturn.image
+                resendAction.image = WALIcon.icnReturn.image
             } else {
                 resendAction.image = nil
             }
@@ -173,7 +175,7 @@ extension HistoryViewController: UITableViewDelegate {
 
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
              if cell.isExpanded {
-                 cancelAction.image = WALKit.WALIcon.icnTrash.image
+                 cancelAction.image = WALIcon.icnTrash.image
              } else {
                  cancelAction.image = nil
              }
@@ -187,7 +189,7 @@ extension HistoryViewController: UITableViewDelegate {
         
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
             if cell.isExpanded {
-                deleteAction.image = WALKit.WALIcon.icnTrash.image
+                deleteAction.image = WALIcon.icnTrash.image
             } else {
                 deleteAction.image = nil
             }
@@ -237,4 +239,12 @@ extension HistoryViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
         }
+}
+
+// MARK: - Custom Delegate
+
+extension HistoryViewController: HistoryCompleteHeaderViewDelegate {
+    func touchUpInformationButton() {
+        completeHeader.informationIsHidden.toggle()
+    }
 }
