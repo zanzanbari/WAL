@@ -33,7 +33,7 @@ final class HistoryCompleteHeaderView: UIView {
     
     private var informationButton = UIButton().then {
         $0.setTitle("", for: .normal)
-        $0.backgroundColor = .orange100
+        $0.setImage(WALKit.WALIcon.btnInfo.image, for: .normal)
     }
 
     // MARK: - Initializer
@@ -68,7 +68,7 @@ final class HistoryCompleteHeaderView: UIView {
         }
         
         informationButton.snp.makeConstraints {
-            $0.top.equalTo(divideView.snp.bottom).offset(21)
+            $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.leading.equalToSuperview().inset(45)
             $0.width.height.equalTo(30)
         }
