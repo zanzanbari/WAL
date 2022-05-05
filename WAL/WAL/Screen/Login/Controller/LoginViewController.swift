@@ -191,9 +191,19 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         if let authorizationCode = appleIDCredential.authorizationCode,
            let identityToken = appleIDCredential.identityToken {
+            
             let authString = String(data: authorizationCode, encoding: .utf8)
             let tokenString = String(data: identityToken, encoding: .utf8)
-            print("인증코드 및 유저토큰 문자열", authString as Any, tokenString as Any)
+            
+            guard let authString = authString else { return }
+            guard let tokenString = tokenString else { return }
+            print("인가코드", authString)
+            print("토큰", tokenString)
+            AuthAPI.shared.postSocialLogin(social: "apple", socialToken: tokenString, fcmToken: nil) { (appleData, err) in
+                guard let appleData = appleData else { return }
+                print("----------- 애플 로그인 :", appleData)
+                self.pushToHome()
+            }
         }
     }
     
