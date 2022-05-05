@@ -12,11 +12,19 @@ import Then
 
 import WALKit
 
-class ExpandingTableViewCellContent {
+class ExpandTableViewCellContent {
     var isExpanded: Bool
     
     init() {
         self.isExpanded = false
+    }
+}
+
+class LongPressTableViewCellContent {
+    var isPressed: Bool
+    
+    init() {
+        self.isPressed = false
     }
 }
 
@@ -34,7 +42,7 @@ class HistoryTableViewCell: UITableViewCell {
     }
     
     private var coverView = UIView().then {
-        $0.backgroundColor = .orange100
+        $0.backgroundColor = .orange200
         $0.isHidden = true
     }
     
@@ -63,6 +71,18 @@ class HistoryTableViewCell: UITableViewCell {
     }
     
     var isExpanded: Bool = false
+    var isPressed: Bool = false {
+        didSet {
+            if !coverView.isHidden {
+                if isPressed {
+                    coverView.isHidden = false
+                } else {
+                    coverView.isHidden = true
+                }
+            }
+        }
+    }
+    var isContentHidden: Bool = false
     
     // MARK: - Initializer
     
@@ -79,14 +99,18 @@ class HistoryTableViewCell: UITableViewCell {
     // MARK: - Init UI
     
     private func configUI() {
-        
+        contentView.backgroundColor = .white
     }
     
     private func setLayout() {
-        contentView.addSubview(backView)
+        contentView.addSubviews([backView, coverView])
         backView.addSubviews([lineView, reserveLabel, contentLabel, recieveLabel])
         
         backView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        coverView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
@@ -115,10 +139,10 @@ class HistoryTableViewCell: UITableViewCell {
     
     // MARK: - Custom Method
     
-    internal func initCell(isTapped :ExpandingTableViewCellContent) {
+    internal func initCell(isTapped :ExpandTableViewCellContent) {
         isExpanded = isTapped.isExpanded
         
-        if isTapped.isExpanded {
+        if isExpanded {
             backView.snp.updateConstraints {
                 $0.top.bottom.leading.trailing.equalToSuperview()
             }
@@ -132,11 +156,14 @@ class HistoryTableViewCell: UITableViewCell {
             
             recieveLabel.isHidden = false
         } else {
-            
+            contentLabel.numberOfLines = 2
+            recieveLabel.isHidden = true
         }
     }
     
     internal func setData(_ data: HistoryDataModel) {
+        isContentHidden = data.hidden
+        
         reserveLabel.text = "\(data.reserveDate)"
         reserveLabel.addLetterSpacing()
         
@@ -145,5 +172,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         recieveLabel.text = "\(data.recieveDate)"
         recieveLabel.addLetterSpacing()
+        
+        coverView.isHidden = data.hidden ? false : true
     }
 }

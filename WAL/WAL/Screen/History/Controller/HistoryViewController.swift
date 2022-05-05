@@ -20,7 +20,8 @@ final class HistoryViewController: UIViewController {
     
     private var historyTableView = UITableView(frame: .zero, style: .grouped)
     
-    var expandDatasource =  ExpandingTableViewCellContent()
+    private var expandCellDatasource =  ExpandTableViewCellContent()
+    private var pressCellDatasource =  LongPressTableViewCellContent()
 
     // MARK: - Life Cycle
     
@@ -63,6 +64,43 @@ final class HistoryViewController: UIViewController {
 
         historyTableView.separatorStyle = .none
         historyTableView.rowHeight = UITableView.automaticDimension
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(sender:)))
+        historyTableView.addGestureRecognizer(longPress)
+    }
+    
+    // MARK: - @objc
+    
+    @objc func longPressCell(sender: UILongPressGestureRecognizer) {
+        let touchPoint = sender.location(in: historyTableView)
+        if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
+            guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
+            if cell.isContentHidden {
+                if sender.state == .began {
+                    let touchPoint = sender.location(in: historyTableView)
+                    if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
+                        let content = expandCellDatasource
+                        content.isExpanded.toggle()
+                        
+                        historyTableView.reloadRows(at: [indexPath], with: .automatic)
+                        
+                        guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
+                        cell.isPressed = false
+                    }
+                } else {
+                    let touchPoint = sender.location(in: historyTableView)
+                    if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
+                        let content = expandCellDatasource
+                        content.isExpanded.toggle()
+                        
+                        historyTableView.reloadRows(at: [indexPath], with: .automatic)
+                        
+                        guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
+                        cell.isPressed = true
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -95,13 +133,17 @@ extension HistoryViewController: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let content = expandDatasource
+        let content = expandCellDatasource
         content.isExpanded.toggle()
 
         historyTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -117,7 +159,7 @@ extension HistoryViewController: UITableViewDelegate {
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
             cell.contentView.frame = cell.contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
             if cell.isExpanded {
-                resendAction.image = UIImage(named: "ic_rt")
+                resendAction.image = WALKit.WALIcon.icnReturn.image
             } else {
                 resendAction.image = nil
             }
@@ -131,7 +173,7 @@ extension HistoryViewController: UITableViewDelegate {
 
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
              if cell.isExpanded {
-                 cancelAction.image = UIImage(named: "ic_trash")
+                 cancelAction.image = WALKit.WALIcon.icnTrash.image
              } else {
                  cancelAction.image = nil
              }
@@ -145,9 +187,9 @@ extension HistoryViewController: UITableViewDelegate {
         
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
             if cell.isExpanded {
-                deleteAction.image = UIImage(named: "ic_trash")
+                deleteAction.image = WALKit.WALIcon.icnTrash.image
             } else {
-                resendAction.image = nil
+                deleteAction.image = nil
             }
         }
 
@@ -179,14 +221,14 @@ extension HistoryViewController: UITableViewDataSource {
             switch indexPath.section {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-                cell.initCell(isTapped: expandDatasource)
+                cell.initCell(isTapped: expandCellDatasource)
                 cell.selectionStyle = .none
                 cell.dateLabelColor = .systemMint
                 cell.setData(HistoryDataModel.reserveData[indexPath.row])
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-                cell.initCell(isTapped: expandDatasource)
+                cell.initCell(isTapped: expandCellDatasource)
                 cell.selectionStyle = .none
                 cell.dateLabelColor = .gray
                 cell.setData(HistoryDataModel.completeData[indexPath.row])
