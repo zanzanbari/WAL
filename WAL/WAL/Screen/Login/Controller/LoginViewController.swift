@@ -15,7 +15,7 @@ import Then
 import WALKit
 
 final class LoginViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private let logoImageView = UIImageView().then {
@@ -78,7 +78,6 @@ final class LoginViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(80)
             make.leading.trailing.equalToSuperview().inset(20)
         }
-        
     }
     
     // MARK: - Custom Method
@@ -90,16 +89,15 @@ final class LoginViewController: UIViewController {
     
     private func checkToken() {
         // MARK: - 토큰 존재 여부 확인하기
+        
         if (AuthApi.hasToken()) {
             UserApi.shared.accessTokenInfo { (accessTokenInfo, error) in
                 if let error = error {
-                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
+                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() {
                         //로그인 필요
-                        
                     }
                     else {
                         //기타 에러
-                        
                     }
                 }
                 else {
@@ -114,17 +112,13 @@ final class LoginViewController: UIViewController {
         // MARK: - 토큰 정보 보기
         
         UserApi.shared.accessTokenInfo {(accessTokenInfo, error) in
-            if let error = error {
-                print(error)
-            }
-            else {
+            if let error = error { print(error) } else {
                 print("------------액세스 토큰 : accessTokenInfo() success.")
-
                 _ = accessTokenInfo
             }
         }
     }
-
+    
     // MARK: - @objc
     
     @objc func touchupKakaoButton() {
@@ -151,7 +145,7 @@ final class LoginViewController: UIViewController {
 
 extension LoginViewController {
     private func loginWithKakaoApp() {
-        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error { print(error)
             } else {
                 UserApi.shared.me {(user, error) in
@@ -162,8 +156,8 @@ extension LoginViewController {
                             social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
                                 guard let kakaoData = kakaoData else { return }
                                 print("----------- 카카오 로그인 앱 :", kakaoData)
+                                self.pushToHome()
                             }
-                        self.pushToHome()
                     }
                 }
             }
@@ -171,7 +165,7 @@ extension LoginViewController {
     }
     
     private func loginWithKakaoWeb() {
-        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error { print(error)
             } else {
                 UserApi.shared.me {(user, error) in
@@ -181,8 +175,8 @@ extension LoginViewController {
                             social: "kakao", socialToken: oauthToken!.accessToken, fcmToken: nil) { (kakaoData, err) in
                                 guard let kakaoData = kakaoData else { return }
                                 print("----------- 카카오 로그인 웹 :", kakaoData)
+                                self.pushToHome()
                             }
-                        self.pushToHome()
                     }
                 }
             }
