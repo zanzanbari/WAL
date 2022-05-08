@@ -24,7 +24,7 @@ extension HistoryDataModel {
         HistoryDataModel(reserveDate: "04. 11 (월) 오후 5:00 • 전송 예정",
                          content: "난 과거에서 온 00이야 오늘하루도 고생 많았젱?",
                          recieveDate: "2022.03.12",
-                         hidden: true),
+                         hidden: false),
         HistoryDataModel(reserveDate: "04. 11 (월) 오후 5:00 • 전송 예정",
                          content:
         """

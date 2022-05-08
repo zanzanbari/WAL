@@ -148,12 +148,9 @@ extension HistoryViewController: UITableViewDelegate {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier, for: indexPath) as? HistoryTableViewCell else { return }
         print("content hidden: ", cell.isContentHidden)
-        if cell.isContentHidden {
-            content.isExpanded = false
-        } else {
-            content.isExpanded.toggle()
-            historyTableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        
+        content.isExpanded.toggle()
+        historyTableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
