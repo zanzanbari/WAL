@@ -8,6 +8,6 @@
 import Foundation
 
 struct GeneralAPI {
-    static let baseURL = "https://asia-northeast3-wal-server-8a2fb.cloudfunctions.net/api/v1"
+    static let baseURL = "http://15.165.74.139:8080/api/v1"
     static let contentType = "application/json"
 }
