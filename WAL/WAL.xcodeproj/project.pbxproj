@@ -32,6 +32,8 @@
 		5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897127F6C45D0010EAA1 /* UIStackView+.swift */; };
 		5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897327F6C6290010EAA1 /* UIScreen+.swift */; };
 		5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */; };
+		5BB661602828339900D54353 /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BB6615F2828339900D54353 /* KeyInfo.plist */; };
+		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
 		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
@@ -67,6 +69,8 @@
 		5BA3897127F6C45D0010EAA1 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		5BA3897327F6C6290010EAA1 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		5BB6615F2828339900D54353 /* KeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
+		5BB661612828340100D54353 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		9209959E280D13B8008C3491 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 				5BA3896027F6C2680010EAA1 /* UIView+.swift */,
 				5BA3897327F6C6290010EAA1 /* UIScreen+.swift */,
 				5BA3897127F6C45D0010EAA1 /* UIStackView+.swift */,
+				5BB661612828340100D54353 /* Bundle+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */,
 				5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */,
 				5BA3893F27F6B9540010EAA1 /* Info.plist */,
+				5BB6615F2828339900D54353 /* KeyInfo.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -445,6 +451,7 @@
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
 				9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */,
+				5BB661602828339900D54353 /* KeyInfo.plist in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,6 +522,7 @@
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */,
+				5BB661622828340100D54353 /* Bundle+.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
