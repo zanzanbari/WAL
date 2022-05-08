@@ -24,7 +24,6 @@ final class HistoryViewController: UIViewController {
     private let completeHeader = HistoryCompleteHeaderView()
     
     private var expandCellDatasource =  ExpandTableViewCellContent()
-    private var pressCellDatasource =  LongPressTableViewCellContent()
 
     // MARK: - Life Cycle
     
@@ -78,11 +77,12 @@ final class HistoryViewController: UIViewController {
         let touchPoint = sender.location(in: historyTableView)
         if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
             guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
+            let content = expandCellDatasource
+            
             if cell.isContentHidden {
                 if sender.state == .began {
                     let touchPoint = sender.location(in: historyTableView)
                     if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
-                        let content = expandCellDatasource
                         content.isExpanded.toggle()
                         
                         historyTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -93,7 +93,6 @@ final class HistoryViewController: UIViewController {
                 } else {
                     let touchPoint = sender.location(in: historyTableView)
                     if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
-                        let content = expandCellDatasource
                         content.isExpanded.toggle()
                         
                         historyTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -146,9 +145,15 @@ extension HistoryViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let content = expandCellDatasource
-        content.isExpanded.toggle()
-
-        historyTableView.reloadRows(at: [indexPath], with: .automatic)
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier, for: indexPath) as? HistoryTableViewCell else { return }
+        print("content hidden: ", cell.isContentHidden)
+        if cell.isContentHidden {
+            content.isExpanded = false
+        } else {
+            content.isExpanded.toggle()
+            historyTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

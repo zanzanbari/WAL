@@ -20,14 +20,6 @@ class ExpandTableViewCellContent {
     }
 }
 
-class LongPressTableViewCellContent {
-    var isPressed: Bool
-    
-    init() {
-        self.isPressed = false
-    }
-}
-
 class HistoryTableViewCell: UITableViewCell {
     static var cellIdentifier: String { return String(describing: self) }
     
@@ -44,6 +36,22 @@ class HistoryTableViewCell: UITableViewCell {
     private var coverView = UIView().then {
         $0.backgroundColor = .orange200
         $0.isHidden = true
+    }
+    
+    private var lockIconImageView = UIImageView().then {
+        $0.image = WALIcon.icnLock.image
+    }
+    
+    private var coverTitleLabel = UILabel().then {
+        $0.text = "숨긴 왈소리"
+        $0.textColor = .orange100
+        $0.font = WALFont.body4.font
+    }
+    
+    private var coverSubtitleLabel = UILabel().then {
+        $0.text = "꾹 누르면 볼 수 있어요"
+        $0.textColor = .orange100
+        $0.font = WALFont.body9.font
     }
     
     private var reserveLabel = UILabel().then {
@@ -74,11 +82,7 @@ class HistoryTableViewCell: UITableViewCell {
     var isPressed: Bool = false {
         didSet {
             if !coverView.isHidden {
-                if isPressed {
-                    coverView.isHidden = false
-                } else {
-                    coverView.isHidden = true
-                }
+                coverView.isHidden = isPressed ? false : true
             }
         }
     }
@@ -105,6 +109,7 @@ class HistoryTableViewCell: UITableViewCell {
     private func setLayout() {
         contentView.addSubviews([backView, coverView, lineView])
         backView.addSubviews([lineView, reserveLabel, contentLabel, recieveLabel])
+        coverView.addSubviews([lockIconImageView, coverTitleLabel, coverSubtitleLabel])
         
         lineView.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -118,6 +123,22 @@ class HistoryTableViewCell: UITableViewCell {
         
         coverView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        lockIconImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(40)
+            $0.leading.equalToSuperview().inset(139)
+            $0.width.height.equalTo(22)
+        }
+        
+        coverTitleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(42)
+            $0.leading.equalTo(lockIconImageView.snp.trailing).offset(4)
+        }
+        
+        coverSubtitleLabel.snp.makeConstraints {
+            $0.top.equalTo(coverTitleLabel.snp.bottom).offset(3)
+            $0.centerX.equalToSuperview()
         }
         
         reserveLabel.snp.makeConstraints {
@@ -174,5 +195,7 @@ class HistoryTableViewCell: UITableViewCell {
         recieveLabel.addLetterSpacing()
         
         coverView.isHidden = data.hidden ? false : true
+        
+        print("data hidden: ", data.hidden)
     }
 }
