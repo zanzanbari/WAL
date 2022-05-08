@@ -42,7 +42,7 @@ final class HistoryCompleteHeaderView: UIView {
     }
     
     private var bubbleImageView = UIImageView().then {
-        $0.backgroundColor = .orange100
+        $0.image = WALIcon.icnBubble.image
         $0.isHidden = true
     }
     
