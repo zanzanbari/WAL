@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         application.registerForRemoteNotifications()
-        KakaoSDK.initSDK(appKey: "d69ce9f07dce15a801f8fa05d6af6c15")
+        KakaoSDK.initSDK(appKey: Secret.appkey)
         
         return true
     }
