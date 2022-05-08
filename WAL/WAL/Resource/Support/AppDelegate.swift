@@ -7,6 +7,7 @@
 
 import UIKit
 
+import KakaoSDKCommon
 import Firebase
 import FirebaseMessaging
 
@@ -38,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         application.registerForRemoteNotifications()
+        KakaoSDK.initSDK(appKey: Bundle.main.apiKey)
         
         return true
     }

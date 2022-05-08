@@ -8,7 +8,6 @@ target 'WAL' do
   # Pods for WAL
   pod 'SnapKit', '~> 5.0.0'
   pod 'Then'
-  pod 'SwiftGen', '~> 6.0'
   pod 'Moya', '~> 14.0'
   pod 'KakaoSDKCommon'
   pod 'KakaoSDKUser'
