@@ -29,13 +29,11 @@ final class LoginViewController: UIViewController {
         $0.textAlignment = .center
     }
     
-    private let kakaoButton = WALAuthButton().then {
-        $0.authType = .kakao
+    private let kakaoButton = WALAuthButton(type: .kakao).then {
         $0.addTarget(self, action: #selector(touchupKakaoButton), for: .touchUpInside)
     }
     
-    private let appleButton = WALAuthButton().then {
-        $0.authType = .apple
+    private let appleButton = WALAuthButton(type: .apple).then {
         $0.addTarget(self, action: #selector(touchupAppleButton), for: .touchUpInside)
     }
     
@@ -84,6 +82,7 @@ final class LoginViewController: UIViewController {
     
     private func pushToHome() {
         let onboardingViewController = OnboardingViewController()
+        onboardingViewController.modalPresentationStyle = .overFullScreen
         present(onboardingViewController, animated: true, completion: nil)
     }
     
@@ -95,19 +94,12 @@ final class LoginViewController: UIViewController {
                 if let error = error {
                     if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() {
                         //로그인 필요
-                    }
-                    else {
-                        //기타 에러
-                    }
-                }
-                else {
+                    } else { }
+                } else {
                     //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
                 }
             }
-        }
-        else {
-            //로그인 필요
-        }
+        } else { }
         
         // MARK: - 토큰 정보 보기
         

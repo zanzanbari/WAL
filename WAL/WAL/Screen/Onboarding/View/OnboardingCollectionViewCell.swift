@@ -30,7 +30,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    private let nicknameTextField = WALTextField().then {
+    public let nicknameTextField = WALTextField().then {
         $0.font = WALFont.body6.font
         $0.placeholder = "닉네임을 입력해주세요"
         $0.isFocusing = false
@@ -66,6 +66,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         super.init(frame: frame)
         setupLayout()
         setupTextField()
+        nicknameTextField.becomeFirstResponder()
     }
     
     required init?(coder: NSCoder) {
@@ -113,7 +114,6 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
             make.top.equalTo(nicknameTextField.snp.bottom).offset(6)
             make.trailing.equalToSuperview().inset(20)
         }
-        
         
         nextButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)

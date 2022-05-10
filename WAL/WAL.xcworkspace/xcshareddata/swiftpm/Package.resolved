@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SnapKit",
+        "repositoryURL": "https://github.com/SnapKit/SnapKit",
+        "state": {
+          "branch": null,
+          "revision": "f222cbdf325885926566172f6f5f06af95473158",
+          "version": "5.6.0"
+        }
+      },
+      {
+        "package": "WALKit",
+        "repositoryURL": "https://github.com/zanzanbari/WALKit.git",
+        "state": {
+          "branch": "develop",
+          "revision": "3eabcd1a4105280c6d93448b5f9f81352191dd38",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

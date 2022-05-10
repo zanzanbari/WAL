@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D4228219C2F0057F9B7 /* LoginViewController.swift */; };
 		5B020D37281EAF020057F9B7 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D36281EAF020057F9B7 /* String+.swift */; };
 		5B020D39281F107C0057F9B7 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D38281F107C0057F9B7 /* UIViewController+.swift */; };
 		5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3A281F22790057F9B7 /* BaseCollectionViewCell.swift */; };
 		5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */; };
 		5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */; };
+		5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D4228219C2F0057F9B7 /* LoginViewController.swift */; };
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A28281E4A88006FEFDA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B348A27281E4A88006FEFDA /* WALKit */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
@@ -41,6 +41,10 @@
 		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
 		5BB661632828411000D54353 /* Pods-WAL.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */; };
 		5BB661642828411200D54353 /* Pods-WAL.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */; };
+		5BB6616628285A3000D54353 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */; };
+		5BB6616828285A5B00D54353 /* TimeButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */; };
+		5BB6616B28285B0200D54353 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616A28285B0200D54353 /* Category.swift */; };
+		5BB6616D28285B1300D54353 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616C28285B1300D54353 /* Time.swift */; };
 		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
@@ -50,12 +54,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5B020D4228219C2F0057F9B7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B020D36281EAF020057F9B7 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		5B020D38281F107C0057F9B7 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		5B020D3A281F22790057F9B7 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCollectionViewCell.swift; sourceTree = "<group>"; };
+		5B020D4228219C2F0057F9B7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A2C281E4EB4006FEFDA /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
@@ -83,6 +87,10 @@
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		5BB6615F2828339900D54353 /* KeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
 		5BB661612828340100D54353 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
+		5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		5BB6616A28285B0200D54353 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		5BB6616C28285B1300D54353 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		9209959E280D13B8008C3491 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
@@ -143,6 +151,7 @@
 		5B348A1B281E400E006FEFDA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				5BB6616928285AF200D54353 /* Model */,
 				5B348A2B281E4E54006FEFDA /* View */,
 				5B348A1C281E4018006FEFDA /* Controller */,
 			);
@@ -163,7 +172,9 @@
 				5B020D3A281F22790057F9B7 /* BaseCollectionViewCell.swift */,
 				5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */,
 				5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */,
+				5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */,
 				5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */,
+				5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -384,6 +395,15 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		5BB6616928285AF200D54353 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5BB6616A28285B0200D54353 /* Category.swift */,
+				5BB6616C28285B1300D54353 /* Time.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E29B141A281E7A39005275B2 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,27 +551,31 @@
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
+				5BB6616B28285B0200D54353 /* Category.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
 				5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */,
-				5BA3896927F6C2930010EAA1 /* TempAPI.swift in Sources */,
+				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
+				5BB6616828285A5B00D54353 /* TimeButtonCollectionViewCell.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
-				5BA3896527F6C2830010EAA1 /* TempDataModel.swift in Sources */,
+				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
+				5BB6616D28285B1300D54353 /* Time.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */,
 				5BB661622828340100D54353 /* Bundle+.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
+				5BB6616628285A3000D54353 /* CardCollectionViewCell.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
