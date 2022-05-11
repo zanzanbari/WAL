@@ -39,7 +39,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.text = "다중선택 가능해요"
         $0.numberOfLines = 0
     }
-    
+        
     private lazy var collectionView = UICollectionView(
         frame: .zero, collectionViewLayout: makeLayout()).then {
             $0.backgroundColor = .white100
@@ -52,10 +52,10 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     private lazy var pageBackView = UIView().then {
         $0.backgroundColor = .gray500
         $0.makeRound(radius: 1)
-        $0.addSubview(barView)
+        $0.addSubview(pageBarView)
     }
     
-    private let barView = UIView().then {
+    private let pageBarView = UIView().then {
         $0.backgroundColor = .orange100
         $0.makeRound(radius: 1)
     }
@@ -119,7 +119,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
             make.height.equalTo(2)
         }
         
-        barView.snp.makeConstraints { make in
+        pageBarView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview().inset(0)
             make.width.equalTo(barWidth)
@@ -139,9 +139,6 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
             CardCollectionViewCell.self,
             forCellWithReuseIdentifier: "CardCollectionViewCell")
     }
-    
-    // MARK: - Custom Method
-    
 }
 
 // MARK: - UICollectionViewDelegate
@@ -190,6 +187,7 @@ extension CategoryCollectionViewCell {
         let layout = UICollectionViewCompositionalLayout(section: createCellSection())
         let config = UICollectionViewCompositionalLayoutConfiguration()
         layout.configuration = config
+        
         return layout
     }
     
@@ -202,16 +200,19 @@ extension CategoryCollectionViewCell {
             top: 0, leading: 9, bottom: 0, trailing: 9)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(cellWidth),
-            heightDimension: .estimated(cellHeight))
+            widthDimension: .absolute(cellWidth+18),
+            heightDimension: .absolute(cellHeight))
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
+        section.visibleItemsInvalidationHandler = ({ (visibleItems, point, env) in
+            print("-----contentOffset.x: ", point)
+            print("-----뷰 width: ", self.contentView.frame.width)
+            print("-----barWidth: ", self.pageBackView.frame.width)
+        })
         section.orthogonalScrollingBehavior = .groupPagingCentered
-        section.accessibilityScroll(.left)
-        section.accessibilityScroll(.right)
         section.contentInsets = NSDirectionalEdgeInsets(
             top: 0, leading: 0, bottom: 0, trailing: 0)
         return section
