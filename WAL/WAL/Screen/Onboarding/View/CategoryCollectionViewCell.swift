@@ -18,11 +18,9 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     
     private let cellWidth: CGFloat = 253
     private let cellHeight: CGFloat = 322
+    private let cellSpacing: CGFloat = 18
     
-    private var currentRow: Int = 0
-
     private var barWidth: CGFloat = 0
-    private var barLeading: CGFloat = 0
     
     // ✅ 선택된 인덱스를 알기 위한 배열
     var selectedIndex: [Bool] = []
@@ -44,18 +42,18 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         frame: .zero, collectionViewLayout: makeLayout()).then {
             $0.backgroundColor = .white100
             $0.showsHorizontalScrollIndicator = false
-            $0.isScrollEnabled = true
+            $0.isScrollEnabled = false
             $0.isPagingEnabled = false
             $0.isUserInteractionEnabled = true
         }
     
-    private lazy var pageBackView = UIView().then {
+    private lazy var slideBackView = UIView().then {
         $0.backgroundColor = .gray500
         $0.makeRound(radius: 1)
-        $0.addSubview(pageBarView)
+        $0.addSubview(slideBar)
     }
     
-    private let pageBarView = UIView().then {
+    private let slideBar = UIView().then {
         $0.backgroundColor = .orange100
         $0.makeRound(radius: 1)
     }
@@ -94,7 +92,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubviews([titleLabel,
                                  subtitleLabel,
                                  collectionView,
-                                 pageBackView,
+                                 slideBackView,
                                  nextButton])
         
         titleLabel.snp.makeConstraints { make in
@@ -113,15 +111,15 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
             make.height.equalTo(322)
         }
         
-        pageBackView.snp.makeConstraints { make in
+        slideBackView.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(61)
             make.height.equalTo(2)
         }
         
-        pageBarView.snp.makeConstraints { make in
+        slideBar.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalToSuperview().inset(0)
+            make.leading.equalToSuperview()
             make.width.equalTo(barWidth)
             make.height.equalTo(2)
         }
@@ -139,12 +137,6 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
             CardCollectionViewCell.self,
             forCellWithReuseIdentifier: "CardCollectionViewCell")
     }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension CardCollectionViewCell: UICollectionViewDelegate {
-
 }
 
 // MARK: - UICollectionViewDataSource
@@ -180,7 +172,7 @@ extension CategoryCollectionViewCell: UICollectionViewDataSource {
 
 extension CategoryCollectionViewCell: UICollectionViewDelegateFlowLayout { }
 
-// MARK: - Layout
+// MARK: - UICollectionViewCompositionalLayout
 
 extension CategoryCollectionViewCell {
     private func makeLayout() -> UICollectionViewLayout {
@@ -200,7 +192,7 @@ extension CategoryCollectionViewCell {
             top: 0, leading: 9, bottom: 0, trailing: 9)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(cellWidth+18),
+            widthDimension: .absolute(cellWidth+cellSpacing),
             heightDimension: .absolute(cellHeight))
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -208,9 +200,22 @@ extension CategoryCollectionViewCell {
         
         let section = NSCollectionLayoutSection(group: group)
         section.visibleItemsInvalidationHandler = ({ (visibleItems, point, env) in
-            print("-----contentOffset.x: ", point)
-            print("-----뷰 width: ", self.contentView.frame.width)
-            print("-----barWidth: ", self.pageBackView.frame.width)
+            // 기기에 따라 point.x 값을 대응해준 식
+            let pointX = (self.contentView.frame.width - self.slideBackView.frame.width) / 2 - 9
+            // 항상 처음 초기값이 0이 되게 해주기 위해서 point.x + pointX
+            let value = CGFloat(point.x + pointX)
+            // 현재 카드 cell가 몇 번째 index인지 알기 위해서 값을 구해줬다
+            let cellIndex = round(value/(self.cellWidth + self.cellSpacing))
+            // slideBar의 Leading 값 : (초기값 - 간격*셀현재인덱스)/4
+            let slideBarLeading = (value - self.cellSpacing * cellIndex) / 4
+            print("----- value: ", value)
+            print("----- cell indexPath: ", round(value/(self.cellWidth + self.cellSpacing)))
+            print("----- slideBarLeading: ", (value - self.cellSpacing * cellIndex)/4)
+            if value >= 0 {
+                self.slideBar.snp.updateConstraints { make in
+                    make.leading.equalToSuperview().inset(slideBarLeading)
+                }
+            }
         })
         section.orthogonalScrollingBehavior = .groupPagingCentered
         section.contentInsets = NSDirectionalEdgeInsets(
