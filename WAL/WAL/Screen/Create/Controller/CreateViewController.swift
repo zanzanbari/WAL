@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 import Then
 import WALKit
-import Lottie
 
 class CreateViewController: UIViewController {
     
@@ -34,6 +33,7 @@ class CreateViewController: UIViewController {
     private lazy var walSoundTextView = UITextView().then {
         $0.font = WALFont.body5.font
         $0.textColor = UIColor.black100
+        $0.backgroundColor = UIColor.white100
         $0.textContainerInset = UIEdgeInsets(top: 17, left: 17, bottom: 17, right: 17)
         $0.isScrollEnabled = false
         $0.layer.borderColor = UIColor.gray500.cgColor
@@ -57,19 +57,7 @@ class CreateViewController: UIViewController {
         $0.text = "/100"
     }
     
-    private let reservationTimeView = UIView().then {
-        $0.backgroundColor = UIColor.gray600
-        $0.layer.cornerRadius = 10
-    }
-    
-    private let reservationTimeLabel = UILabel().then {
-        $0.text = "예약 시간"
-        $0.font = WALFont.body4.font
-        $0.textColor = UIColor.black100
-    }
-    
-    // button configuration 사용해
-    private let hideHistoryButton = UIButton().then {
+    private lazy var hideHistoryButton = UIButton().then {
         var config = UIButton.Configuration.plain()
         config.title = "도착할 때까지 히스토리에서 가리기"
         config.image = WALIcon.btnUnselect.image
@@ -81,10 +69,22 @@ class CreateViewController: UIViewController {
         }
         
         $0.configuration = config
-        $0.addTarget(self, action: #selector(touchupHideHistoryButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchUpHideHistoryButton), for: .touchUpInside)
     }
     
-    private let sendButton = UIButton().then {
+    private lazy var reservationTableView = UITableView(frame: .zero, style: .insetGrouped).then {
+        $0.backgroundColor = UIColor.white100
+        $0.isScrollEnabled = false
+        $0.makeRound(radius: 10)
+        $0.rowHeight = UITableView.automaticDimension
+        $0.tableHeaderView = UIView(frame: CGRect(x: 0,
+                                                  y: 0,
+                                                  width: $0.frame.size.width,
+                                                  height: CGFloat.leastNonzeroMagnitude))
+        $0.dataSource = self
+    }
+    
+    private lazy var sendButton = UIButton().then {
         $0.titleLabel?.font = WALFont.body1.font
         $0.setTitle("보내기", for: .normal)
         $0.setTitleColor(UIColor.white100, for: .normal)
@@ -106,6 +106,9 @@ class CreateViewController: UIViewController {
         }
     }
     
+    private var datePickerType: DatePickerType = .none
+    private var cellData = CellData()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -117,7 +120,8 @@ class CreateViewController: UIViewController {
     // MARK: - InitUI
     
     private func configUI() {
-        self.navigationController?.navigationBar.isHidden = true
+        view.backgroundColor = UIColor.white100
+        navigationController?.navigationBar.isHidden = true
         
         [countLabel, maximumCountLabel].forEach {
             $0.font = WALFont.body8.font
@@ -133,8 +137,7 @@ class CreateViewController: UIViewController {
                           placeholderLabel,
                           countStackView,
                           hideHistoryButton,
-                          reservationTimeView,
-                          reservationTimeLabel,
+                          reservationTableView,
                           sendButton])
         
         navigationBar.snp.makeConstraints {
@@ -171,14 +174,10 @@ class CreateViewController: UIViewController {
             $0.leading.equalToSuperview()
         }
         
-        reservationTimeView.snp.makeConstraints {
+        reservationTableView.snp.makeConstraints {
             $0.top.equalTo(hideHistoryButton.snp.bottom).offset(14)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(54)
-        }
-        
-        reservationTimeLabel.snp.makeConstraints {
-            $0.top.leading.equalTo(reservationTimeView).inset(18)
+            $0.leading.trailing.equalToSuperview().inset(0)
+            $0.bottom.equalTo(view.layoutMarginsGuide)
         }
         
         sendButton.snp.makeConstraints {
@@ -190,14 +189,12 @@ class CreateViewController: UIViewController {
     
     //MARK: - @objc
     
-    @objc private func touchupHideHistoryButton() {
+    @objc private func touchUpHideHistoryButton() {
         isSelectedHideHistory.toggle()
     }
-    
-    // MARK: - Custom Method
-    
-    
 }
+
+//MARK: - UITextViewDelegate
 
 extension CreateViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -214,11 +211,68 @@ extension CreateViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         countLabel.text = "\(walSoundTextView.text.count)"
         
+        countLabel.textColor = walSoundTextView.text.count >= 100 ? UIColor.orange100 : UIColor.gray200
+        
         if walSoundTextView.text.count > 100 {
             walSoundTextView.deleteBackward()
-            countLabel.textColor = UIColor.orange100
+        }
+    }
+}
+
+//MARK: - UITableViewDataSource
+
+extension CreateViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if cellData.didShowView.date || cellData.didShowView.time {
+            return 2
         } else {
-            countLabel.textColor = UIColor.gray200
+            return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let reservationCell = ReservationTableViewCell()
+            
+            reservationCell.selectionStyle = .none
+            reservationCell.setup(data: cellData)
+            
+            reservationCell.touchedDateButton = {
+                self.cellData.didShowView.date.toggle()
+                self.cellData.didShowView.time = false
+                self.datePickerType = .date
+                self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
+            }
+            
+            reservationCell.touchedTimeButton = {
+                self.cellData.didShowView.time.toggle()
+                self.cellData.didShowView.date = false
+                self.datePickerType = .time
+                self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
+            }
+            
+            return reservationCell
+        } else {
+            let datePickerCell = DatePickerTableViewCell()
+            
+            datePickerCell.selectionStyle = .none
+            datePickerCell.datePickerType = datePickerType
+            datePickerCell.setup(date: cellData)
+            
+            datePickerCell.sendDate = { date in
+                switch self.datePickerType {
+                case .date: self.cellData.date = date
+                case .time: self.cellData.time = date
+                case .none: break
+                }
+                self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
+            }
+            
+            return datePickerCell
         }
     }
 }
