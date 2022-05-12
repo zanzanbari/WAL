@@ -119,6 +119,10 @@ class CreateViewController: UIViewController {
         setupLayout()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     // MARK: - InitUI
     
     private func configUI() {
@@ -234,6 +238,14 @@ extension CreateViewController: UITextViewDelegate {
         
         setSendButton()
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            walSoundTextView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -259,6 +271,7 @@ extension CreateViewController: UITableViewDataSource {
             reservationCell.setup(data: cellData)
             
             reservationCell.touchedDateButton = {
+                self.walSoundTextView.resignFirstResponder()
                 self.cellData.didShowView.date.toggle()
                 self.cellData.didShowView.time = false
                 self.datePickerType = .date
@@ -266,6 +279,7 @@ extension CreateViewController: UITableViewDataSource {
             }
             
             reservationCell.touchedTimeButton = {
+                self.walSoundTextView.resignFirstResponder()
                 self.cellData.didShowView.time.toggle()
                 self.cellData.didShowView.date = false
                 self.datePickerType = .time
