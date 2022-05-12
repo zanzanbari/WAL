@@ -95,6 +95,22 @@ extension SettingViewController: UITableViewDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        print("------ 선택한 섹션", indexPath.section)
+        print("------ 선택한 셀", indexPath.row)
+        switch indexPath.section {
+        case 1:
+            if indexPath.row == 0 {
+                let viewController = SettingAlarmViewController()
+                viewController.modalPresentationStyle = .overFullScreen
+                present(viewController, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -139,8 +155,7 @@ extension SettingViewController: UITableViewDataSource {
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
-            cell.menuLabel.text = setting.getMenuLabel(setting.secondRowData, indexPath.row)
-            cell.subMenuLabel.text = setting.getSubMenuLabel(setting.secondRowData, indexPath.row)
+            cell.setupData(index: indexPath.row)
             return cell
             
         default: return UITableViewCell()

@@ -42,6 +42,7 @@
 		5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1741D282CDD4F00C77A95 /* SettingAlarmViewController.swift */; };
 		5BD17420282CDDB500C77A95 /* MyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1741F282CDDB500C77A95 /* MyInfoTableViewCell.swift */; };
 		5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */; };
+		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
@@ -85,6 +86,7 @@
 		5BD1741D282CDD4F00C77A95 /* SettingAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmViewController.swift; sourceTree = "<group>"; };
 		5BD1741F282CDDB500C77A95 /* MyInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoTableViewCell.swift; sourceTree = "<group>"; };
 		5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		9209959E280D13B8008C3491 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				5BD17415282CDCDE00C77A95 /* AlarmView.swift */,
 				5BD1741F282CDDB500C77A95 /* MyInfoTableViewCell.swift */,
 				5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */,
+				5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
+				5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,

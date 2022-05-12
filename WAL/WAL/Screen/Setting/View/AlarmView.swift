@@ -40,7 +40,7 @@ class AlarmView: UIView {
             case .firstMenu:
                 return true
             case .secondMenu:
-                return true
+                return false
             }
         }
     }
