@@ -15,6 +15,14 @@ class CreateViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let createView = WALCreateView()
+    
+    private let scrollView = UIScrollView(frame: .zero).then {
+        $0.backgroundColor = UIColor.white100
+        $0.showsVerticalScrollIndicator = false
+        $0.showsHorizontalScrollIndicator = false
+    }
+    
     private let navigationBar = WALNavigationBar(title: "왈소리 만들기").then {
         $0.leftIcon = WALIcon.btnBack.image
         $0.rightIcon = WALIcon.btnHistory.image
@@ -137,21 +145,39 @@ class CreateViewController: UIViewController {
     
     private func setupLayout() {
         view.addSubviews([navigationBar,
-                          walSoundLabel,
-                          informationButton,
-                          walSoundTextView,
-                          placeholderLabel,
-                          countStackView,
-                          hideHistoryButton,
-                          reservationTableView,
+                          scrollView,
                           sendButton])
         
+        scrollView.addSubview(createView)
+        
+        createView.addSubviews([walSoundLabel,
+                                informationButton,
+                                walSoundTextView,
+                                placeholderLabel,
+                                countStackView,
+                                hideHistoryButton,
+                                reservationTableView])
+        
         navigationBar.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.layoutMarginsGuide)
+            $0.top.equalTo(view.layoutMarginsGuide)
+            $0.leading.equalToSuperview().inset(4)
+            $0.trailing.equalToSuperview().inset(9)
+        }
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.equalTo(view.layoutMarginsGuide)
+            $0.bottom.equalTo(view.layoutMarginsGuide)
+        }
+        
+        createView.snp.makeConstraints {
+            $0.top.bottom.equalTo(scrollView)
+            $0.leading.trailing.equalTo(view)
+            $0.height.equalTo(scrollView.snp.height)
         }
         
         walSoundLabel.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(33)
+            $0.top.equalToSuperview().inset(33)
             $0.leading.equalToSuperview().inset(20)
         }
         
@@ -183,7 +209,7 @@ class CreateViewController: UIViewController {
         reservationTableView.snp.makeConstraints {
             $0.top.equalTo(hideHistoryButton.snp.bottom).offset(14)
             $0.leading.trailing.equalToSuperview().inset(0)
-            $0.bottom.equalTo(view.layoutMarginsGuide)
+            $0.bottom.equalToSuperview()
         }
         
         sendButton.snp.makeConstraints {
@@ -210,6 +236,24 @@ class CreateViewController: UIViewController {
         
         sendButton.backgroundColor = isCotentFull ? UIColor.orange100 : UIColor.gray400
         sendButton.isEnabled = isCotentFull
+    }
+    
+    private func scroll(_ datePickerType: DatePickerType) {
+        switch datePickerType {
+        case .date:
+            if cellData.didShowView.date {
+                scrollView.setContentOffset(CGPoint(x: 0, y: 55), animated: true)
+            } else {
+                scrollView.setContentOffset(.zero, animated: true)
+            }
+        case .time:
+            if cellData.didShowView.time {
+                scrollView.setContentOffset(CGPoint(x: 0, y: 55), animated: true)
+            } else {
+                scrollView.setContentOffset(.zero, animated: true)
+            }
+        case .none: return
+        }
     }
 }
 
@@ -276,6 +320,8 @@ extension CreateViewController: UITableViewDataSource {
                 self.cellData.didShowView.time = false
                 self.datePickerType = .date
                 self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
+                
+                self.scroll(.date)
             }
             
             reservationCell.touchedTimeButton = {
@@ -284,6 +330,8 @@ extension CreateViewController: UITableViewDataSource {
                 self.cellData.didShowView.date = false
                 self.datePickerType = .time
                 self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
+                
+                self.scroll(.time)
             }
             
             return reservationCell
