@@ -21,8 +21,8 @@ class MyInfoTableViewCell: UITableViewCell {
     }
     
     public let nicknameLabel = UILabel().then {
-        $0.text = "디오니소스바봉"
-        $0.font = WALFont.body6.font
+        $0.text = "디오니바봉짱"
+        $0.font = WALFont.body1.font
         $0.textColor = .black100
     }
     
@@ -70,7 +70,7 @@ class MyInfoTableViewCell: UITableViewCell {
         }
         
         emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(nicknameLabel.snp.bottom).inset(4)
+            make.top.equalTo(nicknameLabel.snp.bottom).offset(4)
             make.leading.equalToSuperview().inset(20)
         }
         
