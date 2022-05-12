@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class CategoryCollectionViewCell: BaseCollectionViewCell {
+class CategoryCollectionViewCell: BaseCollectionViewCell, ChangeNextButtonDelegate {
     
     // MARK: - Properties
     
@@ -19,7 +19,6 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     private let cellWidth: CGFloat = 253
     private let cellHeight: CGFloat = 322
     private let cellSpacing: CGFloat = 18
-    
     private var barWidth: CGFloat = 0
     
     // ✅ 선택된 인덱스를 알기 위한 배열
@@ -27,7 +26,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     
     private let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
-        $0.text = "태끼방구님이 받고싶은 \n 왈소리 유형은?"
+        $0.text = "디오니방구님이 받고싶은 \n 왈소리 유형은?"
         $0.textAlignment = .center
         $0.numberOfLines = 2
     }
@@ -37,7 +36,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.text = "다중선택 가능해요"
         $0.numberOfLines = 0
     }
-        
+    
     private lazy var collectionView = UICollectionView(
         frame: .zero, collectionViewLayout: makeLayout()).then {
             $0.backgroundColor = .white100
@@ -58,9 +57,9 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.makeRound(radius: 1)
     }
     
-    public let nextButton = WALPlainButton().then {
+    public lazy var nextButton = WALPlainButton().then {
         $0.title = "다음"
-        $0.isDisabled = false
+        $0.isDisabled = true
     }
     
     // MARK: - Initialize
@@ -119,7 +118,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         
         slideBar.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().inset(0)
             make.width.equalTo(barWidth)
             make.height.equalTo(2)
         }
@@ -137,6 +136,10 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
             CardCollectionViewCell.self,
             forCellWithReuseIdentifier: "CardCollectionViewCell")
     }
+    
+    func touchupNextButton(isDisabled: Bool) {
+        nextButton.isDisabled = isDisabled
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -148,10 +151,10 @@ extension CategoryCollectionViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCollectionViewCell",
-            for: indexPath) as? CardCollectionViewCell
+                                                            for: indexPath) as? CardCollectionViewCell
         else { return UICollectionViewCell() }
         cell.setupData(index: indexPath.item)
-        
+        cell.nextButtonDelegate = self
         // ✅ 인덱스를 cell의 indexPath로 지정
         cell.index = indexPath.row
         
@@ -200,17 +203,23 @@ extension CategoryCollectionViewCell {
         
         let section = NSCollectionLayoutSection(group: group)
         section.visibleItemsInvalidationHandler = ({ (visibleItems, point, env) in
+            
             // 기기에 따라 point.x 값을 대응해준 식
             let pointX = (self.contentView.frame.width - self.slideBackView.frame.width) / 2 - 9
+            
             // 항상 처음 초기값이 0이 되게 해주기 위해서 point.x + pointX
             let value = CGFloat(point.x + pointX)
+            
             // 현재 카드 cell가 몇 번째 index인지 알기 위해서 값을 구해줬다
             let cellIndex = round(value/(self.cellWidth + self.cellSpacing))
+            
             // slideBar의 Leading 값 : (초기값 - 간격*셀현재인덱스)/4
             let slideBarLeading = (value - self.cellSpacing * cellIndex) / 4
+            
             print("----- value: ", value)
             print("----- cell indexPath: ", round(value/(self.cellWidth + self.cellSpacing)))
             print("----- slideBarLeading: ", (value - self.cellSpacing * cellIndex)/4)
+            
             if value >= 0 {
                 self.slideBar.snp.updateConstraints { make in
                     make.leading.equalToSuperview().inset(slideBarLeading)

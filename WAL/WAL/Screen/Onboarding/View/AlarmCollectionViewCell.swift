@@ -10,11 +10,14 @@ import UIKit
 import Then
 import WALKit
 
-class AlarmCollectionViewCell: BaseCollectionViewCell {
+class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDelegate {
     
     // MARK: - Properties
  
     private let timeData = TimeData()
+    
+    // ✅ 선택된 인덱스를 알기 위한 배열
+    var selectedIndex: [Bool] = []
     
     private let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
@@ -53,6 +56,11 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         configUI()
         setupLayout()
         setupCollectionView()
+        
+        // ✅ selectedIndex 배열: 카드 아이템 개수만큼 false로 초기화
+        for _ in 0..<timeData.getTimeCount() {
+            selectedIndex.append(false)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -102,7 +110,10 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     }
         
     // MARK: - Custom Method
-    
+
+    func touchupCompleteButton(isDisabled: Bool) {
+        completeButton.isDisabled = isDisabled
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -117,6 +128,18 @@ extension AlarmCollectionViewCell: UICollectionViewDataSource {
             for: indexPath) as? TimeButtonCollectionViewCell
         else { return UICollectionViewCell() }
         cell.setupData(index: indexPath.item)
+        cell.completeButtonDelegate = self
+        // ✅ 인덱스를 cell의 indexPath로 지정
+        cell.index = indexPath.row
+        
+        // ✅ 선택된 셀들이 어떤 건지 알기 위함
+        /*
+         나중에 선택된 셀 유형들 인덱스 번호 가지고 서버 통신 요청할 거 같은데
+         4개의 카드중에 2번째, 3번째만 선택되어있다면
+         selectedIndex 배열이 [false, true, true, false] 이렇게 있을거잖아?
+         true인 값의 인덱스만 사용하면 될 듯!
+         */
+        selectedIndex[indexPath.row].toggle()
         return cell
     }
 }

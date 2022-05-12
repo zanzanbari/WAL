@@ -9,25 +9,36 @@ import UIKit
 
 import WALKit
 
+protocol ChangeCompleteButtonDelegate: AlarmCollectionViewCell {
+    func touchupCompleteButton(isDisabled: Bool)
+}
+
 class TimeButtonCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Property
     
-    public override var isSelected: Bool {
+    // ✅ 셀의 인덱스를 알기 위함
+    var index: Int?
+    
+    // ✅ isSelected 변수를 오버라이드하지 않고 새롭게 변수를 둠
+    var selectedState: Bool = false {
         didSet {
             configUI()
-            print("----------- 날짜 버튼 선택됐나?", isSelected)
         }
     }
     
     private let timeData = TimeData()
     
+    weak var completeButtonDelegate: ChangeCompleteButtonDelegate?
+    
+    // ✅ 가장 바깥 부분에 버튼 올림
     public lazy var timeButton = UIButton().then {
-        $0.layer.cornerRadius = 10
+        $0.makeRound(radius: 10)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.gray400.cgColor
-        $0.backgroundColor = .white100
+        $0.backgroundColor = .clear
         $0.addSubviews([timeImageView, titleLabel])
+        $0.addTarget(self, action: #selector(touchupTimeButton), for: .touchUpInside)
     }
     
     public let timeImageView = UIImageView()
@@ -42,6 +53,7 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configUI()
         setupLayout()
     }
     
@@ -52,12 +64,12 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
     // MARK: - InitUI
     
     private func configUI() {
-        timeButton.layer.borderColor = isSelected ?
+        timeButton.layer.borderColor = selectedState ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
     }
     
     private func setupLayout() {
-        self.contentView.addSubview(timeButton)
+        contentView.addSubview(timeButton)
         
         timeButton.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -73,6 +85,20 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(timeImageView.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(20)
+        }
+    }
+    
+    // MARK: - @objc
+    
+    // ✅ 버튼 클릭했을 때 == 셀 클릭했을 때
+    @objc func touchupTimeButton() {
+        guard let index = index else { return }
+        selectedState.toggle()
+        print("\(index)번째 셀 \(selectedState)")
+        if selectedState == true {
+            completeButtonDelegate?.touchupCompleteButton(isDisabled: false)
+        } else {
+            completeButtonDelegate?.touchupCompleteButton(isDisabled: true)
         }
     }
     
