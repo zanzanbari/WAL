@@ -90,6 +90,8 @@ class CreateViewController: UIViewController {
         $0.setTitleColor(UIColor.white100, for: .normal)
         $0.backgroundColor = UIColor.gray400
         $0.layer.cornerRadius = 22
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(touchUpSendButton), for: .touchUpInside)
     }
     
     private lazy var countStackView = UIStackView().then {
@@ -192,6 +194,19 @@ class CreateViewController: UIViewController {
     @objc private func touchUpHideHistoryButton() {
         isSelectedHideHistory.toggle()
     }
+    
+    @objc private func touchUpSendButton() {
+        
+    }
+    
+    //MARK: - CustomMethod
+    
+    private func setSendButton() {
+        let isCotentFull = walSoundTextView.text.count > 0 && cellData.date != nil && cellData.time != nil
+        
+        sendButton.backgroundColor = isCotentFull ? UIColor.orange100 : UIColor.gray400
+        sendButton.isEnabled = isCotentFull
+    }
 }
 
 //MARK: - UITextViewDelegate
@@ -216,6 +231,8 @@ extension CreateViewController: UITextViewDelegate {
         if walSoundTextView.text.count > 100 {
             walSoundTextView.deleteBackward()
         }
+        
+        setSendButton()
     }
 }
 
@@ -270,6 +287,7 @@ extension CreateViewController: UITableViewDataSource {
                 case .none: break
                 }
                 self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
+                self.setSendButton()
             }
             
             return datePickerCell
