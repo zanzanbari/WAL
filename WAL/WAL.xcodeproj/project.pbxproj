@@ -35,6 +35,7 @@
 		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
 		E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F6A281E7EB700576135 /* Pretendard-Medium.otf */; };
 		E281B4D1282D6BDB005667FD /* WALCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281B4D0282D6BDB005667FD /* WALCreateView.swift */; };
+		E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */; };
 		E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */; };
 		E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */; };
 		E2CD8B0628219B57009277C3 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD8B0528219B57009277C3 /* CreateViewController.swift */; };
@@ -75,6 +76,7 @@
 		E2082F69281E7EB700576135 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "WAL/Resource/Font/Pretendard-Regular.otf"; sourceTree = SOURCE_ROOT; };
 		E2082F6A281E7EB700576135 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "WAL/Resource/Font/Pretendard-Medium.otf"; sourceTree = SOURCE_ROOT; };
 		E281B4D0282D6BDB005667FD /* WALCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALCreateView.swift; sourceTree = "<group>"; };
+		E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFinishedViewController.swift; sourceTree = "<group>"; };
 		E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTableViewCell.swift; sourceTree = "<group>"; };
 		E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		E2CD8B0528219B57009277C3 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				E2CD8B0528219B57009277C3 /* CreateViewController.swift */,
+				E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
+				E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

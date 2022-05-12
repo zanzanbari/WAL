@@ -226,7 +226,16 @@ class CreateViewController: UIViewController {
     }
     
     @objc private func touchUpSendButton() {
+        let viewController = CreateFinishedViewController()
+        let dateFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
         
+        dateFormatter.dateFormat = "yyyy. MM. dd"
+        timeFormatter.dateFormat = "a hh:mm"
+        
+        viewController.date = "\(dateFormatter.string(from: cellData.date ?? Date())) \(timeFormatter.string(from: cellData.time ?? Date()))"
+        
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     //MARK: - CustomMethod
