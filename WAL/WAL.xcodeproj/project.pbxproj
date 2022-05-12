@@ -36,6 +36,12 @@
 		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
 		5BB661632828411000D54353 /* Pods-WAL.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */; };
 		5BB661642828411200D54353 /* Pods-WAL.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */; };
+		5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17415282CDCDE00C77A95 /* AlarmView.swift */; };
+		5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17418282CDD0A00C77A95 /* Setting.swift */; };
+		5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1741B282CDD3400C77A95 /* SettingViewController.swift */; };
+		5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1741D282CDD4F00C77A95 /* SettingAlarmViewController.swift */; };
+		5BD17420282CDDB500C77A95 /* MyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1741F282CDDB500C77A95 /* MyInfoTableViewCell.swift */; };
+		5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */; };
 		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
@@ -73,6 +79,12 @@
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		5BB6615F2828339900D54353 /* KeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
 		5BB661612828340100D54353 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
+		5BD17415282CDCDE00C77A95 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
+		5BD17418282CDD0A00C77A95 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		5BD1741B282CDD3400C77A95 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		5BD1741D282CDD4F00C77A95 /* SettingAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmViewController.swift; sourceTree = "<group>"; };
+		5BD1741F282CDDB500C77A95 /* MyInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoTableViewCell.swift; sourceTree = "<group>"; };
+		5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		9209959E280D13B8008C3491 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
@@ -232,6 +244,7 @@
 				5B020D4028219C0E0057F9B7 /* Login */,
 				5B348A1B281E400E006FEFDA /* Onboarding */,
 				5BA3895327F6C1E80010EAA1 /* Main */,
+				5BD17413282CDCC000C77A95 /* Setting */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -367,6 +380,43 @@
 				5BA3896827F6C2930010EAA1 /* AuthAPI.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		5BD17413282CDCC000C77A95 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				5BD17417282CDD0200C77A95 /* Model */,
+				5BD17414282CDCCD00C77A95 /* View */,
+				5BD1741A282CDD1C00C77A95 /* Controller */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		5BD17414282CDCCD00C77A95 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5BD17415282CDCDE00C77A95 /* AlarmView.swift */,
+				5BD1741F282CDDB500C77A95 /* MyInfoTableViewCell.swift */,
+				5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5BD17417282CDD0200C77A95 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5BD17418282CDD0A00C77A95 /* Setting.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5BD1741A282CDD1C00C77A95 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5BD1741B282CDD3400C77A95 /* SettingViewController.swift */,
+				5BD1741D282CDD4F00C77A95 /* SettingAlarmViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		E29B141A281E7A39005275B2 /* Font */ = {
@@ -511,25 +561,31 @@
 			files = (
 				5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
+				5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
+				5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
+				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
+				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */,
 				5BB661622828340100D54353 /* Bundle+.swift in Sources */,
+				5BD17420282CDDB500C77A95 /* MyInfoTableViewCell.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
+				5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
