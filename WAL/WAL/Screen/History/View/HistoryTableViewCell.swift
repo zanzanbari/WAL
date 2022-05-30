@@ -86,7 +86,11 @@ class HistoryTableViewCell: UITableViewCell {
             }
         }
     }
-    var isContentHidden: Bool = false
+    var isContentHidden: Bool = false {
+        didSet {
+            if isContentHidden { isUserInteractionEnabled = false }
+        }
+    }
     
     // MARK: - Initializer
     
@@ -195,7 +199,5 @@ class HistoryTableViewCell: UITableViewCell {
         recieveLabel.addLetterSpacing()
         
         coverView.isHidden = data.hidden ? false : true
-        
-        print("data hidden: ", data.hidden)
     }
 }

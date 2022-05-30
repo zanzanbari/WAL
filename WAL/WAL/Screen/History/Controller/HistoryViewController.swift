@@ -141,13 +141,9 @@ extension HistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
-    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let content = expandCellDatasource
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier, for: indexPath) as? HistoryTableViewCell else { return }
-        print("content hidden: ", cell.isContentHidden)
         
         content.isExpanded.toggle()
         historyTableView.reloadRows(at: [indexPath], with: .automatic)
