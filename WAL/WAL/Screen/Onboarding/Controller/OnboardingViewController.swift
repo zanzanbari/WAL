@@ -38,6 +38,7 @@ final class OnboardingViewController: UIViewController {
             $0.contentInsetAdjustmentBehavior = .never
             $0.showsHorizontalScrollIndicator = false
             $0.isScrollEnabled = false
+            $0.isUserInteractionEnabled = true
         }
     
     private let collectionViewFlowLayout = UICollectionViewFlowLayout().then {
@@ -135,6 +136,27 @@ extension OnboardingViewController: UICollectionViewDelegate {
             navigationBar.isHidden = false
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.item {
+        case 2:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "AlarmCollectionViewCell",
+                for: indexPath) as? AlarmCollectionViewCell
+            else { return }
+            guard let timeCell = cell.collectionView.dequeueReusableCell(withReuseIdentifier: "TimeButtonCollectionViewCell", for: indexPath) as? TimeButtonCollectionViewCell else { return }
+            if timeCell.isSelected == false {
+                print("안선택")
+            }
+            
+            if timeCell.timeButton.isSelected {
+                print("버튼")
+            }
+//            navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
+            
+        default: break
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -168,6 +190,8 @@ extension OnboardingViewController: UICollectionViewDataSource {
                 withReuseIdentifier: "AlarmCollectionViewCell",
                 for: indexPath) as? AlarmCollectionViewCell
             else { return UICollectionViewCell() }
+            guard let timeCell = cell.collectionView.dequeueReusableCell(withReuseIdentifier: "TimeButtonCollectionViewCell", for: indexPath) as? TimeButtonCollectionViewCell else { return UICollectionViewCell() }
+            
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
             return cell
             

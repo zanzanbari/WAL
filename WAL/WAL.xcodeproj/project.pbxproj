@@ -39,8 +39,6 @@
 		5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */; };
 		5BB661602828339900D54353 /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BB6615F2828339900D54353 /* KeyInfo.plist */; };
 		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
-		5BB661632828411000D54353 /* Pods-WAL.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */; };
-		5BB661642828411200D54353 /* Pods-WAL.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */; };
 		5BB6616628285A3000D54353 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */; };
 		5BB6616828285A5B00D54353 /* TimeButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */; };
 		5BB6616B28285B0200D54353 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616A28285B0200D54353 /* Category.swift */; };
@@ -448,7 +446,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					5BA3892D27F6B94F0010EAA1 = {
 						CreatedOnToolsVersion = 13.0;
@@ -481,10 +479,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BB661642828411200D54353 /* Pods-WAL.release.xcconfig in Resources */,
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
-				5BB661632828411000D54353 /* Pods-WAL.debug.xcconfig in Resources */,
 				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
@@ -557,7 +553,6 @@
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
 				5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */,
-				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
@@ -566,7 +561,6 @@
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
-				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BB6616D28285B1300D54353 /* Time.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,

@@ -15,7 +15,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
     // MARK: - Properties
  
     private let timeData = TimeData()
-    
+        
     // ✅ 선택된 인덱스를 알기 위한 배열
     var selectedIndex: [Bool] = []
     
@@ -32,7 +32,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
         $0.numberOfLines = 0
     }
     
-    private lazy var collectionView = UICollectionView(
+    public lazy var collectionView = UICollectionView(
         frame: .zero, collectionViewLayout: collectionViewFlowLayout).then {
             $0.backgroundColor = .white100
             $0.showsHorizontalScrollIndicator = false
@@ -61,6 +61,10 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
         for _ in 0..<timeData.getTimeCount() {
             selectedIndex.append(false)
         }
+        
+        print("---------selectedIndex: ", selectedIndex)
+        
+
     }
     
     required init?(coder: NSCoder) {
@@ -112,7 +116,17 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
     // MARK: - Custom Method
 
     func touchupCompleteButton(isDisabled: Bool) {
-        completeButton.isDisabled = isDisabled
+        if selectedIndex == [false, false, false] {
+            completeButton.isDisabled = isDisabled
+        } else {
+            completeButton.isDisabled = !isDisabled
+        }
+    }
+}
+
+extension AlarmCollectionViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("------선택됐니?:", indexPath.item)
     }
 }
 
@@ -140,6 +154,7 @@ extension AlarmCollectionViewCell: UICollectionViewDataSource {
          true인 값의 인덱스만 사용하면 될 듯!
          */
         selectedIndex[indexPath.row].toggle()
+        print("---- 여기는 cell 내 selectedIndex", selectedIndex)
         return cell
     }
 }
