@@ -32,6 +32,7 @@ struct SettingData {
         Setting(menu: "의견 보내기"),
         Setting(menu: "서비스 이용 약관"),
         Setting(menu: "개인정보처리방침"),
+        Setting(menu: "오픈소스 라이선스"),
         Setting(menu: "버전", subMenu: "1.0")
     ]
     
