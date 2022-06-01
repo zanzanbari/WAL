@@ -98,8 +98,6 @@ extension SettingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("------ 선택한 섹션", indexPath.section)
-        print("------ 선택한 셀", indexPath.row)
         switch indexPath.section {
         case 1:
             if indexPath.row == 0 {

@@ -13,15 +13,14 @@ class SettingAlarmCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Property
     
+    private var timeData = TimeData()
+    
     public override var isSelected: Bool {
         didSet {
             configUI()
-            print("----------- 날짜 버튼 선택됐나?", isSelected)
         }
     }
-    
-//    private let timeData = TimeData()
-    
+        
     public lazy var timeView = UIView().then {
         $0.layer.cornerRadius = 10
         $0.layer.borderWidth = 1
@@ -30,15 +29,12 @@ class SettingAlarmCollectionViewCell: UICollectionViewCell {
         $0.addSubviews([timeImageView, titleLabel])
     }
     
-    public let timeImageView = UIImageView().then {
-        $0.image = WALIcon.icnMorning.image
-    }
+    public let timeImageView = UIImageView()
     
     public let titleLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
         $0.textAlignment = .center
-        $0.text = "아침"
     }
     
     // MARK: - Initialize
@@ -83,7 +79,7 @@ class SettingAlarmCollectionViewCell: UICollectionViewCell {
     // MARK: - setupData
     
     public func setupData(index: Int) {
-//        titleLabel.text = timeData.getTimeLabel(index: index)
-//        timeImageView.image = timeData.getTimeImage(index: index)
+        titleLabel.text = timeData.getTimeLabel(index: index)
+        timeImageView.image = timeData.getTimeImage(index: index)
     }
 }

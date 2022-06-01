@@ -15,14 +15,11 @@ class AlarmView: UIView {
     
     enum Alarm {
         case firstMenu
-        case secondMenu
         
         var title: String {
             switch self {
             case .firstMenu:
                 return "푸시 알림"
-            case .secondMenu:
-                return "왈소리 미리보기"
             }
         }
         
@@ -30,8 +27,6 @@ class AlarmView: UIView {
             switch self {
             case .firstMenu:
                 return "왈소리 도착 시 알림을 받을 수 있어요"
-            case .secondMenu:
-                return "푸시 알림에서 왈소리가 바로 보여요"
             }
         }
         
@@ -39,8 +34,6 @@ class AlarmView: UIView {
             switch self {
             case .firstMenu:
                 return true
-            case .secondMenu:
-                return false
             }
         }
     }
@@ -118,7 +111,4 @@ class AlarmView: UIView {
             make.leading.trailing.equalToSuperview().inset(20)
         }
     }
-    
-    // MARK: - Custom Method
-
 }

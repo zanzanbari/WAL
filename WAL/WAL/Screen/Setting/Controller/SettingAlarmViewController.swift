@@ -22,11 +22,9 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private lazy var firstView = AlarmView(.firstMenu)
-    
-    private lazy var secondView = AlarmView(.secondMenu)
-    
+        
     private let backView = UIView().then {
-        $0.backgroundColor = .white100
+        $0.backgroundColor = .gray600
     }
     
     private let titleLabel = UILabel().then {
@@ -65,7 +63,6 @@ final class SettingAlarmViewController: UIViewController {
     private func setupLayout() {
         view.addSubviews([navigationBar,
                           firstView,
-                          secondView,
                           backView,
                           titleLabel,
                           collectionView])
@@ -80,13 +77,8 @@ final class SettingAlarmViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
         }
         
-        secondView.snp.makeConstraints { make in
-            make.top.equalTo(firstView.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-        }
-        
         backView.snp.makeConstraints { make in
-            make.top.equalTo(secondView.snp.bottom)
+            make.top.equalTo(firstView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(10)
         }
@@ -121,7 +113,6 @@ final class SettingAlarmViewController: UIViewController {
 
 extension SettingAlarmViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return timeData.getTimeCount()
         return 3
     }
     
