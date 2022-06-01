@@ -25,15 +25,13 @@ final class SettingViewController: UIViewController {
         $0.backgroundColor = .white100
     }
     
-    private lazy var tableView = UITableView(frame: .zero, style: .grouped).then {
+    private lazy var tableView = UITableView(frame: .zero, style: .plain).then {
         $0.backgroundColor = .gray600
         $0.separatorStyle = .none
         $0.allowsSelection = true
         $0.delegate = self
         $0.dataSource = self
-        if #available(iOS 15, *) {
-            $0.sectionHeaderTopPadding = 0
-        }
+        $0.sectionHeaderTopPadding = 0
     }
     
     // MARK: - Life Cycle
@@ -119,14 +117,14 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 1, 2: return 10
         default: return 0
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -145,14 +143,20 @@ extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyInfoTableViewCell", for: indexPath) as? MyInfoTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "MyInfoTableViewCell", for: indexPath) as? MyInfoTableViewCell
+            else { return UITableViewCell() }
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell
+            else { return UITableViewCell() }
             cell.menuLabel.text = setting.getMenuLabel(setting.firstRowData, indexPath.row)
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell
+            else { return UITableViewCell() }
             cell.setupData(index: indexPath.row)
             return cell
             
