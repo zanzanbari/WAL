@@ -7,12 +7,11 @@
 
 import UIKit
 
-import SnapKit
 import Then
 
 import WALKit
 
-protocol HistoryCompleteHeaderViewDelegate: AnyObject {
+protocol HistoryCompleteHeaderViewDelegate: HistoryViewController {
     func touchUpInformationButton()
 }
 
@@ -57,11 +56,7 @@ final class HistoryCompleteHeaderView: UIView {
     
     var informationIsHidden: Bool = false {
         didSet {
-            if informationIsHidden {
-                bubbleImageView.isHidden = false
-            } else {
-                bubbleImageView.isHidden = true
-            }
+            bubbleImageView.isHidden = informationIsHidden ? false : true
         }
     }
 

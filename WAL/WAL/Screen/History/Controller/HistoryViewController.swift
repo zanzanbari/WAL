@@ -7,16 +7,15 @@
 
 import UIKit
 
-import SnapKit
 import Then
 
 import WALKit
 
 final class HistoryViewController: UIViewController {
-
+    
     // MARK: - Properties
     
-    private lazy var navigationBar = WALKit.WALNavigationBar(title: "히스토리")
+    private lazy var navigationBar = WALNavigationBar(title: "히스토리")
     
     private var historyTableView = UITableView(frame: .zero, style: .grouped)
     
@@ -24,7 +23,7 @@ final class HistoryViewController: UIViewController {
     private let completeHeader = HistoryCompleteHeaderView()
     
     private var expandCellDatasource =  ExpandTableViewCellContent()
-
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -45,7 +44,6 @@ final class HistoryViewController: UIViewController {
         
         navigationBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(44)
         }
         
         historyTableView.snp.makeConstraints {
@@ -63,7 +61,7 @@ final class HistoryViewController: UIViewController {
         historyTableView.dataSource = self
         historyTableView.register(HistoryTableViewCell.self,
                                   forCellReuseIdentifier: HistoryTableViewCell.cellIdentifier)
-
+        
         historyTableView.separatorStyle = .none
         historyTableView.rowHeight = UITableView.automaticDimension
         
@@ -80,28 +78,17 @@ final class HistoryViewController: UIViewController {
             let content = expandCellDatasource
             
             if cell.isContentHidden {
-                if sender.state == .began {
-                    let touchPoint = sender.location(in: historyTableView)
-                    if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
-                        content.isExpanded.toggle()
-                        
-                        historyTableView.reloadRows(at: [indexPath], with: .automatic)
-                        
-                        guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-                        cell.isPressed = false
-                    }
-                } else {
-                    let touchPoint = sender.location(in: historyTableView)
-                    if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
-                        content.isExpanded.toggle()
-                        
-                        historyTableView.reloadRows(at: [indexPath], with: .automatic)
-                        
-                        guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-                        cell.isPressed = true
-                    }
+                let touchPoint = sender.location(in: historyTableView)
+                if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
+                    content.isExpanded.toggle()
+                    
+                    historyTableView.reloadRows(at: [indexPath], with: .automatic)
+                    
+                    guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
+                    cell.isPressed = sender.state == .began ? false : true
                 }
             }
+            
         }
     }
 }
@@ -119,7 +106,7 @@ extension HistoryViewController: UITableViewDelegate {
             return 0
         }
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
@@ -141,14 +128,14 @@ extension HistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let content = expandCellDatasource
         
         content.isExpanded.toggle()
         historyTableView.reloadRows(at: [indexPath], with: .automatic)
     }
-
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             print("수정")
@@ -170,15 +157,15 @@ extension HistoryViewController: UITableViewDelegate {
             success(true)
         }
         cancelAction.backgroundColor = .orange100
-
+        
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-             if cell.isExpanded {
-                 cancelAction.image = WALIcon.icnTrash.image
-             } else {
-                 cancelAction.image = nil
-             }
-         }
-
+            if cell.isExpanded {
+                cancelAction.image = WALIcon.icnTrash.image
+            } else {
+                cancelAction.image = nil
+            }
+        }
+        
         let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             print("삭제")
             success(true)
@@ -192,51 +179,51 @@ extension HistoryViewController: UITableViewDelegate {
                 deleteAction.image = nil
             }
         }
-
+        
         if indexPath.section == 0 {
-            return UISwipeActionsConfiguration(actions:[cancelAction])
+            return UISwipeActionsConfiguration(actions: [cancelAction])
         } else {
-            return UISwipeActionsConfiguration(actions:[deleteAction, resendAction])
+            return UISwipeActionsConfiguration(actions: [deleteAction, resendAction])
         }
     }
 }
 
 extension HistoryViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 2
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return HistoryDataModel.reserveData.count
+        case 1:
+            return HistoryDataModel.completeData.count
+        default:
+            return 0
         }
-
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            switch section {
-            case 0:
-                return HistoryDataModel.reserveData.count
-            case 1:
-                return HistoryDataModel.completeData.count
-            default:
-                return 0
-            }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
+            cell.initCell(isTapped: expandCellDatasource)
+            cell.selectionStyle = .none
+            cell.dateLabelColor = .systemMint
+            cell.setData(HistoryDataModel.reserveData[indexPath.row])
+            return cell
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
+            cell.initCell(isTapped: expandCellDatasource)
+            cell.selectionStyle = .none
+            cell.dateLabelColor = .gray
+            cell.setData(HistoryDataModel.completeData[indexPath.row])
+            return cell
+        default:
+            return UITableViewCell()
         }
-
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            switch indexPath.section {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-                cell.initCell(isTapped: expandCellDatasource)
-                cell.selectionStyle = .none
-                cell.dateLabelColor = .systemMint
-                cell.setData(HistoryDataModel.reserveData[indexPath.row])
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-                cell.initCell(isTapped: expandCellDatasource)
-                cell.selectionStyle = .none
-                cell.dateLabelColor = .gray
-                cell.setData(HistoryDataModel.completeData[indexPath.row])
-                return cell
-            default:
-                return UITableViewCell()
-            }
-        }
+    }
 }
 
 // MARK: - Custom Delegate
