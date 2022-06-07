@@ -14,7 +14,6 @@
 		5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */; };
 		5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D4228219C2F0057F9B7 /* LoginViewController.swift */; };
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
-		5B348A28281E4A88006FEFDA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B348A27281E4A88006FEFDA /* WALKit */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
@@ -43,6 +42,7 @@
 		5BB6616828285A5B00D54353 /* TimeButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */; };
 		5BB6616B28285B0200D54353 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616A28285B0200D54353 /* Category.swift */; };
 		5BB6616D28285B1300D54353 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616C28285B1300D54353 /* Time.swift */; };
+		5BCDB2F128473F8100235F2F /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BCDB2F028473F8100235F2F /* WALKit */; };
 		9209959F280D13B8008C3491 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9209959E280D13B8008C3491 /* GoogleService-Info.plist */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
@@ -105,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B348A28281E4A88006FEFDA /* WALKit in Frameworks */,
+				5BCDB2F128473F8100235F2F /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,7 +432,7 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B348A27281E4A88006FEFDA /* WALKit */,
+				5BCDB2F028473F8100235F2F /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -463,7 +463,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B348A26281E4A88006FEFDA /* XCRemoteSwiftPackageReference "WALKit" */,
+				5BCDB2EF28473F8100235F2F /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -732,6 +732,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -764,6 +765,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -802,7 +804,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B348A26281E4A88006FEFDA /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5BCDB2EF28473F8100235F2F /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -813,9 +815,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B348A27281E4A88006FEFDA /* WALKit */ = {
+		5BCDB2F028473F8100235F2F /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B348A26281E4A88006FEFDA /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5BCDB2EF28473F8100235F2F /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -190,7 +190,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
                 withReuseIdentifier: "AlarmCollectionViewCell",
                 for: indexPath) as? AlarmCollectionViewCell
             else { return UICollectionViewCell() }
-            guard let timeCell = cell.collectionView.dequeueReusableCell(withReuseIdentifier: "TimeButtonCollectionViewCell", for: indexPath) as? TimeButtonCollectionViewCell else { return UICollectionViewCell() }
+//            guard let timeCell = cell.collectionView.dequeueReusableCell(withReuseIdentifier: "TimeButtonCollectionViewCell", for: indexPath) as? TimeButtonCollectionViewCell else { return UICollectionViewCell() }
             
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
             return cell
@@ -220,3 +220,9 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets.zero
     }
 }
+
+//extension OnboardingViewController: TimeButtonCellSelected {
+//    func collectionView(collectionviewcell: TimeButtonCollectionViewCell?, index: Int, didTappedInCollectionViewCell: AlarmCollectionViewCell) {
+//        print("버튼 선택")
+//    }
+//}

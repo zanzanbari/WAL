@@ -10,9 +10,15 @@ import UIKit
 import Then
 import WALKit
 
+//protocol TimeButtonCellSelected: AnyObject {
+//    func collectionView(collectionviewcell: TimeButtonCollectionViewCell?, index: Int, didTappedInCollectionViewCell: AlarmCollectionViewCell)
+//}
+
 class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDelegate {
     
     // MARK: - Properties
+    
+//    weak var timeButtonSelectedDelegate: TimeButtonCellSelected?
  
     private let timeData = TimeData()
         
@@ -127,6 +133,11 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
 extension AlarmCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("------선택됐니?:", indexPath.item)
+//        let cell = collectionView.cellForItem(at: indexPath) as? TimeButtonCollectionViewCell
+//        self.timeButtonSelectedDelegate?.collectionView(
+//            collectionviewcell: cell,
+//            index: indexPath.item,
+//            didTappedInCollectionViewCell: self)
     }
 }
 
