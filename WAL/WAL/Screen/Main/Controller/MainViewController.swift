@@ -7,13 +7,33 @@
 
 import UIKit
 
+import Then
+
+import WALKit
+
 final class MainViewController: UIViewController {
 
+    // MARK: - Properties
+    
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        configUI()
+        setupLayout()
     }
-
-
+    
+    // MARK: - Init UI
+    
+    private func configUI() {
+        view.backgroundColor = .white
+    }
+    
+    private func setupLayout() {
+        
+    }
+    
+    // MARK: - Custom Method
 }
 
