@@ -17,12 +17,12 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Property
     
-//    public override var isSelected: Bool {
-//        didSet {
-//            configUI()
-//            print("----------- 날짜 버튼 선택됐나?", isSelected)
-//        }
-//    }
+    public override var isSelected: Bool {
+        didSet {
+            configUI()
+            print("----------- 날짜 버튼 선택됐나?", isSelected)
+        }
+    }
     
     // ✅ 셀의 인덱스를 알기 위함
     var index: Int?

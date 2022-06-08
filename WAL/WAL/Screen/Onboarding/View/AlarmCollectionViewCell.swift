@@ -131,19 +131,16 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
 }
 
 extension AlarmCollectionViewCell: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("------선택됐니?:", indexPath.item)
-//        let cell = collectionView.cellForItem(at: indexPath) as? TimeButtonCollectionViewCell
-//        self.timeButtonSelectedDelegate?.collectionView(
-//            collectionviewcell: cell,
-//            index: indexPath.item,
-//            didTappedInCollectionViewCell: self)
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        print(indexPath.item)
+        return true
     }
 }
 
 // MARK: - UICollectionViewDataSource
 
 extension AlarmCollectionViewCell: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return timeData.getTimeCount()
     }
