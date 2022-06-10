@@ -18,8 +18,8 @@
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
 		5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893C27F6B9540010EAA1 /* LaunchScreen.storyboard */; };
-		5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* TempModel.swift */; };
-		5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* TempView.swift */; };
+		5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* MainDataModel.swift */; };
+		5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
 		5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896027F6C2680010EAA1 /* UIView+.swift */; };
 		5BA3896527F6C2830010EAA1 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896427F6C2830010EAA1 /* Login.swift */; };
@@ -63,8 +63,8 @@
 		5BA3893827F6B94F0010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5BA3893D27F6B9540010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BA3893F27F6B9540010EAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5BA3895727F6C2260010EAA1 /* TempModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempModel.swift; sourceTree = "<group>"; };
-		5BA3895927F6C22F0010EAA1 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
+		5BA3895727F6C2260010EAA1 /* MainDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataModel.swift; sourceTree = "<group>"; };
+		5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainItemCell.swift; sourceTree = "<group>"; };
 		5BA3895B27F6C23B0010EAA1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5BA3896027F6C2680010EAA1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		5BA3896427F6C2830010EAA1 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -347,7 +347,7 @@
 		5BA3895527F6C1FC0010EAA1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3895727F6C2260010EAA1 /* TempModel.swift */,
+				5BA3895727F6C2260010EAA1 /* MainDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -355,7 +355,7 @@
 		5BA3895627F6C2010010EAA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3895927F6C22F0010EAA1 /* TempView.swift */,
+				5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -477,7 +477,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				9219E4D3282413A700BA247B /* XCRemoteSwiftPackageReference "WALKit.git" */,
+				9219E4D3282413A700BA247B /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -564,11 +564,11 @@
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
-				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
+				5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */,
 				927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
-				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
+				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
@@ -814,7 +814,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9219E4D3282413A700BA247B /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
+		9219E4D3282413A700BA247B /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -827,7 +827,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		9219E4D4282413A700BA247B /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9219E4D3282413A700BA247B /* XCRemoteSwiftPackageReference "WALKit.git" */;
+			package = 9219E4D3282413A700BA247B /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -29,12 +29,12 @@ final class LoginViewController: UIViewController {
         $0.textAlignment = .center
     }
     
-    private let kakaoButton = WALAuthButton().then {
+    private let kakaoButton = WALAuthButton(type: .kakao).then {
         $0.authType = .kakao
         $0.addTarget(self, action: #selector(touchupKakaoButton), for: .touchUpInside)
     }
     
-    private let appleButton = WALAuthButton().then {
+    private let appleButton = WALAuthButton(type: .apple).then {
         $0.authType = .apple
         $0.addTarget(self, action: #selector(touchupAppleButton), for: .touchUpInside)
     }
