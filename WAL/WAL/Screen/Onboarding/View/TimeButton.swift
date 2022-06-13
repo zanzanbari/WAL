@@ -12,14 +12,14 @@ import WALKit
 class TimeButton: UIButton {
     
     // MARK: - Property
-    
-    private let timeImageView = UIImageView()
-    
-    private let timeLabel = UILabel().then {
+            
+    public let timeLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
         $0.textAlignment = .center
     }
+    
+    public let timeImageView = UIImageView()
     
     // MARK: - Initialize
     

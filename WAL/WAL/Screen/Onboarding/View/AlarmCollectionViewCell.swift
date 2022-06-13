@@ -14,6 +14,8 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
     
+    public var timeButtonArray: [UIButton] = []
+    
     private let timeData = TimeData()
     
     private let titleLabel = UILabel().then {
@@ -104,11 +106,15 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
 
     // MARK: - Custom Method
     
-    
     // MARK: - @objc
     
     @objc func touchupButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        
+        completeButton.isDisabled =
+        moringButtoon.layer.borderColor == UIColor.gray400.cgColor &&
+        lauchButton.layer.borderColor == UIColor.gray400.cgColor &&
+        eveningButton.layer.borderColor == UIColor.gray400.cgColor ? true : false
     }
 }
