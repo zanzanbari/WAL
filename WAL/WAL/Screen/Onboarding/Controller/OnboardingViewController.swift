@@ -65,7 +65,7 @@ final class OnboardingViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(
             OnboardingCollectionViewCell.self,
-            forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
+            forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
     }
 }
 
@@ -78,7 +78,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "OnboardingCollectionViewCell",
+            withReuseIdentifier: OnboardingCollectionViewCell.identifier,
             for: indexPath) as? OnboardingCollectionViewCell
         else { return UICollectionViewCell() }
         return cell
