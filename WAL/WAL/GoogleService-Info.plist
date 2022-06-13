@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>727076840709-pt5truunu8lsvvniif40htia2lub87r3.apps.googleusercontent.com</string>
+	<string>483847959590-hvcihife01t4dmiov1ksd61vage1cnh0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.727076840709-pt5truunu8lsvvniif40htia2lub87r3</string>
+	<string>com.googleusercontent.apps.483847959590-hvcihife01t4dmiov1ksd61vage1cnh0</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBsbrZamVcjmFxWkXOB8xk1SlXHiKhH-pw</string>
+	<string>AIzaSyAzV_fWP3TlYh1iP59KhyWxcm3OqRHINRc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>727076840709</string>
+	<string>483847959590</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ruheekim.WAL</string>
 	<key>PROJECT_ID</key>
-	<string>zanzan-18f89</string>
+	<string>wal-server-8a2fb</string>
 	<key>STORAGE_BUCKET</key>
-	<string>zanzan-18f89.appspot.com</string>
+	<string>wal-server-8a2fb.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:727076840709:ios:a039a742a5a5de21d1836c</string>
+	<string>1:483847959590:ios:b11ce50efac36e53e0e2e7</string>
 </dict>
 </plist>

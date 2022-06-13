@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "walkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zanzanbari/WALKit.git",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "8872e890730fec7ac47c445201dbf47d52a65faa"
+      }
+    }
+  ],
+  "version" : 2
+}

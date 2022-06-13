@@ -13,4 +13,8 @@ struct Constant {
     static let categoryCollectionViewCell = "CategoryCollectionViewCell"
     static let alarmCollectionViewCell = "AlarmCollectionViewCell"
     static let timeButtonCollectionViewCell = "TimeButtonCollectionViewCell"
+    
+    static let myInfoTableViewCell = "MyInfoTableViewCell"
+    static let settingTableViewCell = "SettingTableViewCell"
+    static let settingAlarmCollectionViewCell = "SettingAlarmCollectionViewCell"
 }
