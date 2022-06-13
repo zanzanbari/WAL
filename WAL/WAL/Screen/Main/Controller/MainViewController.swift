@@ -123,6 +123,11 @@ final class MainViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configNavigationUI()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
@@ -154,6 +159,10 @@ final class MainViewController: UIViewController {
     }
     
     // MARK: - Init UI
+    
+    private func configNavigationUI() {
+        navigationController?.navigationBar.isHidden = true
+    }
     
     private func configUI() {
         view.backgroundColor = .white
@@ -243,7 +252,8 @@ final class MainViewController: UIViewController {
     }
     
     @objc func touchUpSettingButton() {
-        
+        let vc = SettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func touchUpShareButton() {
