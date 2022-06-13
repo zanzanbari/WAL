@@ -41,11 +41,9 @@
 		5BB3FB792857254200A8A70D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3FB782857254200A8A70D /* Constant.swift */; };
 		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
 		5BB6616628285A3000D54353 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */; };
-		5BB6616828285A5B00D54353 /* TimeButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */; };
+		5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616728285A5B00D54353 /* TimeButton.swift */; };
 		5BB6616B28285B0200D54353 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616A28285B0200D54353 /* Category.swift */; };
 		5BB6616D28285B1300D54353 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616C28285B1300D54353 /* Time.swift */; };
-		5BB661632828411000D54353 /* Pods-WAL.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */; };
-		5BB661642828411200D54353 /* Pods-WAL.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */; };
 		5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17415282CDCDE00C77A95 /* AlarmView.swift */; };
 		5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17418282CDD0A00C77A95 /* Setting.swift */; };
 		5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1741B282CDD3400C77A95 /* SettingViewController.swift */; };
@@ -102,7 +100,7 @@
 		5BB3FB782857254200A8A70D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		5BB661612828340100D54353 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
-		5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		5BB6616728285A5B00D54353 /* TimeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButton.swift; sourceTree = "<group>"; };
 		5BB6616A28285B0200D54353 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5BB6616C28285B1300D54353 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		5BD17415282CDCDE00C77A95 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
@@ -200,7 +198,7 @@
 				5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */,
 				5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */,
 				5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */,
-				5BB6616728285A5B00D54353 /* TimeButtonCollectionViewCell.swift */,
+				5BB6616728285A5B00D54353 /* TimeButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -665,13 +663,12 @@
 				5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
-				5BE058CD2847141A005B5EE1 /* Time.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
-				5BB6616828285A5B00D54353 /* TimeButtonCollectionViewCell.swift in Sources */,
+				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
 				5BB3FB792857254200A8A70D /* Constant.swift in Sources */,
