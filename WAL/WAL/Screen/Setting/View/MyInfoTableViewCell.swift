@@ -11,6 +11,8 @@ import WALKit
 
 class MyInfoTableViewCell: UITableViewCell {
     
+    static let identifier = Constant.myInfoTableViewCell
+    
     // MARK: - Properties
     
     private lazy var backView = UIView().then {

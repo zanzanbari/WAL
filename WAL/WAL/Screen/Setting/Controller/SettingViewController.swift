@@ -70,8 +70,8 @@ final class SettingViewController: UIViewController {
     }
     
     private func setupTableView() {
-        tableView.register(MyInfoTableViewCell.self, forCellReuseIdentifier: "MyInfoTableViewCell")
-        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: "SettingTableViewCell")
+        tableView.register(MyInfoTableViewCell.self, forCellReuseIdentifier: MyInfoTableViewCell.identifier)
+        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
     }
     
     // MARK: - Custom Method

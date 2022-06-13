@@ -11,6 +11,8 @@ import Then
 import WALKit
 
 class OnboardingCollectionViewCell: UICollectionViewCell {
+    
+    static let identifier = Constant.onboardingCollectionViewCell
         
     // MARK: - Properties
     

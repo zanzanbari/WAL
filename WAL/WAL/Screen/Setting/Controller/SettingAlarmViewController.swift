@@ -99,7 +99,7 @@ final class SettingAlarmViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(SettingAlarmCollectionViewCell.self,
-            forCellWithReuseIdentifier: "SettingAlarmCollectionViewCell")
+                                forCellWithReuseIdentifier: SettingAlarmCollectionViewCell.identifier)
     }
         
     // MARK: - @objc
@@ -117,7 +117,7 @@ extension SettingAlarmViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SettingAlarmCollectionViewCell",
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingAlarmCollectionViewCell.identifier,
             for: indexPath) as? SettingAlarmCollectionViewCell
         else { return UICollectionViewCell() }
         cell.setupData(index: indexPath.item)
