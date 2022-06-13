@@ -69,6 +69,13 @@ final class MainViewController: UIViewController {
     
     private var dataCount: Int = 0
     
+    private let date = Date()
+    private let dateFormatter = DateFormatter().then {
+        $0.locale = Locale(identifier: "ko_kr")
+        $0.timeZone = TimeZone(abbreviation: "ko_kr")
+        $0.dateFormat = "HH:mm"
+    }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -76,6 +83,7 @@ final class MainViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
+        checkTime()
         DispatchQueue.main.async {
             self.dataCount = MainDataModel.mainData.count
             self.walCollectionView.reloadData()
@@ -154,7 +162,7 @@ final class MainViewController: UIViewController {
         }
         
         walCollectionView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(41)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(73)
         }
@@ -167,6 +175,10 @@ final class MainViewController: UIViewController {
         walCollectionView.dataSource = self
         
         walCollectionView.register(MainItemCell.self, forCellWithReuseIdentifier: MainItemCell.cellIdentifier)
+    }
+    
+    private func checkTime() {
+        print(dateFormatter.string(from: date))
     }
     
     // MARK: - @objc
