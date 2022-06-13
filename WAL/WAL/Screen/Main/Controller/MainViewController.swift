@@ -75,6 +75,16 @@ final class MainViewController: UIViewController {
         }
     }()
     
+    private lazy var shareButton = UIButton().then {
+        $0.setTitle("공유", for: .normal)
+        $0.setTitleColor(.white100, for: .normal)
+        $0.backgroundColor = .mint100
+        $0.titleLabel?.font = WALFont.body4.font
+        $0.isHidden = true
+        $0.layer.cornerRadius = 20
+        $0.addTarget(self, action: #selector(touchUpShareButton), for: .touchUpInside)
+    }
+    
     private var dataCount: Int = 0
     
     private let date = Date()
@@ -155,7 +165,8 @@ final class MainViewController: UIViewController {
                           subTitleLabel,
                           walImageView,
                           contentLabel,
-                          walCollectionView])
+                          walCollectionView,
+                          shareButton])
         
         navigationBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -200,6 +211,12 @@ final class MainViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(73)
         }
+        
+        shareButton.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom).offset(436)
+            $0.leading.trailing.equalToSuperview().inset(139)
+            $0.height.equalTo(40)
+        }
     }
     
     // MARK: - Custom Method
@@ -227,6 +244,28 @@ final class MainViewController: UIViewController {
     
     @objc func touchUpSettingButton() {
         
+    }
+    
+    @objc func touchUpShareButton() {
+        if let storiesUrl = URL(string: "instagram-stories://share") {
+            if UIApplication.shared.canOpenURL(storiesUrl) {
+                guard let image = walImageView.image else { return }
+                
+                guard let imageData = image.pngData() else { return }
+                let pasteboardItems: [String: Any] = [
+                    "com.instagram.sharedSticker.stickerImage": imageData,
+                    "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
+                    "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
+                ]
+                let pasteboardOptions = [
+                    UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
+                ]
+                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+                UIApplication.shared.open(storiesUrl, options: [:], completionHandler: nil)
+            } else {
+                print("User doesn't have instagram on their device.")
+            }
+        }
     }
 }
 
@@ -270,6 +309,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             
             collectionView.deselectItem(at: indexPath, animated: false)
             
+            shareButton.isHidden = true
+            
             return false
         } else {
             titleLabel.isHidden = true
@@ -300,6 +341,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             } else {
                 walImageView.image = WALIcon.imgWallbbongFun.image
             }
+            
+            shareButton.isHidden = false
             
             return true
         }
