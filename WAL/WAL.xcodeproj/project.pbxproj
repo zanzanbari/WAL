@@ -36,6 +36,7 @@
 		5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897127F6C45D0010EAA1 /* UIStackView+.swift */; };
 		5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897327F6C6290010EAA1 /* UIScreen+.swift */; };
 		5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */; };
+		5BB3FB772857241C00A8A70D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3FB762857241C00A8A70D /* Constant.swift */; };
 		5BB661602828339900D54353 /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BB6615F2828339900D54353 /* KeyInfo.plist */; };
 		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
 		5BB6616628285A3000D54353 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */; };
@@ -83,6 +84,7 @@
 		5BA3897127F6C45D0010EAA1 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		5BA3897327F6C6290010EAA1 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		5BB3FB762857241C00A8A70D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		5BB6615F2828339900D54353 /* KeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
 		5BB661612828340100D54353 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			children = (
 				5BA3894927F6C0B10010EAA1 /* Extension */,
 				5BA3894E27F6C1230010EAA1 /* Protocol */,
+				5BB3FB762857241C00A8A70D /* Constant.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButtonCollectionViewCell.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
+				5BB3FB772857241C00A8A70D /* Constant.swift in Sources */,
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,

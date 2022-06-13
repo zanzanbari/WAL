@@ -17,7 +17,7 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Property
     
-    public override var isSelected: Bool {
+    override var isSelected: Bool {
         didSet {
             configUI()
             print("----------- 날짜 버튼 선택됐나?", isSelected)
@@ -25,14 +25,14 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
     }
     
     // ✅ 셀의 인덱스를 알기 위함
-    var index: Int?
-
-    // ✅ isSelected 변수를 오버라이드하지 않고 새롭게 변수를 둠
-    var selectedState: Bool = false {
-        didSet {
-            configUI()
-        }
-    }
+//    var index: Int?
+//
+//    // ✅ isSelected 변수를 오버라이드하지 않고 새롭게 변수를 둠
+//    var selectedState: Bool = false {
+//        didSet {
+//            configUI()
+//        }
+//    }
     
     private let timeData = TimeData()
     
@@ -71,7 +71,7 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
     // MARK: - InitUI
     
     private func configUI() {
-        timeButton.layer.borderColor = selectedState ?
+        timeButton.layer.borderColor = isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
     }
     
@@ -99,12 +99,12 @@ class TimeButtonCollectionViewCell: UICollectionViewCell {
     
     // ✅ 버튼 클릭했을 때 == 셀 클릭했을 때
     @objc func touchupTimeButton() {
-        guard let index = index else { return }
-        selectedState.toggle()
-        print("\(index)번째 셀 \(selectedState)")
-        if selectedState == false {
-            completeButtonDelegate?.touchupCompleteButton(isDisabled: true)
-        } 
+//        guard let index = index else { return }
+//        selectedState.toggle()
+//        print("\(index)번째 셀 \(selectedState)")
+//        if selectedState == false {
+//            completeButtonDelegate?.touchupCompleteButton(isDisabled: true)
+//        } 
     }
     
     // MARK: - setupData

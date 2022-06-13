@@ -69,7 +69,6 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
         }
         
         print("---------selectedIndex: ", selectedIndex)
-        
 
     }
     
@@ -132,7 +131,9 @@ class AlarmCollectionViewCell: BaseCollectionViewCell, ChangeCompleteButtonDeleg
 
 extension AlarmCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        print(indexPath.item)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TimeButtonCollectionViewCell",
+                                                            for: indexPath) as? TimeButtonCollectionViewCell else { return false }
+        print("여기야 여기: ", cell.isSelected)
         return true
     }
 }
@@ -152,7 +153,7 @@ extension AlarmCollectionViewCell: UICollectionViewDataSource {
         cell.setupData(index: indexPath.item)
         cell.completeButtonDelegate = self
         // ✅ 인덱스를 cell의 indexPath로 지정
-        cell.index = indexPath.row
+//        cell.index = indexPath.row
         
         // ✅ 선택된 셀들이 어떤 건지 알기 위함
         /*

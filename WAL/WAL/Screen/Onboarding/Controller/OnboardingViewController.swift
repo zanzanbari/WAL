@@ -92,12 +92,15 @@ final class OnboardingViewController: UIViewController {
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(OnboardingCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
-        collectionView.register(CategoryCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "CategoryCollectionViewCell")
-        collectionView.register(AlarmCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "AlarmCollectionViewCell")
+        collectionView.register(
+            OnboardingCollectionViewCell.self,
+            forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
+        collectionView.register(
+            CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: "CategoryCollectionViewCell")
+        collectionView.register(
+            AlarmCollectionViewCell.self,
+            forCellWithReuseIdentifier: "AlarmCollectionViewCell")
     }
     
     // MARK: - @objc
@@ -122,6 +125,11 @@ final class OnboardingViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 
 extension OnboardingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        print(indexPath.item)
+        return true
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         currentRow = indexPath.row
         if currentRow == 0 {
@@ -154,7 +162,6 @@ extension OnboardingViewController: UICollectionViewDataSource {
             else { return UICollectionViewCell() }
             cell.nextButton.addTarget(self, action: #selector(scrollToSecond), for: .touchUpInside)
             return cell
-            
         case 1:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "CategoryCollectionViewCell",
@@ -163,7 +170,6 @@ extension OnboardingViewController: UICollectionViewDataSource {
             cell.nextButton.addTarget(self, action: #selector(scrollToThird), for: .touchUpInside)
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
             return cell
-            
         case 2:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "AlarmCollectionViewCell",
@@ -171,7 +177,6 @@ extension OnboardingViewController: UICollectionViewDataSource {
             else { return UICollectionViewCell() }
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
             return cell
-            
         default:
             return UICollectionViewCell()
         }
