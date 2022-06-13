@@ -34,7 +34,8 @@
 		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
 		5BB661632828411000D54353 /* Pods-WAL.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */; };
 		5BB661642828411200D54353 /* Pods-WAL.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */; };
-		5BE2E5F828572AF60053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5F728572AF60053AF4C /* GoogleService-Info.plist */; };
+		5BE2E5FA28572B750053AF4C /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5F928572B750053AF4C /* KeyInfo.plist */; };
+		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		9219E4D5282413A700BA247B /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9219E4D4282413A700BA247B /* WALKit */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
@@ -76,7 +77,8 @@
 		5BA3897327F6C6290010EAA1 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		5BB661612828340100D54353 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
-		5BE2E5F728572AF60053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		5BE2E5F928572B750053AF4C /* KeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
+		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
@@ -192,7 +194,7 @@
 		5BA3893027F6B94F0010EAA1 /* WAL */ = {
 			isa = PBXGroup;
 			children = (
-				5BE2E5F728572AF60053AF4C /* GoogleService-Info.plist */,
+				5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */,
 				92322AAD28049C2C002E281F /* WAL.entitlements */,
 				5BA3894527F6C01D0010EAA1 /* Network */,
 				5BA3894627F6C03A0010EAA1 /* Global */,
@@ -319,6 +321,7 @@
 				5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */,
 				5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */,
 				5BA3893F27F6B9540010EAA1 /* Info.plist */,
+				5BE2E5F928572B750053AF4C /* KeyInfo.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -495,10 +498,11 @@
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
 				5BB661632828411000D54353 /* Pods-WAL.debug.xcconfig in Resources */,
 				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
+				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
+				5BE2E5FA28572B750053AF4C /* KeyInfo.plist in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
-				5BE2E5F828572AF60053AF4C /* GoogleService-Info.plist in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
