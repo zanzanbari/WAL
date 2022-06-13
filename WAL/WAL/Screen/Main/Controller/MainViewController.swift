@@ -12,6 +12,12 @@ import Then
 import WALKit
 
 final class MainViewController: UIViewController {
+    
+    fileprivate enum WALStatus {
+        case sleeping
+        case checkedAll
+        case arrived
+    }
 
     // MARK: - Properties
     
@@ -45,14 +51,16 @@ final class MainViewController: UIViewController {
     }
     
     private var walImageView = UIImageView().then {
-        $0.backgroundColor = .orange200
+        $0.image = WALIcon.imgWalBBongWaiting.image
+        $0.contentMode = .scaleToFill
     }
     
     private var contentLabel = UILabel().then {
-        $0.textColor = .black
+        $0.textColor = .gray100
         $0.numberOfLines = 0
+        $0.isHidden = false
+        $0.addLetterSpacing()
         $0.textAlignment = .center
-        $0.isHidden = true
     }
     
     private var walCollectionView : UICollectionView = {
@@ -74,6 +82,33 @@ final class MainViewController: UIViewController {
         $0.locale = Locale(identifier: "ko_kr")
         $0.timeZone = TimeZone(abbreviation: "ko_kr")
         $0.dateFormat = "HH:mm"
+    }
+    
+    private var walArrivedImageList: [UIImage] = [WALIcon.imgWalBBongArrive1.image,
+                                                  WALIcon.imgWalBBongArrive2.image,
+                                                  WALIcon.imgWalBBongArrive3.image]
+    
+    private var walStatus: WALStatus = .arrived {
+        didSet {
+            switch walStatus {
+            case .sleeping:
+                walImageView.image = WALIcon.imgWalBBongSleeping.image
+                walCollectionView.isHidden = true
+                subTitleLabel.text = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
+            case .checkedAll:
+                walImageView.image = WALIcon.imgWalBBongWaiting.image
+                walCollectionView.isHidden = false
+                subTitleLabel.text = "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
+                contentLabel.text = "새로운 왈소리를 기다려보세요"
+                contentLabel.addLetterSpacing()
+            case .arrived:
+                walImageView.image = walArrivedImageList.randomElement()
+                walCollectionView.isHidden = false
+                subTitleLabel.text = "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
+                contentLabel.text = "왈소리가 도착했어요\n발바닥을 탭하여 확인해주세요"
+                contentLabel.addLetterSpacing()
+            }
+        }
     }
     
     // MARK: - Life Cycle
@@ -152,13 +187,12 @@ final class MainViewController: UIViewController {
         walImageView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom).offset(124)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
-            $0.height.equalTo(300)
+            $0.width.height.equalTo(300)
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(walImageView.snp.bottom).offset(36)
-            $0.leading.trailing.equalToSuperview().inset(30)
+            $0.top.equalTo(walImageView.snp.bottom)
+            $0.leading.trailing.equalToSuperview().inset(100)
         }
         
         walCollectionView.snp.makeConstraints {
@@ -178,7 +212,11 @@ final class MainViewController: UIViewController {
     }
     
     private func checkTime() {
-        print(dateFormatter.string(from: date))
+        if dateFormatter.string(from: date) == "00:00" {
+            walStatus = .sleeping
+        } else {
+            walStatus = .arrived
+        }
     }
     
     // MARK: - @objc
@@ -213,13 +251,55 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         }
         
         if cell.isSelected {
+            titleLabel.isHidden = false
+            subTitleLabel.isHidden = false
+            
+            walImageView.snp.updateConstraints {
+                $0.top.equalTo(navigationBar.snp.bottom).offset(124)
+                $0.centerX.equalToSuperview()
+                $0.width.height.equalTo(300)
+            }
+            
+            walImageView.image = walArrivedImageList.randomElement()
+            
+            contentLabel.snp.updateConstraints {
+                $0.top.equalTo(walImageView.snp.bottom).offset(46)
+                $0.leading.trailing.equalToSuperview().inset(100)
+            }
             contentLabel.isHidden = true
+            
             collectionView.deselectItem(at: indexPath, animated: false)
+            
             return false
         } else {
+            titleLabel.isHidden = true
+            subTitleLabel.isHidden = true
+            
+            walImageView.snp.updateConstraints {
+                $0.top.equalTo(navigationBar.snp.bottom).offset(139)
+                $0.centerX.equalToSuperview()
+                $0.width.height.equalTo(88)
+            }
+            
+            contentLabel.snp.updateConstraints {
+                $0.top.equalTo(walImageView.snp.bottom).offset(46)
+                $0.leading.trailing.equalToSuperview().inset(31)
+            }
             contentLabel.isHidden = false
             contentLabel.text = MainDataModel.mainData[indexPath.item].content
             
+            let walType = MainDataModel.mainData[indexPath.item].walType
+            if walType == "드립" {
+                walImageView.image = WALIcon.imgWallbbongFun.image
+            } else if walType == "꾸중" {
+                walImageView.image = WALIcon.imgWallbbongAngry.image
+            } else if walType == "주접" {
+                walImageView.image = WALIcon.imgWallbbongLove.image
+            } else if walType == "위로" {
+                walImageView.image = WALIcon.imgWallbbongCheer.image
+            } else {
+                walImageView.image = WALIcon.imgWallbbongFun.image
+            }
             
             return true
         }

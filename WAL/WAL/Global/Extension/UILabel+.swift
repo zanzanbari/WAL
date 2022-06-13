@@ -8,7 +8,7 @@
 import UIKit
 
 extension UILabel {
-    func addLetterSpacing(kernValue: Double = -0.4, paragraphValue: CGFloat = 4.0) {
+    func addLetterSpacing(kernValue: Double = -0.3, paragraphValue: CGFloat = 4.0) {
         if let labelText = text, labelText.count > 0 {
             let attributedString = NSMutableAttributedString(string: labelText)
             let paragraphStyle = NSMutableParagraphStyle()
@@ -17,6 +17,7 @@ extension UILabel {
             attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
             attributedText = attributedString
             lineBreakStrategy = .hangulWordPriority
+            textAlignment = .center
         }
     }
     
