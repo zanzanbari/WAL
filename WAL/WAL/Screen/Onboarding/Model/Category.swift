@@ -25,10 +25,18 @@ struct Category {
 
 struct CardData {
     let cardData = [
-        Category("드립", WALIcon.imgWallbbongFun.image, "드립어쩌구저쩌구", WALIcon.imgDripInActive.image),
-        Category("주접", WALIcon.imgWallbbongLove.image, "주접어쩌구저쩌구", WALIcon.imgJujeopInActive.image),
-        Category("위로", WALIcon.imgWallbbongCheer.image, "위로어쩌구저쩌구", WALIcon.imgWeroInActive.image),
-        Category("꾸중", WALIcon.imgWallbbongAngry.image, "꾸중어쩌구저쩌구", WALIcon.imgGgujungInActive.image)
+        Category("드립", WALIcon.imgWallbbongFun.image,
+                 "바나나가 웃으면? 바나나킥\n사과가 웃으면? 풋사과",
+                 WALIcon.imgDripInActive.image),
+        Category("주접", WALIcon.imgWallbbongLove.image,
+                 "너 진짜 답없다.\n문제가 없으니까 뽀뽀쪽",
+                 WALIcon.imgJujeopInActive.image),
+        Category("위로", WALIcon.imgWallbbongCheer.image,
+                 "지금도 잘하고 있으니까\n너무 조급해하지말자",
+                 WALIcon.imgWeroInActive.image),
+        Category("꾸중", WALIcon.imgWallbbongAngry.image,
+                 "일어나자 일어나야지\n오늘도 누워있으면 어떡해",
+                 WALIcon.imgGgujungInActive.image)
     ]
     
     func getCardCount() -> Int {
