@@ -11,6 +11,8 @@ import Then
 
 import WALKit
 
+import Lottie
+
 final class MainViewController: UIViewController {
     
     fileprivate enum WALStatus {
@@ -55,11 +57,15 @@ final class MainViewController: UIViewController {
         $0.contentMode = .scaleToFill
     }
     
+    private var walLottieView: AnimationView = .init(name: "paw").then {
+        $0.isHidden = true
+    }
+    
     private var contentLabel = UILabel().then {
+        $0.font = WALFont.body3.font
         $0.textColor = .gray100
         $0.numberOfLines = 0
         $0.isHidden = false
-        $0.addLetterSpacing()
         $0.textAlignment = .center
     }
     
@@ -212,7 +218,8 @@ final class MainViewController: UIViewController {
         
         contentLabel.snp.makeConstraints {
             $0.top.equalTo(walImageView.snp.bottom)
-            $0.leading.trailing.equalToSuperview().inset(100)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(313)
         }
         
         walCollectionView.snp.makeConstraints {
@@ -312,10 +319,12 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             walImageView.image = walArrivedImageList.randomElement()
             
             contentLabel.snp.updateConstraints {
-                $0.top.equalTo(walImageView.snp.bottom).offset(46)
-                $0.leading.trailing.equalToSuperview().inset(100)
+                $0.top.equalTo(walImageView.snp.bottom)
+                $0.centerX.equalToSuperview()
+                $0.width.equalTo(313)
             }
             contentLabel.isHidden = true
+            contentLabel.addLetterSpacing()
             
             collectionView.deselectItem(at: indexPath, animated: false)
             
@@ -334,10 +343,12 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             
             contentLabel.snp.updateConstraints {
                 $0.top.equalTo(walImageView.snp.bottom).offset(46)
-                $0.leading.trailing.equalToSuperview().inset(31)
+                $0.centerX.equalToSuperview()
+                $0.width.equalTo(313)
             }
             contentLabel.isHidden = false
             contentLabel.text = MainDataModel.mainData[indexPath.item].content
+            contentLabel.addLetterSpacing()
             
             let walType = MainDataModel.mainData[indexPath.item].walType
             if walType == "드립" {

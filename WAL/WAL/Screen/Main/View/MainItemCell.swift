@@ -9,6 +9,8 @@ import UIKit
 
 import WALKit
 
+import Lottie
+
 // MARK: - ItemCell
 
 protocol MainItemCellDelegate: AnyObject {
@@ -21,6 +23,11 @@ final class MainItemCell: UICollectionViewCell {
     private var imageView = UIImageView().then {
         $0.image = WALIcon.imgPawInAtive.image
         $0.contentMode = .scaleAspectFit
+        $0.isHidden = false
+    }
+    
+    private let animationView: AnimationView = .init(name: "paw").then {
+        $0.isHidden = true
     }
     
     private var content: String = ""
@@ -62,10 +69,17 @@ final class MainItemCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.gray400.cgColor
         contentView.layer.cornerRadius = 10
+        
+        animationView.frame = contentView.bounds
+        animationView.center = contentView.center
+        animationView.contentMode = .scaleAspectFill
+        animationView.play()
+        animationView.loopMode = .loop
     }
     
     private func setupLayout() {
         addSubview(imageView)
+        addSubview(animationView)
         
         imageView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(16)
@@ -76,6 +90,9 @@ final class MainItemCell: UICollectionViewCell {
     internal func setupData(_ data: MainDataModel) {
         if data.type == "스페셜" {
             type = .speacial
+            
+//            imageView.isHidden = true
+//            animationView.isHidden = false
         } else {
             type = .morning
         }

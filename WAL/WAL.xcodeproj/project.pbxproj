@@ -51,6 +51,7 @@
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
 		927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F328211017001AEB78 /* HistoryDataModel.swift */; };
 		927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */; };
+		92DA3C5E28574879001D6CF9 /* paw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92DA3C5D28574879001D6CF9 /* paw.json */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
 		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
@@ -98,12 +99,12 @@
 		5BE058CC2847141A005B5EE1 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
-		92549A1F28492AA2006954CA /* KeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
 		927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCompleteHeaderView.swift; sourceTree = "<group>"; };
 		927D10F328211017001AEB78 /* HistoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataModel.swift; sourceTree = "<group>"; };
 		927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		92DA3C5D28574879001D6CF9 /* paw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = paw.json; path = ../../../../../../Downloads/paw.json; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -324,6 +325,7 @@
 		5BA3894F27F6C14B0010EAA1 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				92DA3C5D28574879001D6CF9 /* paw.json */,
 			);
 			name = Lottie;
 			sourceTree = "<group>";
@@ -561,9 +563,8 @@
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */,
+				92DA3C5E28574879001D6CF9 /* paw.json in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
-				92549A2028492AA2006954CA /* KeyInfo.plist in Resources */,
-				92F4CA5128572B8200D1203A /* GoogleService-Info.plist in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
 			);
