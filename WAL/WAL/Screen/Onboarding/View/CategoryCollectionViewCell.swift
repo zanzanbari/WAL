@@ -14,9 +14,6 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
         
-    private let cellWidth: CGFloat = 253
-    private let cellHeight: CGFloat = 322
-    private let cellSpacing: CGFloat = 18
     private var barWidth: CGFloat = 0
     
     private let titleLabel = UILabel().then {
@@ -32,9 +29,12 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    public let scrollView = UIScrollView().then {
+    public lazy var scrollView = UIScrollView().then {
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
+        $0.delegate = self
+        $0.isPagingEnabled = false
+        $0.decelerationRate = .fast
     }
     
     private lazy var cardButtonStackView = UIStackView().then {
@@ -71,7 +71,6 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         super.init(frame: frame)
         configUI()
         setupLayout()
-        print(barWidth)
     }
     
     required init?(coder: NSCoder) {
@@ -83,6 +82,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     private func configUI() {
         contentView.backgroundColor = .white100
         barWidth = (contentView.frame.width-61*2)/4
+        print(barWidth)
         [funButton, loveButtoon, cheerButton, angryButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
@@ -170,5 +170,29 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
 // MARK: - UIScrollDelegate
 
 extension CategoryCollectionViewCell: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetX = scrollView.contentOffset.x
+        let cellIndex = round(contentOffsetX/(slideBackView.frame.width)*100)/100
+                
+        if round(cellIndex*100)/100 <= 3.0 {
+            slideBar.snp.updateConstraints { make in
+                make.leading.equalToSuperview().inset(round(cellIndex*barWidth*10)/10)
+            }
+        }
+    }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let cardWidthSpacing = contentView.frame.width-61*2 + 18
+        let estimatedIndex = scrollView.contentOffset.x / cardWidthSpacing
+        let index: Int
+        
+        if velocity.x > 0 {
+            index = Int(ceil(estimatedIndex))
+        } else if velocity.x < 0 {
+            index = Int(floor(estimatedIndex))
+        } else {
+            index = Int(round(estimatedIndex))
+        }
+        targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cardWidthSpacing, y: 0)
+    }
 }
