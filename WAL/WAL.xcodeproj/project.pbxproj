@@ -18,6 +18,7 @@
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
+		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
@@ -40,7 +41,6 @@
 		5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */; };
 		5BB3FB792857254200A8A70D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3FB782857254200A8A70D /* Constant.swift */; };
 		5BB661622828340100D54353 /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB661612828340100D54353 /* Bundle+.swift */; };
-		5BB6616628285A3000D54353 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */; };
 		5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616728285A5B00D54353 /* TimeButton.swift */; };
 		5BB6616B28285B0200D54353 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616A28285B0200D54353 /* Category.swift */; };
 		5BB6616D28285B1300D54353 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616C28285B1300D54353 /* Time.swift */; };
@@ -75,6 +75,7 @@
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A2C281E4EB4006FEFDA /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
+		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		5BA3892E27F6B94F0010EAA1 /* WAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +100,6 @@
 		5BA3897527F6C6BD0010EAA1 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		5BB3FB782857254200A8A70D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		5BB661612828340100D54353 /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
-		5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BB6616728285A5B00D54353 /* TimeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButton.swift; sourceTree = "<group>"; };
 		5BB6616A28285B0200D54353 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5BB6616C28285B1300D54353 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
@@ -193,12 +193,11 @@
 		5B348A2B281E4E54006FEFDA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5BCF3AE82859096C00E8CF90 /* Component */,
 				5B020D3A281F22790057F9B7 /* BaseCollectionViewCell.swift */,
 				5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */,
 				5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */,
-				5BB6616528285A3000D54353 /* CardCollectionViewCell.swift */,
 				5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */,
-				5BB6616728285A5B00D54353 /* TimeButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -429,6 +428,15 @@
 				5BB6616C28285B1300D54353 /* Time.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5BCF3AE82859096C00E8CF90 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				5B4A844A2857D3780032287D /* CardButton.swift */,
+				5BB6616728285A5B00D54353 /* TimeButton.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		5BD17413282CDCC000C77A95 /* Setting */ = {
@@ -662,6 +670,7 @@
 				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
 				5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
+				5B4A844B2857D3780032287D /* CardButton.swift in Sources */,
 				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
 				5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */,
@@ -685,7 +694,6 @@
 				927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
 				5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */,
-				5BB6616628285A3000D54353 /* CardCollectionViewCell.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

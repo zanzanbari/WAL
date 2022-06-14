@@ -15,17 +15,16 @@ class CardButton: UIButton {
     
     private let cardData = CardData()
             
-    public let cardImageView = UIImageView()
-
-    public let wallbbongImageView = UIImageView()
+    private let cardImageView = UIImageView()
+    private let wallbbongImageView = UIImageView()
         
-    public let categoryLabel = UILabel().then {
+    private let categoryLabel = UILabel().then {
         $0.font = WALFont.body2.font
         $0.textColor = .black100
         $0.textAlignment = .center
     }
     
-    public let categorySubLabel = UILabel().then {
+    private let categorySubLabel = UILabel().then {
         $0.font = WALFont.body7.font
         $0.textColor = .black100
         $0.textAlignment = .center

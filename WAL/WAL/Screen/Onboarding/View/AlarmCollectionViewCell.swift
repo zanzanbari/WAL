@@ -13,9 +13,7 @@ import WALKit
 class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
-    
-    public var timeButtonArray: [UIButton] = []
-    
+        
     private let timeData = TimeData()
     
     private let titleLabel = UILabel().then {
@@ -31,7 +29,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    public let completeButton = WALPlainButton().then {
+    private let completeButton = WALPlainButton().then {
         $0.title = "완료"
         $0.isDisabled = true
     }
