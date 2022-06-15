@@ -91,6 +91,7 @@ final class MainItemCell: UICollectionViewCell {
         if data.type == "스페셜" {
             type = .speacial
             
+            // MARK: TODO REMOVE - 로티 확인용
 //            imageView.isHidden = true
 //            animationView.isHidden = false
         } else {

@@ -19,6 +19,41 @@ final class MainViewController: UIViewController {
         case sleeping
         case checkedAll
         case arrived
+        
+        var subTitle: String {
+            switch self {
+            case .sleeping:
+                return "왈뿡이가 자는 시간이에요. 아침에 만나요!"
+            case .checkedAll, .arrived:
+                return "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
+            }
+        }
+        
+        var content: String {
+            switch self {
+            case .sleeping:
+                return ""
+            case .checkedAll:
+                return "새로운 왈소리를 기다려보세요"
+            case .arrived:
+                return "왈소리가 도착했어요\n발바닥을 탭하여 확인해주세요"
+            }
+        }
+        
+        var walImage: UIImage {
+            switch self {
+            case .sleeping:
+                return WALIcon.imgWalBBongSleeping.image
+            case .checkedAll:
+                return WALIcon.imgWalBBongWaiting.image
+            case .arrived:
+                let walArrivedImageList: [UIImage] = [WALIcon.imgWalBBongArrive1.image,
+                                                      WALIcon.imgWalBBongArrive2.image,
+                                                      WALIcon.imgWalBBongArrive3.image]
+                return walArrivedImageList.randomElement() ?? WALIcon.imgWalBBongArrive1.image
+            }
+        }
+        
     }
 
     // MARK: - Properties
@@ -53,7 +88,6 @@ final class MainViewController: UIViewController {
     }
     
     private var walImageView = UIImageView().then {
-        $0.image = WALIcon.imgWalBBongWaiting.image
         $0.contentMode = .scaleToFill
     }
     
@@ -81,16 +115,10 @@ final class MainViewController: UIViewController {
         }
     }()
     
-    private lazy var shareButton = UIButton().then {
-        $0.setTitle("공유", for: .normal)
-        $0.setTitleColor(.white100, for: .normal)
-        $0.backgroundColor = .mint100
-        $0.titleLabel?.font = WALFont.body4.font
+    private var walContentView = MainContentView().then {
         $0.isHidden = true
-        $0.layer.cornerRadius = 20
-        $0.addTarget(self, action: #selector(touchUpShareButton), for: .touchUpInside)
     }
-    
+
     private var dataCount: Int = 0
     
     private let date = Date()
@@ -106,23 +134,19 @@ final class MainViewController: UIViewController {
     
     private var walStatus: WALStatus = .arrived {
         didSet {
+            walImageView.image = walStatus.walImage
+            
+            subTitleLabel.text = walStatus.subTitle
+            subTitleLabel.addLetterSpacing()
+            
+            contentLabel.text = walStatus.content
+            contentLabel.addLetterSpacing()
+            
             switch walStatus {
             case .sleeping:
-                walImageView.image = WALIcon.imgWalBBongSleeping.image
                 walCollectionView.isHidden = true
-                subTitleLabel.text = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
-            case .checkedAll:
-                walImageView.image = WALIcon.imgWalBBongWaiting.image
+            case .checkedAll, .arrived:
                 walCollectionView.isHidden = false
-                subTitleLabel.text = "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
-                contentLabel.text = "새로운 왈소리를 기다려보세요"
-                contentLabel.addLetterSpacing()
-            case .arrived:
-                walImageView.image = walArrivedImageList.randomElement()
-                walCollectionView.isHidden = false
-                subTitleLabel.text = "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
-                contentLabel.text = "왈소리가 도착했어요\n발바닥을 탭하여 확인해주세요"
-                contentLabel.addLetterSpacing()
             }
         }
     }
@@ -146,15 +170,15 @@ final class MainViewController: UIViewController {
             
             if self.dataCount == 1 {
                 self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(139)
+                    $0.leading.trailing.equalToSuperview().inset(149)
                 }
             } else if self.dataCount == 2 {
                 self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(86)
+                    $0.leading.trailing.equalToSuperview().inset(106)
                 }
             } else if self.dataCount == 3 {
                 self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(32)
+                    $0.leading.trailing.equalToSuperview().inset(63)
                 }
             } else if self.dataCount == 4 {
                 self.walCollectionView.snp.updateConstraints {
@@ -171,17 +195,18 @@ final class MainViewController: UIViewController {
     }
     
     private func configUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .white100
     }
     
     private func setupLayout() {
         view.addSubviews([navigationBar,
                           titleLabel,
                           subTitleLabel,
+                          walLottieView,
                           walImageView,
                           contentLabel,
                           walCollectionView,
-                          shareButton])
+                          walContentView])
         
         navigationBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -210,6 +235,12 @@ final class MainViewController: UIViewController {
             $0.leading.equalToSuperview().inset(20)
         }
         
+        walLottieView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom).offset(139)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(88)
+        }
+        
         walImageView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom).offset(124)
             $0.centerX.equalToSuperview()
@@ -228,10 +259,11 @@ final class MainViewController: UIViewController {
             $0.height.equalTo(73)
         }
         
-        shareButton.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(436)
-            $0.leading.trailing.equalToSuperview().inset(139)
-            $0.height.equalTo(40)
+        walContentView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom).offset(93)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(313)
+            $0.height.equalTo(383)
         }
     }
     
@@ -262,28 +294,6 @@ final class MainViewController: UIViewController {
         let vc = SettingViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    @objc func touchUpShareButton() {
-        if let storiesUrl = URL(string: "instagram-stories://share") {
-            if UIApplication.shared.canOpenURL(storiesUrl) {
-                guard let image = walImageView.image else { return }
-                
-                guard let imageData = image.pngData() else { return }
-                let pasteboardItems: [String: Any] = [
-                    "com.instagram.sharedSticker.stickerImage": imageData,
-                    "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
-                    "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
-                ]
-                let pasteboardOptions = [
-                    UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
-                ]
-                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
-                UIApplication.shared.open(storiesUrl, options: [:], completionHandler: nil)
-            } else {
-                print("User doesn't have instagram on their device.")
-            }
-        }
-    }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
@@ -310,60 +320,30 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             titleLabel.isHidden = false
             subTitleLabel.isHidden = false
             
-            walImageView.snp.updateConstraints {
-                $0.top.equalTo(navigationBar.snp.bottom).offset(124)
-                $0.centerX.equalToSuperview()
-                $0.width.height.equalTo(300)
-            }
-            
-            walImageView.image = walArrivedImageList.randomElement()
-            
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(walImageView.snp.bottom)
-                $0.centerX.equalToSuperview()
-                $0.width.equalTo(313)
-            }
-            contentLabel.isHidden = true
-            contentLabel.addLetterSpacing()
+            walContentView.isHidden = true
             
             collectionView.deselectItem(at: indexPath, animated: false)
-            
-            shareButton.isHidden = true
             
             return false
         } else {
             titleLabel.isHidden = true
             subTitleLabel.isHidden = true
             
-            walImageView.snp.updateConstraints {
-                $0.top.equalTo(navigationBar.snp.bottom).offset(139)
-                $0.centerX.equalToSuperview()
-                $0.width.height.equalTo(88)
-            }
-            
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(walImageView.snp.bottom).offset(46)
-                $0.centerX.equalToSuperview()
-                $0.width.equalTo(313)
-            }
-            contentLabel.isHidden = false
-            contentLabel.text = MainDataModel.mainData[indexPath.item].content
-            contentLabel.addLetterSpacing()
+            walContentView.isHidden = false
+            walContentView.content = MainDataModel.mainData[indexPath.item].content
             
             let walType = MainDataModel.mainData[indexPath.item].walType
-            if walType == "드립" {
-                walImageView.image = WALIcon.imgWallbbongFun.image
-            } else if walType == "꾸중" {
-                walImageView.image = WALIcon.imgWallbbongAngry.image
-            } else if walType == "주접" {
-                walImageView.image = WALIcon.imgWallbbongLove.image
-            } else if walType == "위로" {
-                walImageView.image = WALIcon.imgWallbbongCheer.image
+            if walType == 0 {
+                walContentView.walContentType = .fun
+            } else if walType == 1 {
+                walContentView.walContentType = .angry
+            } else if walType == 2 {
+                walContentView.walContentType = .love
+            } else if walType == 3 {
+                walContentView.walContentType = .cheer
             } else {
-                walImageView.image = WALIcon.imgWallbbongFun.image
+                walContentView.walContentType = .angry
             }
-            
-            shareButton.isHidden = false
             
             return true
         }
