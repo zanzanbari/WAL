@@ -7,7 +7,6 @@
 
 import UIKit
 
-import SnapKit
 import Then
 import WALKit
 
@@ -23,7 +22,7 @@ class DatePickerTableViewCell: UITableViewCell {
     //MARK: - Properties
     
     private lazy var datePicker = UIDatePicker().then {
-        $0.tintColor = UIColor.mint100
+        $0.tintColor = .mint100
         $0.locale = Locale(identifier: "ko-KR")
         $0.addTarget(self, action: #selector(handelDatePicker), for: .valueChanged)
     }
@@ -77,7 +76,7 @@ class DatePickerTableViewCell: UITableViewCell {
     // MARK: - InitUI
     
     private func configUI() {
-        contentView.backgroundColor = UIColor.gray600
+        contentView.backgroundColor = .gray600
     }
     
     private func setupLayout() {

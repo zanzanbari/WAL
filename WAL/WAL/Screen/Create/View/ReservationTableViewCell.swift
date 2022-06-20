@@ -7,7 +7,6 @@
 
 import UIKit
 
-import SnapKit
 import Then
 import WALKit
 
@@ -25,18 +24,14 @@ class ReservationTableViewCell: UITableViewCell {
     private let reservationTimeLabel = UILabel().then {
         $0.text = "예약 시간"
         $0.font = WALFont.body4.font
-        $0.textColor = UIColor.black100
+        $0.textColor = .black100
     }
     
     private lazy var dateButton = UIButton().then {
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.white100.cgColor
         $0.addTarget(self, action: #selector(touchUpDateButton), for: .touchUpInside)
     }
     
     private lazy var timeButton = UIButton().then {
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.white100.cgColor
         $0.addTarget(self, action: #selector(touchUpTimeButton), for: .touchUpInside)
     }
     
@@ -60,19 +55,20 @@ class ReservationTableViewCell: UITableViewCell {
     // MARK: - InitUI
     
     private func configUI() {
-        contentView.backgroundColor = UIColor.gray600
+        contentView.backgroundColor = .gray600
         
         [dateButton, timeButton].forEach {
             var config = UIButton.Configuration.plain()
-            config.baseForegroundColor = UIColor.gray200
+            config.baseForegroundColor = .gray200
             config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer {
                 var title = $0
                 title.font = WALFont.body6.font
                 return title
             }
             $0.configuration = config
-            $0.backgroundColor = UIColor.white100
+            $0.backgroundColor = .white100
             $0.layer.cornerRadius = 10
+            $0.layer.borderWidth = 1
         }
         
         dateButton.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 24, bottom: 7, trailing: 24)
@@ -116,6 +112,7 @@ class ReservationTableViewCell: UITableViewCell {
         var components = DateComponents()
         components.day = 1
         guard let tomorrow = Calendar.autoupdatingCurrent.date(byAdding: components, to: Date()) else { return }
+        
         dateFormatter.dateFormat = "yyyy. MM. dd"
         dateButton.setTitle(dateFormatter.string(from: data.date ?? tomorrow), for: .normal)
         dateButton.layer.borderColor = data.didShowView.date ? UIColor.mint100.cgColor : UIColor.white100.cgColor
@@ -124,6 +121,6 @@ class ReservationTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "a hh:mm"
         timeButton.setTitle(dateFormatter.string(from: data.time ?? Date()), for: .normal)
         timeButton.layer.borderColor = data.didShowView.time ? UIColor.mint100.cgColor : UIColor.white100.cgColor
-        timeButton.configuration?.baseForegroundColor = data.didShowView.time || data.time != nil ? UIColor.black100 : UIColor.gray200
+        timeButton.configuration?.baseForegroundColor = data.didShowView.time || data.time != nil ? .black100 : .gray200
     }
 }

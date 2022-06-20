@@ -7,7 +7,6 @@
 
 import UIKit
 
-import SnapKit
 import Then
 import WALKit
 
@@ -18,7 +17,7 @@ class CreateViewController: UIViewController {
     private let createView = WALCreateView()
     
     private let scrollView = UIScrollView(frame: .zero).then {
-        $0.backgroundColor = UIColor.white100
+        $0.backgroundColor = .white100
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
     }
@@ -31,20 +30,21 @@ class CreateViewController: UIViewController {
     private let walSoundLabel = UILabel().then {
         $0.text = "왈소리"
         $0.font = WALFont.body2.font
-        $0.textColor = UIColor.black100
+        $0.textColor = .black100
     }
     
-    private let informationButton = UIButton().then {
+    private lazy var showInformationButton = UIButton().then {
         $0.setImage(WALIcon.btnInfo.image, for: .normal)
+        $0.addTarget(self, action: #selector(touchUpInformationButton), for: .touchUpInside)
     }
     
     private lazy var walSoundTextView = UITextView().then {
         $0.font = WALFont.body5.font
-        $0.textColor = UIColor.black100
-        $0.backgroundColor = UIColor.white100
+        $0.textColor = .black100
+        $0.backgroundColor = .white100
         $0.textContainerInset = UIEdgeInsets(top: 17, left: 17, bottom: 17, right: 17)
         $0.isScrollEnabled = false
-        $0.layer.borderColor = UIColor.gray500.cgColor
+        $0.layer.borderColor = UIColor.gray400.cgColor
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 10
         
@@ -53,7 +53,7 @@ class CreateViewController: UIViewController {
     
     private let placeholderLabel = UILabel().then {
         $0.font = WALFont.body5.font
-        $0.textColor = UIColor.gray300
+        $0.textColor = .gray300
         $0.text = "내가 받을 왈소리를 작성해주세요"
     }
     
@@ -71,7 +71,7 @@ class CreateViewController: UIViewController {
         config.image = WALIcon.btnUnselect.image
         config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer {
             var title = $0
-            title.foregroundColor = UIColor.black100
+            title.foregroundColor = .black100
             title.font = WALFont.body7.font
             return title
         }
@@ -81,7 +81,7 @@ class CreateViewController: UIViewController {
     }
     
     private lazy var reservationTableView = UITableView(frame: .zero, style: .insetGrouped).then {
-        $0.backgroundColor = UIColor.white100
+        $0.backgroundColor = .white100
         $0.isScrollEnabled = false
         $0.makeRound(radius: 10)
         $0.rowHeight = UITableView.automaticDimension
@@ -95,8 +95,8 @@ class CreateViewController: UIViewController {
     private lazy var sendButton = UIButton().then {
         $0.titleLabel?.font = WALFont.body1.font
         $0.setTitle("보내기", for: .normal)
-        $0.setTitleColor(UIColor.white100, for: .normal)
-        $0.backgroundColor = UIColor.gray400
+        $0.setTitleColor(.white100, for: .normal)
+        $0.backgroundColor = .gray400
         $0.layer.cornerRadius = 22
         $0.isEnabled = false
         $0.addTarget(self, action: #selector(touchUpSendButton), for: .touchUpInside)
@@ -134,12 +134,12 @@ class CreateViewController: UIViewController {
     // MARK: - InitUI
     
     private func configUI() {
-        view.backgroundColor = UIColor.white100
+        view.backgroundColor = .white100
         navigationController?.navigationBar.isHidden = true
         
         [countLabel, maximumCountLabel].forEach {
             $0.font = WALFont.body8.font
-            $0.textColor = UIColor.gray200
+            $0.textColor = .gray200
         }
     }
     
@@ -151,7 +151,7 @@ class CreateViewController: UIViewController {
         scrollView.addSubview(createView)
         
         createView.addSubviews([walSoundLabel,
-                                informationButton,
+                                showInformationButton,
                                 walSoundTextView,
                                 placeholderLabel,
                                 countStackView,
@@ -181,7 +181,7 @@ class CreateViewController: UIViewController {
             $0.leading.equalToSuperview().inset(20)
         }
         
-        informationButton.snp.makeConstraints {
+        showInformationButton.snp.makeConstraints {
             $0.centerY.equalTo(walSoundLabel.snp.centerY)
             $0.leading.equalTo(walSoundLabel.snp.trailing)
         }
@@ -238,12 +238,18 @@ class CreateViewController: UIViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    @objc private func touchUpInformationButton() {
+        let viewController = CreateInformationViewController()
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: false)
+    }
+    
     //MARK: - CustomMethod
     
     private func setSendButton() {
         let isCotentFull = walSoundTextView.text.count > 0 && cellData.date != nil && cellData.time != nil
         
-        sendButton.backgroundColor = isCotentFull ? UIColor.orange100 : UIColor.gray400
+        sendButton.backgroundColor = isCotentFull ? .orange100 : .gray400
         sendButton.isEnabled = isCotentFull
     }
     
@@ -270,7 +276,7 @@ class CreateViewController: UIViewController {
 
 extension CreateViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
-        walSoundTextView.layer.borderColor = UIColor.gray500.cgColor
+        walSoundTextView.layer.borderColor = UIColor.gray400.cgColor
         
         (walSoundTextView.text.count == 0) ? (placeholderLabel.isHidden = false) : (placeholderLabel.isHidden = true)
     }
@@ -283,7 +289,7 @@ extension CreateViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         countLabel.text = "\(walSoundTextView.text.count)"
         
-        countLabel.textColor = walSoundTextView.text.count >= 100 ? UIColor.orange100 : UIColor.gray200
+        countLabel.textColor = walSoundTextView.text.count >= 100 ? .orange100 : .gray200
         
         if walSoundTextView.text.count > 100 {
             walSoundTextView.deleteBackward()
