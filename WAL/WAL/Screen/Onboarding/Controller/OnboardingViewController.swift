@@ -18,14 +18,12 @@ final class OnboardingViewController: UIViewController {
     private var didCurrentRow: Int = 0
     
     private let navigationBar = WALNavigationBar(title: nil).then {
+        $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
     }
     
-    private lazy var progressView = UIView().then {
-        $0.backgroundColor = .white100
-        $0.addSubviews([navigationBar, pageControl])
-    }
+    private let topView = UIView()
     
     private let pageControl = UIImageView().then {
         $0.image = WALIcon.icnProgress1.image
@@ -33,7 +31,7 @@ final class OnboardingViewController: UIViewController {
     
     private lazy var collectionView = UICollectionView(
         frame: .zero, collectionViewLayout: collectionViewFlowLayout).then {
-            $0.backgroundColor = .white
+            $0.backgroundColor = .white100
             $0.allowsSelection = true
             $0.contentInsetAdjustmentBehavior = .never
             $0.showsHorizontalScrollIndicator = false
@@ -66,25 +64,26 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([progressView, collectionView])
+        view.addSubviews([navigationBar, topView, collectionView])
+        topView.addSubview(pageControl)
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        topView.snp.makeConstraints { make in
+            make.top.equalTo(navigationBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
         }
         
         pageControl.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(102)
+            make.top.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 11 : 4)
             make.centerX.equalToSuperview()
         }
         
-        progressView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(121)
-        }
-        
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(progressView.snp.bottom)
+            make.top.equalTo(topView.snp.bottom)
             make.leading.bottom.trailing.equalToSuperview()
         }
     }
@@ -187,7 +186,10 @@ extension OnboardingViewController: UICollectionViewDataSource {
 
 extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width, height: view.frame.size.height-121)
+        return CGSize(
+            width: view.frame.size.width,
+            height: view.frame.size.height - navigationBar.frame.size.height -
+            topView.frame.size.height - (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

@@ -82,7 +82,6 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     private func configUI() {
         contentView.backgroundColor = .white100
         barWidth = (contentView.frame.width-61*2)/4
-        print(barWidth)
         [funButton, loveButtoon, cheerButton, angryButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
@@ -101,12 +100,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
             funButton, loveButtoon, cheerButton, angryButton])
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(16)
-            make.centerX.equalToSuperview()
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
             make.centerX.equalToSuperview()
         }
         
@@ -118,8 +112,10 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         [funButton, loveButtoon, cheerButton, angryButton].forEach {
             $0.snp.makeConstraints { make in
                 make.width.equalTo(contentView.frame.width-61*2)
-                make.height.equalTo((322*(contentView.frame.width-61*2)) / 253)
-        } }
+                make.height.equalTo(
+                    UIScreen.main.hasNotch ?
+                    (322*(contentView.frame.width-61*2)) / 253 : (295*(contentView.frame.width-61*2)) / 248)
+            } }
         
         cardButtonStackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
@@ -127,9 +123,11 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(subtitleLabel.snp.bottom).offset(50)
+            make.top.equalTo(subtitleLabel.snp.bottom).offset(UIScreen.main.hasNotch ? 50 : 34)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo((322*(contentView.frame.width-61*2)) / 253)
+            make.height.equalTo(
+                UIScreen.main.hasNotch ?
+                (322*(contentView.frame.width-61*2)) / 253 : (295*(contentView.frame.width-61*2)) / 248)
         }
         
         slideBackView.snp.makeConstraints { make in
@@ -147,7 +145,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         
         nextButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(50)
+            make.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 50 : 26)
         }
     }
     

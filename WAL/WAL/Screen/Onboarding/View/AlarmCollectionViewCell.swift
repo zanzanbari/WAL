@@ -41,9 +41,9 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         $0.spacing = 16
     }
     
-    private let moringButtoon = TimeButton("아침", WALIcon.icnMorning.image)
-    private let lauchButton = TimeButton("점심", WALIcon.icnLaunch.image)
-    private let eveningButton = TimeButton("저녁", WALIcon.icnEvening.image)
+    private let moringButtoon = TimeButton(0)
+    private let lauchButton = TimeButton(1)
+    private let eveningButton = TimeButton(2)
     
     // MARK: - Initialize
     
@@ -75,7 +75,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         alarmButtonStackView.addArrangedSubviews([moringButtoon, lauchButton, eveningButton])
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
             make.centerX.equalToSuperview()
         }
         
@@ -98,11 +98,9 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         
         completeButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(50)
+            make.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 50 : 26)
         }
     }
-
-    // MARK: - Custom Method
     
     // MARK: - @objc
     

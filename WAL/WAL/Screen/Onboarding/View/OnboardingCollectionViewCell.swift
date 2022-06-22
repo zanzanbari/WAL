@@ -87,7 +87,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
                                  nextButton])
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
             make.centerX.equalToSuperview()
         }
         
@@ -119,7 +119,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         
         nextButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(50)
+            make.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 50 : 26)
         }
     }
     
@@ -136,11 +136,10 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     // MARK: - @objc
     
     @objc private func textDidChange(_ notification: Notification) {
-        if let textField = notification.object as? UITextField {
-            if let text = textField.text {
-                if text.count > maxLength {
-                    textField.deleteBackward()
-                }
+        if let textField = notification.object as? UITextField,
+           let text = textField.text {
+            if text.count > maxLength {
+                textField.deleteBackward()
             }
         }
     }

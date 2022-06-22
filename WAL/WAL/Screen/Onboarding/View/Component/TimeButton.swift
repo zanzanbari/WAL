@@ -12,23 +12,25 @@ import WALKit
 class TimeButton: UIButton {
     
     // MARK: - Property
+    
+    private let timeData = TimeData()
             
-    public let timeLabel = UILabel().then {
+    private let timeLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
         $0.textAlignment = .center
     }
     
-    public let timeImageView = UIImageView()
+    private let timeImageView = UIImageView()
     
     // MARK: - Initialize
     
-    init(_ text: String, _ image: UIImage) {
+    init(_ index: Int) {
         super.init(frame: .zero)
         configUI()
         setupLayout()
-        timeLabel.text = text
-        timeImageView.image = image
+        timeLabel.text = timeData.getTimeLabel(index: index)
+        timeImageView.image = timeData.getTimeImage(index: index)
     }
     
     required init?(coder: NSCoder) {
