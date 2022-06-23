@@ -97,7 +97,7 @@ class DatePickerTableViewCell: UITableViewCell {
     
     //MARK: - Custom Method
     
-    func setup(date: CellData) {
+    func setup(date: DatePickerData) {
         switch datePickerType {
         case .date: datePicker.date = date.date ?? Date()
         case .time: datePicker.date = date.time ?? Date()

@@ -31,7 +31,7 @@ class CreateInformationViewController: UIViewController {
     }
     
     private let imageView = UIImageView().then {
-        $0.image = WALKit.WALIcon.icnApple.image
+        $0.image = WALKit.WALIcon.imgWalbbongPopup.image
     }
     
     private let subTitleLabel = UILabel().then {

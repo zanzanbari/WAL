@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-struct CellData {
+struct DatePickerData {
     var date: Date?
     var time: Date?
     var didShowView = (date: false, time: false)
@@ -108,7 +108,7 @@ class ReservationTableViewCell: UITableViewCell {
     
     //MARK: - Custom Method
     
-    func setup(data: CellData) {
+    func setup(data: DatePickerData) {
         var components = DateComponents()
         components.day = 1
         guard let tomorrow = Calendar.autoupdatingCurrent.date(byAdding: components, to: Date()) else { return }

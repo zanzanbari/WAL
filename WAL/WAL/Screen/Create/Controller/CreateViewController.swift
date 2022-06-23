@@ -117,7 +117,7 @@ class CreateViewController: UIViewController {
     }
     
     private var datePickerType: DatePickerType = .none
-    private var cellData = CellData()
+    private var datePickerData = DatePickerData()
     
     // MARK: - Life Cycle
     
@@ -233,7 +233,7 @@ class CreateViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy. MM. dd"
         timeFormatter.dateFormat = "a hh:mm"
         
-        viewController.date = "\(dateFormatter.string(from: cellData.date ?? Date())) \(timeFormatter.string(from: cellData.time ?? Date()))"
+        viewController.date = "\(dateFormatter.string(from: datePickerData.date ?? Date())) \(timeFormatter.string(from: datePickerData.time ?? Date()))"
         
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -247,7 +247,7 @@ class CreateViewController: UIViewController {
     //MARK: - CustomMethod
     
     private func setSendButton() {
-        let isCotentFull = walSoundTextView.text.count > 0 && cellData.date != nil && cellData.time != nil
+        let isCotentFull = walSoundTextView.text.count > 0 && datePickerData.date != nil && datePickerData.time != nil
         
         sendButton.backgroundColor = isCotentFull ? .orange100 : .gray400
         sendButton.isEnabled = isCotentFull
@@ -256,13 +256,13 @@ class CreateViewController: UIViewController {
     private func scroll(_ datePickerType: DatePickerType) {
         switch datePickerType {
         case .date:
-            if cellData.didShowView.date {
+            if datePickerData.didShowView.date {
                 scrollView.setContentOffset(CGPoint(x: 0, y: 55), animated: true)
             } else {
                 scrollView.setContentOffset(.zero, animated: true)
             }
         case .time:
-            if cellData.didShowView.time {
+            if datePickerData.didShowView.time {
                 scrollView.setContentOffset(CGPoint(x: 0, y: 55), animated: true)
             } else {
                 scrollView.setContentOffset(.zero, animated: true)
@@ -315,7 +315,7 @@ extension CreateViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if cellData.didShowView.date || cellData.didShowView.time {
+        if datePickerData.didShowView.date || datePickerData.didShowView.time {
             return 2
         } else {
             return 1
@@ -327,12 +327,12 @@ extension CreateViewController: UITableViewDataSource {
             let reservationCell = ReservationTableViewCell()
             
             reservationCell.selectionStyle = .none
-            reservationCell.setup(data: cellData)
+            reservationCell.setup(data: datePickerData)
             
             reservationCell.touchedDateButton = {
                 self.walSoundTextView.resignFirstResponder()
-                self.cellData.didShowView.date.toggle()
-                self.cellData.didShowView.time = false
+                self.datePickerData.didShowView.date.toggle()
+                self.datePickerData.didShowView.time = false
                 self.datePickerType = .date
                 self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
                 
@@ -341,8 +341,8 @@ extension CreateViewController: UITableViewDataSource {
             
             reservationCell.touchedTimeButton = {
                 self.walSoundTextView.resignFirstResponder()
-                self.cellData.didShowView.time.toggle()
-                self.cellData.didShowView.date = false
+                self.datePickerData.didShowView.time.toggle()
+                self.datePickerData.didShowView.date = false
                 self.datePickerType = .time
                 self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
                 
@@ -355,12 +355,12 @@ extension CreateViewController: UITableViewDataSource {
             
             datePickerCell.selectionStyle = .none
             datePickerCell.datePickerType = datePickerType
-            datePickerCell.setup(date: cellData)
+            datePickerCell.setup(date: datePickerData)
             
             datePickerCell.sendDate = { date in
                 switch self.datePickerType {
-                case .date: self.cellData.date = date
-                case .time: self.cellData.time = date
+                case .date: self.datePickerData.date = date
+                case .time: self.datePickerData.time = date
                 case .none: break
                 }
                 self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
