@@ -21,6 +21,8 @@ class DatePickerTableViewCell: UITableViewCell {
     
     //MARK: - Properties
     
+    var reservedDates: ReservedDate = ReservedDate(date: [])
+    
     private lazy var datePicker = UIDatePicker().then {
         $0.tintColor = .mint100
         $0.locale = Locale(identifier: "ko-KR")
@@ -87,12 +89,22 @@ class DatePickerTableViewCell: UITableViewCell {
         }
     }
     
-    var sendDate: ((_ date: Date) -> ())?
+    var sendDate: ((_ date: Date, _ didShowToastMessage: Bool) -> ())?
     
     //MARK: - @objc
     
     @objc private func handelDatePicker() {
-        sendDate?(datePicker.date)
+        var selectedDate = datePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if datePickerType == .date, reservedDates.date.contains(dateFormatter.string(from: selectedDate)) {
+            selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? Date()
+            sendDate?(selectedDate, true)
+            datePicker.setDate(selectedDate, animated: true)
+        } else {
+            sendDate?(selectedDate, false)
+        }
     }
     
     //MARK: - Custom Method
@@ -104,5 +116,4 @@ class DatePickerTableViewCell: UITableViewCell {
         case .none: return
         }
     }
-    
 }

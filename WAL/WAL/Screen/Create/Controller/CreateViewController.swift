@@ -92,6 +92,15 @@ class CreateViewController: UIViewController {
         $0.dataSource = self
     }
     
+    private let toastMessageLabel = UILabel().then {
+        $0.text = "이미 왈소리를 보냈어요"
+        $0.font = WALKit.WALFont.body8.font
+        $0.textColor = .white100
+        $0.textAlignment = .center
+        $0.backgroundColor = .black100.withAlphaComponent(0.6)
+        $0.makeRound(radius: 16.5)
+    }
+    
     private lazy var sendButton = UIButton().then {
         $0.titleLabel?.font = WALFont.body1.font
         $0.setTitle("보내기", for: .normal)
@@ -270,6 +279,32 @@ class CreateViewController: UIViewController {
         case .none: return
         }
     }
+    
+    private func showToastMessage() {
+        let toastLabel = UILabel().then {
+            $0.text = "이미 왈소리를 보냈어요"
+            $0.font = WALFont.body8.font
+            $0.textColor = .white100
+            $0.textAlignment = .center
+            $0.backgroundColor = .black100.withAlphaComponent(0.6)
+            $0.makeRound(radius: 16.5)
+        }
+        
+        view.addSubview(toastLabel)
+        
+        toastLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(sendButton.snp.top).offset(-16)
+            $0.width.equalTo(180)
+            $0.height.equalTo(33)
+        }
+        
+        UIView.animate(withDuration: 2.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: { _ in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }
 
 //MARK: - UITextViewDelegate
@@ -357,7 +392,16 @@ extension CreateViewController: UITableViewDataSource {
             datePickerCell.datePickerType = datePickerType
             datePickerCell.setup(date: datePickerData)
             
-            datePickerCell.sendDate = { date in
+            datePickerCell.sendDate = { date, didShowToastMessage in
+                if didShowToastMessage {
+                    self.showToastMessage()
+                    self.datePickerData.didShowView.date = true
+                } else {
+                    self.datePickerData.didShowView.date = false
+                    self.datePickerData.didShowView.time = false
+                    self.scroll(.date)
+                }
+                
                 switch self.datePickerType {
                 case .date: self.datePickerData.date = date
                 case .time: self.datePickerData.time = date
