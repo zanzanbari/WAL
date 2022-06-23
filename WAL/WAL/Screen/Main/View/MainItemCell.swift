@@ -26,7 +26,7 @@ final class MainItemCell: UICollectionViewCell {
         $0.isHidden = false
     }
     
-    private let animationView: AnimationView = .init(name: "paw").then {
+    private let animationView: AnimationView = .init(name: "mintPaw").then {
         $0.isHidden = true
     }
     
@@ -92,8 +92,8 @@ final class MainItemCell: UICollectionViewCell {
             type = .speacial
             
             // MARK: TODO REMOVE - 로티 확인용
-//            imageView.isHidden = true
-//            animationView.isHidden = false
+            imageView.isHidden = true
+            animationView.isHidden = false
         } else {
             type = .morning
         }

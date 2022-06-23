@@ -125,7 +125,7 @@ final class MainViewController: UIViewController {
     private let dateFormatter = DateFormatter().then {
         $0.locale = Locale(identifier: "ko_kr")
         $0.timeZone = TimeZone(abbreviation: "ko_kr")
-        $0.dateFormat = "HH:mm"
+        $0.dateFormat = "HH"
     }
     
     private var walArrivedImageList: [UIImage] = [WALIcon.imgWalBBongArrive1.image,
@@ -277,7 +277,10 @@ final class MainViewController: UIViewController {
     }
     
     private func checkTime() {
-        if dateFormatter.string(from: date) == "00:00" {
+        let stringDate = dateFormatter.string(from: date)
+        guard let intDate = Int(stringDate) else { return }
+        
+        if intDate >= 0 && intDate <= 7 {
             walStatus = .sleeping
         } else {
             walStatus = .arrived
