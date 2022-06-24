@@ -10,7 +10,7 @@ import Moya
 enum AuthService {
     case social(social: String, socialToken: String, fcmToken: String?)
     case logout
-//    case reissue
+    case reissue
     case resign(social: String, socialToken: String)
 }
 
@@ -20,6 +20,7 @@ extension AuthService: BaseTargetType {
         switch self {
         case .social(let social, _, _): return "/auth/\(social)/login"
         case .logout: return "/auth/logout"
+        case .reissue: return "/auth/reissue/token"
         case .resign(let social, _): return "/auth/\(social)/logout"
         }
     }
@@ -43,11 +44,24 @@ extension AuthService: BaseTargetType {
                     parameters: [ "socialtoken": socialToken],
                     encoding: URLEncoding.queryString)
             }
-        case .logout: return .requestPlain
+        case .logout, .reissue: return .requestPlain
         case .resign(_, let socialToken):
             return .requestParameters(
                 parameters: [ "socialtoken": socialToken],
                 encoding: URLEncoding.queryString)
+        }
+    }
+    
+    var headers: [String : String]? {
+        switch self {
+        case .reissue:
+            return ["Content-Type": "application/json",
+                    "accesstoken": GeneralAPI.accessToken!,
+                    "refreshtoken": GeneralAPI.refreshToken!]
+        default:
+            return ["Content-Type": "application/json",
+                    "accesstoken": GeneralAPI.accessToken!]
+        
         }
     }
 }

@@ -21,6 +21,7 @@ final class LoginViewController: UIViewController {
     private var accessToken: String = ""
     private var socialLogin: String = ""
     private var socialToken: String = ""
+    private var refreshToken: String = ""
     
     private let logoImageView = UIImageView().then {
         $0.image = WALIcon.imgWalbbongLogo.image
@@ -87,6 +88,20 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Custom Method
     
+    private func setUserDefaults(_ type: String,
+                                 _ accessToken: String,
+                                 _ refreshToken: String,
+                                 _ socialToken: String) {
+        self.accessToken = accessToken
+        self.refreshToken = refreshToken
+        self.socialToken = socialToken
+        socialLogin = type
+        UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
+        UserDefaults.standard.set(self.socialToken, forKey: "socialToken")
+        UserDefaults.standard.set(self.socialLogin, forKey: "socialLogin")
+        UserDefaults.standard.set(self.refreshToken, forKey: "refreshToken")
+    }
+    
     private func pushToHome() {
         let onboardingViewController = OnboardingViewController()
         onboardingViewController.modalPresentationStyle = .overFullScreen
@@ -110,7 +125,6 @@ final class LoginViewController: UIViewController {
         // MARK: - 토큰 정보 보기
         UserApi.shared.accessTokenInfo {(accessTokenInfo, error) in
             if let error = error { print(error) } else {
-                print("------------액세스 토큰 : accessTokenInfo() success.")
                 _ = accessTokenInfo
             }
         }
@@ -144,26 +158,18 @@ extension LoginViewController {
     private func loginWithKakaoApp() {
         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             self.accessToken = oauthToken!.accessToken
-            if let error = error {
-                print(error)
+            if let error = error { print(error)
             } else {
                 UserApi.shared.me {(user, error) in
                     if let error = error {
                         print("----------- 카카오 로그인 앱 에러:", error)
                     } else {
                         guard let oauthToken = oauthToken else { return  }
-                        self.accessToken = oauthToken.accessToken
-                        
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData else { return }
-                                guard let accessData = kakaoData.data else { return }
-                                self.accessToken = accessData.accesstoken
-                                self.socialToken = oauthToken.accessToken
-                                self.socialLogin = "kakao"
-                                UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
-                                UserDefaults.standard.set(self.socialToken, forKey: "socialToken")
-                                UserDefaults.standard.set(self.socialLogin, forKey: "socialLogin")
+                                guard let kakaoData = kakaoData, let accessData = kakaoData.data else { return }
+                                self.setUserDefaults("kakao", accessData.accesstoken,
+                                                     accessData.refreshtoken, oauthToken.accessToken)
                                 self.pushToHome()
                             }
                     }
@@ -185,14 +191,18 @@ extension LoginViewController {
                         guard let oauthToken = oauthToken else { return  }
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData else { return }
-                                guard let accessData = kakaoData.data else { return }
-                                self.accessToken = accessData.accesstoken
-                                self.socialToken = oauthToken.accessToken
-                                self.socialLogin = "kakao"
-                                UserDefaults.standard.setValue(self.accessToken, forKey: "accessToken")
-                                UserDefaults.standard.set(self.socialToken, forKey: "socialToken")
-                                UserDefaults.standard.set(self.socialLogin, forKey: "socialLogin")
+                                guard let kakaoData = kakaoData, let accessData = kakaoData.data else { return }
+                                
+                                if kakaoData.status == 401 {
+                                    AuthAPI.shared.postReissue() { reissueData, err in
+                                        guard let reissueData = reissueData?.data else { return }
+                                        self.accessToken = reissueData.accesstoken
+                                        UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
+                                    }
+                                } else {
+                                    self.setUserDefaults("kakao", accessData.accesstoken,
+                                                         accessData.refreshtoken, oauthToken.accessToken)
+                                }
                                 self.pushToHome()
                             }
                     }
@@ -213,14 +223,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             guard let tokenString = tokenString else { return }
 
             AuthAPI.shared.postSocialLogin(social: "apple", socialToken: tokenString, fcmToken: nil) { (appleData, err) in
-                guard let appleData = appleData else { return }
-                guard let accessData = appleData.data else { return }
-                self.accessToken = accessData.accesstoken
-                self.socialToken = tokenString
-                self.socialLogin = "apple"
-                UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
-                UserDefaults.standard.set(self.socialToken, forKey: "socialToken")
-                UserDefaults.standard.set(self.socialLogin, forKey: "socialLogin")
+                guard let appleData = appleData, let accessData = appleData.data else { return }
+                self.setUserDefaults("apple", accessData.accesstoken, accessData.refreshtoken, tokenString)
                 self.pushToHome()
             }
         }

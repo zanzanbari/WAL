@@ -17,6 +17,7 @@ final class AuthAPI {
     
     public private(set) var loginData: GenericResponse<Login>?
     public private(set) var logoutData: GenericResponse<Logout>?
+    public private(set) var reissueData: GenericResponse<Reissue>?
     
     // MARK: - POST 소셜로그인
     
@@ -73,6 +74,27 @@ final class AuthAPI {
                     self.logoutData = try response.map(GenericResponse<Logout>?.self)
                     guard let logoutData = self.logoutData else { return }
                     completion(logoutData, nil)
+                    
+                } catch(let err) {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil, 500)
+            }
+        }
+    }
+    
+    // MARK: - POST 토큰 재발급
+    
+    public func postReissue(completion: @escaping ((GenericResponse<Reissue>?, Int?) -> ())) {
+        authProvider.request(.reissue) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.reissueData = try response.map(GenericResponse<Reissue>?.self)
+                    guard let reissueData = self.reissueData else { return }
+                    completion(reissueData, nil)
                     
                 } catch(let err) {
                     print(err.localizedDescription, 500)
