@@ -16,6 +16,7 @@ final class AuthAPI {
     private init() { }
     
     public private(set) var loginData: GenericResponse<Login>?
+    public private(set) var logoutData: GenericResponse<Logout>?
     
     // MARK: - POST 소셜로그인
     
@@ -29,6 +30,27 @@ final class AuthAPI {
                     self.loginData = try response.map(GenericResponse<Login>?.self)
                     guard let loginData = self.loginData else { return }
                     completion(loginData, nil)
+                    
+                } catch(let err) {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil, 500)
+            }
+        }
+    }
+    
+    // MARK: - GET 로그아웃
+    
+    public func getLogout(completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
+        authProvider.request(.logout) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.logoutData = try response.map(GenericResponse<Logout>?.self)
+                    guard let logoutData = self.logoutData else { return }
+                    completion(logoutData, nil)
                     
                 } catch(let err) {
                     print(err.localizedDescription, 500)
