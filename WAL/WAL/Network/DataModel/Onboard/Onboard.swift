@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+// MARK: - Onboard
+
+struct Onboard: Codable {
+    let nickname: String
+}
+
