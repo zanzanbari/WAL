@@ -79,7 +79,11 @@ final class SettingViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        
+        // MARK: - FIXME 로그아웃 코드 환경설정 뷰에 알맞은 곳에 넣기
+        AuthAPI.shared.getLogout { logoutData, err in
+            guard let logoutData = logoutData else { return }
+            print("--------로그아웃 서버 통신 : ", logoutData)
+        }
     }
 }
 

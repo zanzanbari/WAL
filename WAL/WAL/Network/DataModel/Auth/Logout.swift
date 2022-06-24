@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+// MARK: - Logout
+
+struct Logout: Codable {
+    let id: Int
+}
