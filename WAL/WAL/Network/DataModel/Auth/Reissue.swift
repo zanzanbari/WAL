@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+// MARK: - Reissue
+
+struct Reissue: Codable {
+    let accesstoken: String
+}
