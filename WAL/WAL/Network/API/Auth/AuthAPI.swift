@@ -61,4 +61,26 @@ final class AuthAPI {
             }
         }
     }
+    
+    // MARK: - POST 회원탈퇴
+        
+    public func postResign(social: String, socialToken: String,
+                           completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
+        authProvider.request(.resign(social: social, socialToken: socialToken)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.logoutData = try response.map(GenericResponse<Logout>?.self)
+                    guard let logoutData = self.logoutData else { return }
+                    completion(logoutData, nil)
+                    
+                } catch(let err) {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil, 500)
+            }
+        }
+    }
 }
