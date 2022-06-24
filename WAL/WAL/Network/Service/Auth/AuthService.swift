@@ -20,7 +20,7 @@ extension AuthService: BaseTargetType {
         switch self {
         case .social(let social, _, _): return "/auth/\(social)/login"
         case .logout: return "/auth/logout"
-        case .resign(let social, _): return "/auth/v1/\(social)/resign"
+        case .resign(let social, _): return "/auth/\(social)/logout"
         }
     }
     
