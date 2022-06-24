@@ -52,6 +52,9 @@
 		5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */; };
 		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
+		9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD032865A93A009B6002 /* HistoryResponse.swift */; };
+		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
+		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
@@ -111,6 +114,9 @@
 		5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9213AD032865A93A009B6002 /* HistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponse.swift; sourceTree = "<group>"; };
+		9213AD062865AB67009B6002 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
@@ -303,6 +309,7 @@
 		5BA3894A27F6C0B90010EAA1 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				9213AD022865A912009B6002 /* History */,
 				5BA3896427F6C2830010EAA1 /* Login.swift */,
 			);
 			path = DataModel;
@@ -311,6 +318,7 @@
 		5BA3894B27F6C0BF0010EAA1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				9213AD052865AB59009B6002 /* History */,
 				5B7EE87A2822D643007BC265 /* Auth */,
 			);
 			path = Service;
@@ -319,6 +327,7 @@
 		5BA3894C27F6C0C60010EAA1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				9213AD082865ADB2009B6002 /* History */,
 				5BB6615B2827B9D500D54353 /* Auth */,
 			);
 			path = API;
@@ -477,6 +486,30 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		9213AD022865A912009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD032865A93A009B6002 /* HistoryResponse.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		9213AD052865AB59009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD062865AB67009B6002 /* HistoryService.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		9213AD082865ADB2009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD092865ADBC009B6002 /* HistoryAPI.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		927D10E928210F3A001AEB78 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,7 +568,7 @@
 				5BA3892A27F6B94F0010EAA1 /* Sources */,
 				5BA3892B27F6B94F0010EAA1 /* Frameworks */,
 				5BA3892C27F6B94F0010EAA1 /* Resources */,
-				A42607782A5347DAC616AD03 /* [CP] Embed Pods Frameworks */,
+				4F19671B014520EDACD56DF9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -574,7 +607,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */,
+				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -605,6 +638,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4F19671B014520EDACD56DF9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A3120CCE326C712212982ADA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -625,23 +675,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A42607782A5347DAC616AD03 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -683,6 +716,7 @@
 				5BB3FB792857254200A8A70D /* Constant.swift in Sources */,
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
+				9213AD072865AB67009B6002 /* HistoryService.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5BB6616D28285B1300D54353 /* Time.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
@@ -690,10 +724,12 @@
 				5BB661622828340100D54353 /* Bundle+.swift in Sources */,
 				5BD17420282CDDB500C77A95 /* MyInfoTableViewCell.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
+				9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
 				5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */,
+				9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -928,7 +964,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -941,7 +977,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		5B1A2AA628572E5000CC9088 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */

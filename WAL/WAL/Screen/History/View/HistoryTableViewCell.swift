@@ -37,6 +37,10 @@ class HistoryTableViewCell: UITableViewCell {
         $0.isHidden = true
     }
     
+    private var coverLineView = UIView().then {
+        $0.backgroundColor = .gray600
+    }
+    
     private var lockIconImageView = UIImageView().then {
         $0.image = WALIcon.icnLock.image
     }
@@ -53,7 +57,7 @@ class HistoryTableViewCell: UITableViewCell {
         $0.font = WALFont.body9.font
     }
     
-    private var reserveLabel = UILabel().then {
+    private var sendingDateLabel = UILabel().then {
         $0.text = "보내는 날짜"
         $0.font = WALFont.body8.font
     }
@@ -64,16 +68,16 @@ class HistoryTableViewCell: UITableViewCell {
         $0.numberOfLines = 2
     }
     
-    private var recieveLabel = UILabel().then {
+    private var reserveAtLabel = UILabel().then {
         $0.text = "받는 날짜"
         $0.textColor = .gray200
         $0.font = WALFont.body7.font
         $0.isHidden = true
     }
     
-    var dateLabelColor: UIColor = .gray200 {
+    var sendingDateLabelColor: UIColor = .gray200 {
         didSet {
-            reserveLabel.textColor = dateLabelColor
+            sendingDateLabel.textColor = sendingDateLabelColor
         }
     }
     
@@ -111,8 +115,8 @@ class HistoryTableViewCell: UITableViewCell {
     
     private func setLayout() {
         contentView.addSubviews([backView, coverView, lineView])
-        backView.addSubviews([lineView, reserveLabel, contentLabel, recieveLabel])
-        coverView.addSubviews([lockIconImageView, coverTitleLabel, coverSubtitleLabel])
+        backView.addSubviews([lineView, sendingDateLabel, contentLabel, reserveAtLabel])
+        coverView.addSubviews([coverLineView, lockIconImageView, coverTitleLabel, coverSubtitleLabel])
         
         lineView.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -126,6 +130,12 @@ class HistoryTableViewCell: UITableViewCell {
         
         coverView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        coverLineView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
         }
         
         lockIconImageView.snp.makeConstraints {
@@ -144,19 +154,19 @@ class HistoryTableViewCell: UITableViewCell {
             $0.centerX.equalToSuperview()
         }
         
-        reserveLabel.snp.makeConstraints {
+        sendingDateLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(26)
             $0.leading.equalToSuperview().inset(35)
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(reserveLabel.snp.bottom).offset(15)
+            $0.top.equalTo(sendingDateLabel.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview().inset(35)
             $0.bottom.equalToSuperview().inset(25)
         }
         
-        recieveLabel.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom).offset(10)
+        reserveAtLabel.snp.makeConstraints {
+            $0.top.equalTo(contentLabel.snp.bottom).offset(7)
             $0.trailing.equalToSuperview().inset(35)
         }
     }
@@ -172,31 +182,49 @@ class HistoryTableViewCell: UITableViewCell {
             }
 
             contentLabel.snp.updateConstraints {
-                $0.top.equalTo(reserveLabel.snp.bottom).offset(15)
-                $0.leading.trailing.equalToSuperview().inset(35)
                 $0.bottom.equalToSuperview().inset(51)
             }
             contentLabel.numberOfLines = 0
             
-            recieveLabel.isHidden = false
+            reserveAtLabel.isHidden = false
         } else {
             contentLabel.numberOfLines = 2
-            recieveLabel.isHidden = true
+            
+            if contentLabel.countCurrentLines() == 1 {
+                contentLabel.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().inset(46)
+                }
+            } else {
+                contentLabel.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().inset(25)
+                }
+            }
+            
+            reserveAtLabel.isHidden = true
         }
     }
     
-    internal func setData(_ data: HistoryDataModel) {
-        isContentHidden = data.hidden
+    internal func setData(_ data: HistoryData) {
+        isContentHidden = data.hidden ?? false
         
-        reserveLabel.text = "\(data.reserveDate)"
-        reserveLabel.addLetterSpacing()
+        sendingDateLabel.text = "\(data.sendingDate)"
+        sendingDateLabel.addLetterSpacing()
         
         contentLabel.text = data.content
         contentLabel.addLetterSpacing()
+        if contentLabel.countCurrentLines() == 1 {
+            contentLabel.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(46)
+            }
+        } else {
+            contentLabel.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(25)
+            }
+        }
         
-        recieveLabel.text = "\(data.recieveDate)"
-        recieveLabel.addLetterSpacing()
+        reserveAtLabel.text = "\(data.reserveAt)"
+        reserveAtLabel.addLetterSpacing()
         
-        coverView.isHidden = data.hidden ? false : true
+        coverView.isHidden = data.hidden ?? false ? false : true
     }
 }

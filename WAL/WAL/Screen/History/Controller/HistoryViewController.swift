@@ -24,6 +24,9 @@ final class HistoryViewController: UIViewController {
     
     private var expandCellDatasource =  ExpandTableViewCellContent()
     
+    private var sendingData = [HistoryData]()
+    private var completeData = [HistoryData]()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -31,6 +34,7 @@ final class HistoryViewController: UIViewController {
         configUI()
         setupLayout()
         setupTableView()
+        getHistoryInfo()
     }
     
     // MARK: - Init UI
@@ -63,7 +67,7 @@ final class HistoryViewController: UIViewController {
                                   forCellReuseIdentifier: HistoryTableViewCell.cellIdentifier)
         
         historyTableView.separatorStyle = .none
-        historyTableView.rowHeight = UITableView.automaticDimension
+        historyTableView.rowHeight = 125
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(sender:)))
         historyTableView.addGestureRecognizer(longPress)
@@ -80,6 +84,11 @@ final class HistoryViewController: UIViewController {
             if cell.isContentHidden {
                 let touchPoint = sender.location(in: historyTableView)
                 if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
+                    if content.isExpanded {
+                        historyTableView.rowHeight = 125
+                    } else {
+                        historyTableView.rowHeight = UITableView.automaticDimension
+                    }
                     content.isExpanded.toggle()
                     
                     historyTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -130,6 +139,8 @@ extension HistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        historyTableView.rowHeight = UITableView.automaticDimension
+        
         let content = expandCellDatasource
         
         content.isExpanded.toggle()
@@ -138,7 +149,8 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("수정")
+            // MARK: - TODO : 재전송 시 화면 전환 및 데이터 전달
+//            dismiss(animated: true)
             success(true)
         }
         resendAction.backgroundColor = .mint100
@@ -196,9 +208,9 @@ extension HistoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return HistoryDataModel.reserveData.count
+            return sendingData.count
         case 1:
-            return HistoryDataModel.completeData.count
+            return completeData.count
         default:
             return 0
         }
@@ -210,15 +222,15 @@ extension HistoryViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
-            cell.dateLabelColor = .systemMint
-            cell.setData(HistoryDataModel.reserveData[indexPath.row])
+            cell.sendingDateLabelColor = .systemMint
+            cell.setData(sendingData[indexPath.row])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
-            cell.dateLabelColor = .gray
-            cell.setData(HistoryDataModel.completeData[indexPath.row])
+            cell.sendingDateLabelColor = .gray
+            cell.setData(completeData[indexPath.row])
             return cell
         default:
             return UITableViewCell()
@@ -231,5 +243,26 @@ extension HistoryViewController: UITableViewDataSource {
 extension HistoryViewController: HistoryCompleteHeaderViewDelegate {
     func touchUpInformationButton() {
         completeHeader.informationIsHidden.toggle()
+    }
+}
+
+// MARK: - Network
+
+extension HistoryViewController {
+    func getHistoryInfo() {
+        HistoryAPI.shared.getHealthMainData { historyData, err in
+            guard let historyData = historyData else {
+                return
+            }
+            if let sendingData = historyData.data?.sendingData {
+                self.sendingData = sendingData
+            }
+            if let completeData = historyData.data?.completeData {
+                self.completeData = completeData
+            }
+            DispatchQueue.main.async {
+                self.historyTableView.reloadData()
+            }
+        }
     }
 }
