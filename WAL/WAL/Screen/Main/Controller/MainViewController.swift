@@ -65,13 +65,13 @@ final class MainViewController: UIViewController {
     
     private lazy var addButton = UIButton().then {
         $0.setTitle("", for: .normal)
-        $0.backgroundColor = .orange100
+        $0.setImage(WALIcon.btnPlus.image, for: .normal)
         $0.addTarget(self, action: #selector(touchUpAddButton), for: .touchUpInside)
     }
     
     private lazy var settingButton = UIButton().then {
         $0.setTitle("", for: .normal)
-        $0.backgroundColor = .mint100
+        $0.setImage(WALIcon.btnSetting.image, for: .normal)
         $0.addTarget(self, action: #selector(touchUpSettingButton), for: .touchUpInside)
     }
     

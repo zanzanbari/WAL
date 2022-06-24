@@ -34,7 +34,7 @@ enum WALContentType {
 final class MainContentView: UIView {
     
     private lazy var bubbleImageView = UIImageView().then {
-        $0.backgroundColor = .orange100
+        $0.image = WALIcon.imgMainBubble.image
         $0.contentMode = .scaleToFill
         $0.addSubview(bubbleLabel)
     }
@@ -117,7 +117,8 @@ final class MainContentView: UIView {
         }
         
         bubbleLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+            $0.top.equalToSuperview().inset(6.23)
+            $0.centerX.equalToSuperview()
         }
         
         contentLabel.snp.makeConstraints {
