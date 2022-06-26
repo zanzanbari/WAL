@@ -80,11 +80,13 @@ final class SettingViewController: UIViewController {
     
     @objc func touchupBackButton() {
         // MARK: - FIXME 회원탈퇴 코드 환경설정 뷰에 알맞은 곳에 넣기
+        guard let socialLogin = GeneralAPI.socialLogin,
+              let socialToken = GeneralAPI.socialToken else { return }
         AuthAPI.shared.postResign(
-            social: GeneralAPI.socialLogin, socialToken: GeneralAPI.socialToken) { (resignData, err) in
+            social: socialLogin, socialToken: socialToken) { (resignData, err) in
                 guard let resignData = resignData else { return }
-            print("-------회원탈퇴 서버 통신", resignData)
-        }
+                print("-------회원탈퇴 서버 통신", resignData)
+            }
         // MARK: - FIXME 로그아웃 코드 환경설정 뷰에 알맞은 곳에 넣기
         AuthAPI.shared.getLogout { logoutData, err in
             guard let logoutData = logoutData else { return }

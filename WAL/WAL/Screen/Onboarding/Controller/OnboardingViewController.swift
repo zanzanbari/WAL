@@ -13,6 +13,9 @@ import WALKit
 final class OnboardingViewController: UIViewController {
     
     // MARK: - Properties
+
+    var dtypeString = ""
+    var timeString = ""
     
     private var currentRow: Int = 0
     private var didCurrentRow: Int = 0
@@ -50,7 +53,7 @@ final class OnboardingViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
-        hideKeyboardWhenTappedAround()
+        hideKeyboardWhenTappedAround()   
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -119,6 +122,21 @@ final class OnboardingViewController: UIViewController {
     @objc func scrollToThird() {
         collectionView.scrollToItem(at: IndexPath(row: 2, section: 0), at: .left, animated: true)
     }
+    
+    @objc func touchupCompleteButton(_ sender: UIButton) {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted]
+        let dtype = Dtype(true, false, true, false)
+        let time = AlarmTime(false, true, true)
+        
+        OnboardAPI.shared.postOnboardSetting(
+            nickname: "루희짱",
+            dtype: dtype,
+            time: time) { (onboardData, err)  in
+                guard let onboardData = onboardData else { return }
+                print(onboardData)
+            }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -175,6 +193,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
                 for: indexPath) as? AlarmCollectionViewCell
             else { return UICollectionViewCell() }
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
+            cell.completeButton.addTarget(self, action: #selector(touchupCompleteButton(_:)), for: .touchUpInside)
             return cell
         default:
             return UICollectionViewCell()
