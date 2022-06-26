@@ -172,6 +172,8 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
         UIView.animate(withDuration: 0.25) {
             self.nextButton.transform = .identity
         }
+        guard let text = textField.text else { return }
+        UserDefaults.standard.setValue(text, forKey: "nickname")
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -195,7 +197,6 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
         guard let text = nicknameTextField.text else { return false }
         let utf8Char = string.cString(using: .utf8)
         let isBackSpace = strcmp(utf8Char, "\\b")
-        
         if string.hasCharacters() || isBackSpace == -92 {
             warnIconView.isHidden = true
             warnLabel.isHidden = true

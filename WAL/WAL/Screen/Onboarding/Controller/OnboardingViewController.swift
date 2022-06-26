@@ -13,13 +13,19 @@ import WALKit
 final class OnboardingViewController: UIViewController {
     
     // MARK: - Properties
-
-    var dtypeString = ""
-    var timeString = ""
     
     private var currentRow: Int = 0
     private var didCurrentRow: Int = 0
     
+    private var joke = false
+    private var compliment = false
+    private var condolence = false
+    private var scolding = false
+    
+    private var morning = false
+    private var launch = false
+    private var evening = false
+        
     private let navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
@@ -124,15 +130,12 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted]
-        let dtype = Dtype(true, false, true, false)
-        let time = AlarmTime(false, true, true)
+        let dtype = Dtype(self.joke, self.compliment, self.condolence, self.scolding)
+        let alarmTime = AlarmTime(self.morning, self.launch, self.evening)
+        guard let nickname = UserDefaults.standard.string(forKey: "nickname") else { return }
         
-        OnboardAPI.shared.postOnboardSetting(
-            nickname: "루희짱",
-            dtype: dtype,
-            time: time) { (onboardData, err)  in
+        OnboardAPI.shared.postOnboardSetting(nickname: nickname, dtype: dtype, time: alarmTime) {
+            (onboardData, err) in
                 guard let onboardData = onboardData else { return }
                 print(onboardData)
             }
@@ -173,27 +176,28 @@ extension OnboardingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.row {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "OnboardingCollectionViewCell",
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardingCollectionViewCell",
                 for: indexPath) as? OnboardingCollectionViewCell
             else { return UICollectionViewCell() }
             cell.nextButton.addTarget(self, action: #selector(scrollToSecond), for: .touchUpInside)
             return cell
+            
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "CategoryCollectionViewCell",
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell",
                 for: indexPath) as? CategoryCollectionViewCell
             else { return UICollectionViewCell() }
             cell.nextButton.addTarget(self, action: #selector(scrollToThird), for: .touchUpInside)
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
+            cell.sendCategoryDelegate = self
             return cell
+            
         case 2:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "AlarmCollectionViewCell",
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlarmCollectionViewCell",
                 for: indexPath) as? AlarmCollectionViewCell
             else { return UICollectionViewCell() }
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
             cell.completeButton.addTarget(self, action: #selector(touchupCompleteButton(_:)), for: .touchUpInside)
+            cell.sendAlarmTimeDelegate = self
             return cell
         default:
             return UICollectionViewCell()
@@ -221,5 +225,22 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
+    }
+}
+
+// MARK: - Delegate
+
+extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate {
+    func sendCategory(joke: Bool, compliment: Bool, condolence: Bool, scolding: Bool) {
+        self.joke = joke
+        self.compliment = compliment
+        self.condolence = condolence
+        self.scolding = scolding
+    }
+    
+    func sendAlarmTime(morning: Bool, launch: Bool, evening: Bool) {
+        self.morning = morning
+        self.launch = launch
+        self.evening = evening
     }
 }
