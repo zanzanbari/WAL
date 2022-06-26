@@ -14,9 +14,8 @@ final class SettingAlarmViewController: UIViewController {
     // MARK: - Properties
     
     private let setting = SettingData()
-    private let timeData = TimeData()
     
-    public let navigationBar = WALNavigationBar(title: "알림").then {
+    private let navigationBar = WALNavigationBar(title: "알림").then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
