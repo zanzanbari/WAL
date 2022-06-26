@@ -14,9 +14,8 @@ class CreateFinishedViewController: UIViewController {
 
     // MARK: - Properties
     
-    private let illustView = UIView().then {
-        $0.backgroundColor = UIColor.gray400
-        $0.makeRound(radius: 20)
+    private let completeImageView = UIImageView().then {
+        $0.image = WALIcon.imgWalbbongComplete.image
     }
     
     private let reservationFinishedLabel = UILabel().then {
@@ -82,21 +81,19 @@ class CreateFinishedViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([illustView,
+        view.addSubviews([completeImageView,
                           reservationFinishedLabel,
                           dateLabelStackView,
                           descriptionLabel,
                           mainButton])
         
-        illustView.snp.makeConstraints {
-            $0.top.equalTo(view.layoutMarginsGuide).inset(164)
+        completeImageView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(225)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(173)
-            $0.width.equalTo(164)
         }
         
         reservationFinishedLabel.snp.makeConstraints {
-            $0.top.equalTo(illustView.snp.bottom).offset(22)
+            $0.top.equalTo(completeImageView.snp.bottom).offset(22)
             $0.centerX.equalToSuperview()
         }
         
@@ -121,7 +118,7 @@ class CreateFinishedViewController: UIViewController {
     
     @objc private func touchUpMainButton() {
         let mainViewController = UINavigationController(rootViewController: MainViewController())
-        mainViewController.modalPresentationStyle = .overFullScreen
+        mainViewController.modalPresentationStyle = .fullScreen
         present(mainViewController, animated: true)
     }
 }
