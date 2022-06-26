@@ -34,7 +34,7 @@ class CreateFinishedViewController: UIViewController {
     }
     
     private let descriptionLabel = UILabel().then {
-        $0.text = "왈소리를 보내드릴게요!"
+        $0.text = "왈소리를 보내드릴게요"
     }
     
     private lazy var dateLabelStackView = UIStackView().then {
@@ -93,7 +93,7 @@ class CreateFinishedViewController: UIViewController {
         }
         
         reservationFinishedLabel.snp.makeConstraints {
-            $0.top.equalTo(completeImageView.snp.bottom).offset(22)
+            $0.top.equalTo(completeImageView.snp.bottom).offset(71)
             $0.centerX.equalToSuperview()
         }
         
