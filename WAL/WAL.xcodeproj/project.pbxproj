@@ -52,6 +52,7 @@
 		5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */; };
 		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
+		9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */; };
 		9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD032865A93A009B6002 /* HistoryResponse.swift */; };
 		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
 		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
@@ -114,6 +115,7 @@
 		5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteHistoryResponse.swift; sourceTree = "<group>"; };
 		9213AD032865A93A009B6002 /* HistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponse.swift; sourceTree = "<group>"; };
 		9213AD062865AB67009B6002 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
 		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				9213AD032865A93A009B6002 /* HistoryResponse.swift */,
+				9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -607,7 +610,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */,
+				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -694,6 +697,7 @@
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
+				9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */,
 				5BB6616B28285B0200D54353 /* Category.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,
 				5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */,
@@ -964,7 +968,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
+		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -977,7 +981,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		5B1A2AA628572E5000CC9088 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */;
+			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */

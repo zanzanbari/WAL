@@ -19,7 +19,7 @@ struct HistoryData: Codable {
     let postID: Int
     let sendingDate, content, reserveAt: String
     let hidden: Bool?
-
+    
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
         case sendingDate, content, reserveAt, hidden

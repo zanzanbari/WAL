@@ -15,7 +15,10 @@ final class HistoryViewController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var navigationBar = WALNavigationBar(title: "히스토리")
+    private lazy var navigationBar = WALNavigationBar(title: "히스토리").then {
+        $0.rightIcon = WALIcon.btnDelete.image
+        $0.rightBarButton.addTarget(self, action: #selector(touchupCloseButton), for: .touchUpInside)
+    }
     
     private var historyTableView = UITableView(frame: .zero, style: .grouped)
     
@@ -94,11 +97,15 @@ final class HistoryViewController: UIViewController {
                     historyTableView.reloadRows(at: [indexPath], with: .automatic)
                     
                     guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-                    cell.isPressed = sender.state == .began ? false : true
+                    cell.isPressed = (sender.state == .began) ? false : true
                 }
             }
             
         }
+    }
+    
+    @objc func touchupCloseButton() {
+        dismiss(animated: true)
     }
 }
 
@@ -142,14 +149,13 @@ extension HistoryViewController: UITableViewDelegate {
         historyTableView.rowHeight = UITableView.automaticDimension
         
         let content = expandCellDatasource
-        
         content.isExpanded.toggle()
+        
         historyTableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            // MARK: - TODO : 재전송 시 화면 전환 및 데이터 전달
 //            dismiss(animated: true)
             success(true)
         }
@@ -165,7 +171,11 @@ extension HistoryViewController: UITableViewDelegate {
         }
         
         let cancelAction = UIContextualAction(style: .normal, title: "예약 취소") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("예약 취소")
+            if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+                DispatchQueue.main.async {
+                    self.cancelHistoryInfo(postId: cell.postId)
+                }
+            }
             success(true)
         }
         cancelAction.backgroundColor = .orange100
@@ -179,7 +189,11 @@ extension HistoryViewController: UITableViewDelegate {
         }
         
         let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("삭제")
+            if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+                DispatchQueue.main.async {
+                    self.deleteHistoryInfo(postId: cell.postId)
+                }
+            }
             success(true)
         }
         deleteAction.backgroundColor = .orange100
@@ -250,7 +264,7 @@ extension HistoryViewController: HistoryCompleteHeaderViewDelegate {
 
 extension HistoryViewController {
     func getHistoryInfo() {
-        HistoryAPI.shared.getHealthMainData { historyData, err in
+        HistoryAPI.shared.getHistoryData { historyData, err in
             guard let historyData = historyData else {
                 return
             }
@@ -263,6 +277,26 @@ extension HistoryViewController {
             DispatchQueue.main.async {
                 self.historyTableView.reloadData()
             }
+        }
+    }
+    
+    func cancelHistoryInfo(postId: Int) {
+        HistoryAPI.shared.cancelHistoryData(postId: postId) { cancelHistoryData, err in
+            guard let cancelHistoryData = cancelHistoryData else {
+                return
+            }
+            print(cancelHistoryData)
+            self.getHistoryInfo()
+        }
+    }
+    
+    func deleteHistoryInfo(postId: Int) {
+        HistoryAPI.shared.deleteHistoryData(postId: postId) { deleteHistoryData, err in
+            guard let deleteHistoryData = deleteHistoryData else {
+                return
+            }
+            print(deleteHistoryData)
+            self.getHistoryInfo()
         }
     }
 }

@@ -95,6 +95,8 @@ class HistoryTableViewCell: UITableViewCell {
         }
     }
     
+    var postId: Int = 0
+    
     // MARK: - Initializer
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -192,7 +194,7 @@ class HistoryTableViewCell: UITableViewCell {
             
             if contentLabel.countCurrentLines() == 1 {
                 contentLabel.snp.updateConstraints {
-                    $0.bottom.equalToSuperview().inset(46)
+                    $0.bottom.equalToSuperview().inset(72)
                 }
             } else {
                 contentLabel.snp.updateConstraints {
@@ -205,6 +207,8 @@ class HistoryTableViewCell: UITableViewCell {
     }
     
     internal func setData(_ data: HistoryData) {
+        postId = data.postID
+        
         isContentHidden = data.hidden ?? false
         
         sendingDateLabel.text = "\(data.sendingDate)"

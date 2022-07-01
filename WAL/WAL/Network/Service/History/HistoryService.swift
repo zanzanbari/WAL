@@ -9,6 +9,8 @@ import Moya
 
 enum HistoryService {
     case history
+    case cancelReserve(postId: Int)
+    case deleteReserve(postId: Int)
 }
 
 extension HistoryService: TargetType {
@@ -16,6 +18,10 @@ extension HistoryService: TargetType {
         switch self {
         case.history:
             return "/reserve"
+        case .cancelReserve(let postId):
+            return "/reserve/\(postId)"
+        case .deleteReserve(let postId):
+            return "/reserve/completed/\(postId)"
         }
     }
     
@@ -23,12 +29,14 @@ extension HistoryService: TargetType {
         switch self {
         case .history:
             return .get
+        case .cancelReserve, .deleteReserve:
+            return .delete
         }
     }
     
     var task: Task {
         switch self {
-        case .history:
+        case .history, .cancelReserve, .deleteReserve:
             return .requestPlain
         }
     }
@@ -43,6 +51,6 @@ extension HistoryService: TargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmlja25hbWUiOiLsmYjrv6HsnbQiLCJlbWFpbCI6ImNob2N3MDQwMkBnbWFpbC5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY1NTI4MjQxOCwiZXhwIjoxNjU2NDkyMDE4LCJpc3MiOiJjaGFud29vIn0._cXBIIPP4uFCH1XIG6Mqlgswh1pa19kqd0KafF2B7Qc"]
+                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmlja25hbWUiOiLsmYjrv6EiLCJlbWFpbCI6ImNob2N3MDQwMkBnbWFpbC5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY1NjY1MTk2OSwiZXhwIjoxNjU3ODYxNTY5LCJpc3MiOiJjaGFud29vIn0.YGNGe26Zyw0eLotooipPLfFkYYzaHUxJ7QA9yliPvT8"]
     }
 }
