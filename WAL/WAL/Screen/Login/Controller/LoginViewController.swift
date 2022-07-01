@@ -19,7 +19,7 @@ final class LoginViewController: UIViewController {
     // MARK: - Properties
     
     private let logoImageView = UIImageView().then {
-        $0.backgroundColor = .gray500
+        $0.image = WALIcon.imgWalbbongLogo.image
     }
     
     private let logoLabel = UILabel().then {
@@ -27,15 +27,15 @@ final class LoginViewController: UIViewController {
         $0.font = WALFont.body3.font
         $0.textColor = .black100
         $0.textAlignment = .center
+        $0.addCharacterFont(font: WALFont.body2.font, range: "왈")
+        $0.addCharacterColor(color: .orange100, range: "왈")
     }
     
-    private let kakaoButton = WALAuthButton().then {
-        $0.authType = .kakao
+    private let kakaoButton = WALAuthButton(type: .kakao).then {
         $0.addTarget(self, action: #selector(touchupKakaoButton), for: .touchUpInside)
     }
     
-    private let appleButton = WALAuthButton().then {
-        $0.authType = .apple
+    private let appleButton = WALAuthButton(type: .apple).then {
         $0.addTarget(self, action: #selector(touchupAppleButton), for: .touchUpInside)
     }
     
@@ -59,9 +59,10 @@ final class LoginViewController: UIViewController {
                           kakaoButton, appleButton])
         
         logoImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(207)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(176)
             make.centerX.equalToSuperview()
-            make.width.height.equalTo(138)
+            make.width.equalTo(130)
+            make.height.equalTo(100)
         }
         
         logoLabel.snp.makeConstraints { make in
@@ -84,33 +85,25 @@ final class LoginViewController: UIViewController {
     
     private func pushToHome() {
         let onboardingViewController = OnboardingViewController()
+        onboardingViewController.modalPresentationStyle = .overFullScreen
         present(onboardingViewController, animated: true, completion: nil)
     }
     
     private func checkToken() {
         // MARK: - 토큰 존재 여부 확인하기
-        
         if (AuthApi.hasToken()) {
             UserApi.shared.accessTokenInfo { (accessTokenInfo, error) in
                 if let error = error {
                     if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() {
                         //로그인 필요
-                    }
-                    else {
-                        //기타 에러
-                    }
-                }
-                else {
+                    } else { }
+                } else {
                     //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
                 }
             }
-        }
-        else {
-            //로그인 필요
-        }
+        } else { }
         
         // MARK: - 토큰 정보 보기
-        
         UserApi.shared.accessTokenInfo {(accessTokenInfo, error) in
             if let error = error { print(error) } else {
                 print("------------액세스 토큰 : accessTokenInfo() success.")
