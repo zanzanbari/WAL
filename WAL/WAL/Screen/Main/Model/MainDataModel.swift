@@ -13,13 +13,13 @@ enum WALDataType {
     case morning
     case lunch
     case evening
-    case speacial
+    case special
     
     var image: UIImage {
         switch self {
         case .morning, .lunch, .evening:
             return WALIcon.imgPawActive.image
-        case .speacial:
+        case .special:
             return WALIcon.imgPawSpecial.image
         }
     }
@@ -28,8 +28,8 @@ enum WALDataType {
         switch self {
         case .morning, .lunch, .evening:
             return UIColor.orange100
-        case .speacial:
-            return UIColor.orange100
+        case .special:
+            return UIColor.mint100
         }
     }
 }

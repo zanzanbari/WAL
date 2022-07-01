@@ -54,7 +54,7 @@ final class MainItemCell: UICollectionViewCell {
             delegate?.selectedCell(content: content)
             
             if isSelected {
-                if type == .speacial {
+                if type == .special {
                     contentView.layer.borderColor = UIColor.mint100.cgColor
                 } else {
                     contentView.layer.borderColor = UIColor.orange100.cgColor
@@ -89,7 +89,7 @@ final class MainItemCell: UICollectionViewCell {
     
     internal func setupData(_ data: MainDataModel) {
         if data.type == "스페셜" {
-            type = .speacial
+            type = .special
             
             // MARK: TODO REMOVE - 로티 확인용
             imageView.isHidden = true
@@ -99,7 +99,7 @@ final class MainItemCell: UICollectionViewCell {
         }
         
         if data.canOpen {
-            if type == .speacial {
+            if type == .special {
                 imageView.image = WALIcon.imgPawSpecial.image
             } else {
                 imageView.image = WALIcon.imgPawActive.image
