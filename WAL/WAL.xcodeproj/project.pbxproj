@@ -544,7 +544,7 @@
 				5BA3892A27F6B94F0010EAA1 /* Sources */,
 				5BA3892B27F6B94F0010EAA1 /* Frameworks */,
 				5BA3892C27F6B94F0010EAA1 /* Resources */,
-				BE337F731E65C2DBD2E6FA47 /* [CP] Embed Pods Frameworks */,
+				30587F58FD8455E0E7858DC2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -583,7 +583,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */,
+				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -616,6 +616,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		30587F58FD8455E0E7858DC2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A3120CCE326C712212982ADA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -636,23 +653,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BE337F731E65C2DBD2E6FA47 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -685,7 +685,7 @@
 				5B4A844B2857D3780032287D /* CardButton.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
-				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
+				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
@@ -941,7 +941,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -954,7 +954,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		5B1A2AA628572E5000CC9088 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
