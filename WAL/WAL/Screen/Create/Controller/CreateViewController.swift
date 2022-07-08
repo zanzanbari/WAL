@@ -22,9 +22,10 @@ class CreateViewController: UIViewController {
         $0.showsHorizontalScrollIndicator = false
     }
     
-    private let navigationBar = WALNavigationBar(title: "왈소리 만들기").then {
+    private lazy var navigationBar = WALNavigationBar(title: "왈소리 만들기").then {
         $0.leftIcon = WALIcon.btnBack.image
         $0.rightIcon = WALIcon.btnHistory.image
+        $0.leftBarButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
     }
     
     private let walSoundLabel = UILabel().then {
@@ -251,6 +252,12 @@ class CreateViewController: UIViewController {
         let viewController = CreateInformationViewController()
         viewController.modalPresentationStyle = .overFullScreen
         present(viewController, animated: false)
+    }
+    
+    @objc private func touchUpBackButton() {
+        let popupViewController = CreateBackPopupViewController()
+        popupViewController.modalPresentationStyle = .overFullScreen
+        present(popupViewController, animated: true)
     }
     
     //MARK: - CustomMethod

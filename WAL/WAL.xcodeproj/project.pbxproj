@@ -41,6 +41,8 @@
 		E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */; };
 		E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */; };
 		E2CD8B0628219B57009277C3 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD8B0528219B57009277C3 /* CreateViewController.swift */; };
+		E2FD851728782CEC00335667 /* WALPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD851628782CEC00335667 /* WALPopupView.swift */; };
+		E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */; };
 		EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +86,8 @@
 		E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTableViewCell.swift; sourceTree = "<group>"; };
 		E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		E2CD8B0528219B57009277C3 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		E2FD851628782CEC00335667 /* WALPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALPopupView.swift; sourceTree = "<group>"; };
+		E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBackPopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +374,7 @@
 				E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */,
 				E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */,
 				E281B4D0282D6BDB005667FD /* WALCreateView.swift */,
+				E2FD851628782CEC00335667 /* WALPopupView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 				E2CD8B0528219B57009277C3 /* CreateViewController.swift */,
 				E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */,
 				E213130428608077001238F3 /* CreateInformationViewController.swift */,
+				E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -514,6 +520,7 @@
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* TempService.swift in Sources */,
+				E2FD851728782CEC00335667 /* WALPopupView.swift in Sources */,
 				E2270C362864E4FC003DD8FB /* ReservedDate.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */,
@@ -534,6 +541,7 @@
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
+				E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */,
 				E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

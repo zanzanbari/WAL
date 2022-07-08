@@ -26,7 +26,7 @@ class CreateInformationViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = "왈소리 만들기란?"
-        $0.font = WALKit.WALFont.title2.font
+        $0.font = WALFont.title2.font
         $0.textColor = .black100
     }
     
