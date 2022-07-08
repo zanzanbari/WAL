@@ -26,6 +26,7 @@ class CreateViewController: UIViewController {
         $0.leftIcon = WALIcon.btnBack.image
         $0.rightIcon = WALIcon.btnHistory.image
         $0.leftBarButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
+        $0.rightBarButton.addTarget(self, action: #selector(touchUpHistoryButton), for: .touchUpInside)
     }
     
     private let walSoundLabel = UILabel().then {
@@ -258,6 +259,10 @@ class CreateViewController: UIViewController {
         let popupViewController = CreateBackPopupViewController()
         popupViewController.modalPresentationStyle = .overFullScreen
         present(popupViewController, animated: true)
+    }
+    
+    @objc private func touchUpHistoryButton() {
+        
     }
     
     //MARK: - CustomMethod
