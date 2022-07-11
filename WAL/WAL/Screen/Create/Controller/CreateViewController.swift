@@ -243,6 +243,7 @@ class CreateViewController: UIViewController {
         
         dateFormatter.dateFormat = "yyyy. MM. dd"
         timeFormatter.dateFormat = "a hh:mm"
+        timeFormatter.locale = Locale(identifier: "ko")
         
         viewController.date = "\(dateFormatter.string(from: datePickerData.date ?? Date())) \(timeFormatter.string(from: datePickerData.time ?? Date()))"
         
@@ -258,7 +259,7 @@ class CreateViewController: UIViewController {
     @objc private func touchUpBackButton() {
         let popupViewController = CreateBackPopupViewController()
         popupViewController.modalPresentationStyle = .overFullScreen
-        present(popupViewController, animated: true)
+        present(popupViewController, animated: false)
     }
     
     @objc private func touchUpHistoryButton() {
