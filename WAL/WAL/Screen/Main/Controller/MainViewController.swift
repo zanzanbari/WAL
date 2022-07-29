@@ -385,13 +385,19 @@ extension MainViewController {
                 }
                 
                 var canOpenCount: Int = 0
+                var isShownCount: Int = 0
+                
                 for item in self.mainData {
-                    if !item.canOpen {
+                    if item.canOpen {
                         canOpenCount += 1
+                    }
+                    
+                    if item.isShown {
+                        isShownCount += 1
                     }
                 }
                 
-                if canOpenCount == self.dataCount {
+                if isShownCount == self.dataCount {
                     self.walStatus = .checkedAll
                 } else {
                     self.walStatus = .arrived

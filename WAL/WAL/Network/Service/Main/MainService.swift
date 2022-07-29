@@ -44,7 +44,7 @@ extension MainService: TargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmlja25hbWUiOiLsmYjrv6EiLCJlbWFpbCI6ImNob2N3MDQwMkBnbWFpbC5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY1NjY1MTk2OSwiZXhwIjoxNjU3ODYxNTY5LCJpc3MiOiJjaGFud29vIn0.YGNGe26Zyw0eLotooipPLfFkYYzaHUxJ7QA9yliPvT8"]
+                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmlja25hbWUiOiLsmYjrv6EiLCJlbWFpbCI6ImNob2N3MDQwMkBnbWFpbC5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY1OTA5MjYyNiwiZXhwIjoxNjYwMzAyMjI2LCJpc3MiOiJjaGFud29vIn0.MOmYnBunDTrKXOl7eiI7AICcl8sgrS63m6wCH_dA8Vc"]
     }
 }
 
