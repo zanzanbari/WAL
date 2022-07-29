@@ -15,6 +15,8 @@ import Lottie
 
 final class MainViewController: UIViewController {
     
+    private var mainData = [MainResponse]()
+    
     fileprivate enum WALStatus {
         case sleeping
         case checkedAll
@@ -162,28 +164,6 @@ final class MainViewController: UIViewController {
         setupLayout()
         setupCollectionView()
         checkTime()
-        DispatchQueue.main.async {
-            self.dataCount = MainDataModel.mainData.count
-            self.walCollectionView.reloadData()
-            
-            if self.dataCount == 1 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(149)
-                }
-            } else if self.dataCount == 2 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(106)
-                }
-            } else if self.dataCount == 3 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(63)
-                }
-            } else if self.dataCount == 4 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(20)
-                }
-            }
-        }
     }
     
     // MARK: - Init UI
@@ -281,7 +261,7 @@ final class MainViewController: UIViewController {
         if intDate >= 0 && intDate <= 7 {
             walStatus = .sleeping
         } else {
-            walStatus = .arrived
+            getMainInfo()
         }
     }
     
@@ -333,14 +313,14 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             walContentView.isHidden = false
             walContentView.content = MainDataModel.mainData[indexPath.item].content
             
-            let walType = MainDataModel.mainData[indexPath.item].walType
-            if walType == 0 {
-                walContentView.walContentType = .fun
-            } else if walType == 1 {
+            let walType = mainData[indexPath.item].categoryId
+            if walType == -1 {
+                walContentView.walContentType = .special
+            } else if walType == 0 {
                 walContentView.walContentType = .angry
-            } else if walType == 2 {
+            } else if walType == 1 {
                 walContentView.walContentType = .love
-            } else if walType == 3 {
+            } else if walType == 2 {
                 walContentView.walContentType = .cheer
             } else {
                 walContentView.walContentType = .angry
@@ -358,14 +338,65 @@ extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainItemCell.cellIdentifier, for: indexPath) as? MainItemCell else { return UICollectionViewCell() }
-        cell.setupData(MainDataModel.mainData[indexPath.item])
+        cell.setupData(mainData[indexPath.item])
         
-        if MainDataModel.mainData[indexPath.item].canOpen {
+        if mainData[indexPath.item].canOpen {
             cell.isUserInteractionEnabled = true
         } else {
             cell.isUserInteractionEnabled = false
         }
 
         return cell
+    }
+}
+
+// MARK: - NetWork
+
+extension MainViewController {
+    func getMainInfo() {
+        MainAPI.shared.getMainData { mainData, err in
+            guard let mainData = mainData else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                guard let data = mainData.data else { return }
+                self.mainData = data
+                self.dataCount = data.count
+                
+                self.walCollectionView.reloadData()
+                
+                if self.dataCount == 1 {
+                    self.walCollectionView.snp.updateConstraints {
+                        $0.leading.trailing.equalToSuperview().inset(149)
+                    }
+                } else if self.dataCount == 2 {
+                    self.walCollectionView.snp.updateConstraints {
+                        $0.leading.trailing.equalToSuperview().inset(106)
+                    }
+                } else if self.dataCount == 3 {
+                    self.walCollectionView.snp.updateConstraints {
+                        $0.leading.trailing.equalToSuperview().inset(63)
+                    }
+                } else if self.dataCount == 4 {
+                    self.walCollectionView.snp.updateConstraints {
+                        $0.leading.trailing.equalToSuperview().inset(20)
+                    }
+                }
+                
+                var canOpenCount: Int = 0
+                for item in self.mainData {
+                    if !item.canOpen {
+                        canOpenCount += 1
+                    }
+                }
+                
+                if canOpenCount == self.dataCount {
+                    self.walStatus = .checkedAll
+                } else {
+                    self.walStatus = .arrived
+                }
+            }
+        }
     }
 }

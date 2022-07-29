@@ -26,7 +26,11 @@ final class MainItemCell: UICollectionViewCell {
         $0.isHidden = false
     }
     
-    private let animationView: AnimationView = .init(name: "mintPaw").then {
+    private let defaultAnimationView: AnimationView = .init(name: "orangePaw").then {
+        $0.isHidden = true
+    }
+    
+    private let specialAnimationView: AnimationView = .init(name: "mintPaw").then {
         $0.isHidden = true
     }
     
@@ -70,16 +74,18 @@ final class MainItemCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.gray400.cgColor
         contentView.layer.cornerRadius = 10
         
-        animationView.frame = contentView.bounds
-        animationView.center = contentView.center
-        animationView.contentMode = .scaleAspectFill
-        animationView.play()
-        animationView.loopMode = .loop
+        [defaultAnimationView,specialAnimationView].forEach {
+            $0.frame = contentView.bounds
+            $0.center = contentView.center
+            $0.contentMode = .scaleAspectFill
+            $0.play()
+            $0.loopMode = .loop
+        }
     }
     
     private func setupLayout() {
         addSubview(imageView)
-        addSubview(animationView)
+        addSubviews([defaultAnimationView, specialAnimationView])
         
         imageView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(16)
@@ -87,22 +93,22 @@ final class MainItemCell: UICollectionViewCell {
         }
     }
     
-    internal func setupData(_ data: MainDataModel) {
+    internal func setupData(_ data: MainResponse) {
         if data.type == "스페셜" {
             type = .special
-            
-            // MARK: TODO REMOVE - 로티 확인용
-            imageView.isHidden = true
-            animationView.isHidden = false
         } else {
             type = .morning
         }
         
         if data.canOpen {
             if type == .special {
-                imageView.image = WALIcon.imgPawSpecial.image
+                imageView.isHidden = true
+                defaultAnimationView.isHidden = true
+                specialAnimationView.isHidden = false
             } else {
-                imageView.image = WALIcon.imgPawActive.image
+                imageView.isHidden = true
+                defaultAnimationView.isHidden = false
+                specialAnimationView.isHidden = true
             }
         } else {
             imageView.image = WALIcon.imgPawInAtive.image

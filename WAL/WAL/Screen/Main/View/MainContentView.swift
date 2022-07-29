@@ -16,6 +16,7 @@ enum WALContentType {
     case angry
     case cheer
     case love
+    case special
     
     var walImage: UIImage {
         switch self {
@@ -27,6 +28,8 @@ enum WALContentType {
             return WALIcon.imgWallbbongCheer.image
         case .love:
             return WALIcon.imgWallbbongLove.image
+        case .special:
+            return WALIcon.imgWalbbongSpecial.image
         }
     }
 }
@@ -143,7 +146,6 @@ final class MainContentView: UIView {
     // MARK: - @objcd
     
     @objc func touchUpWal() {
-        print("왈뿡이 탭했음요")
         bubbleImageView.isHidden = true
     }
     

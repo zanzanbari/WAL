@@ -52,6 +52,9 @@
 		5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */; };
 		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
+		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
+		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
+		9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* MainResponse.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
@@ -114,6 +117,9 @@
 		5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9205E746286EE1A4000F4B6D /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
+		9205E748286EE1AD000F4B6D /* MainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPI.swift; sourceTree = "<group>"; };
+		9205E74B286EE4CF000F4B6D /* MainResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponse.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
@@ -309,6 +315,7 @@
 		5BA3894A27F6C0B90010EAA1 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				9205E74A286EE4C6000F4B6D /* Main */,
 				5BA3896427F6C2830010EAA1 /* Login.swift */,
 			);
 			path = DataModel;
@@ -317,6 +324,7 @@
 		5BA3894B27F6C0BF0010EAA1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				9205E744286EE18E000F4B6D /* Main */,
 				5B7EE87A2822D643007BC265 /* Auth */,
 			);
 			path = Service;
@@ -325,6 +333,7 @@
 		5BA3894C27F6C0C60010EAA1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				9205E745286EE195000F4B6D /* Main */,
 				5BB6615B2827B9D500D54353 /* Auth */,
 			);
 			path = API;
@@ -486,6 +495,30 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		9205E744286EE18E000F4B6D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				9205E746286EE1A4000F4B6D /* MainService.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		9205E745286EE195000F4B6D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				9205E748286EE1AD000F4B6D /* MainAPI.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		9205E74A286EE4C6000F4B6D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				9205E74B286EE4CF000F4B6D /* MainResponse.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		927D10E928210F3A001AEB78 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,7 +616,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */,
+				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -680,10 +713,13 @@
 				927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
+				9205E747286EE1A4000F4B6D /* MainService.swift in Sources */,
 				5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				5B4A844B2857D3780032287D /* CardButton.swift in Sources */,
+				9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
+				9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */,
 				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */,
@@ -941,7 +977,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
+		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -954,7 +990,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		5B1A2AA628572E5000CC9088 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit.git" */;
+			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
