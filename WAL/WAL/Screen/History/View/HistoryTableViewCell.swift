@@ -32,7 +32,7 @@ class HistoryTableViewCell: UITableViewCell {
         $0.backgroundColor = .gray600
     }
     
-    private var coverView = UIView().then {
+    var coverView = UIView().then {
         $0.backgroundColor = .orange200
         $0.isHidden = true
     }

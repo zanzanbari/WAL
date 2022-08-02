@@ -82,24 +82,31 @@ final class HistoryViewController: UIViewController {
         let touchPoint = sender.location(in: historyTableView)
         if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
             guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-            let content = expandCellDatasource
-            
-            if cell.isContentHidden {
-                let touchPoint = sender.location(in: historyTableView)
-                if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
-                    if content.isExpanded {
-                        historyTableView.rowHeight = 125
-                    } else {
-                        historyTableView.rowHeight = UITableView.automaticDimension
-                    }
-                    content.isExpanded.toggle()
-                    
-                    historyTableView.reloadRows(at: [indexPath], with: .automatic)
-                    
-                    guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-                    cell.isPressed = (sender.state == .began) ? false : true
-                }
+            switch sender.state {
+            case .ended:
+                cell.coverView.isHidden = false
+            default:
+                cell.coverView.isHidden = true
             }
+            
+//            let content = expandCellDatasource
+//
+//            if cell.isContentHidden {
+//                let touchPoint = sender.location(in: historyTableView)
+//                if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
+//                    if content.isExpanded {
+//                        historyTableView.rowHeight = 125
+//                    } else {
+//                        historyTableView.rowHeight = UITableView.automaticDimension
+//                    }
+//                    content.isExpanded.toggle()
+//
+//                    historyTableView.reloadRows(at: [indexPath], with: .automatic)
+//
+//                    guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
+//                    cell.isPressed = (sender.state == .began) ? false : true
+//                }
+//            }
             
         }
     }
