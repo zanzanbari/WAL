@@ -8,9 +8,7 @@
 import UIKit
 
 import Then
-
 import WALKit
-
 import Lottie
 
 final class MainViewController: UIViewController {
@@ -411,7 +409,7 @@ extension MainViewController {
     }
     
     private func updateMainData(item: Int) {
-        MainAPI.shared.updateMainData(item: self.mainData[0].id) { mainData, error in
+        MainAPI.shared.updateMainData(item: self.mainData[item].id) { mainData, error in
             guard let mainData = mainData else {
                 return
             }

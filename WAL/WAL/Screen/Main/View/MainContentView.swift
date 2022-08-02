@@ -8,7 +8,6 @@
 import UIKit
 
 import WALKit
-
 import Lottie
 
 enum WALContentType {
@@ -143,7 +142,7 @@ final class MainContentView: UIView {
         imageView.addGestureRecognizer(tapGesture)
     }
     
-    // MARK: - @objcd
+    // MARK: - @objc
     
     @objc func touchUpWal() {
         bubbleImageView.isHidden = true
