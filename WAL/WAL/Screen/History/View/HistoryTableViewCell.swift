@@ -81,7 +81,12 @@ class HistoryTableViewCell: UITableViewCell {
         }
     }
     
-    var isExpanded: Bool = false
+    var isExpanded: Bool = false {
+        didSet {
+            reserveAtLabel.isHidden = !isExpanded
+        }
+    }
+    
     var isPressed: Bool = false {
         didSet {
             if !coverView.isHidden {
@@ -187,9 +192,6 @@ class HistoryTableViewCell: UITableViewCell {
                 $0.bottom.equalToSuperview().inset(51)
             }
             contentLabel.numberOfLines = 0
-            
-            reserveAtLabel.isHidden = false
-            print("isExpanded false")
         } else {
             contentLabel.numberOfLines = 2
             
@@ -202,9 +204,6 @@ class HistoryTableViewCell: UITableViewCell {
                     $0.bottom.equalToSuperview().inset(25)
                 }
             }
-            
-            reserveAtLabel.isHidden = true
-            print("isExpanded true")
         }
     }
     

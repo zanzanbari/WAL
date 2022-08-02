@@ -165,12 +165,17 @@ extension HistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected row \(indexPath.row)")
+        print("row\(indexPath.row)")
+        if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+//            historyTableView.rowHeight = UITableView.automaticDimension
+            cell.isExpanded.toggle()
+//            historyTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
         
-        historyTableView.rowHeight = UITableView.automaticDimension
+//        historyTableView.rowHeight = UITableView.automaticDimension
 //        let content = expandCellDatasource
 //        content.isExpanded.toggle()
-        historyTableView.reloadRows(at: [indexPath], with: .automatic)
+//        historyTableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -253,14 +258,14 @@ extension HistoryViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-            cell.initCell(isTapped: expandCellDatasource)
+//            cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
             cell.sendingDateLabelColor = .systemMint
             cell.setData(sendingData[indexPath.row])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-            cell.initCell(isTapped: expandCellDatasource)
+//            cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
             cell.sendingDateLabelColor = .gray
             cell.setData(completeData[indexPath.row])
