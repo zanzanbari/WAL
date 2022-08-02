@@ -88,6 +88,7 @@ final class HistoryViewController: UIViewController {
                     cell.coverView.isHidden = false
                 default:
                     cell.coverView.isHidden = true
+                    cell.reserveAtLabel.isHidden = false
                 }
             }
             

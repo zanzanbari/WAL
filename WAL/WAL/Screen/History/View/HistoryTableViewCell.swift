@@ -68,7 +68,7 @@ class HistoryTableViewCell: UITableViewCell {
         $0.numberOfLines = 2
     }
     
-    private var reserveAtLabel = UILabel().then {
+    var reserveAtLabel = UILabel().then {
         $0.text = "받는 날짜"
         $0.textColor = .gray200
         $0.font = WALFont.body7.font
