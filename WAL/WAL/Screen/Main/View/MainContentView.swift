@@ -81,6 +81,13 @@ final class MainContentView: UIView {
         }
     }
     
+    var isFirst: Bool = UserDefaults.standard.bool(forKey: "isFirst") {
+        didSet {
+            UserDefaults.standard.set(isFirst, forKey: "isFirst")
+            bubbleImageView.isHidden = isFirst ? false : true
+        }
+    }
+    
     // MARK: - Initializer
     
     init() {
@@ -98,6 +105,8 @@ final class MainContentView: UIView {
     
     private func configUI() {
         backgroundColor = .white100
+        
+        bubbleImageView.isHidden = isFirst ? false : true
     }
     
     private func setupLayout() {

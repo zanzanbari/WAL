@@ -162,6 +162,8 @@ final class MainViewController: UIViewController {
         setupLayout()
         setupCollectionView()
         checkTime()
+        
+//        UserDefaults.standard.removeObject(forKey: "isFirst")
     }
     
     // MARK: - Init UI
@@ -296,6 +298,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         }
         
         if cell.isSelected {
+            walContentView.isFirst = false
+            
             titleLabel.isHidden = false
             subTitleLabel.isHidden = false
             
