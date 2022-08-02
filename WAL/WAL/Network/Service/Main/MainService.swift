@@ -9,6 +9,7 @@ import Moya
 
 enum MainService {
     case main
+    case mainItem(param: Int)
 }
 
 extension MainService: TargetType {
@@ -17,6 +18,8 @@ extension MainService: TargetType {
         switch self {
         case .main:
             return "/main"
+        case .mainItem(let param):
+            return "/main/\(param)"
         }
     }
     
@@ -24,12 +27,14 @@ extension MainService: TargetType {
         switch self {
         case .main:
             return .get
+        case .mainItem:
+            return .patch
         }
     }
     
     var task: Task {
         switch self {
-        case .main:
+        case .main, .mainItem:
             return .requestPlain
         }
     }

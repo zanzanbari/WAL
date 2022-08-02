@@ -32,4 +32,23 @@ final class MainAPI {
             }
         }
     }
+    
+    public func updateMainData(item: Int, completion: @escaping ((GenericArrayResponse<MainResponse>?, Int?) -> ())) {
+        mainProvider.request(.mainItem(param: item)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    self.mainData = try response.map(GenericArrayResponse<MainResponse>?.self)
+                    guard let mainData = self.mainData else { return }
+                    completion(mainData, nil)
+                    
+                } catch(let err) {
+                    print(err.localizedDescription, 500)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil, 500)
+            }
+        }
+    }
 }

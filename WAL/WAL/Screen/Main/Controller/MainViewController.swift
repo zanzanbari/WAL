@@ -336,6 +336,10 @@ extension MainViewController: UICollectionViewDataSource {
         return dataCount
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        updateMainData(item: indexPath.item)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainItemCell.cellIdentifier, for: indexPath) as? MainItemCell else { return UICollectionViewCell() }
         cell.setupData(mainData[indexPath.item])
@@ -402,6 +406,14 @@ extension MainViewController {
                 } else {
                     self.walStatus = .arrived
                 }
+            }
+        }
+    }
+    
+    private func updateMainData(item: Int) {
+        MainAPI.shared.updateMainData(item: self.mainData[0].id) { mainData, error in
+            guard let mainData = mainData else {
+                return
             }
         }
     }

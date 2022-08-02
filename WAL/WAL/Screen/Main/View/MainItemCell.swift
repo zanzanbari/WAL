@@ -8,7 +8,6 @@
 import UIKit
 
 import WALKit
-
 import Lottie
 
 // MARK: - ItemCell
@@ -60,8 +59,14 @@ final class MainItemCell: UICollectionViewCell {
             if isSelected {
                 if type == .special {
                     contentView.layer.borderColor = UIColor.mint100.cgColor
+                    specialAnimationView.isHidden = true
+                    imageView.image = WALIcon.imgPawSpecial.image
+                    imageView.isHidden = false
                 } else {
                     contentView.layer.borderColor = UIColor.orange100.cgColor
+                    defaultAnimationView.isHidden = true
+                    imageView.image = WALIcon.imgPawActive.image
+                    imageView.isHidden = false
                 }
             } else {
                 contentView.layer.borderColor = UIColor.gray400.cgColor
@@ -112,6 +117,18 @@ final class MainItemCell: UICollectionViewCell {
             }
         } else {
             imageView.image = WALIcon.imgPawInAtive.image
+        }
+        
+        if data.isShown {
+            if type == .special {
+                imageView.image = WALIcon.imgPawSpecial.image
+            } else {
+                imageView.image = WALIcon.imgPawActive.image
+            }
+            
+            imageView.isHidden = false
+            defaultAnimationView.isHidden = true
+            specialAnimationView.isHidden = true
         }
         
         self.content = data.content
