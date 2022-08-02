@@ -82,11 +82,13 @@ final class HistoryViewController: UIViewController {
         let touchPoint = sender.location(in: historyTableView)
         if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
             guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-            switch sender.state {
-            case .ended:
-                cell.coverView.isHidden = false
-            default:
-                cell.coverView.isHidden = true
+            if cell.isContentHidden {
+                switch sender.state {
+                case .ended:
+                    cell.coverView.isHidden = false
+                default:
+                    cell.coverView.isHidden = true
+                }
             }
             
 //            let content = expandCellDatasource
