@@ -189,6 +189,7 @@ class HistoryTableViewCell: UITableViewCell {
             contentLabel.numberOfLines = 0
             
             reserveAtLabel.isHidden = false
+            print("isExpanded false")
         } else {
             contentLabel.numberOfLines = 2
             
@@ -203,6 +204,7 @@ class HistoryTableViewCell: UITableViewCell {
             }
             
             reserveAtLabel.isHidden = true
+            print("isExpanded true")
         }
     }
     

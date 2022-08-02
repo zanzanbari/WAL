@@ -85,9 +85,18 @@ final class HistoryViewController: UIViewController {
             if cell.isContentHidden {
                 switch sender.state {
                 case .ended:
-                    cell.coverView.isHidden = false
+                    UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
+                        cell.coverView.alpha = 1
+                    }, completion: { _ in
+                        cell.coverView.isHidden = false
+                    })
+                    print("ended")
                 default:
-                    cell.coverView.isHidden = true
+                    UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
+                        cell.coverView.alpha = 0
+                    }, completion: { _ in
+                        cell.coverView.isHidden = true
+                    })
                     cell.reserveAtLabel.isHidden = false
                 }
             }
@@ -156,11 +165,11 @@ extension HistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected row \(indexPath.row)")
+        
         historyTableView.rowHeight = UITableView.automaticDimension
-        
-        let content = expandCellDatasource
-        content.isExpanded.toggle()
-        
+//        let content = expandCellDatasource
+//        content.isExpanded.toggle()
         historyTableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
