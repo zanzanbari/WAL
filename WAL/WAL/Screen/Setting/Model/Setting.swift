@@ -32,6 +32,7 @@ struct SettingData {
         Setting(menu: "왈이 궁금해요"),
         Setting(menu: "공지사항"),
         Setting(menu: "서비스 이용 약관"),
+        Setting(menu: "오픈소스 라이선스"),
         Setting(menu: "버전 정보", subMenu: "1.0")
     ]
     
