@@ -15,6 +15,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Cafe24Ssurround.ttf</string>
 		<string>Pretendard-Bold.otf</string>
 		<string>Pretendard-Medium.otf</string>
 		<string>Pretendard-Regular.otf</string>
