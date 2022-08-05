@@ -25,7 +25,6 @@
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
-		5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893C27F6B9540010EAA1 /* LaunchScreen.storyboard */; };
 		5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* TempModel.swift */; };
 		5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* TempView.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
@@ -44,6 +43,16 @@
 		5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616728285A5B00D54353 /* TimeButton.swift */; };
 		5BB6616B28285B0200D54353 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616A28285B0200D54353 /* Category.swift */; };
 		5BB6616D28285B1300D54353 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB6616C28285B1300D54353 /* Time.swift */; };
+		5BC2DD042868DCCE00AFCC29 /* SettingCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD032868DCCE00AFCC29 /* SettingCategoryViewController.swift */; };
+		5BC2DD062868E04B00AFCC29 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD052868E04B00AFCC29 /* CategoryButton.swift */; };
+		5BC2DD092868E71700AFCC29 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD082868E71700AFCC29 /* MypageViewController.swift */; };
+		5BC2DD0B2868E74100AFCC29 /* EditNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD0A2868E74100AFCC29 /* EditNicknameViewController.swift */; };
+		5BC2DD0D2868E75100AFCC29 /* ResignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD0C2868E75100AFCC29 /* ResignViewController.swift */; };
+		5BC2DD0F2868EA7E00AFCC29 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD0E2868EA7E00AFCC29 /* BaseViewController.swift */; };
+		5BC2DD132868F2DD00AFCC29 /* ResignTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD122868F2DD00AFCC29 /* ResignTableViewCell.swift */; };
+		5BC2DD152868F55400AFCC29 /* ResignHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DD142868F55400AFCC29 /* ResignHeaderView.swift */; };
+		5BC58094289D2CEF0095F8E4 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC58093289D2CEF0095F8E4 /* Launch Screen.storyboard */; };
+		5BC58098289D332C0095F8E4 /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 5BC58097289D332C0095F8E4 /* login.json */; };
 		5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17415282CDCDE00C77A95 /* AlarmView.swift */; };
 		5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17418282CDD0A00C77A95 /* Setting.swift */; };
 		5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1741B282CDD3400C77A95 /* SettingViewController.swift */; };
@@ -52,6 +61,7 @@
 		5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */; };
 		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
+		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
@@ -83,7 +93,6 @@
 		5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5BA3893527F6B94F0010EAA1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5BA3893827F6B94F0010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5BA3893D27F6B9540010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BA3893F27F6B9540010EAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BA3895727F6C2260010EAA1 /* TempModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempModel.swift; sourceTree = "<group>"; };
 		5BA3895927F6C22F0010EAA1 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
@@ -103,6 +112,16 @@
 		5BB6616728285A5B00D54353 /* TimeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButton.swift; sourceTree = "<group>"; };
 		5BB6616A28285B0200D54353 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5BB6616C28285B1300D54353 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		5BC2DD032868DCCE00AFCC29 /* SettingCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCategoryViewController.swift; sourceTree = "<group>"; };
+		5BC2DD052868E04B00AFCC29 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		5BC2DD082868E71700AFCC29 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		5BC2DD0A2868E74100AFCC29 /* EditNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameViewController.swift; sourceTree = "<group>"; };
+		5BC2DD0C2868E75100AFCC29 /* ResignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignViewController.swift; sourceTree = "<group>"; };
+		5BC2DD0E2868EA7E00AFCC29 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		5BC2DD122868F2DD00AFCC29 /* ResignTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignTableViewCell.swift; sourceTree = "<group>"; };
+		5BC2DD142868F55400AFCC29 /* ResignHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignHeaderView.swift; sourceTree = "<group>"; };
+		5BC58093289D2CEF0095F8E4 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		5BC58097289D332C0095F8E4 /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
 		5BD17415282CDCDE00C77A95 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		5BD17418282CDD0A00C77A95 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		5BD1741B282CDD3400C77A95 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +130,7 @@
 		5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5BECCA8E286A43B800DD70A3 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
@@ -328,7 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA3893727F6B94F0010EAA1 /* Main.storyboard */,
-				5BA3893C27F6B9540010EAA1 /* LaunchScreen.storyboard */,
+				5BC58093289D2CEF0095F8E4 /* Launch Screen.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -344,6 +364,7 @@
 		5BA3894F27F6C14B0010EAA1 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				5BC58097289D332C0095F8E4 /* login.json */,
 			);
 			name = Lottie;
 			sourceTree = "<group>";
@@ -430,6 +451,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5BC2DD112868F2BA00AFCC29 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				5BD17415282CDCDE00C77A95 /* AlarmView.swift */,
+				5BC2DD052868E04B00AFCC29 /* CategoryButton.swift */,
+				5BC2DD142868F55400AFCC29 /* ResignHeaderView.swift */,
+				5BECCA8E286A43B800DD70A3 /* MenuButton.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		5BCF3AE82859096C00E8CF90 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,10 +484,11 @@
 		5BD17414282CDCCD00C77A95 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5BD17415282CDCDE00C77A95 /* AlarmView.swift */,
+				5BC2DD112868F2BA00AFCC29 /* Component */,
 				5BD1741F282CDDB500C77A95 /* MyInfoTableViewCell.swift */,
 				5BD17421282CDDD100C77A95 /* SettingTableViewCell.swift */,
 				5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */,
+				5BC2DD122868F2DD00AFCC29 /* ResignTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -471,8 +504,13 @@
 		5BD1741A282CDD1C00C77A95 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5BC2DD0E2868EA7E00AFCC29 /* BaseViewController.swift */,
 				5BD1741B282CDD3400C77A95 /* SettingViewController.swift */,
 				5BD1741D282CDD4F00C77A95 /* SettingAlarmViewController.swift */,
+				5BC2DD032868DCCE00AFCC29 /* SettingCategoryViewController.swift */,
+				5BC2DD082868E71700AFCC29 /* MypageViewController.swift */,
+				5BC2DD0A2868E74100AFCC29 /* EditNicknameViewController.swift */,
+				5BC2DD0C2868E75100AFCC29 /* ResignViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -592,12 +630,13 @@
 			files = (
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
-				5BA3893E27F6B9540010EAA1 /* LaunchScreen.storyboard in Resources */,
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
+				5BC58098289D332C0095F8E4 /* login.json in Resources */,
+				5BC58094289D2CEF0095F8E4 /* Launch Screen.storyboard in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,10 +698,13 @@
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
 				927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
+				5BC2DD042868DCCE00AFCC29 /* SettingCategoryViewController.swift in Sources */,
+				5BC2DD0D2868E75100AFCC29 /* ResignViewController.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				5BB6616B28285B0200D54353 /* Category.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,
+				5BC2DD092868E71700AFCC29 /* MypageViewController.swift in Sources */,
 				5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
 				927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */,
@@ -677,6 +719,7 @@
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
+				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
@@ -689,12 +732,17 @@
 				5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */,
 				5BB661622828340100D54353 /* Bundle+.swift in Sources */,
 				5BD17420282CDDB500C77A95 /* MyInfoTableViewCell.swift in Sources */,
+				5BC2DD152868F55400AFCC29 /* ResignHeaderView.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
+				5BC2DD0F2868EA7E00AFCC29 /* BaseViewController.swift in Sources */,
+				5BC2DD0B2868E74100AFCC29 /* EditNicknameViewController.swift in Sources */,
 				5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
+				5BC2DD062868E04B00AFCC29 /* CategoryButton.swift in Sources */,
+				5BC2DD132868F2DD00AFCC29 /* ResignTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,14 +755,6 @@
 				5BA3893827F6B94F0010EAA1 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5BA3893C27F6B9540010EAA1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5BA3893D27F6B9540010EAA1 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -844,6 +884,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -852,8 +893,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -867,7 +909,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "WAL Debug";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -877,6 +919,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -885,8 +928,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -900,7 +944,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "WAL Debug";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

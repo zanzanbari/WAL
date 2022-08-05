@@ -51,7 +51,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     private let warnLabel = UILabel().then {
         $0.font = WALFont.body9.font
-        $0.text = "띄어쓰기 없이 한글, 영문, 숫자만 가능해요"
+        $0.text = Constant.warnText
         $0.numberOfLines = 0
         $0.textColor = .red100
         $0.isHidden = true

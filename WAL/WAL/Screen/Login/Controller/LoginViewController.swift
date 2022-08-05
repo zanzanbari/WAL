@@ -8,6 +8,7 @@
 import UIKit
 
 import AuthenticationServices
+import Lottie
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
@@ -18,8 +19,11 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let logoImageView = UIImageView().then {
-        $0.image = WALIcon.icnWal.image
+    private let logoImageView = AnimationView().then {
+        $0.animation = Animation.named("login")
+        $0.contentMode = .scaleAspectFit
+        $0.loopMode = .repeat(5)
+        $0.play()
     }
     
     private let kakaoButton = WALAuthButton(type: .kakao).then {
@@ -43,6 +47,7 @@ final class LoginViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .orange100
+        logoImageView.frame = view.bounds
     }
     
     private func setupLayout() {

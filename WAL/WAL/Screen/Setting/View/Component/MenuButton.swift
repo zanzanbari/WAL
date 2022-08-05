@@ -53,8 +53,9 @@ class MenuButton: UIButton {
         }
         
         menuLabel.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(17)
+            make.top.equalTo(lineView.snp.bottom).offset(20)
             make.leading.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(20)
         }
     }
 }

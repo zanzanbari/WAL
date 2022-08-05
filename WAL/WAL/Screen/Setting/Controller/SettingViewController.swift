@@ -97,13 +97,26 @@ extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.section {
+        case 0:
+            let viewController = MypageViewController()
+            viewController.modalPresentationStyle = .overFullScreen
+            present(viewController, animated: true, completion: nil)
         case 1:
             if indexPath.row == 0 {
                 let viewController = SettingAlarmViewController()
                 viewController.modalPresentationStyle = .overFullScreen
                 present(viewController, animated: true, completion: nil)
+            } else if indexPath.row == 1 {
+                let viewController = SettingCategoryViewController()
+                viewController.modalPresentationStyle = .overFullScreen
+                present(viewController, animated: true, completion: nil)
             }
         default:
+            if indexPath.row == 0 {
+                let viewController = ResignViewController()
+                viewController.modalPresentationStyle = .overFullScreen
+                present(viewController, animated: true, completion: nil)
+            }
             break
         }
     }

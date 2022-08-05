@@ -134,9 +134,9 @@ final class MypageViewController: UIViewController {
         }
         
         resignButton.snp.makeConstraints { make in
-            make.top.equalTo(logoutButton.snp.bottom).offset(20)
+            make.top.equalTo(logoutButton.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -160,7 +160,7 @@ final class MypageViewController: UIViewController {
             present(viewController, animated: true, completion: nil)
             
         default:
-            print("로그아웃버튼")
+            print("로그아웃 팝업")
         }
     }
 }
