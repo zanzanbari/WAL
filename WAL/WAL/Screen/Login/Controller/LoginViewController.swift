@@ -75,7 +75,7 @@ final class LoginViewController: UIViewController {
     
     private func pushToHome() {
         let onboardingViewController = OnboardingViewController()
-        onboardingViewController.modalPresentationStyle = .overFullScreen
+        onboardingViewController.modalPresentationStyle = .fullScreen
         present(onboardingViewController, animated: true, completion: nil)
     }
     
