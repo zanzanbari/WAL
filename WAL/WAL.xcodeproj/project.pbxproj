@@ -13,7 +13,6 @@
 		5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3C281F31910057F9B7 /* CategoryCollectionViewCell.swift */; };
 		5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */; };
 		5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D4228219C2F0057F9B7 /* LoginViewController.swift */; };
-		5B1A2AA728572E5000CC9088 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B1A2AA628572E5000CC9088 /* WALKit */; };
 		5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A2AA828572EF300CC9088 /* KeyInfo.plist */; };
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
@@ -26,8 +25,9 @@
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
-		5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* TempModel.swift */; };
-		5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* TempView.swift */; };
+		5BA3893E27F6B9540010EAA1 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* MainDataModel.swift */; };
+		5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
 		5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896027F6C2680010EAA1 /* UIView+.swift */; };
 		5BA3896527F6C2830010EAA1 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896427F6C2830010EAA1 /* Login.swift */; };
@@ -67,15 +67,28 @@
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
+		5BF0FC38289E50E0004727F8 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF0FC37289E50E0004727F8 /* WALKit */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
 		927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F328211017001AEB78 /* HistoryDataModel.swift */; };
 		927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */; };
+		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
+		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
+		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
 		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
 		E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F6A281E7EB700576135 /* Pretendard-Medium.otf */; };
+		E213130528608077001238F3 /* CreateInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E213130428608077001238F3 /* CreateInformationViewController.swift */; };
+		E2270C362864E4FC003DD8FB /* ReservedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2270C352864E4FC003DD8FB /* ReservedDate.swift */; };
+		E281B4D1282D6BDB005667FD /* WALCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281B4D0282D6BDB005667FD /* WALCreateView.swift */; };
+		E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */; };
+		E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */; };
+		E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */; };
+		E2CD8B0628219B57009277C3 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD8B0528219B57009277C3 /* CreateViewController.swift */; };
+		E2FD851728782CEC00335667 /* WALPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD851628782CEC00335667 /* WALPopupView.swift */; };
+		E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */; };
 		EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,8 +113,8 @@
 		5BA3893527F6B94F0010EAA1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5BA3893827F6B94F0010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5BA3893F27F6B9540010EAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5BA3895727F6C2260010EAA1 /* TempModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempModel.swift; sourceTree = "<group>"; };
-		5BA3895927F6C22F0010EAA1 /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
+		5BA3895727F6C2260010EAA1 /* MainDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataModel.swift; sourceTree = "<group>"; };
+		5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainItemCell.swift; sourceTree = "<group>"; };
 		5BA3895B27F6C23B0010EAA1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5BA3896027F6C2680010EAA1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		5BA3896427F6C2830010EAA1 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -147,6 +160,9 @@
 		927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCompleteHeaderView.swift; sourceTree = "<group>"; };
 		927D10F328211017001AEB78 /* HistoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataModel.swift; sourceTree = "<group>"; };
 		927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		929756A8285A4C4600A9FFA8 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
+		92C1B84C28633FB500F97D75 /* mintPaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mintPaw.json; sourceTree = "<group>"; };
+		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +170,15 @@
 		E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "WAL/Resource/Font/Pretendard-SemiBold.otf"; sourceTree = SOURCE_ROOT; };
 		E2082F69281E7EB700576135 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "WAL/Resource/Font/Pretendard-Regular.otf"; sourceTree = SOURCE_ROOT; };
 		E2082F6A281E7EB700576135 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "WAL/Resource/Font/Pretendard-Medium.otf"; sourceTree = SOURCE_ROOT; };
+		E213130428608077001238F3 /* CreateInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInformationViewController.swift; sourceTree = "<group>"; };
+		E2270C352864E4FC003DD8FB /* ReservedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedDate.swift; sourceTree = "<group>"; };
+		E281B4D0282D6BDB005667FD /* WALCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALCreateView.swift; sourceTree = "<group>"; };
+		E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFinishedViewController.swift; sourceTree = "<group>"; };
+		E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTableViewCell.swift; sourceTree = "<group>"; };
+		E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
+		E2CD8B0528219B57009277C3 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		E2FD851628782CEC00335667 /* WALPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALPopupView.swift; sourceTree = "<group>"; };
+		E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBackPopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B1A2AA728572E5000CC9088 /* WALKit in Frameworks */,
+				5BF0FC38289E50E0004727F8 /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +333,7 @@
 		5BA3894827F6C0750010EAA1 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				E2CD8B0128219AA7009277C3 /* Create */,
 				5B020D4028219C0E0057F9B7 /* Login */,
 				927D10E928210F3A001AEB78 /* History */,
 				5B348A1B281E400E006FEFDA /* Onboarding */,
@@ -375,6 +401,8 @@
 		5BA3894F27F6C14B0010EAA1 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				92C1B84C28633FB500F97D75 /* mintPaw.json */,
+				92C1B84D28633FB500F97D75 /* orangePaw.json */,
 				5BC58097289D332C0095F8E4 /* login.json */,
 				5B86CD53289E08B300F8611C /* loginGif.gif */,
 			);
@@ -421,7 +449,7 @@
 		5BA3895527F6C1FC0010EAA1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3895727F6C2260010EAA1 /* TempModel.swift */,
+				5BA3895727F6C2260010EAA1 /* MainDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -429,7 +457,8 @@
 		5BA3895627F6C2010010EAA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3895927F6C22F0010EAA1 /* TempView.swift */,
+				5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */,
+				929756A8285A4C4600A9FFA8 /* MainContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -585,6 +614,46 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		E2CD8B0128219AA7009277C3 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				E2CD8B0428219AC5009277C3 /* Controller */,
+				E2CD8B0328219ABF009277C3 /* View */,
+				E2CD8B0228219AB7009277C3 /* Model */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		E2CD8B0228219AB7009277C3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E2270C352864E4FC003DD8FB /* ReservedDate.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E2CD8B0328219ABF009277C3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */,
+				E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */,
+				E281B4D0282D6BDB005667FD /* WALCreateView.swift */,
+				E2FD851628782CEC00335667 /* WALPopupView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E2CD8B0428219AC5009277C3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E2CD8B0528219B57009277C3 /* CreateViewController.swift */,
+				E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */,
+				E213130428608077001238F3 /* CreateInformationViewController.swift */,
+				E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -596,7 +665,7 @@
 				5BA3892A27F6B94F0010EAA1 /* Sources */,
 				5BA3892B27F6B94F0010EAA1 /* Frameworks */,
 				5BA3892C27F6B94F0010EAA1 /* Resources */,
-				A42607782A5347DAC616AD03 /* [CP] Embed Pods Frameworks */,
+				30587F58FD8455E0E7858DC2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -604,7 +673,7 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B1A2AA628572E5000CC9088 /* WALKit */,
+				5BF0FC37289E50E0004727F8 /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -635,7 +704,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */,
+				5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -653,8 +722,11 @@
 			files = (
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
+				92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */,
+				5BA3893E27F6B9540010EAA1 /* (null) in Resources */,
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
+				92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */,
 				5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
@@ -669,6 +741,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		30587F58FD8455E0E7858DC2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A3120CCE326C712212982ADA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -691,23 +780,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A42607782A5347DAC616AD03 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -715,36 +787,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */,
 				5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
 				927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */,
 				5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */,
 				5B020D39281F107C0057F9B7 /* UIViewController+.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
+				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
+				E2FD851728782CEC00335667 /* WALPopupView.swift in Sources */,
+				E2270C362864E4FC003DD8FB /* ReservedDate.swift in Sources */,
 				927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5BC2DD042868DCCE00AFCC29 /* SettingCategoryViewController.swift in Sources */,
 				5BC2DD0D2868E75100AFCC29 /* ResignViewController.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
+				E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */,
+				5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */,
+				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5BB6616B28285B0200D54353 /* Category.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,
 				5BC2DD092868E71700AFCC29 /* MypageViewController.swift in Sources */,
 				5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */,
-				5BA3895827F6C2260010EAA1 /* TempModel.swift in Sources */,
+				5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */,
 				927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
 				5B020D3B281F22790057F9B7 /* BaseCollectionViewCell.swift in Sources */,
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
+				E2CD8B0628219B57009277C3 /* CreateViewController.swift in Sources */,
+				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
+				E281B4D1282D6BDB005667FD /* WALCreateView.swift in Sources */,
 				5B4A844B2857D3780032287D /* CardButton.swift in Sources */,
 				5BC5809A289D35780095F8E4 /* OnboardCompleteViewController.swift in Sources */,
 				5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */,
+				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
-				5BA3895A27F6C22F0010EAA1 /* TempView.swift in Sources */,
+				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
 				5BA3897227F6C45D0010EAA1 /* UIStackView+.swift in Sources */,
+				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
+				E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
 				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
@@ -754,6 +839,7 @@
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
+				E213130528608077001238F3 /* CreateInformationViewController.swift in Sources */,
 				5BB6616D28285B1300D54353 /* Time.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */,
@@ -769,6 +855,8 @@
 				5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */,
 				5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
+				E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */,
+				E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */,
 				5BC2DD062868E04B00AFCC29 /* CategoryButton.swift in Sources */,
 				5BC2DD132868F2DD00AFCC29 /* ResignTableViewCell.swift in Sources */,
 			);
@@ -1000,7 +1088,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1011,9 +1099,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B1A2AA628572E5000CC9088 /* WALKit */ = {
+		5BF0FC37289E50E0004727F8 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B1A2AA528572E5000CC9088 /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
