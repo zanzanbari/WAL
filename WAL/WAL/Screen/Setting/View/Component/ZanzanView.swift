@@ -69,25 +69,28 @@ class ZanzanView: UIView {
     }
     
     private func setupLayout() {
+        addSubviews([imageView, partLabel, firstNameLabel, secondNameLabel])
+        
         imageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.width.height.equalTo(64)
         }
         
         partLabel.snp.makeConstraints { make in
-            make.top.equalTo(9)
+            make.top.equalTo(15)
             make.leading.equalTo(imageView.snp.trailing).offset(18)
         }
         
         firstNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(partLabel.snp.bottom).offset(1)
+            make.top.equalTo(partLabel.snp.bottom).offset(5)
             make.leading.equalTo(imageView.snp.trailing).offset(18)
         }
         
         secondNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(partLabel.snp.bottom).offset(1)
+            make.top.equalTo(partLabel.snp.bottom).offset(5)
             make.leading.equalTo(firstNameLabel.snp.trailing).offset(10)
+            make.trailing.equalToSuperview()
         }
     }
 }

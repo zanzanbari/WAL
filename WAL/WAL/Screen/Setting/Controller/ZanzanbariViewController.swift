@@ -7,12 +7,15 @@
 
 import UIKit
 
+import SafariServices
 import WALKit
 import Then
 
-class ZanzanbariViewController: UIViewController {
+final class ZanzanbariViewController: UIViewController {
 
     // MARK: - Properties
+    
+    private let statusBarView = UIView()
     
     private let navigationBar = WALNavigationBar(title: "왈이 궁금해요").then {
         $0.backgroundColor = .white100
@@ -65,15 +68,14 @@ class ZanzanbariViewController: UIViewController {
         $0.font = WALFont.body7.font
     }
     
-//    private let desinImageView = UIImageView().then {
-//        $0.image = WALIcon.icnDesigner.image
-//    }
-//
-//    private let designLabel = UILabel().then {
-//        $0.text = "Design"
-//        $0.textColor = .orange100
-//        $0.font = WALFont.body9.font
-//    }
+    private let buttonBackView = UIView()
+    
+    private let sendOpinionButton = UIButton(type: .system).then {
+        $0.setTitle("팀 쟌쟌바리에게 의견 보내기", for: .normal)
+        $0.setTitleColor(.black100, for: .normal)
+        $0.titleLabel?.font = WALFont.body7.font
+        $0.addTarget(self, action: #selector(touchupSendOpinionButton), for: .touchUpInside)
+    }
     
     // MARK: - Life Cycle
     
@@ -87,10 +89,14 @@ class ZanzanbariViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .gray600
+        statusBarView.backgroundColor = .white100
+        backView.backgroundColor = .white100
+        buttonBackView.backgroundColor = .white100
+        
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar, backView])
+        view.addSubviews([statusBarView, navigationBar, backView, buttonBackView])
         backView.addSubviews([titleLabel,
                               subtitleLabel,
                               lineView,
@@ -98,20 +104,83 @@ class ZanzanbariViewController: UIViewController {
                               iOSView,
                               iOSLabel,
                               serverView])
+        buttonBackView.addSubview(sendOpinionButton)
+        
+        statusBarView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(47)
+        }
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(47)
             make.leading.trailing.equalToSuperview()
         }
+        
+        backView.snp.makeConstraints { make in
+            make.top.equalTo(navigationBar.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(497)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(55)
+            make.centerX.equalToSuperview()
+        }
+        
+        subtitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+        }
+        
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(subtitleLabel.snp.bottom).offset(29)
+            make.leading.trailing.equalToSuperview().inset(69)
+            make.height.equalTo(1)
+        }
+        
+        designView.snp.makeConstraints { make in
+            make.top.equalTo(lineView.snp.bottom).offset(35)
+            make.leading.equalToSuperview().inset(80)
+        }
+        
+        iOSView.snp.makeConstraints { make in
+            make.top.equalTo(designView.snp.bottom).offset(28)
+            make.leading.equalToSuperview().inset(80)
+        }
+        
+        iOSLabel.snp.makeConstraints { make in
+            make.top.equalTo(designView.snp.bottom).offset(64)
+            make.leading.equalTo(iOSView.snp.trailing).offset(10)
+        }
+        
+        serverView.snp.makeConstraints { make in
+            make.top.equalTo(iOSView.snp.bottom).offset(28)
+            make.leading.equalToSuperview().inset(80)
+        }
+        
+        buttonBackView.snp.makeConstraints { make in
+            make.top.equalTo(backView.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(62)
+        }
+        
+        sendOpinionButton.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().inset(20)
+        }
     }
-    
-    // MARK: - Custom Method
-
     
     // MARK: - @objc
     
     @objc func touchupBackButton() {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
+    @objc func touchupSendOpinionButton() {
+        let url = NSURL(string: Constant.walURL)
+        let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+        safariView.modalPresentationStyle = .overFullScreen
+        self.present(safariView, animated: true)
+    }
 }

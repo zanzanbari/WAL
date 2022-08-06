@@ -116,7 +116,7 @@ extension SettingViewController: UITableViewDelegate {
             }
         default:
             if indexPath.row == 0 {
-                let viewController = ResignViewController()
+                let viewController = ZanzanbariViewController()
                 viewController.modalPresentationStyle = .overFullScreen
                 present(viewController, animated: true, completion: nil)
             } else if indexPath.row == 1 {
