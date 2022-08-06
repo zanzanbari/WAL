@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Then
 import WALKit
 
 final class SettingAlarmViewController: UIViewController {

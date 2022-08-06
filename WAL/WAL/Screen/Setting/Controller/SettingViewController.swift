@@ -8,6 +8,7 @@
 import UIKit
 
 import SafariServices
+import Then
 import WALKit
 
 final class SettingViewController: UIViewController {

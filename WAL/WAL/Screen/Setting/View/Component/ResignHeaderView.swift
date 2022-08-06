@@ -19,8 +19,8 @@ class ResignHeaderView: UIView {
     }
     
     private let titleLabel = UILabel().then {
-        $0.text = "왈뿡이가 이렇게 귀여운데\n탈퇴하실거에요?"
-        $0.font = WALFont.body2.font
+        $0.text = "왈뿡이가 이렇게 귀여운데\n탈퇴하실 거예요?"
+        $0.font = WALFont.title05.font
         $0.textColor = .black100
         $0.textAlignment = .center
         $0.numberOfLines = 2
@@ -53,6 +53,8 @@ class ResignHeaderView: UIView {
     
     private func configUI() {
         backgroundColor = .white
+        subtitleLabel.addLetterSpacing(kernValue: -0.4, paragraphValue: 8.0)
+        subtitleLabel.textAlignment = .left
     }
     
     private func setupLayout() {
@@ -68,7 +70,7 @@ class ResignHeaderView: UIView {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(cryingImageView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(79)
+            make.leading.trailing.equalToSuperview()
         }
         
         subtitleLabel.snp.makeConstraints { make in

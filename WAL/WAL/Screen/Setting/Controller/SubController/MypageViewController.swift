@@ -140,8 +140,6 @@ final class MypageViewController: UIViewController {
         }
     }
     
-    // MARK: - Custom Method
-
     // MARK: - @objc
     
     @objc func touchupButton(_ sender: UIButton) {
