@@ -7,6 +7,7 @@
 
 import UIKit
 
+import SafariServices
 import WALKit
 
 final class SettingViewController: UIViewController {
@@ -118,6 +119,17 @@ extension SettingViewController: UITableViewDelegate {
                 let viewController = ResignViewController()
                 viewController.modalPresentationStyle = .overFullScreen
                 present(viewController, animated: true, completion: nil)
+            } else if indexPath.row == 1 {
+                let url = NSURL(string: Constant.walURL)
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                safariView.modalPresentationStyle = .overFullScreen
+                self.present(safariView, animated: true)
+                
+            } else if indexPath.row == 2 {
+                let url = NSURL(string: Constant.walURL)
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                safariView.modalPresentationStyle = .overFullScreen
+                self.present(safariView, animated: true)
             }
             break
         }
