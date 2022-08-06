@@ -29,7 +29,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    private let completeButton = WALPlainButton().then {
+    public let completeButton = WALPlainButton().then {
         $0.title = "완료"
         $0.isDisabled = true
     }

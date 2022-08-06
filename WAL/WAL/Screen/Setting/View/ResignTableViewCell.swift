@@ -12,8 +12,6 @@ import WALKit
 
 class ResignTableViewCell: UITableViewCell {
     
-    static let identifier = Constant.resignTableViewCell
-
     // MARK: - Properties
     
     private let setting = SettingData()

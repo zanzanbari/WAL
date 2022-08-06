@@ -11,9 +11,7 @@ import Then
 import WALKit
 
 class OnboardingCollectionViewCell: BaseCollectionViewCell {
-    
-    static let identifier = Constant.onboardingCollectionViewCell
-        
+            
     // MARK: - Properties
     
     private let textCount: Int = 0
