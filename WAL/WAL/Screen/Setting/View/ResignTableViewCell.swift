@@ -14,12 +14,9 @@ class ResignTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    private let setting = SettingData()
-    
-    public let checkButton = UIButton().then {
-        $0.setImage(WALIcon.icnSelectInactive.image, for: .normal)
-        $0.setImage(WALIcon.icnSelectActive.image, for: .highlighted)
-    }
+    private var setting = SettingData()
+
+    public let checkButton = UIButton()
     
     public let menuLabel = UILabel().then {
         $0.font = WALFont.body8.font
@@ -58,19 +55,21 @@ class ResignTableViewCell: UITableViewCell {
         }
         
         checkButton.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(15)
-            make.leading.equalToSuperview().inset(19)
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalTo(50)
         }
         
         menuLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(checkButton.snp.trailing).offset(11)
+            make.leading.equalTo(checkButton.snp.trailing)
         }
     }
     
     // MARK: - Custom Method
 
     public func setupData(index: Int) {
-        menuLabel.text = setting.getMenuLabel(setting.resignRowData, index)
+        menuLabel.text = setting.getResignMenuLabel(setting.resignRowData, index)
     }
 }

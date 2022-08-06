@@ -52,6 +52,7 @@ final class LogoutPopupViewController: UIViewController {
     }
     
     @objc func touchupOkButton() {
+        // MARK: - TODO 로그아웃 서버통신
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         

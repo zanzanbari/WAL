@@ -15,6 +15,7 @@ final class ResignViewController: UIViewController {
     // MARK: - Properties
     
     private let setting = SettingData()
+    private var resignData = SettingData().resignRowData
     
     private let navigationBar = WALNavigationBar(title: "왈 탈퇴").then {
         $0.backgroundColor = .white100
@@ -84,8 +85,6 @@ final class ResignViewController: UIViewController {
     private func setupTableView() {
         tableView.register(ResignTableViewCell.self, forCellReuseIdentifier: ResignTableViewCell.identifier)
     }
-
-    // MARK: - Custom Method
     
     // MARK: - @objc
     
@@ -93,8 +92,20 @@ final class ResignViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func touchupResignButton() {
+    @objc func touchupResignButton(_ sender: UIButton) {
         
+        // MARK: - TODO 탈퇴서버통신
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        
+        let viewController = UINavigationController(rootViewController: LoginViewController())
+        sceneDelegate?.window?.rootViewController = viewController
+        sceneDelegate?.window?.makeKeyAndVisible()
+    }
+    
+    @objc func touchupCheckButton(_ sender: UIButton) {
+        resignData[sender.tag].select = !resignData[sender.tag].select
+        tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .automatic)
     }
 }
 
@@ -106,15 +117,6 @@ extension ResignViewController: UITableViewDelegate {
             backView.snp.updateConstraints { make in
                 make.height.equalTo(-scrollView.contentOffset.y)
             }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0 {
-            
-        } else if indexPath.row == 1 {
-            
         }
     }
 }
@@ -139,14 +141,20 @@ extension ResignViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return setting.getSettingCount(setting.resignRowData)
+        return setting.getResignSettingCount(setting.resignRowData)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "ResignTableViewCell", for: indexPath) as? ResignTableViewCell
+            withIdentifier: ResignTableViewCell.identifier, for: indexPath) as? ResignTableViewCell
         else { return UITableViewCell() }
-        cell.menuLabel.text = setting.getMenuLabel(setting.resignRowData, indexPath.row)
+        resignButton.isDisabled = resignData.filter({ $0.select }).isEmpty ? true : false
+        let value = resignData[indexPath.row].select ?
+        WALIcon.icnSelectActive.image : WALIcon.icnSelectInactive.image
+        cell.checkButton.setImage(value, for: .normal)
+        cell.checkButton.tag = indexPath.row
+        cell.setupData(index: indexPath.row)
+        cell.checkButton.addTarget(self, action: #selector(touchupCheckButton(_:)), for: .touchUpInside)
         return cell
     }
 }

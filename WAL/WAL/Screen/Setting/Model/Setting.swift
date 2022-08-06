@@ -10,15 +10,25 @@ import Foundation
 struct Setting {
     var menu: String
     var subMenu: String?
-    var select: Bool?
     
-    init(menu: String, subMenu: String? = nil, select: Bool? = false) {
+    init(menu: String, subMenu: String? = nil) {
         self.menu = menu
 
-        if let subMenu = subMenu, let select = select {
+        if let subMenu = subMenu {
             self.subMenu = subMenu
-            self.select = select
         }
+    }
+}
+
+// MARK: - 탈퇴뷰에 사용되는 모델
+
+struct ResingSetting {
+    var menu: String
+    var select: Bool
+    
+    init(menu: String, select: Bool) {
+        self.menu = menu
+        self.select = select
     }
 }
 
@@ -36,10 +46,10 @@ struct SettingData {
     ]
     
     var resignRowData = [
-        Setting(menu: "왈소리가 마음에 들지 않아요", select: false),
-        Setting(menu: "새로운 계정을 만들고 싶어요", select: false),
-        Setting(menu: "개인 정보를 보호하고 싶어요", select: false),
-        Setting(menu: "사용 빈도수가 적어요", select: false)
+        ResingSetting(menu: "왈소리가 마음에 들지 않아요", select: false),
+        ResingSetting(menu: "새로운 계정을 만들고 싶어요", select: false),
+        ResingSetting(menu: "개인 정보를 보호하고 싶어요", select: false),
+        ResingSetting(menu: "사용 빈도수가 적어요", select: false)
     ]
     
     var mypageRowData = [
@@ -57,5 +67,17 @@ struct SettingData {
     
     func getSubMenuLabel(_ data: [Setting], _ index: Int) -> String? {
         return data[index].subMenu
+    }
+    
+    func getResignSettingCount(_ data: [ResingSetting]) -> Int {
+        return data.count
+    }
+    
+    func getResignMenuLabel(_ data: [ResingSetting], _ index: Int) -> String {
+        return data[index].menu
+    }
+    
+    func getCheckButton(_ data: [ResingSetting], _ index: Int) -> Bool {
+        return data[index].select
     }
 }
