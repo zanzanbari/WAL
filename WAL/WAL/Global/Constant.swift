@@ -9,18 +9,6 @@ import Foundation
 
 struct Constant {
     
-    // MARK: - Cell identifier
-    
-    static let onboardingCollectionViewCell = "OnboardingCollectionViewCell"
-    static let categoryCollectionViewCell = "CategoryCollectionViewCell"
-    static let alarmCollectionViewCell = "AlarmCollectionViewCell"
-    static let timeButtonCollectionViewCell = "TimeButtonCollectionViewCell"
-    
-    static let myInfoTableViewCell = "MyInfoTableViewCell"
-    static let settingTableViewCell = "SettingTableViewCell"
-    static let settingAlarmCollectionViewCell = "SettingAlarmCollectionViewCell"
-    static let resignTableViewCell = "ResignTableViewCell"
-    
     // MARK: - Text
     
     static let warnText = "띄어쓰기 없이 한글, 영문, 숫자만 가능해요"
