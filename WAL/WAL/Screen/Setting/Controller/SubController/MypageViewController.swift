@@ -160,7 +160,9 @@ final class MypageViewController: UIViewController {
             present(viewController, animated: true, completion: nil)
             
         default:
-            print("로그아웃 팝업")
+            let popupViewController = LogoutPopupViewController()
+            popupViewController.modalPresentationStyle = .overFullScreen
+            present(popupViewController, animated: false)
         }
     }
 }
