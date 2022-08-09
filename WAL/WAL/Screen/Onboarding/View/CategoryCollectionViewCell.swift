@@ -44,7 +44,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.distribution = .equalSpacing
     }
     
-    public let funButton = CardButton(0)
+    private let funButton = CardButton(0)
     private let loveButtoon = CardButton(1)
     private let cheerButton = CardButton(2)
     private let angryButton = CardButton(3)
