@@ -13,8 +13,13 @@ extension UILabel {
             let attributedString = NSMutableAttributedString(string: labelText)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = paragraphValue
-            attributedString.addAttribute(NSAttributedString.Key.kern, value: kernValue, range: NSRange(location: 0, length: attributedString.length - 1))
-            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+            attributedString.addAttribute(NSAttributedString.Key.kern,
+                                          value: kernValue,
+                                          range: NSRange(location: 0,
+                                                         length: attributedString.length - 1))
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle,
+                                          value: paragraphStyle,
+                                          range: NSMakeRange(0, attributedString.length))
             attributedText = attributedString
             lineBreakStrategy = .hangulWordPriority
             textAlignment = .center

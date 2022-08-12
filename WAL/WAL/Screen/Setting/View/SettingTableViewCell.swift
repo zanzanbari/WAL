@@ -11,8 +11,6 @@ import WALKit
 
 class SettingTableViewCell: UITableViewCell {
     
-    static let identifier = Constant.settingTableViewCell
-
     // MARK: - Properties
     
     private let setting = SettingData()

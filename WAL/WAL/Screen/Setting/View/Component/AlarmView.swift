@@ -99,7 +99,8 @@ class AlarmView: UIView {
         }
         
         toggleSwitch.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(25)
             make.bottom.equalToSuperview().inset(40)
             make.width.equalTo(42)
             make.height.equalTo(25)
