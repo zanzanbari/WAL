@@ -25,7 +25,7 @@
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
-		5BA3893E27F6B9540010EAA1 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		5BA3893E27F6B9540010EAA1 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* MainDataModel.swift */; };
 		5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
@@ -77,6 +77,7 @@
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
 		927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F328211017001AEB78 /* HistoryDataModel.swift */; };
 		927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */; };
+		928A2A3028A6339F0033FEC8 /* WALContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A2A2F28A6339F0033FEC8 /* WALContentType.swift */; };
 		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
@@ -168,6 +169,7 @@
 		927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCompleteHeaderView.swift; sourceTree = "<group>"; };
 		927D10F328211017001AEB78 /* HistoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataModel.swift; sourceTree = "<group>"; };
 		927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		928A2A2F28A6339F0033FEC8 /* WALContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALContentType.swift; sourceTree = "<group>"; };
 		929756A8285A4C4600A9FFA8 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		92C1B84C28633FB500F97D75 /* mintPaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mintPaw.json; sourceTree = "<group>"; };
 		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA3895727F6C2260010EAA1 /* MainDataModel.swift */,
+				928A2A2F28A6339F0033FEC8 /* WALContentType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -740,7 +743,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */,
+				5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -759,7 +762,7 @@
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
 				92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */,
-				5BA3893E27F6B9540010EAA1 /* BuildFile in Resources */,
+				5BA3893E27F6B9540010EAA1 /* (null) in Resources */,
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */,
@@ -899,6 +902,7 @@
 				E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */,
 				5BC2DD062868E04B00AFCC29 /* CategoryButton.swift in Sources */,
 				5BC2DD132868F2DD00AFCC29 /* ResignTableViewCell.swift in Sources */,
+				928A2A3028A6339F0033FEC8 /* WALContentType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1128,7 +1132,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
+		5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1141,7 +1145,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		5BF0FC37289E50E0004727F8 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */;
+			package = 5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
