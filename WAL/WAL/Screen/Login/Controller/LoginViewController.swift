@@ -8,6 +8,7 @@
 import UIKit
 
 import AuthenticationServices
+import Lottie
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
@@ -18,17 +19,11 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let logoImageView = UIImageView().then {
-        $0.image = WALIcon.imgWalbbongLogo.image
-    }
-    
-    private let logoLabel = UILabel().then {
-        $0.text = "잔잔한 인생에 한줄기 소리, 왈"
-        $0.font = WALFont.body3.font
-        $0.textColor = .black100
-        $0.textAlignment = .center
-        $0.addCharacterFont(font: WALFont.body2.font, range: "왈")
-        $0.addCharacterColor(color: .orange100, range: "왈")
+    private let logoImageView = AnimationView().then {
+        $0.animation = Animation.named("login")
+        $0.contentMode = .scaleAspectFit
+        $0.loopMode = .repeat(5)
+        $0.play()
     }
     
     private let kakaoButton = WALAuthButton(type: .kakao).then {
@@ -51,23 +46,18 @@ final class LoginViewController: UIViewController {
     // MARK: - InitUI
     
     private func configUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .orange100
+        logoImageView.frame = view.bounds
     }
     
     private func setupLayout() {
-        view.addSubviews([logoImageView, logoLabel,
-                          kakaoButton, appleButton])
+        view.addSubviews([logoImageView, kakaoButton, appleButton])
         
         logoImageView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(176)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(150)
             make.centerX.equalToSuperview()
-            make.width.equalTo(130)
-            make.height.equalTo(100)
-        }
-        
-        logoLabel.snp.makeConstraints { make in
-            make.top.equalTo(logoImageView.snp.bottom).offset(29)
-            make.centerX.equalToSuperview()
+            make.width.equalTo(250)
+            make.height.equalTo(250)
         }
         
         kakaoButton.snp.makeConstraints { make in
@@ -85,7 +75,7 @@ final class LoginViewController: UIViewController {
     
     private func pushToHome() {
         let onboardingViewController = OnboardingViewController()
-        onboardingViewController.modalPresentationStyle = .overFullScreen
+        onboardingViewController.modalPresentationStyle = .fullScreen
         present(onboardingViewController, animated: true, completion: nil)
     }
     

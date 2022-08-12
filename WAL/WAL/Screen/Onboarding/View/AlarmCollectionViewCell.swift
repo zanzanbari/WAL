@@ -29,7 +29,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    private let completeButton = WALPlainButton().then {
+    public let completeButton = WALPlainButton().then {
         $0.title = "완료"
         $0.isDisabled = true
     }
@@ -37,7 +37,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     private lazy var alarmButtonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .fill
-        $0.distribution = .equalSpacing
+        $0.distribution = .fillEqually
         $0.spacing = 16
     }
     
@@ -92,7 +92,6 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         
         [moringButtoon, lauchButton, eveningButton].forEach {
             $0.snp.makeConstraints { make in
-            make.width.equalTo(101)
             make.height.equalTo(104)
         } }
         
