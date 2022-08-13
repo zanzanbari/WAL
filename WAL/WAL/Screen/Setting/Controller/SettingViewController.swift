@@ -122,7 +122,7 @@ extension SettingViewController: UITableViewDelegate {
                 present(viewController, animated: true, completion: nil)
             } else if indexPath.row == 1 {
                 let url = NSURL(string: Constant.walURL)
-                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                let safariView: SFSafariViewController = SFSafariViewController(url: url! as URL)
                 safariView.modalPresentationStyle = .overFullScreen
                 self.present(safariView, animated: true)
                 

@@ -17,6 +17,12 @@
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
+		5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E57E28A6BCED000ABF0C /* SettingService.swift */; };
+		5B44E58128A6BCFC000ABF0C /* SettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */; };
+		5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58228A6C174000ABF0C /* UserInfo.swift */; };
+		5B44E58628A6C846000ABF0C /* UserTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58528A6C846000ABF0C /* UserTime.swift */; };
+		5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58728A6C881000ABF0C /* UserCategory.swift */; };
+		5B44E58A28A6D044000ABF0C /* UserCategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserCategoryRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
@@ -104,6 +110,12 @@
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A2C281E4EB4006FEFDA /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
+		5B44E57E28A6BCED000ABF0C /* SettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingService.swift; sourceTree = "<group>"; };
+		5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAPI.swift; sourceTree = "<group>"; };
+		5B44E58228A6C174000ABF0C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		5B44E58528A6C846000ABF0C /* UserTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTime.swift; sourceTree = "<group>"; };
+		5B44E58728A6C881000ABF0C /* UserCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCategory.swift; sourceTree = "<group>"; };
+		5B44E58928A6D044000ABF0C /* UserCategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCategoryRequest.swift; sourceTree = "<group>"; };
 		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
@@ -260,6 +272,33 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		5B44E57C28A6BCC5000ABF0C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				5B44E57E28A6BCED000ABF0C /* SettingService.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		5B44E57D28A6BCD0000ABF0C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		5B44E58428A6C823000ABF0C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				5B44E58228A6C174000ABF0C /* UserInfo.swift */,
+				5B44E58528A6C846000ABF0C /* UserTime.swift */,
+				5B44E58728A6C881000ABF0C /* UserCategory.swift */,
+				5B44E58928A6D044000ABF0C /* UserCategoryRequest.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		5B7EE87A2822D643007BC265 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA3896427F6C2830010EAA1 /* Login.swift */,
+				5B44E58428A6C823000ABF0C /* Setting */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -371,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				5B7EE87A2822D643007BC265 /* Auth */,
+				5B44E57C28A6BCC5000ABF0C /* Setting */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -379,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				5BB6615B2827B9D500D54353 /* Auth */,
+				5B44E57D28A6BCD0000ABF0C /* Setting */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -792,6 +834,8 @@
 			files = (
 				929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */,
 				5BA3897627F6C6BD0010EAA1 /* UILabel+.swift in Sources */,
+				5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */,
+				5B44E58628A6C846000ABF0C /* UserTime.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
 				927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */,
 				5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */,
@@ -804,6 +848,7 @@
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5BC2DD042868DCCE00AFCC29 /* SettingCategoryViewController.swift in Sources */,
 				5BC2DD0D2868E75100AFCC29 /* ResignViewController.swift in Sources */,
+				5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */,
@@ -827,6 +872,7 @@
 				5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BD1741C282CDD3400C77A95 /* SettingViewController.swift in Sources */,
+				5B44E58128A6BCFC000ABF0C /* SettingAPI.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */,
 				5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */,
@@ -835,6 +881,7 @@
 				E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
 				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
+				5B44E58A28A6D044000ABF0C /* UserCategoryRequest.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
 				5BA3896527F6C2830010EAA1 /* Login.swift in Sources */,
 				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
@@ -842,6 +889,7 @@
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
+				5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */,
 				E213130528608077001238F3 /* CreateInformationViewController.swift in Sources */,
 				5BB6616D28285B1300D54353 /* Time.swift in Sources */,
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,

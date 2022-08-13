@@ -10,5 +10,11 @@ import Foundation
 // MARK: - UserTime
 
 struct UserTime: Codable {
-    let morning, afternoon, night: Bool
+    let status: Int
+    let message: String
+    let data: UserTimeData
+}
+
+struct UserTimeData: Codable {
+    let morning, afternoon, night: Bool?
 }

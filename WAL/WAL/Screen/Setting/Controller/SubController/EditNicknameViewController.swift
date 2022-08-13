@@ -158,6 +158,10 @@ final class EditNicknameViewController: BaseViewController {
     }
     
     @objc private func touchupDoneButton() {
+        guard let nickname = nicknameTextField.text else { return }
+        SettingAPI.shared.postUserInfo(nickname: nickname) { (userInfoData, nil) in
+            print("🍀 닉네임 수정 서버 통신 : ", userInfoData?.data?.nickname)
+        }
         self.view.endEditing(true)
         self.dismiss(animated: true)
     }
