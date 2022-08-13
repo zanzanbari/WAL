@@ -19,14 +19,14 @@ class CreateFinishedViewController: UIViewController {
     }
     
     private let reservationFinishedLabel = UILabel().then {
-        $0.font = WALFont.title1.font
+        $0.font = WALFont.cafe24.font
         $0.textColor = UIColor.black100
         $0.text = "예약 완료"
     }
     
     private let dateLabel = UILabel().then {
         $0.textColor = UIColor.mint100
-        $0.font = WALFont.body3.font
+        $0.font = WALFont.body5.font
     }
     
     private let textLabel = UILabel().then {
@@ -46,11 +46,11 @@ class CreateFinishedViewController: UIViewController {
     }
     
     private lazy var mainButton = UIButton().then {
-        $0.titleLabel?.font = WALFont.body1.font
+        $0.titleLabel?.font = WALFont.body2.font
         $0.setTitle("메인으로 돌아가기", for: .normal)
         $0.setTitleColor(UIColor.white100, for: .normal)
         $0.backgroundColor = UIColor.orange100
-        $0.layer.cornerRadius = 22
+        $0.layer.cornerRadius = 23
         $0.addTarget(self, action: #selector(touchUpMainButton), for: .touchUpInside)
     }
     
@@ -74,7 +74,7 @@ class CreateFinishedViewController: UIViewController {
         view.backgroundColor = UIColor.white100
         
         [textLabel, descriptionLabel].forEach {
-            $0.font = WALFont.body3.font
+            $0.font = WALFont.body5.font
             $0.textColor = UIColor.black100
         }
         
@@ -88,17 +88,17 @@ class CreateFinishedViewController: UIViewController {
                           mainButton])
         
         completeImageView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(225)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(199)
             $0.centerX.equalToSuperview()
         }
         
         reservationFinishedLabel.snp.makeConstraints {
-            $0.top.equalTo(completeImageView.snp.bottom).offset(71)
+            $0.top.equalTo(completeImageView.snp.bottom).offset(62)
             $0.centerX.equalToSuperview()
         }
         
         dateLabelStackView.snp.makeConstraints {
-            $0.top.equalTo(reservationFinishedLabel.snp.bottom).offset(20)
+            $0.top.equalTo(reservationFinishedLabel.snp.bottom).offset(17)
             $0.centerX.equalToSuperview()
         }
         

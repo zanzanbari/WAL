@@ -106,11 +106,11 @@ class CreateViewController: UIViewController {
     }
     
     private lazy var sendButton = UIButton().then {
-        $0.titleLabel?.font = WALFont.body1.font
+        $0.titleLabel?.font = WALFont.body2.font
         $0.setTitle("보내기", for: .normal)
         $0.setTitleColor(.white100, for: .normal)
         $0.backgroundColor = .gray400
-        $0.layer.cornerRadius = 22
+        $0.layer.cornerRadius = 23
         $0.isEnabled = false
         $0.addTarget(self, action: #selector(touchUpSendButton), for: .touchUpInside)
     }
