@@ -77,13 +77,11 @@ final class SettingViewController: UIViewController {
         tableView.register(SettingTableViewCell.self,
                            forCellReuseIdentifier: SettingTableViewCell.identifier)
     }
-    
-    // MARK: - Custom Method
-    
+        
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -121,14 +119,14 @@ extension SettingViewController: UITableViewDelegate {
                 viewController.modalPresentationStyle = .overFullScreen
                 present(viewController, animated: true, completion: nil)
             } else if indexPath.row == 1 {
-                let url = NSURL(string: Constant.walURL)
-                let safariView: SFSafariViewController = SFSafariViewController(url: url! as URL)
+                guard let url = NSURL(string: Constant.URL.walURL) else { return }
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
                 safariView.modalPresentationStyle = .overFullScreen
                 self.present(safariView, animated: true)
                 
             } else if indexPath.row == 2 {
-                let url = NSURL(string: Constant.walURL)
-                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                guard let url = NSURL(string: Constant.URL.walURL) else { return }
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
                 safariView.modalPresentationStyle = .overFullScreen
                 self.present(safariView, animated: true)
             }

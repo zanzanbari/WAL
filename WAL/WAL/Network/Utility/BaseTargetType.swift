@@ -21,8 +21,8 @@ extension BaseTargetType {
     }
     
     var headers: [String : String]? {
-        return ["Content-Type": "application/json",
-                "accesstoken": GeneralAPI.accessToken!]
+        return ["Content-Type": GeneralAPI.contentType,
+                "accesstoken": GeneralAPI.accessToken]
     }
 }
 

@@ -80,8 +80,4 @@ class MyInfoTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(20)
         }
     }
-    
-    // MARK: - Custom Method
-
-
 }
