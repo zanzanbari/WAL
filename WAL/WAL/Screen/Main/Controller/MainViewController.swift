@@ -65,12 +65,12 @@ final class MainViewController: UIViewController {
     
     private lazy var addButton = UIButton().then {
         $0.setImage(WALIcon.btnPlus.image, for: .normal)
-        $0.addTarget(self, action: #selector(touchUpAddButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchupAddButton), for: .touchUpInside)
     }
     
     private lazy var settingButton = UIButton().then {
         $0.setImage(WALIcon.btnSetting.image, for: .normal)
-        $0.addTarget(self, action: #selector(touchUpSettingButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchupSettingButton), for: .touchUpInside)
     }
     
     private var titleLabel = UILabel().then {
@@ -265,11 +265,11 @@ final class MainViewController: UIViewController {
     
     // MARK: - @objc
     
-    @objc func touchUpAddButton() {
+    @objc func touchupAddButton() {
         
     }
     
-    @objc func touchUpSettingButton() {
+    @objc func touchupSettingButton() {
         let vc = SettingViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
