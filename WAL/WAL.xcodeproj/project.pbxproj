@@ -72,6 +72,7 @@
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
 		9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* MainResponse.swift */; };
+		924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B60FC28A7D1E4002804B1 /* WALStatus.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
@@ -164,6 +165,7 @@
 		9205E748286EE1AD000F4B6D /* MainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPI.swift; sourceTree = "<group>"; };
 		9205E74B286EE4CF000F4B6D /* MainResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponse.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
+		924B60FC28A7D1E4002804B1 /* WALStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALStatus.swift; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
 		927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCompleteHeaderView.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 			children = (
 				5BA3895727F6C2260010EAA1 /* MainDataModel.swift */,
 				928A2A2F28A6339F0033FEC8 /* WALContentType.swift */,
+				924B60FC28A7D1E4002804B1 /* WALStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -844,6 +847,7 @@
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */,
+				924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5BB6616B28285B0200D54353 /* Category.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,

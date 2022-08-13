@@ -14,47 +14,6 @@ import Lottie
 final class MainViewController: UIViewController {
     
     private var mainData = [MainResponse]()
-    
-    fileprivate enum WALStatus {
-        case sleeping
-        case checkedAll
-        case arrived
-        
-        var subTitle: String {
-            switch self {
-            case .sleeping:
-                return "왈뿡이가 자는 시간이에요. 아침에 만나요!"
-            case .checkedAll, .arrived:
-                return "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
-            }
-        }
-        
-        var content: String {
-            switch self {
-            case .sleeping:
-                return ""
-            case .checkedAll:
-                return "새로운 왈소리를 기다려보세요"
-            case .arrived:
-                return "왈소리가 도착했어요\n발바닥을 탭하여 확인해주세요"
-            }
-        }
-        
-        var walImage: UIImage {
-            switch self {
-            case .sleeping:
-                return WALIcon.imgWalBBongSleeping.image
-            case .checkedAll:
-                return WALIcon.imgWalBBongWaiting.image
-            case .arrived:
-                let walArrivedImageList: [UIImage] = [WALIcon.imgWalBBongArrive1.image,
-                                                      WALIcon.imgWalBBongArrive2.image,
-                                                      WALIcon.imgWalBBongArrive3.image]
-                return walArrivedImageList.randomElement() ?? WALIcon.imgWalBBongArrive1.image
-            }
-        }
-        
-    }
 
     // MARK: - Properties
     
@@ -154,6 +113,7 @@ final class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configNavigationUI()
+        checkTime()
     }
     
     override func viewDidLoad() {
@@ -218,7 +178,7 @@ final class MainViewController: UIViewController {
         }
         
         walImageView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(124)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(UIScreen().hasNotch ? 124 : 97)
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(300)
         }
@@ -230,15 +190,15 @@ final class MainViewController: UIViewController {
         }
         
         walCollectionView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(UIScreen().hasNotch ? 16 : 26)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(73)
         }
         
         walContentView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(93)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(UIScreen().hasNotch ? 93 : 43)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(313)
+            $0.leading.trailing.equalToSuperview().inset(31)
             $0.height.equalTo(383)
         }
     }
@@ -309,8 +269,10 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             titleLabel.isHidden = true
             subTitleLabel.isHidden = true
             
+            walImageView.image = walArrivedImageList.randomElement()
+            
             walContentView.isHidden = false
-            walContentView.content = MainDataModel.mainData[indexPath.item].content
+            walContentView.content = mainData[indexPath.item].content
             
             let walType = mainData[indexPath.item].categoryId
             if walType == -1 {
@@ -368,33 +330,11 @@ extension MainViewController {
                 self.dataCount = data.count
                 
                 self.walCollectionView.reloadData()
+                self.updateCollectionViewLayout()
                 
-                if self.dataCount == 1 {
-                    self.walCollectionView.snp.updateConstraints {
-                        $0.leading.trailing.equalToSuperview().inset(149)
-                    }
-                } else if self.dataCount == 2 {
-                    self.walCollectionView.snp.updateConstraints {
-                        $0.leading.trailing.equalToSuperview().inset(106)
-                    }
-                } else if self.dataCount == 3 {
-                    self.walCollectionView.snp.updateConstraints {
-                        $0.leading.trailing.equalToSuperview().inset(63)
-                    }
-                } else if self.dataCount == 4 {
-                    self.walCollectionView.snp.updateConstraints {
-                        $0.leading.trailing.equalToSuperview().inset(20)
-                    }
-                }
-                
-                var canOpenCount: Int = 0
                 var isShownCount: Int = 0
                 
                 for item in self.mainData {
-                    if item.canOpen {
-                        canOpenCount += 1
-                    }
-                    
                     if item.isShown {
                         isShownCount += 1
                     }
@@ -405,6 +345,26 @@ extension MainViewController {
                 } else {
                     self.walStatus = .arrived
                 }
+            }
+        }
+    }
+    
+    private func updateCollectionViewLayout() {
+        if self.dataCount == 1 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(149)
+            }
+        } else if self.dataCount == 2 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(106)
+            }
+        } else if self.dataCount == 3 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(63)
+            }
+        } else if self.dataCount == 4 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(20)
             }
         }
     }
