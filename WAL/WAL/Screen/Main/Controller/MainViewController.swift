@@ -266,7 +266,8 @@ final class MainViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupAddButton() {
-        
+        let vc = CreateViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func touchupSettingButton() {
