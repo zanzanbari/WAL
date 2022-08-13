@@ -93,14 +93,21 @@ final class ResignViewController: UIViewController {
     }
     
     @objc func touchupResignButton(_ sender: UIButton) {
-        
-        // MARK: - TODO 탈퇴서버통신
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        
-        let viewController = UINavigationController(rootViewController: LoginViewController())
-        sceneDelegate?.window?.rootViewController = viewController
-        sceneDelegate?.window?.makeKeyAndVisible()
+        AuthAPI.shared.postResign(
+            social: GeneralAPI.socialLogin,
+            socialToken:  GeneralAPI.socialToken) { (resignData, err) in
+                guard let resignData = resignData else { return }
+                if resignData.status < 400 {
+                    print("☘️-------회원탈퇴 서버 통신", resignData)
+                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                    let sceneDelegate = windowScene?.delegate as? SceneDelegate
+                    let viewController = LoginViewController()
+                    sceneDelegate?.window?.rootViewController = viewController
+                    sceneDelegate?.window?.makeKeyAndVisible()
+                } else {
+                    print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
+                }
+            }
     }
     
     @objc func touchupCheckButton(_ sender: UIButton) {

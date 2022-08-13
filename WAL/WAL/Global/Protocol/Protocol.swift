@@ -29,3 +29,11 @@ extension UITableViewCell: ReusableViewProtocol {
         return String(describing: self)
     }
 }
+
+protocol SendCategoryDelegate: OnboardingViewController {
+    func sendCategory(joke: Bool, compliment: Bool, condolence: Bool, scolding: Bool)
+}
+
+protocol SendAlarmTimeDelegate: OnboardingViewController {
+    func sendAlarmTime(morning: Bool, launch: Bool, evening: Bool)
+}

@@ -13,6 +13,8 @@ import WALKit
 class CategoryCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
+    
+    weak var sendCategoryDelegate: SendCategoryDelegate?
         
     private var barWidth: CGFloat = 0
     
@@ -44,10 +46,10 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.distribution = .equalSpacing
     }
     
-    private let funButton = CardButton(0)
-    private let loveButtoon = CardButton(1)
-    private let cheerButton = CardButton(2)
-    private let angryButton = CardButton(3)
+    private let jokeButton = CardButton(0)
+    private let complimentButton = CardButton(1)
+    private let condolenceButton = CardButton(2)
+    private let scoldingButton = CardButton(3)
     
     public lazy var slideBackView = UIView().then {
         $0.backgroundColor = .gray500
@@ -82,22 +84,17 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     private func configUI() {
         contentView.backgroundColor = .white100
         barWidth = (contentView.frame.width-61*2)/4
-        [funButton, loveButtoon, cheerButton, angryButton].forEach {
+        [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
     
     private func setupLayout() {
-        contentView.addSubviews([titleLabel,
-                                 subtitleLabel,
-                                 slideBackView,
-                                 nextButton])
-        
+        contentView.addSubviews([titleLabel, subtitleLabel, slideBackView, nextButton])
         contentView.addSubview(scrollView)
-        
         scrollView.addSubview(cardButtonStackView)
         cardButtonStackView.addArrangedSubviews([
-            funButton, loveButtoon, cheerButton, angryButton])
+            jokeButton, complimentButton, condolenceButton, scoldingButton])
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
@@ -109,13 +106,14 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
-        [funButton, loveButtoon, cheerButton, angryButton].forEach {
+        [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
             $0.snp.makeConstraints { make in
                 make.width.equalTo(contentView.frame.width-61*2)
                 make.height.equalTo(
                     UIScreen.main.hasNotch ?
                     (322*(contentView.frame.width-61*2)) / 253 : (295*(contentView.frame.width-61*2)) / 248)
-            } }
+            }
+        }
         
         cardButtonStackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
@@ -158,10 +156,16 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.clear.cgColor
         
         nextButton.isDisabled =
-        funButton.layer.borderColor == UIColor.clear.cgColor &&
-        loveButtoon.layer.borderColor == UIColor.clear.cgColor &&
-        cheerButton.layer.borderColor == UIColor.clear.cgColor &&
-        angryButton.layer.borderColor == UIColor.clear.cgColor ? true : false
+        jokeButton.layer.borderColor == UIColor.clear.cgColor &&
+        complimentButton.layer.borderColor == UIColor.clear.cgColor &&
+        condolenceButton.layer.borderColor == UIColor.clear.cgColor &&
+        scoldingButton.layer.borderColor == UIColor.clear.cgColor ? true : false
+
+        sendCategoryDelegate?.sendCategory(
+            joke: jokeButton.isSelected,
+            compliment: complimentButton.isSelected,
+            condolence: condolenceButton.isSelected,
+            scolding: scoldingButton.isSelected)
     }
 }
 
@@ -171,7 +175,7 @@ extension CategoryCollectionViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetX = scrollView.contentOffset.x
         let cellIndex = round(contentOffsetX/(slideBackView.frame.width)*100)/100
-                
+        
         if round(cellIndex*100)/100 <= 3.0 {
             slideBar.snp.updateConstraints { make in
                 make.leading.equalToSuperview().inset(round(cellIndex*barWidth*10)/10)

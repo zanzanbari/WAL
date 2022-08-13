@@ -17,6 +17,15 @@ final class OnboardingViewController: UIViewController {
     private var currentRow: Int = 0
     private var didCurrentRow: Int = 0
     
+    private var joke = false
+    private var compliment = false
+    private var condolence = false
+    private var scolding = false
+    
+    private var morning = false
+    private var launch = false
+    private var evening = false
+        
     private let navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
@@ -120,10 +129,21 @@ final class OnboardingViewController: UIViewController {
         collectionView.scrollToItem(at: IndexPath(row: 2, section: 0), at: .left, animated: true)
     }
     
-    @objc func touchupCompleteButton() {
-        print("완료")
-        let viewController = OnboardCompleteViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+    @objc func touchupCompleteButton(_ sender: UIButton) {
+        let dataType = DataType(self.joke, self.compliment, self.condolence, self.scolding)
+        let alarmTime = AlarmTime(self.morning, self.launch, self.evening)
+        guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname) else { return }
+        OnboardAPI.shared.postOnboardSetting(nickname: nickname, dataType: dataType, time: alarmTime) {
+            (onboardData, err) in
+            guard let onboardData = onboardData else { return }
+            if onboardData.status < 400 {
+                let viewController = OnboardCompleteViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+                print("☘️--------온보딩 서버 통신 완료", onboardData)
+            } else {
+                print("☘️--------온보딩 서버 통신 실패로 인해 화면 전환 실패")
+            }
+        }
     }
 }
 
@@ -131,7 +151,6 @@ final class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        print(indexPath.item)
         return true
     }
     
@@ -167,6 +186,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
             else { return UICollectionViewCell() }
             cell.nextButton.addTarget(self, action: #selector(scrollToSecond), for: .touchUpInside)
             return cell
+            
         case 1:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CategoryCollectionViewCell.identifier,
@@ -174,14 +194,17 @@ extension OnboardingViewController: UICollectionViewDataSource {
             else { return UICollectionViewCell() }
             cell.nextButton.addTarget(self, action: #selector(scrollToThird), for: .touchUpInside)
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
+            cell.sendCategoryDelegate = self
             return cell
+            
         case 2:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: AlarmCollectionViewCell.identifier,
                 for: indexPath) as? AlarmCollectionViewCell
             else { return UICollectionViewCell() }
-            cell.completeButton.addTarget(self, action: #selector(touchupCompleteButton), for: .touchUpInside)
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
+            cell.completeButton.addTarget(self, action: #selector(touchupCompleteButton(_:)), for: .touchUpInside)
+            cell.sendAlarmTimeDelegate = self
             return cell
         default:
             return UICollectionViewCell()
@@ -209,5 +232,22 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
+    }
+}
+
+// MARK: - Delegate
+
+extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate {
+    func sendCategory(joke: Bool, compliment: Bool, condolence: Bool, scolding: Bool) {
+        self.joke = joke
+        self.compliment = compliment
+        self.condolence = condolence
+        self.scolding = scolding
+    }
+    
+    func sendAlarmTime(morning: Bool, launch: Bool, evening: Bool) {
+        self.morning = morning
+        self.launch = launch
+        self.evening = evening
     }
 }

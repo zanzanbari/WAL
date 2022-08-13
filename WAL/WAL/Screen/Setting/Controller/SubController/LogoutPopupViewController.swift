@@ -14,7 +14,9 @@ final class LogoutPopupViewController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var backPopupView = WALPopupView(title: "로그아웃", subTitle: "정말 로그아웃 하시겠어요?", rightButtonColor: .mint100).then {
+    private lazy var backPopupView = WALPopupView(title: "로그아웃",
+                                                  subTitle: "정말 로그아웃 하시겠어요?",
+                                                  rightButtonColor: .mint100).then {
         $0.leftText = "취소"
         $0.rightText = "로그아웃"
         $0.leftButton.addTarget(self, action: #selector(touchupCancelButton), for: .touchUpInside)
@@ -52,12 +54,18 @@ final class LogoutPopupViewController: UIViewController {
     }
     
     @objc func touchupOkButton() {
-        // MARK: - TODO 로그아웃 서버통신
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        
-        let viewController = UINavigationController(rootViewController: LoginViewController())
-        sceneDelegate?.window?.rootViewController = viewController
-        sceneDelegate?.window?.makeKeyAndVisible()
+        AuthAPI.shared.getLogout { logoutData, err in
+            guard let logoutData = logoutData else { return }
+            if logoutData.status < 400 {
+                print("☘️--------로그아웃 서버 통신 : ", logoutData)
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                let sceneDelegate = windowScene?.delegate as? SceneDelegate
+                let viewController = UINavigationController(rootViewController: LoginViewController())
+                sceneDelegate?.window?.rootViewController = viewController
+                sceneDelegate?.window?.makeKeyAndVisible()
+            } else {
+                print("☘️--------로그아웃 서버 통신 실패로 화면 전환 실패")
+            }
+        }
     }
 }
