@@ -80,8 +80,4 @@ final class OnboardCompleteViewController: UIViewController {
             make.height.equalTo(52)
         }
     }
-    
-    // MARK: - Custom Method
-
-
 }

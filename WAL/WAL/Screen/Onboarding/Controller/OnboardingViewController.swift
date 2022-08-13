@@ -133,14 +133,13 @@ final class OnboardingViewController: UIViewController {
         let dtype = Dtype(self.joke, self.compliment, self.condolence, self.scolding)
         let alarmTime = AlarmTime(self.morning, self.launch, self.evening)
         guard let nickname = UserDefaults.standard.string(forKey: "nickname") else { return }
-        
         OnboardAPI.shared.postOnboardSetting(nickname: nickname, dtype: dtype, time: alarmTime) {
             (onboardData, err) in
                 guard let onboardData = onboardData else { return }
                 print(onboardData)
             }
         let viewController = OnboardCompleteViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        self.navigationController?.pushViewController(viewController, animated: true)
         print("완료")
     }
 }
@@ -149,7 +148,6 @@ final class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        print(indexPath.item)
         return true
     }
     
@@ -201,7 +199,6 @@ extension OnboardingViewController: UICollectionViewDataSource {
                 withReuseIdentifier: AlarmCollectionViewCell.identifier,
                 for: indexPath) as? AlarmCollectionViewCell
             else { return UICollectionViewCell() }
-            cell.completeButton.addTarget(self, action: #selector(touchupCompleteButton), for: .touchUpInside)
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
             cell.completeButton.addTarget(self, action: #selector(touchupCompleteButton(_:)), for: .touchUpInside)
             cell.sendAlarmTimeDelegate = self
