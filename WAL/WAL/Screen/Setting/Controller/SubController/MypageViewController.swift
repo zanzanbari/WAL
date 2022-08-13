@@ -150,7 +150,7 @@ final class MypageViewController: UIViewController {
         case nicknameButton:
             let viewController = EditNicknameViewController()
             viewController.modalPresentationStyle = .overFullScreen
-            present(viewController, animated: true, completion: nil)
+            present(viewController, animated: false, completion: nil)
             
         case resignButton:
             let viewController = ResignViewController()
