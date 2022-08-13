@@ -37,17 +37,18 @@ extension AuthService: BaseTargetType {
         case .social(_, let socialToken, let fcmToken):
             if let fcmToken = fcmToken {
                 return .requestParameters(
-                    parameters: ["socialtoken": socialToken, "fcmToken": fcmToken],
+                    parameters: ["socialtoken": socialToken,
+                                 "fcmToken": fcmToken],
                     encoding: URLEncoding.queryString)
             } else {
                 return .requestParameters(
-                    parameters: [ "socialtoken": socialToken],
+                    parameters: ["socialtoken": socialToken],
                     encoding: URLEncoding.queryString)
             }
         case .logout, .reissue: return .requestPlain
         case .resign(_, let socialToken):
             return .requestParameters(
-                parameters: [ "socialtoken": socialToken],
+                parameters: ["socialtoken": socialToken],
                 encoding: URLEncoding.queryString)
         }
     }
@@ -55,12 +56,12 @@ extension AuthService: BaseTargetType {
     var headers: [String : String]? {
         switch self {
         case .reissue:
-            return ["Content-Type": "application/json",
-                    "accesstoken": GeneralAPI.accessToken!,
-                    "refreshtoken": GeneralAPI.refreshToken!]
+            return ["Content-Type": GeneralAPI.contentType,
+                    "accesstoken": GeneralAPI.accessToken,
+                    "refreshtoken": GeneralAPI.refreshToken]
         default:
-            return ["Content-Type": "application/json",
-                    "accesstoken": GeneralAPI.accessToken!]
+            return ["Content-Type": GeneralAPI.contentType,
+                    "accesstoken": GeneralAPI.accessToken]
         
         }
     }

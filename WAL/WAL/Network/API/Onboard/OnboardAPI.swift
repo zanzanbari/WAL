@@ -18,10 +18,10 @@ final class OnboardAPI {
     
     // MARK: - POST 온보딩
     
-    public func postOnboardSetting(nickname: String, dtype: Dtype, time: AlarmTime,
+    public func postOnboardSetting(nickname: String, dataType: DataType, time: AlarmTime,
                                 completion: @escaping ((GenericResponse<Onboard>?, Int?) -> ())) {
         
-        let param = OnboardRequest.init(nickname, dtype, time)
+        let param = OnboardRequest.init(nickname, dataType, time)
         
         onboardProvider.request(.setInfo(param: param)) { result in
             switch result {

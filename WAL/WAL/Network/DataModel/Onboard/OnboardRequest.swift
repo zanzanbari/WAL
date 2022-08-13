@@ -9,19 +9,19 @@ import Foundation
 
 struct OnboardRequest: Codable {
     let nickname: String
-    let dtype: Dtype
+    let dtype: DataType
     let time: AlarmTime
     
-    init(_ nickname: String, _ dtype: Dtype, _ time: AlarmTime) {
+    init(_ nickname: String, _ dtype: DataType, _ time: AlarmTime) {
         self.nickname = nickname
         self.dtype = dtype
         self.time = time
     }
 }
 
-// MARK: - Dtype
+// MARK: - DataType
 
-struct Dtype: Codable {
+struct DataType: Codable {
     let joke, compliment, condolence, scolding: Bool
     
     init(_ joke: Bool, _ compliment: Bool, _ condolence: Bool, _ scolding: Bool) {
