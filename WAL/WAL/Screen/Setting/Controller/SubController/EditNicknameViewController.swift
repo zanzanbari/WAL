@@ -1,8 +1,8 @@
 //
-//  OnboardingCollectionViewCell.swift
+//  EditNicknameViewController.swift
 //  WAL
 //
-//  Created by heerucan on 2022/04/30.
+//  Created by heerucan on 2022/06/27.
 //
 
 import UIKit
@@ -10,27 +10,24 @@ import UIKit
 import Then
 import WALKit
 
-class OnboardingCollectionViewCell: BaseCollectionViewCell {
-            
+final class EditNicknameViewController: BaseViewController {
+    
     // MARK: - Properties
     
     private let textCount: Int = 0
     private let maxLength: Int = 10
     
-    private let titleLabel = UILabel().then {
-        $0.font = WALFont.title2.font
-        $0.text = "왈이 당신을 뭐라고 \n 부르면 되나요?"
-        $0.textAlignment = .center
-        $0.numberOfLines = 2
+    private let navigationBar = WALNavigationBar(title: "닉네임 수정").then {
+        $0.backgroundColor = .white100
+        $0.rightIcon = WALIcon.btnDelete.image
+        $0.rightBarButton.addTarget(self, action: #selector(touchupCloseButton), for: .touchUpInside)
     }
     
-    private let subtitleLabel = UILabel().then {
-        $0.font = WALFont.body7.font
-        $0.text = "여보? 허니? 자기?"
-        $0.numberOfLines = 0
+    private let profileImageView = UIImageView().then {
+        $0.image = WALIcon.icnProfile.image
     }
     
-    public let nicknameTextField = WALTextField().then {
+    private let nicknameTextField = WALTextField().then {
         $0.font = WALFont.body6.font
         $0.placeholder = "닉네임을 입력해주세요"
         $0.isFocusing = false
@@ -49,54 +46,46 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     private let warnLabel = UILabel().then {
         $0.font = WALFont.body9.font
-        $0.text = Constant.warnText
+        $0.text = "띄어쓰기 없이 한글, 영문, 숫자만 가능해요"
         $0.numberOfLines = 0
         $0.textColor = .red100
         $0.isHidden = true
     }
     
-    public let nextButton = WALPlainButton().then {
-        $0.title = "다음"
-        $0.isDisabled = true
-    }
-    
     // MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configUI()
         setupLayout()
         setupTextField()
         nicknameTextField.becomeFirstResponder()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - InitUI
     
+    private func configUI() {
+        view.backgroundColor = .white
+    }
+    
     private func setupLayout() {
-        contentView.addSubviews([titleLabel,
-                                 subtitleLabel,
-                                 nicknameTextField,
-                                 countLabel,
-                                 warnIconView,
-                                 warnLabel,
-                                 nextButton])
+        view.addSubviews([navigationBar, profileImageView, nicknameTextField, countLabel, warnIconView, warnLabel])
         
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
-            make.centerX.equalToSuperview()
+        navigationBar.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(47)
+            make.leading.trailing.equalToSuperview()
         }
         
-        subtitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(9)
+        profileImageView.snp.makeConstraints { make in
+            make.top.equalTo(navigationBar.snp.bottom).offset(33)
             make.centerX.equalToSuperview()
+            make.width.height.equalTo(90)
         }
         
         nicknameTextField.snp.makeConstraints { make in
-            make.top.equalTo(subtitleLabel.snp.bottom).offset(35)
+            make.top.equalTo(profileImageView.snp.bottom).offset(23)
             make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(50)
         }
         
         warnIconView.snp.makeConstraints { make in
@@ -115,11 +104,9 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
             make.trailing.equalToSuperview().inset(20)
         }
         
-        nextButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 50 : 26)
-        }
     }
+    
+    // MARK: - Custom Method
     
     private func setupTextField() {
         nicknameTextField.delegate = self
@@ -130,8 +117,12 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
             name: UITextField.textDidChangeNotification,
             object: nicknameTextField)
     }
-        
+
     // MARK: - @objc
+    
+    @objc func touchupCloseButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @objc private func textDidChange(_ notification: Notification) {
         if let textField = notification.object as? UITextField,
@@ -144,16 +135,12 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     @objc override func keyboardWillShow(_ notification: NSNotification) {
         super.keyboardWillShow(notification)
-        let offset = UIScreen.main.hasNotch ? 32.0 : 29.0
-        UIView.animate(withDuration: 0.1) {
-            self.nextButton.transform = CGAffineTransform(translationX: 0, y: offset-(self.keyboardHeight))
-        }
     }
 }
 
 // MARK: - UITextFieldDelegate
 
-extension OnboardingCollectionViewCell: UITextFieldDelegate {
+extension EditNicknameViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         nicknameTextField.layer.borderColor = UIColor.orange100.cgColor
         return true
@@ -167,20 +154,10 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         warnIconView.isHidden = true
         warnLabel.isHidden = true
-        UIView.animate(withDuration: 0.25) {
-            self.nextButton.transform = .identity
-        }
-        guard let text = textField.text else { return }
-        UserDefaults.standard.setValue(text, forKey: "nickname")
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = nicknameTextField.text else { return }
-        if text.trimmingCharacters(in: .whitespaces).isEmpty || text == nicknameTextField.placeholder {
-            nextButton.isDisabled = true
-        } else {
-            nextButton.isDisabled = false
-        }
         countLabel.text = "\(text.count)/10"
         
         switch text.count {
@@ -195,6 +172,7 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
         guard let text = nicknameTextField.text else { return false }
         let utf8Char = string.cString(using: .utf8)
         let isBackSpace = strcmp(utf8Char, "\\b")
+        
         if string.hasCharacters() || isBackSpace == -92 {
             warnIconView.isHidden = true
             warnLabel.isHidden = true

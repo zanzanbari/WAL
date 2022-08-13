@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SafariServices
+import Then
 import WALKit
 
 final class SettingViewController: UIViewController {
@@ -70,8 +72,10 @@ final class SettingViewController: UIViewController {
     }
     
     private func setupTableView() {
-        tableView.register(MyInfoTableViewCell.self, forCellReuseIdentifier: MyInfoTableViewCell.identifier)
-        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
+        tableView.register(MyInfoTableViewCell.self,
+                           forCellReuseIdentifier: MyInfoTableViewCell.identifier)
+        tableView.register(SettingTableViewCell.self,
+                           forCellReuseIdentifier: SettingTableViewCell.identifier)
     }
     
     // MARK: - Custom Method
@@ -109,13 +113,37 @@ extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.section {
+        case 0:
+            let viewController = MypageViewController()
+            viewController.modalPresentationStyle = .overFullScreen
+            present(viewController, animated: true, completion: nil)
         case 1:
             if indexPath.row == 0 {
                 let viewController = SettingAlarmViewController()
                 viewController.modalPresentationStyle = .overFullScreen
                 present(viewController, animated: true, completion: nil)
+            } else if indexPath.row == 1 {
+                let viewController = SettingCategoryViewController()
+                viewController.modalPresentationStyle = .overFullScreen
+                present(viewController, animated: true, completion: nil)
             }
         default:
+            if indexPath.row == 0 {
+                let viewController = ZanzanbariViewController()
+                viewController.modalPresentationStyle = .overFullScreen
+                present(viewController, animated: true, completion: nil)
+            } else if indexPath.row == 1 {
+                let url = NSURL(string: Constant.walURL)
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                safariView.modalPresentationStyle = .overFullScreen
+                self.present(safariView, animated: true)
+                
+            } else if indexPath.row == 2 {
+                let url = NSURL(string: Constant.walURL)
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                safariView.modalPresentationStyle = .overFullScreen
+                self.present(safariView, animated: true)
+            }
             break
         }
     }
@@ -156,18 +184,18 @@ extension SettingViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: "MyInfoTableViewCell", for: indexPath) as? MyInfoTableViewCell
+                withIdentifier: MyInfoTableViewCell.identifier, for: indexPath) as? MyInfoTableViewCell
             else { return UITableViewCell() }
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell
+                withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
             cell.menuLabel.text = setting.getMenuLabel(setting.firstRowData, indexPath.row)
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell
+                withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
             cell.setupData(index: indexPath.row)
             return cell
