@@ -21,7 +21,7 @@ class DatePickerTableViewCell: UITableViewCell {
     
     //MARK: - Properties
     
-    var reservedDates: ReservedDate = ReservedDate(date: [])
+    var reservedDates: [String] = []
     
     private lazy var datePicker = UIDatePicker().then {
         $0.tintColor = .mint100
@@ -94,14 +94,16 @@ class DatePickerTableViewCell: UITableViewCell {
     //MARK: - @objc
     
     @objc private func handelDatePicker() {
-        var selectedDate = datePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        if datePickerType == .date, reservedDates.date.contains(dateFormatter.string(from: selectedDate)) {
-            selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? Date()
+        var selectedDate = datePicker.date
+        
+        if datePickerType == .date, reservedDates.contains(dateFormatter.string(from: selectedDate)) {
+            while reservedDates.contains(dateFormatter.string(from: selectedDate)) {
+                selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? Date()
+            }
             sendDate?(selectedDate, true)
-            datePicker.setDate(selectedDate, animated: true)
         } else {
             sendDate?(selectedDate, false)
         }

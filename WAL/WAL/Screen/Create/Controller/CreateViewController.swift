@@ -14,6 +14,8 @@ class CreateViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var reservedDates: [String] = []
+    
     private let createView = WALCreateView()
     
     private let scrollView = UIScrollView(frame: .zero).then {
@@ -136,6 +138,7 @@ class CreateViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
+        getReservedDate()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -245,7 +248,16 @@ class CreateViewController: UIViewController {
         timeFormatter.dateFormat = "a hh:mm"
         timeFormatter.locale = Locale(identifier: "ko")
         
-        viewController.date = "\(dateFormatter.string(from: datePickerData.date ?? Date())) \(timeFormatter.string(from: datePickerData.time ?? Date()))"
+        let date = dateFormatter.string(from: datePickerData.date ?? Date())
+        var time = timeFormatter.string(from: datePickerData.time ?? Date())
+        viewController.date = "\(date) \(time)"
+        
+        timeFormatter.dateFormat = "HH:mm:ss"
+        time = timeFormatter.string(from: datePickerData.time ?? Date())
+        
+        let reservationData = Reserve(content: walSoundTextView.text, date: date, time: time, hide: isSelectedHideHistory)
+        
+        postReservation(data: reservationData)
         
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -404,15 +416,12 @@ extension CreateViewController: UITableViewDataSource {
             datePickerCell.selectionStyle = .none
             datePickerCell.datePickerType = datePickerType
             datePickerCell.setup(date: datePickerData)
+            datePickerCell.reservedDates = self.reservedDates
             
             datePickerCell.sendDate = { date, didShowToastMessage in
                 if didShowToastMessage {
                     self.showToastMessage()
                     self.datePickerData.didShowView.date = true
-                } else {
-                    self.datePickerData.didShowView.date = false
-                    self.datePickerData.didShowView.time = false
-                    self.scroll(.date)
                 }
                 
                 switch self.datePickerType {
@@ -425,6 +434,24 @@ extension CreateViewController: UITableViewDataSource {
             }
             
             return datePickerCell
+        }
+    }
+}
+
+//MARK: - Network
+
+extension CreateViewController {
+    private func getReservedDate() {
+        CreateAPI.shared.getReservedDate { data, error in
+            guard let reservedDates = data else { return }
+            self.reservedDates = reservedDates
+        }
+    }
+    
+    private func postReservation(data: Reserve) {
+        CreateAPI.shared.postReservation(reserve: data) { data, error in
+            guard let data = data else { return }
+            print(data)
         }
     }
 }
