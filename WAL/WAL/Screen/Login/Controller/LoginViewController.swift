@@ -86,10 +86,10 @@ final class LoginViewController: UIViewController {
         self.refreshToken = refreshToken
         self.socialToken = socialToken
         socialLogin = type
-        UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
-        UserDefaults.standard.set(self.socialToken, forKey: "socialToken")
-        UserDefaults.standard.set(self.socialLogin, forKey: "socialLogin")
-        UserDefaults.standard.set(self.refreshToken, forKey: "refreshToken")
+        UserDefaults.standard.set(self.accessToken, forKey: Constant.Key.accessToken)
+        UserDefaults.standard.set(self.socialToken, forKey: Constant.Key.socialToken)
+        UserDefaults.standard.set(self.socialLogin, forKey: Constant.Key.socialLogin)
+        UserDefaults.standard.set(self.refreshToken, forKey: Constant.Key.refreshToken)
     }
     
     private func pushToHome() {
@@ -158,8 +158,10 @@ extension LoginViewController {
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
                                 guard let kakaoData = kakaoData, let accessData = kakaoData.data else { return }
-                                self.setUserDefaults("kakao", accessData.accesstoken,
-                                                     accessData.refreshtoken, oauthToken.accessToken)
+                                self.setUserDefaults("kakao",
+                                                     accessData.accesstoken,
+                                                     accessData.refreshtoken,
+                                                     oauthToken.accessToken)
                                 self.pushToHome()
                             }
                     }
@@ -187,7 +189,7 @@ extension LoginViewController {
                                     AuthAPI.shared.postReissue() { reissueData, err in
                                         guard let reissueData = reissueData?.data else { return }
                                         self.accessToken = reissueData.accesstoken
-                                        UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
+                                        UserDefaults.standard.set(self.accessToken, forKey: Constant.Key.accessToken)
                                     }
                                 } else {
                                     self.setUserDefaults("kakao", accessData.accesstoken,

@@ -49,7 +49,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     private let warnLabel = UILabel().then {
         $0.font = WALFont.body9.font
-        $0.text = Constant.warnText
+        $0.text = Constant.Placeholder.warnText
         $0.numberOfLines = 0
         $0.textColor = .red100
         $0.isHidden = true
@@ -171,7 +171,7 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
             self.nextButton.transform = .identity
         }
         guard let text = textField.text else { return }
-        UserDefaults.standard.setValue(text, forKey: "nickname")
+        UserDefaults.standard.setValue(text, forKey: Constant.Key.nickname)
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {

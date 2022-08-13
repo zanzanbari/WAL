@@ -77,25 +77,11 @@ final class SettingViewController: UIViewController {
         tableView.register(SettingTableViewCell.self,
                            forCellReuseIdentifier: SettingTableViewCell.identifier)
     }
-    
-    // MARK: - Custom Method
-    
+        
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        // MARK: - FIXME 회원탈퇴 코드 환경설정 뷰에 알맞은 곳에 넣기
-        guard let socialLogin = GeneralAPI.socialLogin,
-              let socialToken = GeneralAPI.socialToken else { return }
-        AuthAPI.shared.postResign(
-            social: socialLogin, socialToken: socialToken) { (resignData, err) in
-                guard let resignData = resignData else { return }
-                print("-------회원탈퇴 서버 통신", resignData)
-            }
-        // MARK: - FIXME 로그아웃 코드 환경설정 뷰에 알맞은 곳에 넣기
-        AuthAPI.shared.getLogout { logoutData, err in
-            guard let logoutData = logoutData else { return }
-            print("--------로그아웃 서버 통신 : ", logoutData)
-        }
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -133,14 +119,14 @@ extension SettingViewController: UITableViewDelegate {
                 viewController.modalPresentationStyle = .overFullScreen
                 present(viewController, animated: true, completion: nil)
             } else if indexPath.row == 1 {
-                let url = NSURL(string: Constant.walURL)
-                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                guard let url = NSURL(string: Constant.URL.walURL) else { return }
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
                 safariView.modalPresentationStyle = .overFullScreen
                 self.present(safariView, animated: true)
                 
             } else if indexPath.row == 2 {
-                let url = NSURL(string: Constant.walURL)
-                let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+                guard let url = NSURL(string: Constant.URL.walURL) else { return }
+                let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
                 safariView.modalPresentationStyle = .overFullScreen
                 self.present(safariView, animated: true)
             }

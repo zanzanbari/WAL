@@ -178,8 +178,8 @@ final class ZanzanbariViewController: UIViewController {
     }
     
     @objc func touchupSendOpinionButton() {
-        let url = NSURL(string: Constant.walURL)
-        let safariView: SFSafariViewController = SFSafariViewController(url: url as! URL)
+        guard let url = NSURL(string: Constant.URL.walURL) else { return }
+        let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
         safariView.modalPresentationStyle = .overFullScreen
         self.present(safariView, animated: true)
     }

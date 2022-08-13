@@ -130,10 +130,10 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
-        let dtype = Dtype(self.joke, self.compliment, self.condolence, self.scolding)
+        let dataType = DataType(self.joke, self.compliment, self.condolence, self.scolding)
         let alarmTime = AlarmTime(self.morning, self.launch, self.evening)
-        guard let nickname = UserDefaults.standard.string(forKey: "nickname") else { return }
-        OnboardAPI.shared.postOnboardSetting(nickname: nickname, dtype: dtype, time: alarmTime) {
+        guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname) else { return }
+        OnboardAPI.shared.postOnboardSetting(nickname: nickname, dataType: dataType, time: alarmTime) {
             (onboardData, err) in
                 guard let onboardData = onboardData else { return }
                 print(onboardData)
