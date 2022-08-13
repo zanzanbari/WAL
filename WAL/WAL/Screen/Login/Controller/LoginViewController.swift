@@ -86,16 +86,17 @@ final class LoginViewController: UIViewController {
         self.refreshToken = refreshToken
         self.socialToken = socialToken
         socialLogin = type
-        UserDefaults.standard.set(self.accessToken, forKey: Constant.Key.accessToken)
-        UserDefaults.standard.set(self.socialToken, forKey: Constant.Key.socialToken)
-        UserDefaults.standard.set(self.socialLogin, forKey: Constant.Key.socialLogin)
-        UserDefaults.standard.set(self.refreshToken, forKey: Constant.Key.refreshToken)
+        UserDefaults.standard.set(accessToken, forKey: Constant.Key.accessToken)
+        UserDefaults.standard.set(socialToken, forKey: Constant.Key.socialToken)
+        UserDefaults.standard.set(type, forKey: Constant.Key.socialLogin)
+        UserDefaults.standard.set(refreshToken, forKey: Constant.Key.refreshToken)
     }
     
     private func pushToHome() {
-        let onboardingViewController = OnboardingViewController()
-        onboardingViewController.modalPresentationStyle = .fullScreen
-        present(onboardingViewController, animated: true, completion: nil)
+        let viewController = UINavigationController(rootViewController: OnboardingViewController())
+        viewController.navigationBar.isHidden = true
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true, completion: nil)
     }
     
     private func checkToken() {
@@ -156,8 +157,11 @@ extension LoginViewController {
                     } else {
                         guard let oauthToken = oauthToken else { return  }
                         AuthAPI.shared.postSocialLogin(
-                            social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData, let accessData = kakaoData.data else { return }
+                            social: "kakao",
+                            socialToken: oauthToken.accessToken,
+                            fcmToken: nil) { (kakaoData, err) in
+                                guard let kakaoData = kakaoData,
+                                      let accessData = kakaoData.data else { return }
                                 self.setUserDefaults("kakao",
                                                      accessData.accesstoken,
                                                      accessData.refreshtoken,
@@ -182,9 +186,11 @@ extension LoginViewController {
                     } else {
                         guard let oauthToken = oauthToken else { return  }
                         AuthAPI.shared.postSocialLogin(
-                            social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData, let accessData = kakaoData.data else { return }
-                                
+                            social: "kakao",
+                            socialToken: oauthToken.accessToken,
+                            fcmToken: nil) { (kakaoData, err) in
+                                guard let kakaoData = kakaoData,
+                                      let accessData = kakaoData.data else { return }
                                 if kakaoData.status == 401 {
                                     AuthAPI.shared.postReissue() { reissueData, err in
                                         guard let reissueData = reissueData?.data else { return }
@@ -192,8 +198,10 @@ extension LoginViewController {
                                         UserDefaults.standard.set(self.accessToken, forKey: Constant.Key.accessToken)
                                     }
                                 } else {
-                                    self.setUserDefaults("kakao", accessData.accesstoken,
-                                                         accessData.refreshtoken, oauthToken.accessToken)
+                                    self.setUserDefaults("kakao",
+                                                         accessData.accesstoken,
+                                                         accessData.refreshtoken,
+                                                         oauthToken.accessToken)
                                 }
                                 self.pushToHome()
                             }
@@ -210,13 +218,17 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         if let identityToken = appleIDCredential.identityToken {
-            
             let tokenString = String(data: identityToken, encoding: .utf8)
             guard let tokenString = tokenString else { return }
-
-            AuthAPI.shared.postSocialLogin(social: "apple", socialToken: tokenString, fcmToken: nil) { (appleData, err) in
-                guard let appleData = appleData, let accessData = appleData.data else { return }
-                self.setUserDefaults("apple", accessData.accesstoken, accessData.refreshtoken, tokenString)
+            AuthAPI.shared.postSocialLogin(social: "apple",
+                                           socialToken: tokenString,
+                                           fcmToken: nil) { (appleData, err) in
+                guard let appleData = appleData,
+                        let accessData = appleData.data else { return }
+                self.setUserDefaults("apple",
+                                     accessData.accesstoken,
+                                     accessData.refreshtoken,
+                                     tokenString)
                 self.pushToHome()
             }
         }

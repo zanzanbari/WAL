@@ -12,7 +12,7 @@ import Then
 import WALKit
 
 final class OnboardCompleteViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private let completeImageView = UIImageView().then {
@@ -36,6 +36,7 @@ final class OnboardCompleteViewController: UIViewController {
     private let startButton = WALPlainButton().then {
         $0.title = "시작하기"
         $0.isDisabled = false
+        $0.addTarget(self, action: #selector(touchupStartButton), for: .touchUpInside)
     }
     
     // MARK: - Life Cycle
@@ -50,6 +51,8 @@ final class OnboardCompleteViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white
+        subLabel.addLineSpacing(spacing: 0.4)
+        subLabel.addLetterSpacing()
     }
     
     private func setupLayout() {
@@ -79,5 +82,17 @@ final class OnboardCompleteViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(52)
         }
+    }
+    
+    // MARK: - @objc
+    
+    @objc func touchupStartButton() {
+        let viewController = MainViewController()
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
+        self.navigationController?.view.layer.add(transition, forKey: nil)
+        self.navigationController?.pushViewController(viewController, animated: false)
     }
 }

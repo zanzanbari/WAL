@@ -59,7 +59,7 @@ final class OnboardingViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
-        hideKeyboardWhenTappedAround()   
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -135,12 +135,15 @@ final class OnboardingViewController: UIViewController {
         guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname) else { return }
         OnboardAPI.shared.postOnboardSetting(nickname: nickname, dataType: dataType, time: alarmTime) {
             (onboardData, err) in
-                guard let onboardData = onboardData else { return }
-                print(onboardData)
+            guard let onboardData = onboardData else { return }
+            if onboardData.status < 400 {
+                let viewController = OnboardCompleteViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+                print("☘️--------온보딩 서버 통신 완료", onboardData)
+            } else {
+                print("☘️--------온보딩 서버 통신 실패로 인해 화면 전환 실패")
             }
-        let viewController = OnboardCompleteViewController()
-        self.navigationController?.pushViewController(viewController, animated: true)
-        print("완료")
+        }
     }
 }
 

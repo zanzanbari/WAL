@@ -56,12 +56,16 @@ final class LogoutPopupViewController: UIViewController {
     @objc func touchupOkButton() {
         AuthAPI.shared.getLogout { logoutData, err in
             guard let logoutData = logoutData else { return }
-            print("☘️--------로그아웃 서버 통신 : ", logoutData)
-            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let sceneDelegate = windowScene?.delegate as? SceneDelegate
-            let viewController = UINavigationController(rootViewController: LoginViewController())
-            sceneDelegate?.window?.rootViewController = viewController
-            sceneDelegate?.window?.makeKeyAndVisible()
+            if logoutData.status < 400 {
+                print("☘️--------로그아웃 서버 통신 : ", logoutData)
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                let sceneDelegate = windowScene?.delegate as? SceneDelegate
+                let viewController = UINavigationController(rootViewController: LoginViewController())
+                sceneDelegate?.window?.rootViewController = viewController
+                sceneDelegate?.window?.makeKeyAndVisible()
+            } else {
+                print("☘️--------로그아웃 서버 통신 실패로 화면 전환 실패")
+            }
         }
     }
 }
