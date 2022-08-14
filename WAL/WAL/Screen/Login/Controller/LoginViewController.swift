@@ -19,6 +19,11 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var accessToken: String = ""
+    private var socialLogin: String = ""
+    private var socialToken: String = ""
+    private var refreshToken: String = ""
+    
     private let logoImageView = AnimationView().then {
         $0.animation = Animation.named("login")
         $0.contentMode = .scaleAspectFit
@@ -73,10 +78,25 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Custom Method
     
+    private func setUserDefaults(_ type: String,
+                                 _ accessToken: String,
+                                 _ refreshToken: String,
+                                 _ socialToken: String) {
+        self.accessToken = accessToken
+        self.refreshToken = refreshToken
+        self.socialToken = socialToken
+        socialLogin = type
+        UserDefaults.standard.set(accessToken, forKey: Constant.Key.accessToken)
+        UserDefaults.standard.set(socialToken, forKey: Constant.Key.socialToken)
+        UserDefaults.standard.set(type, forKey: Constant.Key.socialLogin)
+        UserDefaults.standard.set(refreshToken, forKey: Constant.Key.refreshToken)
+    }
+    
     private func pushToHome() {
-        let onboardingViewController = OnboardingViewController()
-        onboardingViewController.modalPresentationStyle = .fullScreen
-        present(onboardingViewController, animated: true, completion: nil)
+        let viewController = UINavigationController(rootViewController: OnboardingViewController())
+        viewController.navigationBar.isHidden = true
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true, completion: nil)
     }
     
     private func checkToken() {
@@ -96,7 +116,6 @@ final class LoginViewController: UIViewController {
         // MARK: - 토큰 정보 보기
         UserApi.shared.accessTokenInfo {(accessTokenInfo, error) in
             if let error = error { print(error) } else {
-                print("------------액세스 토큰 : accessTokenInfo() success.")
                 _ = accessTokenInfo
             }
         }
@@ -129,16 +148,24 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     private func loginWithKakaoApp() {
         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+            self.accessToken = oauthToken!.accessToken
             if let error = error { print(error)
             } else {
                 UserApi.shared.me {(user, error) in
-                    if let error = error { print("----------- 카카오 로그인 앱 에러:", error)
+                    if let error = error {
+                        print("----------- 카카오 로그인 앱 에러:", error)
                     } else {
                         guard let oauthToken = oauthToken else { return  }
                         AuthAPI.shared.postSocialLogin(
-                            social: "kakao", socialToken: oauthToken.accessToken, fcmToken: nil) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData else { return }
-                                print("----------- 카카오 로그인 앱 :", kakaoData)
+                            social: "kakao",
+                            socialToken: oauthToken.accessToken,
+                            fcmToken: nil) { (kakaoData, err) in
+                                guard let kakaoData = kakaoData,
+                                      let accessData = kakaoData.data else { return }
+                                self.setUserDefaults("kakao",
+                                                     accessData.accesstoken,
+                                                     accessData.refreshtoken,
+                                                     oauthToken.accessToken)
                                 self.pushToHome()
                             }
                     }
@@ -149,15 +176,33 @@ extension LoginViewController {
     
     private func loginWithKakaoWeb() {
         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-            if let error = error { print(error)
+            if let error = error {
+                print(error)
             } else {
+                self.accessToken = oauthToken!.accessToken
                 UserApi.shared.me {(user, error) in
-                    if let error = error { print("----------- 카카오 로그인 웹 에러 :", error)
+                    if let error = error {
+                        print("----------- 카카오 로그인 웹 에러 :", error)
                     } else {
+                        guard let oauthToken = oauthToken else { return  }
                         AuthAPI.shared.postSocialLogin(
-                            social: "kakao", socialToken: oauthToken!.accessToken, fcmToken: nil) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData else { return }
-                                print("----------- 카카오 로그인 웹 :", kakaoData)
+                            social: "kakao",
+                            socialToken: oauthToken.accessToken,
+                            fcmToken: nil) { (kakaoData, err) in
+                                guard let kakaoData = kakaoData,
+                                      let accessData = kakaoData.data else { return }
+                                if kakaoData.status == 401 {
+                                    AuthAPI.shared.postReissue() { reissueData, err in
+                                        guard let reissueData = reissueData?.data else { return }
+                                        self.accessToken = reissueData.accesstoken
+                                        UserDefaults.standard.set(self.accessToken, forKey: Constant.Key.accessToken)
+                                    }
+                                } else {
+                                    self.setUserDefaults("kakao",
+                                                         accessData.accesstoken,
+                                                         accessData.refreshtoken,
+                                                         oauthToken.accessToken)
+                                }
                                 self.pushToHome()
                             }
                     }
@@ -172,19 +217,18 @@ extension LoginViewController {
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
-        if let authorizationCode = appleIDCredential.authorizationCode,
-           let identityToken = appleIDCredential.identityToken {
-            
-            let authString = String(data: authorizationCode, encoding: .utf8)
+        if let identityToken = appleIDCredential.identityToken {
             let tokenString = String(data: identityToken, encoding: .utf8)
-            
-            guard let authString = authString else { return }
             guard let tokenString = tokenString else { return }
-            print("인가코드", authString)
-            print("토큰", tokenString)
-            AuthAPI.shared.postSocialLogin(social: "apple", socialToken: tokenString, fcmToken: nil) { (appleData, err) in
-                guard let appleData = appleData else { return }
-                print("----------- 애플 로그인 :", appleData)
+            AuthAPI.shared.postSocialLogin(social: "apple",
+                                           socialToken: tokenString,
+                                           fcmToken: nil) { (appleData, err) in
+                guard let appleData = appleData,
+                        let accessData = appleData.data else { return }
+                self.setUserDefaults("apple",
+                                     accessData.accesstoken,
+                                     accessData.refreshtoken,
+                                     tokenString)
                 self.pushToHome()
             }
         }

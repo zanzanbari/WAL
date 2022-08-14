@@ -49,7 +49,7 @@ extension MainService: TargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwibmlja25hbWUiOiLro6jtnawiLCJlbWFpbCI6Imp3eWFuZGtyZ0BrYWthby5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY2MDM5MzU1MCwiZXhwIjoxNjYxNjAzMTUwLCJpc3MiOiJjaGFud29vIn0.GetbS7CzKeUaCna4IIi_e2F4p8ZfLukES-N83RoxKKE"]
+                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmlja25hbWUiOiLsmYjrv6EiLCJlbWFpbCI6ImNob2N3MDQwMkBnbWFpbC5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY2MDQ4ODU2NSwiZXhwIjoxNjYxNjk4MTY1LCJpc3MiOiJjaGFud29vIn0.QPk3O1FV-Znq7qmMmycCdIHZ4ixookWSf5Y8g0VZ9gs"]
     }
 }
 

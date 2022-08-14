@@ -27,7 +27,7 @@ class ResignHeaderView: UIView {
     }
     
     private let subtitleLabel = UILabel().then {
-        $0.text = Constant.resignText
+        $0.text = Constant.Placeholder.resignText
         $0.font = WALFont.body9.font
         $0.textColor = .black100
         $0.numberOfLines = 0

@@ -9,9 +9,9 @@ import Moya
 
 enum AuthService {
     case social(social: String, socialToken: String, fcmToken: String?)
-//    case logout
-//    case reissue
-//    case resign
+    case logout
+    case reissue
+    case resign(social: String, socialToken: String)
 }
 
 extension AuthService: BaseTargetType {
@@ -19,11 +19,15 @@ extension AuthService: BaseTargetType {
     var path: String {
         switch self {
         case .social(let social, _, _): return "/auth/\(social)/login"
+        case .logout: return "/auth/logout"
+        case .reissue: return "/auth/reissue/token"
+        case .resign(let social, _): return "/auth/\(social)/logout"
         }
     }
     
     var method: Moya.Method {
         switch self {
+        case .logout: return .get
         default: return .post
         }
     }
@@ -33,13 +37,32 @@ extension AuthService: BaseTargetType {
         case .social(_, let socialToken, let fcmToken):
             if let fcmToken = fcmToken {
                 return .requestParameters(
-                    parameters: ["socialtoken": socialToken, "fcmToken": fcmToken],
+                    parameters: ["socialtoken": socialToken,
+                                 "fcmToken": fcmToken],
                     encoding: URLEncoding.queryString)
             } else {
                 return .requestParameters(
-                    parameters: [ "socialtoken": socialToken],
+                    parameters: ["socialtoken": socialToken],
                     encoding: URLEncoding.queryString)
             }
+        case .logout, .reissue: return .requestPlain
+        case .resign(_, let socialToken):
+            return .requestParameters(
+                parameters: ["socialtoken": socialToken],
+                encoding: URLEncoding.queryString)
+        }
+    }
+    
+    var headers: [String : String]? {
+        switch self {
+        case .reissue:
+            return ["Content-Type": GeneralAPI.contentType,
+                    "accesstoken": GeneralAPI.accessToken,
+                    "refreshtoken": GeneralAPI.refreshToken]
+        default:
+            return ["Content-Type": GeneralAPI.contentType,
+                    "accesstoken": GeneralAPI.accessToken]
+        
         }
     }
 }
