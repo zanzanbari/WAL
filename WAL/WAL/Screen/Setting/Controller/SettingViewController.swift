@@ -131,7 +131,7 @@ extension SettingViewController: UITableViewDelegate {
                 self.present(safariView, animated: true)
                 
             } else if indexPath.row == 2 {
-                guard let url = NSURL(string: Constant.URL.walURL) else { return }
+                guard let url = NSURL(string: Constant.URL.serviceURL) else { return }
                 let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
                 safariView.modalPresentationStyle = .overFullScreen
                 self.present(safariView, animated: true)
