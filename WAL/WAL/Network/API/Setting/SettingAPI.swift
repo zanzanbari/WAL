@@ -15,11 +15,11 @@ final class SettingAPI {
     private let settingProvider = MoyaProvider<SettingService>(plugins: [MoyaLoggerPlugin()])
     
     typealias completion = (UserInfo?, Int?) -> ()
-    typealias timeCompletion = (UserTime?, Int?) -> ()
+    typealias alarmCompletion = (UserAlarm?, Int?) -> ()
     typealias categoryCompletion = (UserCategory?, Int?) -> ()
     
     public private(set) var userInfoData: UserInfo?
-    public private(set) var userTimeData: UserTime?
+    public private(set) var userAlarmData: UserAlarm?
     public private(set) var userCategoryData: UserCategory?
     
     // MARK: - GET 유저 닉네임 조회하기
@@ -72,16 +72,16 @@ final class SettingAPI {
     
     // MARK: - GET 알림 시간 조회하기
     
-    public func getUserTime(timeCompletion: @escaping timeCompletion) {
-        settingProvider.request(.checkTime) { result in
+    public func getUserAlarm(alarmCompletion: @escaping alarmCompletion) {
+        settingProvider.request(.checkAlarm) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.userTimeData = try response.map(UserTime?.self)
-                    guard let userTimeData = self.userTimeData else {
+                    self.userAlarmData = try response.map(UserAlarm?.self)
+                    guard let userTimeData = self.userAlarmData else {
                         return
                     }
-                    timeCompletion(userTimeData, nil)
+                    alarmCompletion(userTimeData, nil)
                     
                 } catch(let error) {
                     print(error.localizedDescription)
@@ -89,7 +89,7 @@ final class SettingAPI {
                 
             case.failure(let error):
                 print(error.localizedDescription)
-                timeCompletion(nil, 500)
+                alarmCompletion(nil, 500)
             }
         }
     }
@@ -97,19 +97,17 @@ final class SettingAPI {
     
     // MARK: - POST 알림 시간 수정하기
     
-    public func postUserTime(data: [AlarmTime], timeCompletion: @escaping timeCompletion) {
-        
-        let param = UserTimeRequest(data: data)
-        
-        settingProvider.request(.editTime(time: param)) { result in
+    public func postUserAlarm(data: [AlarmTime], alarmCompletion: @escaping alarmCompletion) {
+        let param = UserAlarmRequest(data: data)
+        settingProvider.request(.editAlarm(alarm: param)) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.userTimeData = try response.map(UserTime?.self)
-                    guard let userTimeData = self.userTimeData else {
+                    self.userAlarmData = try response.map(UserAlarm?.self)
+                    guard let userTimeData = self.userAlarmData else {
                         return
                     }
-                    timeCompletion(userTimeData, nil)
+                    alarmCompletion(userTimeData, nil)
                     
                 } catch(let error) {
                     print(error.localizedDescription)
@@ -117,7 +115,7 @@ final class SettingAPI {
                 
             case.failure(let error):
                 print(error.localizedDescription)
-                timeCompletion(nil, 500)
+                alarmCompletion(nil, 500)
             }
         }
     }
@@ -147,12 +145,9 @@ final class SettingAPI {
     }
     
     // MARK: - POST 카테고리 수정하기
-    // dtype에 변경 전과 후 카테고리 선택 Bool 타입을 다 넣어서 보내줘야 한다.
-    public func postUserCategory(dtype: [CategoryType], categoryCompletion: @escaping categoryCompletion) {
-        
-        let param = UserCategoryRequest(data: dtype)
-        
-        settingProvider.request(.editCategory(param: param)) { result in
+    public func postUserCategory(data: [CategoryType], categoryCompletion: @escaping categoryCompletion) {
+        let param = UserCategoryRequest(data: data)
+        settingProvider.request(.editCategory(category: param)) { result in
             switch result {
             case .success(let response):
                 do {

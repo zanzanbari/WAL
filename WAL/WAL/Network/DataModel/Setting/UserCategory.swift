@@ -12,9 +12,9 @@ import Foundation
 struct UserCategory: Codable {
     let status: Int
     let message: String
-    let data: UserCategoryData
+    let data: UserCategoryData?
 }
 
 struct UserCategoryData: Codable {
-    let joke, compliment, condolence, scolding: Bool?
+    let joke, compliment, condolence, scolding: Bool
 }

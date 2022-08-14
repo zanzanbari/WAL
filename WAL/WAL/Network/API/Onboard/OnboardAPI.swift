@@ -16,12 +16,16 @@ final class OnboardAPI {
     
     public private(set) var onboardData: GenericResponse<Onboard>?
     
+    typealias completion = ((GenericResponse<Onboard>?, Int?) -> ())
+    
     // MARK: - POST 온보딩
     
-    public func postOnboardSetting(nickname: String, dataType: CategoryType, time: AlarmTime,
-                                completion: @escaping ((GenericResponse<Onboard>?, Int?) -> ())) {
+    public func postOnboardSetting(nickname: String,
+                                   category: CategoryType,
+                                   alarm: AlarmTime,
+                                   completion: @escaping completion) {
         
-        let param = OnboardRequest.init(nickname, dataType, time)
+        let param = OnboardRequest.init(nickname, category, alarm)
         
         onboardProvider.request(.setInfo(param: param)) { result in
             switch result {

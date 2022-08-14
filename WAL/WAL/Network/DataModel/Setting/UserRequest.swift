@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserTimeRequest: Codable {
+struct UserAlarmRequest: Codable {
     let data: [AlarmTime]
 }
 

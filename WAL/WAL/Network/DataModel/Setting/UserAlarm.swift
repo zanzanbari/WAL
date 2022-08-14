@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - UserTime
 
-struct UserTime: Codable {
+struct UserAlarm: Codable {
     let status: Int
     let message: String
     let data: UserTimeData?
