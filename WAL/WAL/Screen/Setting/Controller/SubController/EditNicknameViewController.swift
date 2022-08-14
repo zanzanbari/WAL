@@ -14,6 +14,9 @@ final class EditNicknameViewController: BaseViewController {
     
     // MARK: - Properties
     
+    weak var sendNicknameDelegate: SendNicknameDelegate?
+    
+    public var nickname = ""
     private let textCount: Int = 0
     private let maxLength: Int = 10
     
@@ -160,7 +163,9 @@ final class EditNicknameViewController: BaseViewController {
     @objc private func touchupDoneButton() {
         guard let nickname = nicknameTextField.text else { return }
         SettingAPI.shared.postUserInfo(nickname: nickname) { (userInfoData, nil) in
-            print("🍀 닉네임 수정 서버 통신 : ", userInfoData?.data?.nickname)
+            guard let userInfoData = userInfoData?.data else { return }
+            self.nickname = userInfoData.nickname
+            self.sendNicknameDelegate?.sendNickname(userInfoData.nickname)
         }
         self.view.endEditing(true)
         self.dismiss(animated: true)

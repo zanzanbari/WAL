@@ -11,10 +11,12 @@ import SafariServices
 import Then
 import WALKit
 
-final class SettingViewController: UIViewController {
+class SettingViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - Properties
     
+    public var nickname = ""
+    public var email = ""
     private let setting = SettingData()
     
     private let navigationBar = WALNavigationBar(title: "설정").then {
@@ -42,6 +44,7 @@ final class SettingViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
+        requestNickname()
         setupTableView()
     }
     
@@ -77,7 +80,7 @@ final class SettingViewController: UIViewController {
         tableView.register(SettingTableViewCell.self,
                            forCellReuseIdentifier: SettingTableViewCell.identifier)
     }
-        
+
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -102,6 +105,9 @@ extension SettingViewController: UITableViewDelegate {
         case 0:
             let viewController = MypageViewController()
             viewController.modalPresentationStyle = .overFullScreen
+            viewController.nickname = nickname
+            viewController.email = email
+            viewController.sendNicknameDelegate = self
             present(viewController, animated: true, completion: nil)
         case 1:
             if indexPath.row == 0 {
@@ -172,6 +178,8 @@ extension SettingViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: MyInfoTableViewCell.identifier, for: indexPath) as? MyInfoTableViewCell
             else { return UITableViewCell() }
+            cell.emailLabel.text = email
+            cell.nicknameLabel.text = nickname
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(
@@ -187,6 +195,28 @@ extension SettingViewController: UITableViewDataSource {
             return cell
             
         default: return UITableViewCell()
+        }
+    }
+}
+
+// MARK: - Protocol Method & Network
+
+extension SettingViewController {
+    func sendNickname(_ nickname: String) {
+        self.nickname = nickname
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func requestNickname() {
+        SettingAPI.shared.getUserInfo { (userInfo, nil) in
+            guard let userInfoData = userInfo?.data else { return }
+            self.email = userInfoData.email
+            self.nickname = userInfoData.nickname
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 }

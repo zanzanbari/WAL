@@ -41,14 +41,15 @@ final class SettingAlarmViewController: UIViewController {
         $0.spacing = 16
     }
     
-    private let moringButtoon = TimeButton(0)
-    private let lauchButton = TimeButton(1)
+    private let morningButton = TimeButton(0)
+    private let launchButton = TimeButton(1)
     private let eveningButton = TimeButton(2)
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestTime()
         configUI()
         setupLayout()
     }
@@ -57,7 +58,7 @@ final class SettingAlarmViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white100
-        [moringButtoon, lauchButton, eveningButton].forEach {
+        [morningButton, launchButton, eveningButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
@@ -68,7 +69,7 @@ final class SettingAlarmViewController: UIViewController {
                           backView,
                           titleLabel,
                           alarmButtonStackView])
-        alarmButtonStackView.addArrangedSubviews([moringButtoon, lauchButton, eveningButton])
+        alarmButtonStackView.addArrangedSubviews([morningButton, launchButton, eveningButton])
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(47)
@@ -97,7 +98,7 @@ final class SettingAlarmViewController: UIViewController {
             make.height.equalTo(104)
         }
         
-        [moringButtoon, lauchButton, eveningButton].forEach {
+        [morningButton, launchButton, eveningButton].forEach {
             $0.snp.makeConstraints { make in
             make.height.equalTo(104)
         } }
@@ -106,17 +107,46 @@ final class SettingAlarmViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        if moringButtoon.layer.borderColor == UIColor.gray400.cgColor &&
-            lauchButton.layer.borderColor == UIColor.gray400.cgColor &&
+        if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
+            launchButton.layer.borderColor == UIColor.gray400.cgColor &&
             eveningButton.layer.borderColor == UIColor.gray400.cgColor {
             showToast(message: "1개 이상 선택해주세요")
         } else {
             self.dismiss(animated: true, completion: nil)
+        }
+        SettingAPI.shared.postUserTime(morning: morningButton.isSelected,
+                                       afternoon: launchButton.isSelected,
+                                       night: eveningButton.isSelected) { (userTimeData, nil) in
+            guard let userTimeData = userTimeData?.data else { return }
+            print("포스트하자",userTimeData)
+            self.morningButton.isSelected = userTimeData.morning
+            self.launchButton.isSelected = userTimeData.afternoon
+            self.eveningButton.isSelected = userTimeData.night
         }
     }
         
     @objc func touchupButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+    }
+}
+
+// MARK: - Network
+
+extension SettingAlarmViewController {
+    func requestTime() {
+        SettingAPI.shared.getUserTime { (userTimeData, nil) in
+            guard let userTimeData = userTimeData?.data else { return }
+            print(userTimeData)
+            // MARK: - TODO 배경테두리색 변경
+            self.morningButton.isSelected = userTimeData.morning
+            self.launchButton.isSelected = userTimeData.afternoon
+            self.eveningButton.isSelected = userTimeData.night
+            if self.morningButton.isSelected {
+                self.morningButton.layer.borderColor = UIColor.orange100.cgColor
+            } else {
+                self.morningButton.layer.borderColor = UIColor.gray400.cgColor
+            }
+        }
     }
 }
