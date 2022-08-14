@@ -23,7 +23,7 @@
 		5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58228A6C174000ABF0C /* UserInfo.swift */; };
 		5B44E58628A6C846000ABF0C /* UserTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58528A6C846000ABF0C /* UserTime.swift */; };
 		5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58728A6C881000ABF0C /* UserCategory.swift */; };
-		5B44E58A28A6D044000ABF0C /* UserCategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserCategoryRequest.swift */; };
+		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
@@ -122,7 +122,7 @@
 		5B44E58228A6C174000ABF0C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		5B44E58528A6C846000ABF0C /* UserTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTime.swift; sourceTree = "<group>"; };
 		5B44E58728A6C881000ABF0C /* UserCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCategory.swift; sourceTree = "<group>"; };
-		5B44E58928A6D044000ABF0C /* UserCategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCategoryRequest.swift; sourceTree = "<group>"; };
+		5B44E58928A6D044000ABF0C /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
@@ -307,7 +307,7 @@
 				5B44E58228A6C174000ABF0C /* UserInfo.swift */,
 				5B44E58528A6C846000ABF0C /* UserTime.swift */,
 				5B44E58728A6C881000ABF0C /* UserCategory.swift */,
-				5B44E58928A6D044000ABF0C /* UserCategoryRequest.swift */,
+				5B44E58928A6D044000ABF0C /* UserRequest.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -936,7 +936,7 @@
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
 				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
 				5B422BA228676CF8001B6807 /* (null) in Sources */,
-				5B44E58A28A6D044000ABF0C /* UserCategoryRequest.swift in Sources */,
+				5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
 				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
 				5BB3FB792857254200A8A70D /* Constant.swift in Sources */,
