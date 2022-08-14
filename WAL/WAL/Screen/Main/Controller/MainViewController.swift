@@ -8,53 +8,12 @@
 import UIKit
 
 import Then
-
 import WALKit
-
 import Lottie
 
 final class MainViewController: UIViewController {
     
-    fileprivate enum WALStatus {
-        case sleeping
-        case checkedAll
-        case arrived
-        
-        var subTitle: String {
-            switch self {
-            case .sleeping:
-                return "왈뿡이가 자는 시간이에요. 아침에 만나요!"
-            case .checkedAll, .arrived:
-                return "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
-            }
-        }
-        
-        var content: String {
-            switch self {
-            case .sleeping:
-                return ""
-            case .checkedAll:
-                return "새로운 왈소리를 기다려보세요"
-            case .arrived:
-                return "왈소리가 도착했어요\n발바닥을 탭하여 확인해주세요"
-            }
-        }
-        
-        var walImage: UIImage {
-            switch self {
-            case .sleeping:
-                return WALIcon.imgWalBBongSleeping.image
-            case .checkedAll:
-                return WALIcon.imgWalBBongWaiting.image
-            case .arrived:
-                let walArrivedImageList: [UIImage] = [WALIcon.imgWalBBongArrive1.image,
-                                                      WALIcon.imgWalBBongArrive2.image,
-                                                      WALIcon.imgWalBBongArrive3.image]
-                return walArrivedImageList.randomElement() ?? WALIcon.imgWalBBongArrive1.image
-            }
-        }
-        
-    }
+    private var mainData = [MainResponse]()
 
     // MARK: - Properties
     
@@ -65,12 +24,12 @@ final class MainViewController: UIViewController {
     
     private lazy var addButton = UIButton().then {
         $0.setImage(WALIcon.btnPlus.image, for: .normal)
-        $0.addTarget(self, action: #selector(touchUpAddButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchupAddButton), for: .touchUpInside)
     }
     
     private lazy var settingButton = UIButton().then {
         $0.setImage(WALIcon.btnSetting.image, for: .normal)
-        $0.addTarget(self, action: #selector(touchUpSettingButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchupSettingButton), for: .touchUpInside)
     }
     
     private var titleLabel = UILabel().then {
@@ -154,6 +113,7 @@ final class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configNavigationUI()
+        checkTime()
     }
     
     override func viewDidLoad() {
@@ -162,28 +122,6 @@ final class MainViewController: UIViewController {
         setupLayout()
         setupCollectionView()
         checkTime()
-        DispatchQueue.main.async {
-            self.dataCount = MainDataModel.mainData.count
-            self.walCollectionView.reloadData()
-            
-            if self.dataCount == 1 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(149)
-                }
-            } else if self.dataCount == 2 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(106)
-                }
-            } else if self.dataCount == 3 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(63)
-                }
-            } else if self.dataCount == 4 {
-                self.walCollectionView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview().inset(20)
-                }
-            }
-        }
     }
     
     // MARK: - Init UI
@@ -240,7 +178,7 @@ final class MainViewController: UIViewController {
         }
         
         walImageView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(124)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(UIScreen().hasNotch ? 124 : 97)
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(300)
         }
@@ -252,15 +190,15 @@ final class MainViewController: UIViewController {
         }
         
         walCollectionView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(UIScreen().hasNotch ? 16 : 26)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(73)
         }
         
         walContentView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(93)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(UIScreen().hasNotch ? 93 : 43)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(313)
+            $0.leading.trailing.equalToSuperview().inset(31)
             $0.height.equalTo(383)
         }
     }
@@ -281,19 +219,20 @@ final class MainViewController: UIViewController {
         if intDate >= 0 && intDate <= 7 {
             walStatus = .sleeping
         } else {
-            walStatus = .arrived
+            getMainInfo()
         }
     }
     
     // MARK: - @objc
     
-    @objc func touchUpAddButton() {
-        
+    @objc func touchupAddButton() {
+        let viewController = CreateViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
-    @objc func touchUpSettingButton() {
-        let vc = SettingViewController()
-        navigationController?.pushViewController(vc, animated: true)
+    @objc func touchupSettingButton() {
+        let viewController = SettingViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -330,17 +269,19 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             titleLabel.isHidden = true
             subTitleLabel.isHidden = true
             
-            walContentView.isHidden = false
-            walContentView.content = MainDataModel.mainData[indexPath.item].content
+            walImageView.image = walArrivedImageList.randomElement()
             
-            let walType = MainDataModel.mainData[indexPath.item].walType
-            if walType == 0 {
-                walContentView.walContentType = .fun
-            } else if walType == 1 {
+            walContentView.isHidden = false
+            walContentView.content = mainData[indexPath.item].content
+            
+            let walType = mainData[indexPath.item].categoryId
+            if walType == -1 {
+                walContentView.walContentType = .special
+            } else if walType == 0 {
                 walContentView.walContentType = .angry
-            } else if walType == 2 {
+            } else if walType == 1 {
                 walContentView.walContentType = .love
-            } else if walType == 3 {
+            } else if walType == 2 {
                 walContentView.walContentType = .cheer
             } else {
                 walContentView.walContentType = .angry
@@ -356,16 +297,84 @@ extension MainViewController: UICollectionViewDataSource {
         return dataCount
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        updateMainData(item: indexPath.item)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainItemCell.cellIdentifier, for: indexPath) as? MainItemCell else { return UICollectionViewCell() }
-        cell.setupData(MainDataModel.mainData[indexPath.item])
+        cell.setupData(mainData[indexPath.item])
         
-        if MainDataModel.mainData[indexPath.item].canOpen {
+        if mainData[indexPath.item].canOpen {
             cell.isUserInteractionEnabled = true
         } else {
             cell.isUserInteractionEnabled = false
         }
 
         return cell
+    }
+}
+
+// MARK: - NetWork
+
+extension MainViewController {
+    func getMainInfo() {
+        MainAPI.shared.getMainData { mainData, err in
+            guard let mainData = mainData else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                guard let data = mainData.data else { return }
+                self.mainData = data
+                self.dataCount = data.count
+                
+                self.walCollectionView.reloadData()
+                self.updateCollectionViewLayout()
+                
+                var isShownCount: Int = 0
+                
+                for item in self.mainData {
+                    if item.isShown {
+                        isShownCount += 1
+                    }
+                }
+                
+                if isShownCount == self.dataCount {
+                    self.walStatus = .checkedAll
+                } else {
+                    self.walStatus = .arrived
+                }
+            }
+        }
+    }
+    
+    private func updateCollectionViewLayout() {
+        if self.dataCount == 1 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(149)
+            }
+        } else if self.dataCount == 2 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(106)
+            }
+        } else if self.dataCount == 3 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(63)
+            }
+        } else if self.dataCount == 4 {
+            self.walCollectionView.snp.updateConstraints {
+                $0.leading.trailing.equalToSuperview().inset(20)
+            }
+        }
+    }
+    
+    private func updateMainData(item: Int) {
+        MainAPI.shared.updateMainData(item: self.mainData[item].id) { mainData, error in
+            guard let mainData = mainData else {
+                return
+            }
+            print(mainData)
+        }
     }
 }

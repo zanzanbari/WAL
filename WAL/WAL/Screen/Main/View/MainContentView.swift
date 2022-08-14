@@ -8,41 +8,24 @@
 import UIKit
 
 import WALKit
-
 import Lottie
 
-enum WALContentType {
-    case fun
-    case angry
-    case cheer
-    case love
-    
-    var walImage: UIImage {
-        switch self {
-        case .fun:
-            return WALIcon.imgWallbbongFun.image
-        case .angry:
-            return WALIcon.imgWallbbongAngry.image
-        case .cheer:
-            return WALIcon.imgWallbbongCheer.image
-        case .love:
-            return WALIcon.imgWallbbongLove.image
-        }
-    }
-}
-
 final class MainContentView: UIView {
+    
+    // MARK: - UI Property
     
     private lazy var bubbleImageView = UIImageView().then {
         $0.image = WALIcon.imgMainBubble.image
         $0.contentMode = .scaleToFill
         $0.addSubview(bubbleLabel)
+        $0.isHidden = true
     }
     
     private var bubbleLabel = UILabel().then {
         $0.text = "왈뿡이를 탭하면 소리가 나와요!"
         $0.textColor = .white100
         $0.font = WALFont.body8.font
+        $0.isHidden = true
     }
     
     private var imageView = UIImageView().then {
@@ -64,8 +47,10 @@ final class MainContentView: UIView {
         $0.backgroundColor = .mint100
         $0.titleLabel?.font = WALFont.body4.font
         $0.layer.cornerRadius = 20
-        $0.addTarget(self, action: #selector(touchUpShareButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchupShareButton), for: .touchUpInside)
     }
+    
+    // MARK: - Property
     
     var walContentType: WALContentType = .fun {
         didSet {
@@ -78,6 +63,8 @@ final class MainContentView: UIView {
             contentLabel.text = content
         }
     }
+    
+    let viewForRender = UIView()
     
     // MARK: - Initializer
     
@@ -136,35 +123,37 @@ final class MainContentView: UIView {
     }
     
     private func setupGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchUpWal))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchupWal))
         imageView.addGestureRecognizer(tapGesture)
     }
     
-    // MARK: - @objcd
+    // MARK: - @objc
     
-    @objc func touchUpWal() {
-        print("왈뿡이 탭했음요")
+    @objc func touchupWal() {
         bubbleImageView.isHidden = true
     }
     
-    @objc func touchUpShareButton() {
-        if let storiesUrl = URL(string: "instagram-stories://share") {
-            if UIApplication.shared.canOpenURL(storiesUrl) {
-                guard let image = imageView.image else { return }
+    @objc func touchupShareButton() {
+        let renderer = UIGraphicsImageRenderer(size: viewForRender.bounds.size)
+        let renderImage = renderer.image { _ in
+            viewForRender.drawHierarchy(in: viewForRender.bounds, afterScreenUpdates: true)
+        }
+        
+        if let storyShareURL = URL(string: "instagram-stories://share") {
+            if UIApplication.shared.canOpenURL(storyShareURL) {
+                guard let imageData = renderImage.pngData() else {return}
                 
-                guard let imageData = image.pngData() else { return }
                 let pasteboardItems: [String: Any] = [
                     "com.instagram.sharedSticker.stickerImage": imageData,
-                    "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
-                    "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
-                ]
-                let pasteboardOptions = [
-                    UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
-                ]
+                    "com.instagram.sharedSticker.backgroundTopColor": "#8D8D88",
+                    "com.instagram.sharedSticker.backgroundBottomColor": "#8D8D88"]
+                
+                let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)]
+                
                 UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
-                UIApplication.shared.open(storiesUrl, options: [:], completionHandler: nil)
+                UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
             } else {
-                print("디바이스에 인스타그램이 없는데요")
+                print("인스타 앱이 깔려있지 않습니다.")
             }
         }
     }
