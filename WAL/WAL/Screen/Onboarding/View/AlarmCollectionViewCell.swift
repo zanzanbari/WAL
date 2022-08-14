@@ -44,8 +44,8 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     }
     
     private let moringButtoon = TimeButton(0)
-    private let launchButton = TimeButton(1)
-    private let eveningButton = TimeButton(2)
+    private let afternoonButton = TimeButton(1)
+    private let nightButton = TimeButton(2)
     
     // MARK: - Initialize
     
@@ -63,7 +63,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     private func configUI() {
         contentView.backgroundColor = .white100
-        [moringButtoon, launchButton, eveningButton].forEach {
+        [moringButtoon, afternoonButton, nightButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
@@ -74,7 +74,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
                                  alarmButtonStackView,
                                  completeButton])
         
-        alarmButtonStackView.addArrangedSubviews([moringButtoon, launchButton, eveningButton])
+        alarmButtonStackView.addArrangedSubviews([moringButtoon, afternoonButton, nightButton])
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
@@ -92,7 +92,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
             make.height.equalTo(104)
         }
         
-        [moringButtoon, launchButton, eveningButton].forEach {
+        [moringButtoon, afternoonButton, nightButton].forEach {
             $0.snp.makeConstraints { make in
             make.height.equalTo(104)
         } }
@@ -107,16 +107,17 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     @objc func touchupButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        sender.layer.borderColor = sender.isSelected
+        ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
         
         completeButton.isDisabled =
         moringButtoon.layer.borderColor == UIColor.gray400.cgColor &&
-        launchButton.layer.borderColor == UIColor.gray400.cgColor &&
-        eveningButton.layer.borderColor == UIColor.gray400.cgColor ? true : false
+        afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
+        nightButton.layer.borderColor == UIColor.gray400.cgColor ? true : false
         
         sendAlarmTimeDelegate?.sendAlarmTime(
             morning: moringButtoon.isSelected,
-            launch: launchButton.isSelected,
-            evening: eveningButton.isSelected)
+            afternoon: afternoonButton.isSelected,
+            night: nightButton.isSelected)
     }
 }

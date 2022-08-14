@@ -39,5 +39,5 @@ protocol SendCategoryDelegate: OnboardingViewController {
 }
 
 protocol SendAlarmTimeDelegate: OnboardingViewController {
-    func sendAlarmTime(morning: Bool, launch: Bool, evening: Bool)
+    func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool)
 }

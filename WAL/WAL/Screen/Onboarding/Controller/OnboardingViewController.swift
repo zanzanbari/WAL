@@ -23,8 +23,8 @@ final class OnboardingViewController: UIViewController {
     private var scolding = false
     
     private var morning = false
-    private var launch = false
-    private var evening = false
+    private var afternoon = false
+    private var night = false
         
     private let navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
@@ -130,16 +130,18 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
-        let dataType = CategoryType(self.joke, self.compliment, self.condolence, self.scolding)
-        let alarmTime = AlarmTime(self.morning, self.launch, self.evening)
+        let categoryType = CategoryType(self.joke, self.compliment, self.condolence, self.scolding)
+        let alarmTime = AlarmTime(self.morning, self.afternoon, self.night)
+        
         guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname) else { return }
-        OnboardAPI.shared.postOnboardSetting(nickname: nickname, dataType: dataType, time: alarmTime) {
-            (onboardData, err) in
+        OnboardAPI.shared.postOnboardSetting(nickname: nickname,
+                                             category: categoryType,
+                                             alarm: alarmTime) { (onboardData, err) in
             guard let onboardData = onboardData else { return }
             if onboardData.status < 400 {
+                print("☘️--------온보딩 서버 통신 완료", onboardData)
                 let viewController = OnboardCompleteViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
-                print("☘️--------온보딩 서버 통신 완료", onboardData)
             } else {
                 print("☘️--------온보딩 서버 통신 실패로 인해 화면 전환 실패")
             }
@@ -238,16 +240,19 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Delegate
 
 extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate {
-    func sendCategory(joke: Bool, compliment: Bool, condolence: Bool, scolding: Bool) {
+    func sendCategory(joke: Bool,
+                      compliment: Bool,
+                      condolence: Bool,
+                      scolding: Bool) {
         self.joke = joke
         self.compliment = compliment
         self.condolence = condolence
         self.scolding = scolding
     }
     
-    func sendAlarmTime(morning: Bool, launch: Bool, evening: Bool) {
+    func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool) {
         self.morning = morning
-        self.launch = launch
-        self.evening = evening
+        self.afternoon = afternoon
+        self.night = night
     }
 }

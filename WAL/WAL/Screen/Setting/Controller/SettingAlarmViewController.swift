@@ -15,9 +15,7 @@ final class SettingAlarmViewController: UIViewController {
     // MARK: - Properties
     
     // 바꾸기 이전 값을 저장하기 위한 프로퍼티 선언
-    private var morningBeforeReplacment = false
-    private var afternoonBeforeReplacment = false
-    private var nightBeforeReplacment = false
+    private var alarmBeforeChange = AlarmTime.init(false, false, false)
     
     private let setting = SettingData()
     
@@ -54,7 +52,7 @@ final class SettingAlarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestTime()
+        requestAlarm()
         configUI()
         setupLayout()
     }
@@ -122,7 +120,7 @@ final class SettingAlarmViewController: UIViewController {
             nightButton.layer.borderColor == UIColor.gray400.cgColor {
             showToast(message: "1개 이상 선택해주세요")
         } else {
-            postTime()
+            postAlarm()
         }
     }
     
@@ -136,44 +134,37 @@ final class SettingAlarmViewController: UIViewController {
 // MARK: - Network
 
 extension SettingAlarmViewController {
-    private func buttonBorderColor(_ button: UIButton) {
-        if button.isSelected {
-            button.layer.borderColor = UIColor.orange100.cgColor
-        } else {
-            button.layer.borderColor = UIColor.gray400.cgColor
-        }
+    private func buttonBorderColor(_ button: UIButton, _ userTimeData: Bool) {
+        button.isSelected = userTimeData
+        button.layer.borderColor = button.isSelected ?
+        UIColor.orange100.cgColor : UIColor.gray400.cgColor
     }
     
-    private func requestTime() {
-        SettingAPI.shared.getUserTime { (userTimeData, nil) in
-            guard let userTimeData = userTimeData?.data else { return }
-            print("🥰 알림시간 값 가져오기",userTimeData)
+    private func requestAlarm() {
+        SettingAPI.shared.getUserAlarm { (userAlarmData, nil) in
+            guard let userAlarmData = userAlarmData?.data else { return }
+            print("🥰 알림시간 값 가져오기 🥰", userAlarmData)
             // MARK: - TODO 코드 개선
-            self.morningButton.isSelected = userTimeData.morning
-            self.afternoonButton.isSelected = userTimeData.afternoon
-            self.nightButton.isSelected = userTimeData.night
-            self.buttonBorderColor(self.morningButton)
-            self.buttonBorderColor(self.afternoonButton)
-            self.buttonBorderColor(self.nightButton)
-            self.morningBeforeReplacment = userTimeData.morning
-            self.afternoonBeforeReplacment = userTimeData.afternoon
-            self.nightBeforeReplacment = userTimeData.night
+            self.buttonBorderColor(self.morningButton, userAlarmData.morning)
+            self.buttonBorderColor(self.afternoonButton, userAlarmData.afternoon)
+            self.buttonBorderColor(self.nightButton, userAlarmData.night)
+            self.alarmBeforeChange = AlarmTime(userAlarmData.morning, userAlarmData.afternoon, userAlarmData.night)
         }
     }
     
-    private func postTime() {
-        SettingAPI.shared.postUserTime(data: [
+    private func postAlarm() {
+        SettingAPI.shared.postUserAlarm(data: [
             // 바꾸기 이전 값
-            AlarmTime(morningBeforeReplacment, afternoonBeforeReplacment, nightBeforeReplacment),
+            alarmBeforeChange,
             // 바꾼 이후 값
-            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { (userTimeData, nil) in
-                guard let userTime = userTimeData,
-                      let userTimeData = userTime.data else { return }
-                if userTime.status < 400 {
-                    print("🥰 알림시간 수정 서버 통신",userTimeData)
-                    self.morningButton.isSelected = userTimeData.morning
-                    self.afternoonButton.isSelected = userTimeData.afternoon
-                    self.nightButton.isSelected = userTimeData.night
+            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { (userAlarmData, nil) in
+                guard let userAlarm = userAlarmData,
+                      let userAlarmData = userAlarm.data else { return }
+                if userAlarm.status < 400 {
+                    print("🥰 알림시간 수정 서버 통신 🥰", userAlarmData)
+                    self.morningButton.isSelected = userAlarmData.morning
+                    self.afternoonButton.isSelected = userAlarmData.afternoon
+                    self.nightButton.isSelected = userAlarmData.night
                     self.dismiss(animated: true, completion: nil)
                 } else {
                     print("🥰 알림시간 수정 서버 통신 실패로 화면전환 실패")

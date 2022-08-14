@@ -21,7 +21,7 @@
 		5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E57E28A6BCED000ABF0C /* SettingService.swift */; };
 		5B44E58128A6BCFC000ABF0C /* SettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */; };
 		5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58228A6C174000ABF0C /* UserInfo.swift */; };
-		5B44E58628A6C846000ABF0C /* UserTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58528A6C846000ABF0C /* UserTime.swift */; };
+		5B44E58628A6C846000ABF0C /* UserAlarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58528A6C846000ABF0C /* UserAlarm.swift */; };
 		5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58728A6C881000ABF0C /* UserCategory.swift */; };
 		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
@@ -120,7 +120,7 @@
 		5B44E57E28A6BCED000ABF0C /* SettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingService.swift; sourceTree = "<group>"; };
 		5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAPI.swift; sourceTree = "<group>"; };
 		5B44E58228A6C174000ABF0C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
-		5B44E58528A6C846000ABF0C /* UserTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTime.swift; sourceTree = "<group>"; };
+		5B44E58528A6C846000ABF0C /* UserAlarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAlarm.swift; sourceTree = "<group>"; };
 		5B44E58728A6C881000ABF0C /* UserCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCategory.swift; sourceTree = "<group>"; };
 		5B44E58928A6D044000ABF0C /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
@@ -305,7 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				5B44E58228A6C174000ABF0C /* UserInfo.swift */,
-				5B44E58528A6C846000ABF0C /* UserTime.swift */,
+				5B44E58528A6C846000ABF0C /* UserAlarm.swift */,
 				5B44E58728A6C881000ABF0C /* UserCategory.swift */,
 				5B44E58928A6D044000ABF0C /* UserRequest.swift */,
 			);
@@ -888,7 +888,7 @@
 				5BB17B3F286628F300029824 /* Logout.swift in Sources */,
 				5BB80AB828A839570056E334 /* Login.swift in Sources */,
 				5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */,
-				5B44E58628A6C846000ABF0C /* UserTime.swift in Sources */,
+				5B44E58628A6C846000ABF0C /* UserAlarm.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
 				5BB17B3D2865BB4200029824 /* OnboardService.swift in Sources */,
 				927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */,
