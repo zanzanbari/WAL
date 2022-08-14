@@ -13,6 +13,8 @@ final class SettingCategoryViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var categoryBeforeChange = CategoryType.init(false, false, false, false)
+    
     private let setting = SettingData()
     
     private let navigationBar = WALNavigationBar(title: "왈소리 유형").then {
@@ -45,6 +47,7 @@ final class SettingCategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestCategory()
         configUI()
         setupLayout()
     }
@@ -60,7 +63,10 @@ final class SettingCategoryViewController: UIViewController {
             $0.spacing = 9
         }
         
-        [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
+        [jokeButton,
+         complimentButton,
+         condolenceButton,
+         scoldingButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
@@ -104,10 +110,11 @@ final class SettingCategoryViewController: UIViewController {
         
         [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
             $0.snp.makeConstraints { make in
-            make.height.equalTo(163)
-        } }
+                make.height.equalTo(163)
+            }
+        }
     }
-
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -117,12 +124,61 @@ final class SettingCategoryViewController: UIViewController {
             scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
             showToast(message: "1개 이상 선택해주세요")
         } else {
-            self.dismiss(animated: true, completion: nil)
+            postCategory()
         }
     }
-        
+    
     @objc func touchupButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        sender.layer.borderColor = sender.isSelected ?
+        UIColor.orange100.cgColor : UIColor.gray400.cgColor
+    }
+}
+
+// MARK: - Network
+
+extension SettingCategoryViewController {
+    private func buttonBorderColor(_ button: UIButton, _ userCategoryData: Bool) {
+        button.isSelected = userCategoryData
+        button.layer.borderColor = button.isSelected ?
+        UIColor.orange100.cgColor : UIColor.gray400.cgColor
+    }
+    
+    private func requestCategory() {
+        SettingAPI.shared.getUserCategory { (userCategoryData, nil) in
+            guard let userCategory = userCategoryData?.data else { return }
+            print("🌈 카테고리 가져오기 서버통신 🌈", userCategory)
+            self.buttonBorderColor(self.jokeButton, userCategory.joke)
+            self.buttonBorderColor(self.complimentButton, userCategory.compliment)
+            self.buttonBorderColor(self.condolenceButton, userCategory.condolence)
+            self.buttonBorderColor(self.scoldingButton, userCategory.scolding)
+            self.categoryBeforeChange = CategoryType(
+                userCategory.joke,
+                userCategory.compliment,
+                userCategory.condolence,
+                userCategory.scolding)
+        }
+    }
+    
+    private func postCategory() {
+        SettingAPI.shared.postUserCategory(data: [
+            categoryBeforeChange,
+            CategoryType(self.jokeButton.isSelected,
+                         self.complimentButton.isSelected,
+                         self.condolenceButton.isSelected,
+                         self.scoldingButton.isSelected)]) { (userCategory, nil) in
+                             guard let userCategory = userCategory,
+                                   let userCategoryData = userCategory.data else { return }
+                             if userCategory.status < 400 {
+                                 print("🌈 카테고리 수정 서버 통신 🌈", userCategoryData)
+                                 self.jokeButton.isSelected = userCategoryData.joke
+                                 self.complimentButton.isSelected = userCategoryData.compliment
+                                 self.condolenceButton.isSelected = userCategoryData.condolence
+                                 self.scoldingButton.isSelected = userCategoryData.scolding
+                                 self.dismiss(animated: true, completion: nil)
+                             } else {
+                                 print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
+                             }
+                         }
     }
 }
