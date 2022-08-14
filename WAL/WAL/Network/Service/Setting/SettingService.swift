@@ -9,9 +9,9 @@ import Moya
 
 enum SettingService {
     case checkUserInfo
-    case editUserInfo(nickname: String)
+    case editUserInfo(nickname: Onboard)
     case checkTime
-    case editTime(morning: Bool, afternoon: Bool, night: Bool)
+    case editTime(time: AlarmTime)
     case checkCategory
     case editCategory(param: UserCategoryRequest)
 }
@@ -37,18 +37,10 @@ extension SettingService: BaseTargetType {
         switch self {
         case .checkUserInfo, .checkTime, .checkCategory:
             return .requestPlain
-        case .editUserInfo(let nickname):
-            return .requestParameters(
-                parameters: ["nickname": nickname],
-                encoding: URLEncoding.default)
-        case .editTime(let morning,
-                       let afternoon,
-                       let night):
-            return .requestParameters(
-                parameters: ["morning": morning,
-                             "afternoon": afternoon,
-                             "night": night],
-                encoding: URLEncoding.default)
+        case .editUserInfo(let param):
+            return .requestJSONEncodable(param)
+        case .editTime(let param):
+            return .requestJSONEncodable(param)
         case .editCategory(let param):
             return .requestJSONEncodable(param)
         }

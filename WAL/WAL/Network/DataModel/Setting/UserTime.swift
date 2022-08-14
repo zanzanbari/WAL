@@ -12,9 +12,9 @@ import Foundation
 struct UserTime: Codable {
     let status: Int
     let message: String
-    let data: UserTimeData
+    let data: UserTimeData?
 }
 
 struct UserTimeData: Codable {
-    let morning, afternoon, night: Bool?
+    let morning, afternoon, night: Bool
 }

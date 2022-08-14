@@ -18,4 +18,10 @@ struct UserInfo: Codable {
 struct UserInfoData: Codable {
     let nickname: String
     let email: String
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        nickname = (try? values.decode(String.self, forKey: .nickname)) ?? ""
+        email = (try? values.decode(String.self, forKey: .email)) ?? ""
+    }
 }

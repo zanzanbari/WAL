@@ -49,7 +49,7 @@ final class SettingAPI {
     // MARK: - POST 유저 닉네임 수정하기
     
     public func postUserInfo(nickname: String, completion: @escaping completion) {
-        settingProvider.request(.editUserInfo(nickname: nickname)) { result in
+        settingProvider.request(.editUserInfo(nickname: Onboard(nickname: nickname))) { result in
             switch result {
             case .success(let response):
                 do {
@@ -98,7 +98,7 @@ final class SettingAPI {
     // MARK: - POST 알림 시간 수정하기
     
     public func postUserTime(morning: Bool, afternoon: Bool, night: Bool, timeCompletion: @escaping timeCompletion) {
-        settingProvider.request(.editTime(morning: morning, afternoon: afternoon, night: night)) { result in
+        settingProvider.request(.editTime(time: AlarmTime(morning, afternoon, night))) { result in
             switch result {
             case .success(let response):
                 do {
