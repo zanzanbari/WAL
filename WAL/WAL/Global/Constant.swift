@@ -21,8 +21,8 @@ struct Constant {
     
     // MARK: - URL
     enum URL {
-        static let walURL = "https://www.notion.so/WAL-cde83326689247dfabaf712245f359fe"
-        static let serviceURL = "https://www.notion.so/3f7f92f2f8f54b63907b84b7416eb8e8"
+        static let walURL = "https://receptive-humidity-bf2.notion.site/WAL-cde83326689247dfabaf712245f359fe"
+        static let serviceURL = "https://receptive-humidity-bf2.notion.site/3f7f92f2f8f54b63907b84b7416eb8e8"
     }
     
     // MARK: - Placeholder
