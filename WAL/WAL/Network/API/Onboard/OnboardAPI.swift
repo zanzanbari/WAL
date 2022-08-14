@@ -18,7 +18,7 @@ final class OnboardAPI {
     
     // MARK: - POST 온보딩
     
-    public func postOnboardSetting(nickname: String, dataType: DataType, time: AlarmTime,
+    public func postOnboardSetting(nickname: String, dataType: CategoryType, time: AlarmTime,
                                 completion: @escaping ((GenericResponse<Onboard>?, Int?) -> ())) {
         
         let param = OnboardRequest.init(nickname, dataType, time)

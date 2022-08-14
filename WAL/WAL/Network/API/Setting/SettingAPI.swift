@@ -97,8 +97,11 @@ final class SettingAPI {
     
     // MARK: - POST 알림 시간 수정하기
     
-    public func postUserTime(morning: Bool, afternoon: Bool, night: Bool, timeCompletion: @escaping timeCompletion) {
-        settingProvider.request(.editTime(time: AlarmTime(morning, afternoon, night))) { result in
+    public func postUserTime(data: [AlarmTime], timeCompletion: @escaping timeCompletion) {
+        
+        let param = UserTimeRequest(data: data)
+        
+        settingProvider.request(.editTime(time: param)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -145,9 +148,9 @@ final class SettingAPI {
     
     // MARK: - POST 카테고리 수정하기
     // dtype에 변경 전과 후 카테고리 선택 Bool 타입을 다 넣어서 보내줘야 한다.
-    public func postUserCategory(dtype: [Dtype], categoryCompletion: @escaping categoryCompletion) {
+    public func postUserCategory(dtype: [CategoryType], categoryCompletion: @escaping categoryCompletion) {
         
-        let param = UserCategoryRequest.init(dtype: dtype)
+        let param = UserCategoryRequest(data: dtype)
         
         settingProvider.request(.editCategory(param: param)) { result in
             switch result {

@@ -11,7 +11,7 @@ enum SettingService {
     case checkUserInfo
     case editUserInfo(nickname: Onboard)
     case checkTime
-    case editTime(time: AlarmTime)
+    case editTime(time: UserTimeRequest)
     case checkCategory
     case editCategory(param: UserCategoryRequest)
 }
