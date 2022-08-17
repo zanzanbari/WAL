@@ -84,7 +84,7 @@ class HistoryTableViewCell: UITableViewCell {
     
     var isExpanded: Bool = false {
         didSet {
-//            reserveAtLabel.isHidden = !isExpanded
+            reserveAtLabel.isHidden = !isExpanded
         }
     }
     
@@ -188,7 +188,12 @@ class HistoryTableViewCell: UITableViewCell {
     // MARK: - Custom Method
     
     func update() {
-        reserveAtLabel.isHidden.toggle()
+//        if isExpanded {
+//            print("isExpanded")
+//        } else {
+//            print("not Expanded")
+//        }
+        
         self.historyStackView.layoutIfNeeded()
     }
     
