@@ -60,7 +60,6 @@ class HistoryTableViewCell: UITableViewCell {
         $0.font = WALFont.body7.font
         $0.numberOfLines = 0
         $0.lineBreakMode = .byTruncatingTail
-        $0.backgroundColor = .brown
     }
     
     var reserveAtLabel = UILabel().then {

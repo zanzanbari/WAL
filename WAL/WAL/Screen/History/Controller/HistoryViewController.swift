@@ -85,21 +85,21 @@ final class HistoryViewController: UIViewController {
             if cell.isContentHidden {
                 switch sender.state {
                 case .ended:
-                    selectedIndex = []
                     UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-                        self.historyTableView.beginUpdates()
-                        cell.update()
-                        self.historyTableView.endUpdates()
                         cell.coverView.alpha = 1
                     }, completion: { _ in
+                        self.historyTableView.beginUpdates()
+                        cell.isExpanded = false
+                        cell.update()
+                        self.historyTableView.endUpdates()
                         cell.coverView.isHidden = false
                     })
                 default:
-                    selectedIndex = indexPath
-                    historyTableView.beginUpdates()
-                    cell.update()
-                    historyTableView.endUpdates()
                     UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
+                        self.historyTableView.beginUpdates()
+                        cell.isExpanded = true
+                        cell.update()
+                        self.historyTableView.endUpdates()
                         cell.coverView.alpha = 0
                     }, completion: { _ in
                         cell.coverView.isHidden = true
@@ -122,23 +122,14 @@ extension HistoryViewController: UITableViewDelegate {
         if selectedIndex == indexPath {
             return UITableView.automaticDimension
         }
+        else if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+            if cell.isExpanded {
+                return UITableView.automaticDimension
+            } else {
+                return 125
+            }
+        }
         return 125
-//        if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-//            print("from heightForRowAt")
-//            if selectedIndex == indexPath {
-//                if cell.isExpanded {
-//                    print(cell.isExpanded)
-//                    return UITableView.automaticDimension
-//                } else {
-//                    print(cell.isExpanded)
-//                    return 125
-//                }
-//            } else {
-//                return 125
-//            }
-//        } else {
-//            return 125
-//        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -178,6 +169,13 @@ extension HistoryViewController: UITableViewDelegate {
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
             selectedIndex = indexPath
             cell.isExpanded.toggle()
+            if cell.isExpanded {
+                print("cell.isExpanded \(cell.isExpanded)")
+                selectedIndex = indexPath
+            } else {
+                print("cell.isExpanded \(cell.isExpanded)")
+                selectedIndex = []
+            }
             historyTableView.beginUpdates()
             cell.update()
             historyTableView.endUpdates()
