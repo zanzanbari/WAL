@@ -24,11 +24,11 @@ final class HistoryViewController: UIViewController {
     
     private let reserveHeader = HistoryReserveHeaderView()
     private let completeHeader = HistoryCompleteHeaderView()
-    
-    private var expandCellDatasource =  ExpandTableViewCellContent()
-    
+        
     private var sendingData = [HistoryData]()
     private var completeData = [HistoryData]()
+    
+    var selectedIndex: IndexPath = []
     
     // MARK: - Life Cycle
     
@@ -70,7 +70,7 @@ final class HistoryViewController: UIViewController {
                                   forCellReuseIdentifier: HistoryTableViewCell.cellIdentifier)
         
         historyTableView.separatorStyle = .none
-        historyTableView.rowHeight = 125
+        historyTableView.estimatedRowHeight = 125
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(sender:)))
         historyTableView.addGestureRecognizer(longPress)
@@ -131,6 +131,13 @@ final class HistoryViewController: UIViewController {
 // MARK: - UITableView Protocol
 
 extension HistoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if selectedIndex == indexPath {
+            return UITableView.automaticDimension
+        }
+        return 125
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
@@ -166,16 +173,16 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("row\(indexPath.row)")
-        if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-//            historyTableView.rowHeight = UITableView.automaticDimension
-            cell.isExpanded.toggle()
-//            historyTableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        print("section\(indexPath.section)")
         
-//        historyTableView.rowHeight = UITableView.automaticDimension
-//        let content = expandCellDatasource
-//        content.isExpanded.toggle()
-//        historyTableView.reloadRows(at: [indexPath], with: .automatic)
+        if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+            selectedIndex = indexPath
+            
+            historyTableView.beginUpdates()
+            cell.update()
+            historyTableView.reloadRows(at: [selectedIndex], with: .none)
+            historyTableView.endUpdates()
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -258,14 +265,12 @@ extension HistoryViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-//            cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
             cell.sendingDateLabelColor = .systemMint
             cell.setData(sendingData[indexPath.row])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-//            cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
             cell.sendingDateLabelColor = .gray
             cell.setData(completeData[indexPath.row])
