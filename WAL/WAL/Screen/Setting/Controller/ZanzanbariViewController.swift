@@ -43,6 +43,7 @@ final class ZanzanbariViewController: UIViewController {
     
     private let designView = ZanzanView().then {
         $0.image = WALIcon.icnDesigner.image
+        $0.partType = .etc
         $0.part = "Design"
         $0.firstName = "김준희"
         $0.secondName = "이지원"
@@ -50,22 +51,20 @@ final class ZanzanbariViewController: UIViewController {
     
     private let iOSView = ZanzanView().then {
         $0.image = WALIcon.icnDeveloper.image
+        $0.partType = .iOS
         $0.part = "iOS"
         $0.firstName = "김루희"
         $0.secondName = "김소연"
+        $0.thirdName = "배은서"
+        $0.fourthName = "최이준"
     }
     
     private let serverView = ZanzanView().then {
         $0.image = WALIcon.icnServer.image
+        $0.partType = .etc
         $0.part = "Server"
         $0.firstName = "조찬우"
         $0.secondName = "최진영"
-    }
-    
-    private let iOSLabel = UILabel().then {
-        $0.text = "배은서"
-        $0.textColor = .black100
-        $0.font = WALFont.body7.font
     }
     
     private let buttonBackView = UIView()
@@ -74,7 +73,9 @@ final class ZanzanbariViewController: UIViewController {
         $0.setTitle("팀 쟌쟌바리에게 의견 보내기", for: .normal)
         $0.setTitleColor(.black100, for: .normal)
         $0.titleLabel?.font = WALFont.body7.font
-        $0.addTarget(self, action: #selector(touchupSendOpinionButton), for: .touchUpInside)
+        $0.addTarget(self,
+                     action: #selector(touchupSendOpinionButton),
+                     for: .touchUpInside)
     }
     
     // MARK: - Life Cycle
@@ -89,20 +90,21 @@ final class ZanzanbariViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .gray600
-        statusBarView.backgroundColor = .white100
-        backView.backgroundColor = .white100
-        buttonBackView.backgroundColor = .white100
-        
+        [statusBarView, backView, buttonBackView].forEach {
+            $0.backgroundColor = .white100
+        }
     }
     
     private func setupLayout() {
-        view.addSubviews([statusBarView, navigationBar, backView, buttonBackView])
+        view.addSubviews([statusBarView,
+                          navigationBar,
+                          backView,
+                          buttonBackView])
         backView.addSubviews([titleLabel,
                               subtitleLabel,
                               lineView,
                               designView,
                               iOSView,
-                              iOSLabel,
                               serverView])
         buttonBackView.addSubview(sendOpinionButton)
         
@@ -134,29 +136,24 @@ final class ZanzanbariViewController: UIViewController {
         }
         
         lineView.snp.makeConstraints { make in
-            make.top.equalTo(subtitleLabel.snp.bottom).offset(29)
-            make.leading.trailing.equalToSuperview().inset(69)
+            make.top.equalTo(subtitleLabel.snp.bottom).offset(28)
+            make.leading.trailing.equalToSuperview().inset(68)
             make.height.equalTo(1)
         }
         
         designView.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(35)
-            make.leading.equalToSuperview().inset(80)
+            make.top.equalTo(lineView.snp.bottom).offset(36)
+            make.leading.equalToSuperview().inset(95)
         }
         
         iOSView.snp.makeConstraints { make in
-            make.top.equalTo(designView.snp.bottom).offset(28)
-            make.leading.equalToSuperview().inset(80)
-        }
-        
-        iOSLabel.snp.makeConstraints { make in
-            make.top.equalTo(designView.snp.bottom).offset(64)
-            make.leading.equalTo(iOSView.snp.trailing).offset(10)
+            make.top.equalTo(designView.snp.bottom).offset(40)
+            make.leading.equalTo(designView)
         }
         
         serverView.snp.makeConstraints { make in
-            make.top.equalTo(iOSView.snp.bottom).offset(28)
-            make.leading.equalToSuperview().inset(80)
+            make.top.equalTo(iOSView.snp.bottom).offset(37)
+            make.leading.equalTo(designView)
         }
         
         buttonBackView.snp.makeConstraints { make in

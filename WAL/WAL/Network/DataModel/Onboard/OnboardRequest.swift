@@ -9,10 +9,10 @@ import Foundation
 
 struct OnboardRequest: Codable {
     let nickname: String
-    let dtype: DataType
+    let dtype: CategoryType
     let time: AlarmTime
     
-    init(_ nickname: String, _ dtype: DataType, _ time: AlarmTime) {
+    init(_ nickname: String, _ dtype: CategoryType, _ time: AlarmTime) {
         self.nickname = nickname
         self.dtype = dtype
         self.time = time
@@ -21,7 +21,7 @@ struct OnboardRequest: Codable {
 
 // MARK: - DataType
 
-struct DataType: Codable {
+struct CategoryType: Codable {
     let joke, compliment, condolence, scolding: Bool
     
     init(_ joke: Bool, _ compliment: Bool, _ condolence: Bool, _ scolding: Bool) {

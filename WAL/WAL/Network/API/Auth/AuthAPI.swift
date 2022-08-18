@@ -11,7 +11,7 @@ import Moya
 import KakaoSDKAuth
 
 final class AuthAPI {
-    static let shared: AuthAPI = AuthAPI()
+    static let shared = AuthAPI()
     private let authProvider = MoyaProvider<AuthService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
     

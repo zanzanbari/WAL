@@ -14,6 +14,9 @@ final class SettingAlarmViewController: UIViewController {
     
     // MARK: - Properties
     
+    // 바꾸기 이전 값을 저장하기 위한 프로퍼티 선언
+    private var alarmBeforeChange = AlarmTime.init(false, false, false)
+    
     private let setting = SettingData()
     
     private let navigationBar = WALNavigationBar(title: "알림").then {
@@ -23,7 +26,7 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private lazy var firstView = AlarmView(.firstMenu)
-        
+    
     private let backView = UIView().then {
         $0.backgroundColor = .gray600
     }
@@ -41,14 +44,15 @@ final class SettingAlarmViewController: UIViewController {
         $0.spacing = 16
     }
     
-    private let moringButtoon = TimeButton(0)
-    private let lauchButton = TimeButton(1)
-    private let eveningButton = TimeButton(2)
+    private let morningButton = TimeButton(0)
+    private let afternoonButton = TimeButton(1)
+    private let nightButton = TimeButton(2)
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestAlarm()
         configUI()
         setupLayout()
     }
@@ -57,7 +61,9 @@ final class SettingAlarmViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white100
-        [moringButtoon, lauchButton, eveningButton].forEach {
+        [morningButton,
+         afternoonButton,
+         nightButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
@@ -68,7 +74,9 @@ final class SettingAlarmViewController: UIViewController {
                           backView,
                           titleLabel,
                           alarmButtonStackView])
-        alarmButtonStackView.addArrangedSubviews([moringButtoon, lauchButton, eveningButton])
+        alarmButtonStackView.addArrangedSubviews([morningButton,
+                                                  afternoonButton,
+                                                  nightButton])
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(47)
@@ -97,26 +105,70 @@ final class SettingAlarmViewController: UIViewController {
             make.height.equalTo(104)
         }
         
-        [moringButtoon, lauchButton, eveningButton].forEach {
+        [morningButton, afternoonButton, nightButton].forEach {
             $0.snp.makeConstraints { make in
-            make.height.equalTo(104)
-        } }
+                make.height.equalTo(104)
+            }
+        }
     }
-
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        if moringButtoon.layer.borderColor == UIColor.gray400.cgColor &&
-            lauchButton.layer.borderColor == UIColor.gray400.cgColor &&
-            eveningButton.layer.borderColor == UIColor.gray400.cgColor {
+        if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
+            afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
+            nightButton.layer.borderColor == UIColor.gray400.cgColor {
             showToast(message: "1개 이상 선택해주세요")
         } else {
-            self.dismiss(animated: true, completion: nil)
+            postAlarm()
         }
     }
-        
+    
     @objc func touchupButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        sender.layer.borderColor = sender.isSelected ?
+        UIColor.orange100.cgColor : UIColor.gray400.cgColor
+    }
+}
+
+// MARK: - Network
+
+extension SettingAlarmViewController {
+    private func buttonBorderColor(_ button: UIButton, _ userTimeData: Bool) {
+        button.isSelected = userTimeData
+        button.layer.borderColor = button.isSelected ?
+        UIColor.orange100.cgColor : UIColor.gray400.cgColor
+    }
+    
+    private func requestAlarm() {
+        SettingAPI.shared.getUserAlarm { (userAlarmData, nil) in
+            guard let userAlarmData = userAlarmData?.data else { return }
+            print("🥰 알림시간 값 가져오기 🥰", userAlarmData)
+            // MARK: - TODO 코드 개선
+            self.buttonBorderColor(self.morningButton, userAlarmData.morning)
+            self.buttonBorderColor(self.afternoonButton, userAlarmData.afternoon)
+            self.buttonBorderColor(self.nightButton, userAlarmData.night)
+            self.alarmBeforeChange = AlarmTime(userAlarmData.morning, userAlarmData.afternoon, userAlarmData.night)
+        }
+    }
+    
+    private func postAlarm() {
+        SettingAPI.shared.postUserAlarm(data: [
+            // 바꾸기 이전 값
+            alarmBeforeChange,
+            // 바꾼 이후 값
+            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { (userAlarmData, nil) in
+                guard let userAlarm = userAlarmData,
+                      let userAlarmData = userAlarm.data else { return }
+                if userAlarm.status < 400 {
+                    print("🥰 알림시간 수정 서버 통신 🥰", userAlarmData)
+                    self.morningButton.isSelected = userAlarmData.morning
+                    self.afternoonButton.isSelected = userAlarmData.afternoon
+                    self.nightButton.isSelected = userAlarmData.night
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    print("🥰 알림시간 수정 서버 통신 실패로 화면전환 실패")
+                }
+            }
     }
 }

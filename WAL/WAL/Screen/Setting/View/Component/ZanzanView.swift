@@ -12,39 +12,69 @@ import Then
 
 class ZanzanView: UIView {
     
-    var image: UIImage = WALIcon.icnDesigner.image {
+    // MARK: - Enum
+    
+    enum PartType {
+        case iOS
+        case etc
+    }
+    
+    // MARK: - Properties
+    
+    public var partType: PartType? {
+        didSet {
+            setupLayout(partType)
+        }
+    }
+    
+    public var image: UIImage? {
         didSet {
             imageView.image = image
         }
     }
     
-    var part: String = "Design" {
+    public var part: String? {
         didSet {
             partLabel.text = part
         }
     }
     
-    var firstName: String = "김준희" {
+    public var firstName: String? {
         didSet {
             firstNameLabel.text = firstName
         }
     }
     
-    var secondName: String = "이지원" {
+    public var secondName: String? {
         didSet {
             secondNameLabel.text = secondName
         }
     }
     
-    var imageView = UIImageView()
-    var partLabel = UILabel()
-    var firstNameLabel = UILabel()
-    var secondNameLabel = UILabel()
+    public var thirdName: String? {
+        didSet {
+            thirdNameLabel.text = thirdName
+        }
+    }
+    
+    public var fourthName: String? {
+        didSet {
+            fourthNameLabel.text = fourthName
+        }
+    }
+    
+    private var imageView = UIImageView()
+    private var partLabel = UILabel()
+    private var firstNameLabel = UILabel()
+    private var secondNameLabel = UILabel()
+    private var thirdNameLabel = UILabel()
+    private var fourthNameLabel = UILabel()
 
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configUI()
-        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -53,23 +83,26 @@ class ZanzanView: UIView {
     
     // MARK: - InitUI
     
-    private func configNameLabel(label: UILabel) {
-        label.textColor = .black100
-        label.font = WALFont.body7.font
+    private func configNameLabel(label: [UILabel]) {
+        label.forEach { $0.textColor = .black100 }
+        label.forEach { $0.font = WALFont.body7.font }
     }
     
     private func configUI() {
         imageView.image = WALIcon.icnDesigner.image
-        
         partLabel.textColor = .orange100
         partLabel.font = WALFont.body9.font
-        
-        configNameLabel(label: firstNameLabel)
-        configNameLabel(label: secondNameLabel)
+        configNameLabel(label: [firstNameLabel,
+                                secondNameLabel,
+                                thirdNameLabel,
+                                fourthNameLabel])
     }
     
-    private func setupLayout() {
-        addSubviews([imageView, partLabel, firstNameLabel, secondNameLabel])
+    private func setupLayout(_ type: PartType?) {
+        addSubviews([imageView,
+                     partLabel,
+                     firstNameLabel,
+                     secondNameLabel])
         
         imageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
@@ -78,19 +111,32 @@ class ZanzanView: UIView {
         }
         
         partLabel.snp.makeConstraints { make in
-            make.top.equalTo(15)
-            make.leading.equalTo(imageView.snp.trailing).offset(18)
+            make.top.equalTo(type == .iOS ? 1 : 11)
+            make.leading.equalTo(imageView.snp.trailing).offset(29)
         }
         
         firstNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(partLabel.snp.bottom).offset(5)
-            make.leading.equalTo(imageView.snp.trailing).offset(18)
+            make.top.equalTo(partLabel.snp.bottom).offset(6)
+            make.leading.equalTo(imageView.snp.trailing).offset(29)
         }
         
         secondNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(partLabel.snp.bottom).offset(5)
+            make.top.equalTo(partLabel.snp.bottom).offset(6)
             make.leading.equalTo(firstNameLabel.snp.trailing).offset(10)
             make.trailing.equalToSuperview()
+        }
+        
+        if type == .iOS {
+            addSubviews([thirdNameLabel, fourthNameLabel])
+            thirdNameLabel.snp.makeConstraints { make in
+                make.top.equalTo(firstNameLabel.snp.bottom).offset(10)
+                make.leading.equalTo(firstNameLabel.snp.leading)
+            }
+            
+            fourthNameLabel.snp.makeConstraints { make in
+                make.top.equalTo(thirdNameLabel.snp.top)
+                make.leading.equalTo(secondNameLabel.snp.leading)
+            }
         }
     }
 }

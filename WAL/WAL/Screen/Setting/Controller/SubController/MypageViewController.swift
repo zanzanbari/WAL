@@ -10,12 +10,14 @@ import UIKit
 import Then
 import WALKit
 
-final class MypageViewController: UIViewController {
+class MypageViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - Properties
     
-    public var socialLogin = "카카오"
-    public var email = "jiwonchoigo@naver.com"
+    weak var sendNicknameDelegate: SendNicknameDelegate?
+    
+    public var nickname = ""
+    public var email = ""
     
     private let navigationBar = WALNavigationBar(title: "내 정보").then {
         $0.backgroundColor = .white100
@@ -31,8 +33,8 @@ final class MypageViewController: UIViewController {
         $0.image = WALIcon.icnProfile.image
     }
     
-    private let nicknameButton = UIButton().then {
-        $0.setTitle("쟌쟌바리", for: .normal)
+    private lazy var nicknameButton = UIButton().then {
+        $0.setTitle(nickname, for: .normal)
         $0.setTitleColor(.black100, for: .normal)
         $0.setTitleColor(.gray600, for: .highlighted)
         $0.titleLabel?.font = WALFont.body6.font
@@ -45,7 +47,11 @@ final class MypageViewController: UIViewController {
     private lazy var loginSubtitleLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        $0.text = "\(socialLogin) 계정으로 로그인"
+        if GeneralAPI.socialLogin == "kakao" {
+            $0.text = "카카오 계정으로 로그인"
+        } else if GeneralAPI.socialLogin == "apple" {
+            $0.text = "애플 계정으로 로그인"
+        }
     }
     
     private lazy var emailLabel = UILabel().then {
@@ -145,12 +151,15 @@ final class MypageViewController: UIViewController {
     @objc func touchupButton(_ sender: UIButton) {
         switch sender {
         case navigationBar.leftBarButton:
+            sendNicknameDelegate?.sendNickname(nickname)
             self.dismiss(animated: true, completion: nil)
             
         case nicknameButton:
             let viewController = EditNicknameViewController()
             viewController.modalPresentationStyle = .overFullScreen
-            present(viewController, animated: true, completion: nil)
+            viewController.nickname = nickname
+            viewController.sendNicknameDelegate = self
+            self.present(viewController, animated: false, completion: nil)
             
         case resignButton:
             let viewController = ResignViewController()
@@ -162,5 +171,14 @@ final class MypageViewController: UIViewController {
             popupViewController.modalPresentationStyle = .overFullScreen
             present(popupViewController, animated: false)
         }
+    }
+}
+
+// MARK: - Protocol Method
+
+extension MypageViewController {
+    func sendNickname(_ nickname: String) {
+        nicknameButton.setTitle(nickname, for: .normal)
+        self.nickname = nickname
     }
 }

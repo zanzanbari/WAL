@@ -14,8 +14,22 @@ final class EditNicknameViewController: BaseViewController {
     
     // MARK: - Properties
     
+    weak var sendNicknameDelegate: SendNicknameDelegate?
+    
+    public var nickname = ""
     private let textCount: Int = 0
     private let maxLength: Int = 10
+    
+    private let toolBar = UIToolbar()
+    
+    private let flexibleSpaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                                      target: nil,
+                                                      action: nil)
+    
+    private lazy var doneToolButton = UIBarButtonItem(title: "완료",
+                                                      style: .plain,
+                                                      target: self,
+                                                      action: #selector(touchupDoneButton))
     
     private let navigationBar = WALNavigationBar(title: "닉네임 수정").then {
         $0.backgroundColor = .white100
@@ -59,17 +73,25 @@ final class EditNicknameViewController: BaseViewController {
         configUI()
         setupLayout()
         setupTextField()
-        nicknameTextField.becomeFirstResponder()
     }
     
     // MARK: - InitUI
     
     private func configUI() {
         view.backgroundColor = .white
+        toolBar.sizeToFit()
+        toolBar.items = [flexibleSpaceButton,
+                         doneToolButton]
+        toolBar.tintColor = .black100
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar, profileImageView, nicknameTextField, countLabel, warnIconView, warnLabel])
+        view.addSubviews([navigationBar,
+                          profileImageView,
+                          nicknameTextField,
+                          countLabel,
+                          warnIconView,
+                          warnLabel])
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(47)
@@ -111,13 +133,14 @@ final class EditNicknameViewController: BaseViewController {
     private func setupTextField() {
         nicknameTextField.delegate = self
         nicknameTextField.becomeFirstResponder()
+        nicknameTextField.inputAccessoryView = toolBar
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(textDidChange(_:)),
             name: UITextField.textDidChangeNotification,
             object: nicknameTextField)
     }
-
+    
     // MARK: - @objc
     
     @objc func touchupCloseButton() {
@@ -135,6 +158,17 @@ final class EditNicknameViewController: BaseViewController {
     
     @objc override func keyboardWillShow(_ notification: NSNotification) {
         super.keyboardWillShow(notification)
+    }
+    
+    @objc private func touchupDoneButton() {
+        guard let nickname = nicknameTextField.text else { return }
+        SettingAPI.shared.postUserInfo(nickname: nickname) { (userInfoData, nil) in
+            guard let userInfoData = userInfoData?.data else { return }
+            self.nickname = userInfoData.nickname
+            self.sendNicknameDelegate?.sendNickname(userInfoData.nickname)
+        }
+        self.view.endEditing(true)
+        self.dismiss(animated: true)
     }
 }
 
@@ -167,7 +201,7 @@ extension EditNicknameViewController: UITextFieldDelegate {
             countLabel.addCharacterColor(color: .orange100, range: "\(text.count)")
         }
     }
-        
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = nicknameTextField.text else { return false }
         let utf8Char = string.cString(using: .utf8)

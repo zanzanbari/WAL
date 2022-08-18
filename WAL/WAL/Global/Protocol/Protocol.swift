@@ -30,10 +30,14 @@ extension UITableViewCell: ReusableViewProtocol {
     }
 }
 
+protocol SendNicknameDelegate: AnyObject {
+    func sendNickname(_ nickname: String)
+}
+
 protocol SendCategoryDelegate: OnboardingViewController {
     func sendCategory(joke: Bool, compliment: Bool, condolence: Bool, scolding: Bool)
 }
 
 protocol SendAlarmTimeDelegate: OnboardingViewController {
-    func sendAlarmTime(morning: Bool, launch: Bool, evening: Bool)
+    func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool)
 }
