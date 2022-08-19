@@ -52,10 +52,10 @@ class CreateBackPopupViewController: UIViewController {
     }
     
     @objc func touchUpOkButton() {
-        guard let createViewController = presentingViewController else { return }
+        guard let createViewController = presentingViewController as? UINavigationController else { return }
         
         dismiss(animated: true) {
-            createViewController.navigationController?.popViewController(animated: true)
+            createViewController.popViewController(animated: true)
         }
     }
 }

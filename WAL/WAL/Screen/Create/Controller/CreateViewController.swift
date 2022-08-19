@@ -14,6 +14,8 @@ class CreateViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var reservedDates: [String] = []
+    
     private let createView = WALCreateView()
     
     private let scrollView = UIScrollView(frame: .zero).then {
@@ -92,6 +94,7 @@ class CreateViewController: UIViewController {
                                                   width: $0.frame.size.width,
                                                   height: CGFloat.leastNonzeroMagnitude))
         $0.dataSource = self
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
     }
     
     private let toastMessageLabel = UILabel().then {
@@ -104,11 +107,11 @@ class CreateViewController: UIViewController {
     }
     
     private lazy var sendButton = UIButton().then {
-        $0.titleLabel?.font = WALFont.body1.font
+        $0.titleLabel?.font = WALFont.body2.font
         $0.setTitle("보내기", for: .normal)
         $0.setTitleColor(.white100, for: .normal)
         $0.backgroundColor = .gray400
-        $0.layer.cornerRadius = 22
+        $0.layer.cornerRadius = 23
         $0.isEnabled = false
         $0.addTarget(self, action: #selector(touchUpSendButton), for: .touchUpInside)
     }
@@ -136,6 +139,7 @@ class CreateViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
+        getReservedDate()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -245,7 +249,16 @@ class CreateViewController: UIViewController {
         timeFormatter.dateFormat = "a hh:mm"
         timeFormatter.locale = Locale(identifier: "ko")
         
-        viewController.date = "\(dateFormatter.string(from: datePickerData.date ?? Date())) \(timeFormatter.string(from: datePickerData.time ?? Date()))"
+        let date = dateFormatter.string(from: datePickerData.date ?? Date())
+        var time = timeFormatter.string(from: datePickerData.time ?? Date())
+        viewController.date = "\(date) \(time)"
+        
+        timeFormatter.dateFormat = "HH:mm:ss"
+        time = timeFormatter.string(from: datePickerData.time ?? Date())
+        
+        let reservationData = Reserve(content: walSoundTextView.text, date: date, time: time, hide: isSelectedHideHistory)
+        
+        postReservation(data: reservationData)
         
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -263,7 +276,14 @@ class CreateViewController: UIViewController {
     }
     
     @objc private func touchUpHistoryButton() {
-        
+        let historyViewController = HistoryViewController()
+        navigationController?.pushViewController(historyViewController, animated: true)
+    }
+    
+    @objc private func handleTap(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            view.endEditing(true)
+        }
     }
     
     //MARK: - CustomMethod
@@ -404,15 +424,12 @@ extension CreateViewController: UITableViewDataSource {
             datePickerCell.selectionStyle = .none
             datePickerCell.datePickerType = datePickerType
             datePickerCell.setup(date: datePickerData)
+            datePickerCell.reservedDates = self.reservedDates
             
             datePickerCell.sendDate = { date, didShowToastMessage in
                 if didShowToastMessage {
                     self.showToastMessage()
                     self.datePickerData.didShowView.date = true
-                } else {
-                    self.datePickerData.didShowView.date = false
-                    self.datePickerData.didShowView.time = false
-                    self.scroll(.date)
                 }
                 
                 switch self.datePickerType {
@@ -425,6 +442,24 @@ extension CreateViewController: UITableViewDataSource {
             }
             
             return datePickerCell
+        }
+    }
+}
+
+//MARK: - Network
+
+extension CreateViewController {
+    private func getReservedDate() {
+        CreateAPI.shared.getReservedDate { data, error in
+            guard let reservedDates = data else { return }
+            self.reservedDates = reservedDates
+        }
+    }
+    
+    private func postReservation(data: Reserve) {
+        CreateAPI.shared.postReservation(reserve: data) { data, error in
+            guard let data = data else { return }
+            print(data)
         }
     }
 }
