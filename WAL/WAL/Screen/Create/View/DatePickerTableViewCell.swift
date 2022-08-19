@@ -26,7 +26,7 @@ class DatePickerTableViewCell: UITableViewCell {
     private lazy var datePicker = UIDatePicker().then {
         $0.tintColor = .mint100
         $0.locale = Locale(identifier: "ko-KR")
-        $0.addTarget(self, action: #selector(handelDatePicker), for: .valueChanged)
+        $0.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
     }
     
     var datePickerType: DatePickerType = .none {
@@ -93,7 +93,7 @@ class DatePickerTableViewCell: UITableViewCell {
     
     //MARK: - @objc
     
-    @objc private func handelDatePicker() {
+    @objc private func handleDatePicker() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         

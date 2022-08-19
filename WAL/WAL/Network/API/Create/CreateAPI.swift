@@ -14,10 +14,10 @@ final class CreateAPI {
     private let createProvider = MoyaProvider<CreateService>(plugins: [MoyaLoggerPlugin()])
     private init() {}
     
-    public private(set) var reserveResponse: GenericResponse<Reserve>?
-    public private(set) var reservedDateResponse: GenericArrayResponse<String>?
+    private(set) var reserveResponse: GenericResponse<Reserve>?
+    private(set) var reservedDateResponse: GenericArrayResponse<String>?
     
-    public func getReservedDate(completion: @escaping(([String]?, NetworkResult?) -> ())) {
+    func getReservedDate(completion: @escaping(([String]?, NetworkResult?) -> ())) {
         createProvider.request(.reservedDate) { result in
             switch result {
             case .success(let response):
@@ -38,7 +38,7 @@ final class CreateAPI {
         }
     }
     
-    public func postReservation(reserve: Reserve, completion: @escaping((GenericResponse<Reserve>?, NetworkResult?) -> ())) {
+    func postReservation(reserve: Reserve, completion: @escaping((GenericResponse<Reserve>?, NetworkResult?) -> ())) {
         createProvider.request(.reserve(body: reserve)) { result in
             switch result {
             case .success(let response):
