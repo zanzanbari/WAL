@@ -51,6 +51,6 @@ extension HistoryService: TargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsIm5pY2tuYW1lIjoiSEVFUlVDQU4iLCJlbWFpbCI6Imp3eWFuZGtyZ0BrYWthby5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY2MDc0NDM4MSwiZXhwIjoxNjYxOTUzOTgxLCJpc3MiOiJjaGFud29vIn0.q_z4ZZCA5ECD5ydcGdYrtmZP2PSIraZxpMZURWbhw4Q"]
+                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibmlja25hbWUiOiLquYDtm4TrppAiLCJlbWFpbCI6Imp3eWFuZGtyZ0BrYWthby5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY2MDk3MzI2NCwiZXhwIjoxNjYyMTgyODY0LCJpc3MiOiJjaGFud29vIn0.PcOkb_nUqx6HyOaKEQHceEiY992-_351jkShyhAhokc"]
     }
 }
