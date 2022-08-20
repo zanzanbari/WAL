@@ -49,7 +49,8 @@ extension MainService: TargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmlja25hbWUiOiLsmYjrv6EiLCJlbWFpbCI6ImNob2N3MDQwMkBnbWFpbC5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY2MDQ4ODU2NSwiZXhwIjoxNjYxNjk4MTY1LCJpc3MiOiJjaGFud29vIn0.QPk3O1FV-Znq7qmMmycCdIHZ4ixookWSf5Y8g0VZ9gs"]
+                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmlja25hbWUiOm51bGwsImVtYWlsIjoiYWxpY2U5ODA5QG5hdmVyLmNvbSIsInNvY2lhbCI6Imtha2FvIiwiaWF0IjoxNjYwOTc2MjE3LCJleHAiOjE2NjIxODU4MTcsImlzcyI6ImNoYW53b28ifQ.0ns-g7RiESPXdM9AxMwM1X99a3qOwSS0E-c_DpWyeDQ"]
+        // -> 소연 토큰
     }
 }
 

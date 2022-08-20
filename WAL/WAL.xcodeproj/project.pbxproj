@@ -18,7 +18,7 @@
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
-		5B422BA228676CF8001B6807 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		5B422BA228676CF8001B6807 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E57E28A6BCED000ABF0C /* SettingService.swift */; };
 		5B44E58128A6BCFC000ABF0C /* SettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */; };
 		5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58228A6C174000ABF0C /* UserInfo.swift */; };
@@ -33,7 +33,7 @@
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
-		5BA3893E27F6B9540010EAA1 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BA3893E27F6B9540010EAA1 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* MainDataModel.swift */; };
 		5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
@@ -443,7 +443,6 @@
 				5B44E58428A6C823000ABF0C /* Setting */,
 				9205E74A286EE4C6000F4B6D /* Main */,
 				E2CEC25728A803240021C542 /* Create */,
-				5BA3896427F6C2830010EAA1 /* Login.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -841,7 +840,7 @@
 				5BA3892A27F6B94F0010EAA1 /* Sources */,
 				5BA3892B27F6B94F0010EAA1 /* Frameworks */,
 				5BA3892C27F6B94F0010EAA1 /* Resources */,
-				8C3A660755CB011735C8911E /* [CP] Embed Pods Frameworks */,
+				25DC9E95319BFC9784A7960D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -880,7 +879,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */,
+				5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -899,7 +898,7 @@
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
 				92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */,
-				5BA3893E27F6B9540010EAA1 /* (null) in Resources */,
+				5BA3893E27F6B9540010EAA1 /* BuildFile in Resources */,
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */,
@@ -917,7 +916,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8C3A660755CB011735C8911E /* [CP] Embed Pods Frameworks */ = {
+		25DC9E95319BFC9784A7960D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1021,7 +1020,7 @@
 				E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
 				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
-				5B422BA228676CF8001B6807 /* (null) in Sources */,
+				5B422BA228676CF8001B6807 /* BuildFile in Sources */,
 				5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
 				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
@@ -1284,7 +1283,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1297,7 +1296,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		5BF0FC37289E50E0004727F8 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */

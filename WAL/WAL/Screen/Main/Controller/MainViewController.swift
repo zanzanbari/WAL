@@ -122,6 +122,7 @@ final class MainViewController: UIViewController {
         setupLayout()
         setupCollectionView()
         checkTime()
+        setupDelegate()
     }
     
     // MARK: - Init UI
@@ -223,6 +224,10 @@ final class MainViewController: UIViewController {
         }
     }
     
+    private func setupDelegate() {
+        walContentView.delegate = self
+    }
+    
     // MARK: - @objc
     
     @objc func touchupAddButton() {
@@ -233,6 +238,40 @@ final class MainViewController: UIViewController {
     @objc func touchupSettingButton() {
         let viewController = SettingViewController()
         navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+// MARK: - Custom Delegate
+
+extension MainViewController: MainContentViewDelegate {
+    func touchUpShareButton() {
+        if let storyShareURL = URL(string: "instagram-stories://share") {
+            if UIApplication.shared.canOpenURL(storyShareURL) {
+                let renderer = UIGraphicsImageRenderer(size: walContentView.bounds.size)
+                
+                let renderImage = renderer.image { _ in
+                    walContentView.drawHierarchy(in: walContentView.bounds, afterScreenUpdates: true)
+                }
+
+                guard let imageData = renderImage.pngData() else { return }
+                
+                let pasteboardItems : [String:Any] = [
+                    "com.instagram.sharedSticker.stickerImage": imageData,
+                    "com.instagram.sharedSticker.backgroundTopColor" : "#00000",
+                    "com.instagram.sharedSticker.backgroundBottomColor" : "#00000",
+                ]
+                
+                let pasteboardOptions = [
+                    UIPasteboard.OptionsKey.expirationDate : Date().addingTimeInterval(300)
+                ]
+                
+                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+                
+                UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
+            } else {
+                print("인스타 앱이 깔려있지 않습니다.")
+            }
+        }
     }
 }
 
