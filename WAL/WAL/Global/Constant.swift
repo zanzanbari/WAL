@@ -17,6 +17,7 @@ struct Constant {
         static let socialToken = "socialToken"
         static let socialLogin = "socialLogin"
         static let nickname = "nickname"
+        static let complete = "complete"
     }
     
     // MARK: - URL
