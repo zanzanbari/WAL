@@ -15,13 +15,13 @@ final class AuthAPI {
     private let authProvider = MoyaProvider<AuthService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
     
-    public private(set) var loginData: GenericResponse<Login>?
-    public private(set) var logoutData: GenericResponse<Logout>?
-    public private(set) var reissueData: GenericResponse<Reissue>?
+    private(set) var loginData: GenericResponse<Login>?
+    private(set) var logoutData: GenericResponse<Logout>?
+    private(set) var reissueData: GenericResponse<Reissue>?
     
     // MARK: - POST 소셜로그인
     
-    public func postSocialLogin(social: String, socialToken: String, fcmToken: String?,
+    func postSocialLogin(social: String, socialToken: String, fcmToken: String?,
                                 completion: @escaping ((GenericResponse<Login>?, Int?) -> ())) {
         
         authProvider.request(.social(social: social, socialToken: socialToken, fcmToken: fcmToken)) { result in
@@ -44,7 +44,7 @@ final class AuthAPI {
     
     // MARK: - GET 로그아웃
     
-    public func getLogout(completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
+    func getLogout(completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
         authProvider.request(.logout) { result in
             switch result {
             case .success(let response):
@@ -65,9 +65,12 @@ final class AuthAPI {
     
     // MARK: - POST 회원탈퇴
         
-    public func postResign(social: String, socialToken: String,
+    func postResign(social: String, data: [String], socialtoken: String,
                            completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
-        authProvider.request(.resign(social: social, socialToken: socialToken)) { result in
+       
+        let reason = ResignRequest.init(socialtoken, data)
+        
+        authProvider.request(.resign(social: social, param: reason)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -87,7 +90,7 @@ final class AuthAPI {
     
     // MARK: - POST 토큰 재발급
     
-    public func postReissue(completion: @escaping ((GenericResponse<Reissue>?, Int?) -> ())) {
+    func postReissue(completion: @escaping ((GenericResponse<Reissue>?, Int?) -> ())) {
         authProvider.request(.reissue) { result in
             switch result {
             case .success(let response):
