@@ -10,9 +10,7 @@ import UIKit
 import WALKit
 
 class SettingAlarmCollectionViewCell: UICollectionViewCell {
-    
-    static let identifier = Constant.settingAlarmCollectionViewCell
-    
+        
     // MARK: - Property
     
     private var timeData = TimeData()

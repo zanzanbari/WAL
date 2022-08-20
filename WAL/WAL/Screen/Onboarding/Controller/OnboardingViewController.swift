@@ -17,6 +17,15 @@ final class OnboardingViewController: UIViewController {
     private var currentRow: Int = 0
     private var didCurrentRow: Int = 0
     
+    private var joke = false
+    private var compliment = false
+    private var condolence = false
+    private var scolding = false
+    
+    private var morning = false
+    private var afternoon = false
+    private var night = false
+        
     private let navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
@@ -93,13 +102,13 @@ final class OnboardingViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(
             OnboardingCollectionViewCell.self,
-            forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
+            forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         collectionView.register(
             CategoryCollectionViewCell.self,
-            forCellWithReuseIdentifier: "CategoryCollectionViewCell")
+            forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
         collectionView.register(
             AlarmCollectionViewCell.self,
-            forCellWithReuseIdentifier: "AlarmCollectionViewCell")
+            forCellWithReuseIdentifier: AlarmCollectionViewCell.identifier)
     }
     
     // MARK: - @objc
@@ -119,13 +128,31 @@ final class OnboardingViewController: UIViewController {
     @objc func scrollToThird() {
         collectionView.scrollToItem(at: IndexPath(row: 2, section: 0), at: .left, animated: true)
     }
+    
+    @objc func touchupCompleteButton(_ sender: UIButton) {
+        let categoryType = CategoryType(self.joke, self.compliment, self.condolence, self.scolding)
+        let alarmTime = AlarmTime(self.morning, self.afternoon, self.night)
+        
+        guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname) else { return }
+        OnboardAPI.shared.postOnboardSetting(nickname: nickname,
+                                             category: categoryType,
+                                             alarm: alarmTime) { (onboardData, err) in
+            guard let onboardData = onboardData else { return }
+            if onboardData.status < 400 {
+                print("☘️--------온보딩 서버 통신 완료", onboardData)
+                let viewController = OnboardCompleteViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            } else {
+                print("☘️--------온보딩 서버 통신 실패로 인해 화면 전환 실패")
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
 
 extension OnboardingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        print(indexPath.item)
         return true
     }
     
@@ -156,25 +183,30 @@ extension OnboardingViewController: UICollectionViewDataSource {
         switch indexPath.row {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "OnboardingCollectionViewCell",
+                withReuseIdentifier: OnboardingCollectionViewCell.identifier,
                 for: indexPath) as? OnboardingCollectionViewCell
             else { return UICollectionViewCell() }
             cell.nextButton.addTarget(self, action: #selector(scrollToSecond), for: .touchUpInside)
             return cell
+            
         case 1:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "CategoryCollectionViewCell",
+                withReuseIdentifier: CategoryCollectionViewCell.identifier,
                 for: indexPath) as? CategoryCollectionViewCell
             else { return UICollectionViewCell() }
             cell.nextButton.addTarget(self, action: #selector(scrollToThird), for: .touchUpInside)
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
+            cell.sendCategoryDelegate = self
             return cell
+            
         case 2:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "AlarmCollectionViewCell",
+                withReuseIdentifier: AlarmCollectionViewCell.identifier,
                 for: indexPath) as? AlarmCollectionViewCell
             else { return UICollectionViewCell() }
             navigationBar.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
+            cell.completeButton.addTarget(self, action: #selector(touchupCompleteButton(_:)), for: .touchUpInside)
+            cell.sendAlarmTimeDelegate = self
             return cell
         default:
             return UICollectionViewCell()
@@ -202,5 +234,25 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
+    }
+}
+
+// MARK: - Delegate
+
+extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate {
+    func sendCategory(joke: Bool,
+                      compliment: Bool,
+                      condolence: Bool,
+                      scolding: Bool) {
+        self.joke = joke
+        self.compliment = compliment
+        self.condolence = condolence
+        self.scolding = scolding
+    }
+    
+    func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool) {
+        self.morning = morning
+        self.afternoon = afternoon
+        self.night = night
     }
 }

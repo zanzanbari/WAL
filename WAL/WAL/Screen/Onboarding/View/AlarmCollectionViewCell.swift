@@ -14,6 +14,8 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
         
+    weak var sendAlarmTimeDelegate: SendAlarmTimeDelegate?
+
     private let timeData = TimeData()
     
     private let titleLabel = UILabel().then {
@@ -29,7 +31,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    private let completeButton = WALPlainButton().then {
+    public let completeButton = WALPlainButton().then {
         $0.title = "완료"
         $0.isDisabled = true
     }
@@ -37,13 +39,13 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     private lazy var alarmButtonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .fill
-        $0.distribution = .equalSpacing
+        $0.distribution = .fillEqually
         $0.spacing = 16
     }
     
     private let moringButtoon = TimeButton(0)
-    private let lauchButton = TimeButton(1)
-    private let eveningButton = TimeButton(2)
+    private let afternoonButton = TimeButton(1)
+    private let nightButton = TimeButton(2)
     
     // MARK: - Initialize
     
@@ -61,7 +63,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     private func configUI() {
         contentView.backgroundColor = .white100
-        [moringButtoon, lauchButton, eveningButton].forEach {
+        [moringButtoon, afternoonButton, nightButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
@@ -72,7 +74,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
                                  alarmButtonStackView,
                                  completeButton])
         
-        alarmButtonStackView.addArrangedSubviews([moringButtoon, lauchButton, eveningButton])
+        alarmButtonStackView.addArrangedSubviews([moringButtoon, afternoonButton, nightButton])
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
@@ -90,9 +92,8 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
             make.height.equalTo(104)
         }
         
-        [moringButtoon, lauchButton, eveningButton].forEach {
+        [moringButtoon, afternoonButton, nightButton].forEach {
             $0.snp.makeConstraints { make in
-            make.width.equalTo(101)
             make.height.equalTo(104)
         } }
         
@@ -106,11 +107,17 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     @objc func touchupButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        sender.layer.borderColor = sender.isSelected
+        ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
         
         completeButton.isDisabled =
         moringButtoon.layer.borderColor == UIColor.gray400.cgColor &&
-        lauchButton.layer.borderColor == UIColor.gray400.cgColor &&
-        eveningButton.layer.borderColor == UIColor.gray400.cgColor ? true : false
+        afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
+        nightButton.layer.borderColor == UIColor.gray400.cgColor ? true : false
+        
+        sendAlarmTimeDelegate?.sendAlarmTime(
+            morning: moringButtoon.isSelected,
+            afternoon: afternoonButton.isSelected,
+            night: nightButton.isSelected)
     }
 }
