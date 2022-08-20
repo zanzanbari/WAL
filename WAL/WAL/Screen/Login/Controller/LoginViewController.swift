@@ -197,7 +197,7 @@ extension LoginViewController {
                                         // MARK: - TODO 리프레시토큰도 만료 -> 로그아웃
                                         if reissueData?.status == 401 {
                                             AuthAPI.shared.getLogout { (data, nil) in
-                                                guard let data = data else { return }
+                                                guard data != nil else { return }
                                                 
                                             }
                                         }

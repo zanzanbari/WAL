@@ -212,7 +212,8 @@ extension SettingViewController {
     func requestNickname() {
         SettingAPI.shared.getUserInfo { (userInfo, nil) in
             guard let userInfoData = userInfo?.data else { return }
-            self.email = userInfoData.email
+            self.email = UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "kakao" ?
+            userInfoData.email : "zanzanbari@apple.com"
             self.nickname = userInfoData.nickname
             DispatchQueue.main.async {
                 self.tableView.reloadData()

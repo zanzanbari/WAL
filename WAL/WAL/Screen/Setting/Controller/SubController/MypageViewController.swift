@@ -47,9 +47,9 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var loginSubtitleLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if GeneralAPI.socialLogin == "kakao" {
+        if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "kakao" {
             $0.text = "카카오 계정으로 로그인"
-        } else if GeneralAPI.socialLogin == "apple" {
+        } else if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "apple" {
             $0.text = "애플 계정으로 로그인"
         }
     }
