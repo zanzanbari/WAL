@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Then
 import WALKit
 
 class AlarmView: UIView {
@@ -33,7 +34,7 @@ class AlarmView: UIView {
         var toggle: Bool {
             switch self {
             case .firstMenu:
-                return true
+                return UserDefaults.standard.bool(forKey: Constant.Key.alarmToggle) 
             }
         }
     }

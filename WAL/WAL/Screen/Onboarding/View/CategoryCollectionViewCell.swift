@@ -81,7 +81,6 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     // MARK: - InitUI
     
     private func configUI() {
-        
         contentView.backgroundColor = .white100
         barWidth = (contentView.frame.width-61*2)/4
         [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {

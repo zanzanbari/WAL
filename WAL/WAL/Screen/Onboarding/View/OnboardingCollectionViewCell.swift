@@ -17,10 +17,6 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     private let textCount: Int = 0
     private let maxLength: Int = 10
     
-    var nickname = ""
-    
-    weak var sendNicknameDelegate: SendNicknameDelegate?
-    
     let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
         $0.text = "왈이 당신을 뭐라고 \n 부르면 되나요?"
