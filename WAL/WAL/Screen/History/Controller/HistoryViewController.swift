@@ -121,12 +121,10 @@ final class HistoryViewController: UIViewController {
     func showActionSheet(type: ActionSheetType, postId: Int) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
-            print("삭제")
             self.deleteHistoryInfo(postId: postId)
         })
         
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: { action in
-            print("취소")
             self.cancelHistoryInfo(postId: postId)
         })
         
@@ -332,13 +330,30 @@ extension HistoryViewController {
         }
     }
     
+    func getHistoryInfoAfterDelete() {
+        HistoryAPI.shared.getHistoryData { historyData, err in
+            guard let historyData = historyData else {
+                return
+            }
+            if let sendingData = historyData.data?.sendingData {
+                self.sendingData = sendingData
+            }
+            if let completeData = historyData.data?.completeData {
+                self.completeData = completeData
+            }
+            DispatchQueue.main.async {
+                self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
+            }
+        }
+    }
+    
     func cancelHistoryInfo(postId: Int) {
         HistoryAPI.shared.cancelHistoryData(postId: postId) { cancelHistoryData, err in
             guard let cancelHistoryData = cancelHistoryData else {
                 return
             }
             print(cancelHistoryData)
-            self.getHistoryInfo()
+            self.getHistoryInfoAfterDelete()
         }
     }
     
@@ -348,7 +363,7 @@ extension HistoryViewController {
                 return
             }
             print(deleteHistoryData)
-            self.getHistoryInfo()
+            self.getHistoryInfoAfterDelete()
         }
     }
 }
