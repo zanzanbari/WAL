@@ -11,14 +11,6 @@ import Then
 
 import WALKit
 
-class ExpandTableViewCellContent {
-    var isExpanded: Bool
-    
-    init() {
-        self.isExpanded = false
-    }
-}
-
 class HistoryTableViewCell: UITableViewCell {
     static var cellIdentifier: String { return String(describing: self) }
     
@@ -26,15 +18,20 @@ class HistoryTableViewCell: UITableViewCell {
     
     private var backView = UIView().then {
         $0.backgroundColor = .white
+        $0.clipsToBounds = true
     }
     
     private var lineView = UIView().then {
         $0.backgroundColor = .gray600
     }
     
-    private var coverView = UIView().then {
+    var coverView = UIView().then {
         $0.backgroundColor = .orange200
         $0.isHidden = true
+    }
+    
+    private var coverLineView = UIView().then {
+        $0.backgroundColor = .gray600
     }
     
     private var lockIconImageView = UIImageView().then {
@@ -53,7 +50,7 @@ class HistoryTableViewCell: UITableViewCell {
         $0.font = WALFont.body9.font
     }
     
-    private var reserveLabel = UILabel().then {
+    private var sendingDateLabel = UILabel().then {
         $0.text = "보내는 날짜"
         $0.font = WALFont.body8.font
     }
@@ -61,23 +58,35 @@ class HistoryTableViewCell: UITableViewCell {
     private var contentLabel = UILabel().then {
         $0.textColor = .black
         $0.font = WALFont.body7.font
-        $0.numberOfLines = 2
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byTruncatingTail
     }
     
-    private var recieveLabel = UILabel().then {
+    var reserveAtLabel = UILabel().then {
         $0.text = "받는 날짜"
         $0.textColor = .gray200
         $0.font = WALFont.body7.font
         $0.isHidden = true
     }
     
-    var dateLabelColor: UIColor = .gray200 {
+    private lazy var historyStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.alignment = .fill
+        $0.distribution = .fill
+    }
+    
+    var sendingDateLabelColor: UIColor = .gray200 {
         didSet {
-            reserveLabel.textColor = dateLabelColor
+            sendingDateLabel.textColor = sendingDateLabelColor
         }
     }
     
-    var isExpanded: Bool = false
+    var isExpanded: Bool = false {
+        didSet {
+            reserveAtLabel.isHidden = !isExpanded
+        }
+    }
+    
     var isPressed: Bool = false {
         didSet {
             if !coverView.isHidden {
@@ -90,6 +99,8 @@ class HistoryTableViewCell: UITableViewCell {
             if isContentHidden { isUserInteractionEnabled = false }
         }
     }
+    
+    var postId: Int = 0
     
     // MARK: - Initializer
     
@@ -111,8 +122,13 @@ class HistoryTableViewCell: UITableViewCell {
     
     private func setLayout() {
         contentView.addSubviews([backView, coverView, lineView])
-        backView.addSubviews([lineView, reserveLabel, contentLabel, recieveLabel])
-        coverView.addSubviews([lockIconImageView, coverTitleLabel, coverSubtitleLabel])
+        historyStackView.addSubviews([sendingDateLabel, contentLabel, reserveAtLabel])
+        backView.addSubviews([lineView, historyStackView])
+        coverView.addSubviews([coverLineView, lockIconImageView, coverTitleLabel, coverSubtitleLabel])
+        
+        backView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
         
         lineView.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -120,12 +136,14 @@ class HistoryTableViewCell: UITableViewCell {
             $0.height.equalTo(1)
         }
         
-        backView.snp.makeConstraints {
+        coverView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        coverView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
+        coverLineView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
         }
         
         lockIconImageView.snp.makeConstraints {
@@ -144,59 +162,56 @@ class HistoryTableViewCell: UITableViewCell {
             $0.centerX.equalToSuperview()
         }
         
-        reserveLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(26)
+        historyStackView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(25)
             $0.leading.equalToSuperview().inset(35)
+            $0.centerX.centerY.equalToSuperview()
+        }
+        
+        sendingDateLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(reserveLabel.snp.bottom).offset(15)
-            $0.leading.trailing.equalToSuperview().inset(35)
-            $0.bottom.equalToSuperview().inset(25)
+            $0.top.equalTo(sendingDateLabel.snp.bottom).offset(15)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(42).priority(250)
         }
         
-        recieveLabel.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom).offset(10)
-            $0.trailing.equalToSuperview().inset(35)
+        reserveAtLabel.snp.makeConstraints {
+            $0.top.equalTo(contentLabel.snp.bottom).offset(7)
+            $0.trailing.bottom.equalToSuperview()
         }
     }
     
     // MARK: - Custom Method
     
-    internal func initCell(isTapped :ExpandTableViewCellContent) {
-        isExpanded = isTapped.isExpanded
+    func update() {
+//        if isExpanded {
+//            print("isExpanded")
+//        } else {
+//            print("not Expanded")
+//        }
         
-        if isExpanded {
-            backView.snp.updateConstraints {
-                $0.top.bottom.leading.trailing.equalToSuperview()
-            }
-
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(reserveLabel.snp.bottom).offset(15)
-                $0.leading.trailing.equalToSuperview().inset(35)
-                $0.bottom.equalToSuperview().inset(51)
-            }
-            contentLabel.numberOfLines = 0
-            
-            recieveLabel.isHidden = false
-        } else {
-            contentLabel.numberOfLines = 2
-            recieveLabel.isHidden = true
-        }
+        self.historyStackView.layoutIfNeeded()
     }
     
-    internal func setData(_ data: HistoryDataModel) {
-        isContentHidden = data.hidden
+    internal func setData(_ data: HistoryData) {
+        postId = data.postID
         
-        reserveLabel.text = "\(data.reserveDate)"
-        reserveLabel.addLetterSpacing()
+        isContentHidden = data.hidden ?? false
+        
+        sendingDateLabel.text = "\(data.sendingDate)"
         
         contentLabel.text = data.content
-        contentLabel.addLetterSpacing()
         
-        recieveLabel.text = "\(data.recieveDate)"
-        recieveLabel.addLetterSpacing()
+        reserveAtLabel.text = "\(data.reserveAt)"
         
-        coverView.isHidden = data.hidden ? false : true
+        [sendingDateLabel, contentLabel, reserveAtLabel].forEach {
+            $0.addLetterSpacing()
+            $0.textAlignment = .left
+        }
+        
+        coverView.isHidden = data.hidden ?? false ? false : true
     }
 }
