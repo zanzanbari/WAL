@@ -19,17 +19,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         // 액세스토큰 X -> 로그인 화면을 띄워줄 경우
-//        if GeneralAPI.accessToken == "" {
-//
-//            window?.rootViewController = LoginViewController()
-//
-//        } else { // 액세스토큰 O -> 자동로그인
-//
-//
-//
-//
-//        }
-//
+        if GeneralAPI.accessToken == "" {
+
+            window?.rootViewController = LoginViewController()
+
+        } else { // 액세스토큰 O -> 자동로그인
+
+            //
+
+
+        }
+
         window?.rootViewController = LoginViewController()
         window?.makeKeyAndVisible()
     }

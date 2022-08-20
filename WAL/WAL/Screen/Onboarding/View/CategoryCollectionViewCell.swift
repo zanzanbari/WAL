@@ -20,7 +20,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     
     private let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
-        $0.text = "디오니방구님이 받고싶은 \n 왈소리 유형은?"
+        $0.text = "\(Constant.Key.nickname)님이 받고싶은 \n 왈소리 유형은?"
         $0.textAlignment = .center
         $0.numberOfLines = 2
     }

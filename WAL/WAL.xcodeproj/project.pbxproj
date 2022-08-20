@@ -82,14 +82,14 @@
 		5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */; };
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
-		9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */; };
-		9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD032865A93A009B6002 /* HistoryResponse.swift */; };
-		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
-		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
 		9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* MainResponse.swift */; };
+		9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */; };
+		9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD032865A93A009B6002 /* HistoryResponse.swift */; };
+		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
+		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
 		924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B60FC28A7D1E4002804B1 /* WALStatus.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
@@ -194,14 +194,14 @@
 		5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanbariViewController.swift; sourceTree = "<group>"; };
 		5BD35863289D482E0066C804 /* ZanzanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanView.swift; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteHistoryResponse.swift; sourceTree = "<group>"; };
-		9213AD032865A93A009B6002 /* HistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponse.swift; sourceTree = "<group>"; };
-		9213AD062865AB67009B6002 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
-		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
 		5BECCA8E286A43B800DD70A3 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		9205E746286EE1A4000F4B6D /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		9205E748286EE1AD000F4B6D /* MainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPI.swift; sourceTree = "<group>"; };
 		9205E74B286EE4CF000F4B6D /* MainResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponse.swift; sourceTree = "<group>"; };
+		9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteHistoryResponse.swift; sourceTree = "<group>"; };
+		9213AD032865A93A009B6002 /* HistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponse.swift; sourceTree = "<group>"; };
+		9213AD062865AB67009B6002 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		924B60FC28A7D1E4002804B1 /* WALStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALStatus.swift; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -697,31 +697,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		9213AD022865A912009B6002 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				9213AD032865A93A009B6002 /* HistoryResponse.swift */,
-				9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */,
-			);
-			path = History;
-			sourceTree = "<group>";
-		};
-		9213AD052865AB59009B6002 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				9213AD062865AB67009B6002 /* HistoryService.swift */,
-			);
-			path = History;
-			sourceTree = "<group>";
-		};
-		9213AD082865ADB2009B6002 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				9213AD092865ADBC009B6002 /* HistoryAPI.swift */,
-			);
-			path = History;
-			sourceTree = "<group>";
-		};
 		5BD35862289D45F30066C804 /* SubController */ = {
 			isa = PBXGroup;
 			children = (
@@ -755,6 +730,31 @@
 				9205E74B286EE4CF000F4B6D /* MainResponse.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		9213AD022865A912009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD032865A93A009B6002 /* HistoryResponse.swift */,
+				9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		9213AD052865AB59009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD062865AB67009B6002 /* HistoryService.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		9213AD082865ADB2009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD092865ADBC009B6002 /* HistoryAPI.swift */,
+			);
+			path = History;
 			sourceTree = "<group>";
 		};
 		927D10E928210F3A001AEB78 /* History */ = {
