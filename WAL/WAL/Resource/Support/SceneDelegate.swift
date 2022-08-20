@@ -17,7 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        
         // 액세스토큰 X -> 로그인 화면을 띄워줄 경우
         if GeneralAPI.accessToken == "" {
             print("로그인이 완료되지 않아 로그인뷰입니다.")
