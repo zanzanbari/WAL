@@ -10,9 +10,11 @@ import Foundation
 // MARK: - ResignRequest
 
 struct ResignRequest: Codable {
-    let reason: [String]
+    let socialtoken: String
+    let data: [String]
     
-    init(_ reason: [String]) {
-        self.reason = reason
+    init(_ socialtoken: String, _ data: [String]) {
+        self.socialtoken = socialtoken
+        self.data = data
     }
 }

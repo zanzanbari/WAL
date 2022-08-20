@@ -65,12 +65,12 @@ final class AuthAPI {
     
     // MARK: - POST 회원탈퇴
         
-    public func postResign(social: String, socialToken: String, reason: [String],
+    public func postResign(social: String, data: [String], socialtoken: String,
                            completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
        
-        let reason = ResignRequest.init(reason)
+        let reason = ResignRequest.init(socialtoken, data)
         
-        authProvider.request(.resign(social: social, socialToken: socialToken, reason: reason)) { result in
+        authProvider.request(.resign(social: social, param: reason)) { result in
             switch result {
             case .success(let response):
                 do {

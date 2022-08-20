@@ -11,7 +11,7 @@ enum AuthService {
     case social(social: String, socialToken: String, fcmToken: String?)
     case logout
     case reissue
-    case resign(social: String, socialToken: String, reason: ResignRequest)
+    case resign(social: String, param: ResignRequest)
 }
 
 extension AuthService: BaseTargetType {
@@ -21,7 +21,7 @@ extension AuthService: BaseTargetType {
         case .social(let social, _, _): return "/auth/\(social)/login"
         case .logout: return "/auth/logout"
         case .reissue: return "/auth/reissue/token"
-        case .resign(let social, _, _): return "/auth/\(social)/logout"
+        case .resign(let social, _): return "/auth/\(social)/logout"
         }
     }
     
@@ -46,11 +46,8 @@ extension AuthService: BaseTargetType {
                     encoding: URLEncoding.queryString)
             }
         case .logout, .reissue: return .requestPlain
-        case .resign(_, let socialToken, let param):
-            return .requestParameters(
-                parameters: ["socialtoken": socialToken,
-                             "data": param],
-                encoding: URLEncoding.default)
+        case .resign(_, let param):
+            return .requestJSONEncodable(param)
         }
         
     }

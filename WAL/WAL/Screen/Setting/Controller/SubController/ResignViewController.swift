@@ -96,7 +96,8 @@ final class ResignViewController: UIViewController {
     @objc func touchupResignButton(_ sender: UIButton) {
         AuthAPI.shared.postResign(
             social: GeneralAPI.socialLogin,
-            socialToken:  GeneralAPI.socialToken, reason: reasonData) { (resignData, err) in
+            data: reasonData,
+            socialtoken: GeneralAPI.socialToken) { (resignData, err) in
                 guard let resignData = resignData else { return }
                 if resignData.status < 400 {
                     print("☘️-------회원탈퇴 서버 통신", resignData)
