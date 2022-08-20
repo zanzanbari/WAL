@@ -202,13 +202,15 @@ class HistoryTableViewCell: UITableViewCell {
         isContentHidden = data.hidden ?? false
         
         sendingDateLabel.text = "\(data.sendingDate)"
-        sendingDateLabel.addLetterSpacing()
         
         contentLabel.text = data.content
-        contentLabel.addLetterSpacing()
         
         reserveAtLabel.text = "\(data.reserveAt)"
-        reserveAtLabel.addLetterSpacing()
+        
+        [sendingDateLabel, contentLabel, reserveAtLabel].forEach {
+            $0.addLetterSpacing()
+            $0.textAlignment = .left
+        }
         
         coverView.isHidden = data.hidden ?? false ? false : true
     }
