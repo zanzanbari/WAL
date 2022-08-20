@@ -15,14 +15,20 @@ final class HistoryViewController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var navigationBar = WALNavigationBar(title: "히스토리")
+    private lazy var navigationBar = WALNavigationBar(title: "히스토리").then {
+        $0.rightIcon = WALIcon.btnDelete.image
+        $0.rightBarButton.addTarget(self, action: #selector(touchupCloseButton), for: .touchUpInside)
+    }
     
     private var historyTableView = UITableView(frame: .zero, style: .grouped)
     
     private let reserveHeader = HistoryReserveHeaderView()
     private let completeHeader = HistoryCompleteHeaderView()
+        
+    private var sendingData = [HistoryData]()
+    private var completeData = [HistoryData]()
     
-    private var expandCellDatasource =  ExpandTableViewCellContent()
+    var selectedIndex: IndexPath = []
     
     // MARK: - Life Cycle
     
@@ -31,6 +37,7 @@ final class HistoryViewController: UIViewController {
         configUI()
         setupLayout()
         setupTableView()
+        getHistoryInfo()
     }
     
     // MARK: - Init UI
@@ -63,7 +70,7 @@ final class HistoryViewController: UIViewController {
                                   forCellReuseIdentifier: HistoryTableViewCell.cellIdentifier)
         
         historyTableView.separatorStyle = .none
-        historyTableView.rowHeight = UITableView.automaticDimension
+        historyTableView.estimatedRowHeight = 125
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(sender:)))
         historyTableView.addGestureRecognizer(longPress)
@@ -75,27 +82,56 @@ final class HistoryViewController: UIViewController {
         let touchPoint = sender.location(in: historyTableView)
         if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
             guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-            let content = expandCellDatasource
-            
             if cell.isContentHidden {
-                let touchPoint = sender.location(in: historyTableView)
-                if let indexPath = historyTableView.indexPathForRow(at: touchPoint) {
-                    content.isExpanded.toggle()
-                    
-                    historyTableView.reloadRows(at: [indexPath], with: .automatic)
-                    
-                    guard let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell else { return }
-                    cell.isPressed = sender.state == .began ? false : true
+                switch sender.state {
+                case .ended:
+                    UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
+                        cell.coverView.alpha = 1
+                    }, completion: { _ in
+                        self.historyTableView.beginUpdates()
+                        cell.isExpanded = false
+                        cell.update()
+                        self.historyTableView.endUpdates()
+                        cell.coverView.isHidden = false
+                    })
+                default:
+                    UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
+                        self.historyTableView.beginUpdates()
+                        cell.isExpanded = true
+                        cell.update()
+                        self.historyTableView.endUpdates()
+                        cell.coverView.alpha = 0
+                    }, completion: { _ in
+                        cell.coverView.isHidden = true
+                    })
+                    cell.reserveAtLabel.isHidden = false
                 }
             }
-            
         }
+    }
+    
+    @objc func touchupCloseButton() {
+        dismiss(animated: true)
     }
 }
 
 // MARK: - UITableView Protocol
 
 extension HistoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if selectedIndex == indexPath {
+            return UITableView.automaticDimension
+        }
+        else if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+            if cell.isExpanded {
+                return UITableView.automaticDimension
+            } else {
+                return 125
+            }
+        }
+        return 125
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
@@ -130,15 +166,25 @@ extension HistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let content = expandCellDatasource
-        
-        content.isExpanded.toggle()
-        historyTableView.reloadRows(at: [indexPath], with: .automatic)
+        if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+            selectedIndex = indexPath
+            cell.isExpanded.toggle()
+            if cell.isExpanded {
+                print("cell.isExpanded \(cell.isExpanded)")
+                selectedIndex = indexPath
+            } else {
+                print("cell.isExpanded \(cell.isExpanded)")
+                selectedIndex = []
+            }
+            historyTableView.beginUpdates()
+            cell.update()
+            historyTableView.endUpdates()
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("수정")
+//            dismiss(animated: true)
             success(true)
         }
         resendAction.backgroundColor = .mint100
@@ -153,7 +199,11 @@ extension HistoryViewController: UITableViewDelegate {
         }
         
         let cancelAction = UIContextualAction(style: .normal, title: "예약 취소") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("예약 취소")
+            if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+                DispatchQueue.main.async {
+                    self.cancelHistoryInfo(postId: cell.postId)
+                }
+            }
             success(true)
         }
         cancelAction.backgroundColor = .orange100
@@ -167,7 +217,11 @@ extension HistoryViewController: UITableViewDelegate {
         }
         
         let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            print("삭제")
+            if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+                DispatchQueue.main.async {
+                    self.deleteHistoryInfo(postId: cell.postId)
+                }
+            }
             success(true)
         }
         deleteAction.backgroundColor = .orange100
@@ -196,9 +250,9 @@ extension HistoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return HistoryDataModel.reserveData.count
+            return sendingData.count
         case 1:
-            return HistoryDataModel.completeData.count
+            return completeData.count
         default:
             return 0
         }
@@ -208,17 +262,15 @@ extension HistoryViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-            cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
-            cell.dateLabelColor = .systemMint
-            cell.setData(HistoryDataModel.reserveData[indexPath.row])
+            cell.sendingDateLabelColor = .systemMint
+            cell.setData(sendingData[indexPath.row])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
-            cell.initCell(isTapped: expandCellDatasource)
             cell.selectionStyle = .none
-            cell.dateLabelColor = .gray
-            cell.setData(HistoryDataModel.completeData[indexPath.row])
+            cell.sendingDateLabelColor = .gray
+            cell.setData(completeData[indexPath.row])
             return cell
         default:
             return UITableViewCell()
@@ -231,5 +283,46 @@ extension HistoryViewController: UITableViewDataSource {
 extension HistoryViewController: HistoryCompleteHeaderViewDelegate {
     func touchUpInformationButton() {
         completeHeader.informationIsHidden.toggle()
+    }
+}
+
+// MARK: - Network
+
+extension HistoryViewController {
+    func getHistoryInfo() {
+        HistoryAPI.shared.getHistoryData { historyData, err in
+            guard let historyData = historyData else {
+                return
+            }
+            if let sendingData = historyData.data?.sendingData {
+                self.sendingData = sendingData
+            }
+            if let completeData = historyData.data?.completeData {
+                self.completeData = completeData
+            }
+            DispatchQueue.main.async {
+                self.historyTableView.reloadData()
+            }
+        }
+    }
+    
+    func cancelHistoryInfo(postId: Int) {
+        HistoryAPI.shared.cancelHistoryData(postId: postId) { cancelHistoryData, err in
+            guard let cancelHistoryData = cancelHistoryData else {
+                return
+            }
+            print(cancelHistoryData)
+            self.getHistoryInfo()
+        }
+    }
+    
+    func deleteHistoryInfo(postId: Int) {
+        HistoryAPI.shared.deleteHistoryData(postId: postId) { deleteHistoryData, err in
+            guard let deleteHistoryData = deleteHistoryData else {
+                return
+            }
+            print(deleteHistoryData)
+            self.getHistoryInfo()
+        }
     }
 }

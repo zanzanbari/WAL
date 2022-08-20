@@ -85,6 +85,10 @@
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
 		9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* MainResponse.swift */; };
+		9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */; };
+		9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD032865A93A009B6002 /* HistoryResponse.swift */; };
+		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
+		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
 		924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B60FC28A7D1E4002804B1 /* WALStatus.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
@@ -192,6 +196,10 @@
 		9205E746286EE1A4000F4B6D /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		9205E748286EE1AD000F4B6D /* MainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPI.swift; sourceTree = "<group>"; };
 		9205E74B286EE4CF000F4B6D /* MainResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponse.swift; sourceTree = "<group>"; };
+		9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteHistoryResponse.swift; sourceTree = "<group>"; };
+		9213AD032865A93A009B6002 /* HistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponse.swift; sourceTree = "<group>"; };
+		9213AD062865AB67009B6002 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		924B60FC28A7D1E4002804B1 /* WALStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALStatus.swift; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -438,6 +446,7 @@
 		5BA3894A27F6C0B90010EAA1 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				9213AD022865A912009B6002 /* History */,
 				5BB17B342865B8AA00029824 /* Auth */,
 				5BB17B352865B8B400029824 /* Onboard */,
 				5B44E58428A6C823000ABF0C /* Setting */,
@@ -450,6 +459,7 @@
 		5BA3894B27F6C0BF0010EAA1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				9213AD052865AB59009B6002 /* History */,
 				9205E744286EE18E000F4B6D /* Main */,
 				E2CEC25528A802FD0021C542 /* Create */,
 				5B7EE87A2822D643007BC265 /* Auth */,
@@ -462,6 +472,7 @@
 		5BA3894C27F6C0C60010EAA1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				9213AD082865ADB2009B6002 /* History */,
 				9205E745286EE195000F4B6D /* Main */,
 				E2CEC25628A803080021C542 /* Create */,
 				5BB6615B2827B9D500D54353 /* Auth */,
@@ -718,6 +729,31 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		9213AD022865A912009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD032865A93A009B6002 /* HistoryResponse.swift */,
+				9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		9213AD052865AB59009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD062865AB67009B6002 /* HistoryService.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		9213AD082865ADB2009B6002 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				9213AD092865ADBC009B6002 /* HistoryAPI.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		927D10E928210F3A001AEB78 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,7 +876,7 @@
 				5BA3892A27F6B94F0010EAA1 /* Sources */,
 				5BA3892B27F6B94F0010EAA1 /* Frameworks */,
 				5BA3892C27F6B94F0010EAA1 /* Resources */,
-				25DC9E95319BFC9784A7960D /* [CP] Embed Pods Frameworks */,
+				277A8E9181A244FE3559A10A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -916,7 +952,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		25DC9E95319BFC9784A7960D /* [CP] Embed Pods Frameworks */ = {
+		277A8E9181A244FE3559A10A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -984,6 +1020,7 @@
 				5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
+				9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */,
 				E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */,
 				924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */,
@@ -1028,6 +1065,7 @@
 				5BB17B3A2865BB3000029824 /* OnboardAPI.swift in Sources */,
 				5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */,
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
+				9213AD072865AB67009B6002 /* HistoryService.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
 				5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */,
 				E213130528608077001238F3 /* CreateInformationViewController.swift in Sources */,
@@ -1039,6 +1077,7 @@
 				5BD17420282CDDB500C77A95 /* MyInfoTableViewCell.swift in Sources */,
 				5BC2DD152868F55400AFCC29 /* ResignHeaderView.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
+				9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */,
 				5BA3897027F6C3C50010EAA1 /* GeneralAPI.swift in Sources */,
 				927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */,
 				5BA3896C27F6C3260010EAA1 /* GenericResponse.swift in Sources */,
@@ -1046,6 +1085,7 @@
 				5BC2DD0F2868EA7E00AFCC29 /* BaseViewController.swift in Sources */,
 				5BC2DD0B2868E74100AFCC29 /* EditNicknameViewController.swift in Sources */,
 				5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */,
+				9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */,
 				5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 				E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */,
@@ -1197,8 +1237,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1217,7 +1257,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruheekim.WAL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "WAL Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1232,8 +1272,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1252,7 +1292,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruheekim.WAL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "WAL Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
