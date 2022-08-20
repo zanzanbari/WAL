@@ -10,9 +10,7 @@ import UIKit
 import WALKit
 
 class MyInfoTableViewCell: UITableViewCell {
-    
-    static let identifier = Constant.myInfoTableViewCell
-    
+        
     // MARK: - Properties
     
     private lazy var backView = UIView().then {
@@ -23,7 +21,6 @@ class MyInfoTableViewCell: UITableViewCell {
     }
     
     public let nicknameLabel = UILabel().then {
-        $0.text = "디오니바봉짱"
         $0.font = WALFont.body1.font
         $0.textColor = .black100
     }
@@ -82,8 +79,4 @@ class MyInfoTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(20)
         }
     }
-    
-    // MARK: - Custom Method
-
-
 }
