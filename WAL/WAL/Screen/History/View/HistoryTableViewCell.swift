@@ -187,12 +187,6 @@ class HistoryTableViewCell: UITableViewCell {
     // MARK: - Custom Method
     
     func update() {
-//        if isExpanded {
-//            print("isExpanded")
-//        } else {
-//            print("not Expanded")
-//        }
-        
         self.historyStackView.layoutIfNeeded()
     }
     
