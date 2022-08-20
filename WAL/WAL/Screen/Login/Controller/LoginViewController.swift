@@ -193,6 +193,14 @@ extension LoginViewController {
                                       let accessData = kakaoData.data else { return }
                                 if kakaoData.status == 401 {
                                     AuthAPI.shared.postReissue() { reissueData, err in
+                                        
+                                        // MARK: - TODO 리프레시토큰도 만료 -> 로그아웃
+                                        if reissueData?.status == 401 {
+                                            AuthAPI.shared.getLogout { (data, nil) in
+                                                guard let data = data else { return }
+                                                
+                                            }
+                                        }
                                         guard let reissueData = reissueData?.data else { return }
                                         self.accessToken = reissueData.accesstoken
                                         UserDefaults.standard.set(self.accessToken, forKey: Constant.Key.accessToken)
