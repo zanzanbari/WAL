@@ -15,12 +15,12 @@ class SettingTableViewCell: UITableViewCell {
     
     private let setting = SettingData()
     
-    public let menuLabel = UILabel().then {
+    let menuLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
     }
     
-    public let subMenuLabel = UILabel().then {
+    let subMenuLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .gray200
     }
@@ -67,7 +67,7 @@ class SettingTableViewCell: UITableViewCell {
     
     // MARK: - Custom Method
 
-    public func setupData(index: Int) {
+    func setupData(index: Int) {
         menuLabel.text = setting.getMenuLabel(setting.secondRowData, index)
         subMenuLabel.text = setting.getSubMenuLabel(setting.secondRowData, index)
     }

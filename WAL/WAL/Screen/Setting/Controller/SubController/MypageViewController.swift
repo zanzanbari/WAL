@@ -16,8 +16,8 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
     
     weak var sendNicknameDelegate: SendNicknameDelegate?
     
-    public var nickname = ""
-    public var email = ""
+    var nickname = ""
+    var email = ""
     
     private let navigationBar = WALNavigationBar(title: "내 정보").then {
         $0.backgroundColor = .white100

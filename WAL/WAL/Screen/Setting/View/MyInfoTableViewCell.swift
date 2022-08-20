@@ -20,12 +20,12 @@ class MyInfoTableViewCell: UITableViewCell {
         $0.addSubviews([nicknameLabel, emailLabel, infoLabel])
     }
     
-    public let nicknameLabel = UILabel().then {
+    let nicknameLabel = UILabel().then {
         $0.font = WALFont.body1.font
         $0.textColor = .black100
     }
     
-    public let emailLabel = UILabel().then {
+    let emailLabel = UILabel().then {
         $0.text = "jiwonsocute@gmail.com"
         $0.font = WALFont.body9.font
         $0.textColor = .gray100

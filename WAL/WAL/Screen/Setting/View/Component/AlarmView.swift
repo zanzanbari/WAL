@@ -40,7 +40,7 @@ class AlarmView: UIView {
 
     // MARK: - Properties
     
-    public var type: Alarm = .firstMenu
+    var type: Alarm = .firstMenu
     
     private let menuLabel = UILabel().then {
         $0.font = WALFont.body6.font
@@ -52,7 +52,7 @@ class AlarmView: UIView {
         $0.textColor = .gray100
     }
     
-    public let toggleSwitch = UISwitch().then {
+    let toggleSwitch = UISwitch().then {
         $0.onTintColor = .mint100
     }
     
@@ -62,7 +62,7 @@ class AlarmView: UIView {
     
     // MARK: - Life Cycle
     
-    public init(_ type: Alarm) {
+    init(_ type: Alarm) {
         super.init(frame: .zero)
         self.type = type
         configUI()

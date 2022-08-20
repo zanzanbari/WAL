@@ -14,13 +14,13 @@ final class OnboardAPI {
     private let onboardProvider = MoyaProvider<OnboardService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
     
-    public private(set) var onboardData: GenericResponse<Onboard>?
+    private(set) var onboardData: GenericResponse<Onboard>?
     
     typealias completion = ((GenericResponse<Onboard>?, Int?) -> ())
     
     // MARK: - POST 온보딩
     
-    public func postOnboardSetting(nickname: String,
+    func postOnboardSetting(nickname: String,
                                    category: CategoryType,
                                    alarm: AlarmTime,
                                    completion: @escaping completion) {

@@ -15,8 +15,8 @@ class SettingViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - Properties
     
-    public var nickname = ""
-    public var email = ""
+    var nickname = ""
+    var email = ""
     private let setting = SettingData()
     
     private let navigationBar = WALNavigationBar(title: "설정").then {
