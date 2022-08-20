@@ -17,10 +17,9 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     weak var sendCategoryDelegate: SendCategoryDelegate?
         
     private var barWidth: CGFloat = 0
-    
+                
     private let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
-        $0.text = "\(Constant.Key.nickname)님이 받고싶은 \n 왈소리 유형은?"
         $0.textAlignment = .center
         $0.numberOfLines = 2
     }
@@ -31,7 +30,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    public lazy var scrollView = UIScrollView().then {
+    lazy var scrollView = UIScrollView().then {
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
         $0.delegate = self
@@ -51,7 +50,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     private let condolenceButton = CardButton(2)
     private let scoldingButton = CardButton(3)
     
-    public lazy var slideBackView = UIView().then {
+    lazy var slideBackView = UIView().then {
         $0.backgroundColor = .gray500
         $0.makeRound(radius: 1)
         $0.addSubview(slideBar)
@@ -62,7 +61,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.makeRound(radius: 1)
     }
     
-    public lazy var nextButton = WALPlainButton().then {
+    lazy var nextButton = WALPlainButton().then {
         $0.title = "다음"
         $0.isDisabled = true
     }
@@ -82,6 +81,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     // MARK: - InitUI
     
     private func configUI() {
+        
         contentView.backgroundColor = .white100
         barWidth = (contentView.frame.width-61*2)/4
         [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
@@ -147,8 +147,26 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
+    // MARK: - Custom Method
+    
+    override func setupNotificationCenter() {
+        super.setupNotificationCenter()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(changeNickname(_:)),
+            name: .changeNickname,
+            object: nil)
+    }
+    
     func touchupNextButton(isDisabled: Bool) {
         nextButton.isDisabled = isDisabled
+    }
+    
+    // MARK: - @objc
+    
+    @objc func changeNickname(_ notification: Notification) {
+        guard let nickname = notification.userInfo?["nickname"] as? String else { return }
+        titleLabel.text = nickname + "님이 받고싶은 \n 왈소리 유형은?"
     }
     
     @objc func touchupButton(sender: UIButton) {

@@ -17,7 +17,11 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     private let textCount: Int = 0
     private let maxLength: Int = 10
     
-    private let titleLabel = UILabel().then {
+    var nickname = ""
+    
+    weak var sendNicknameDelegate: SendNicknameDelegate?
+    
+    let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
         $0.text = "왈이 당신을 뭐라고 \n 부르면 되나요?"
         $0.textAlignment = .center
@@ -30,7 +34,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 0
     }
     
-    public let nicknameTextField = WALTextField().then {
+    let nicknameTextField = WALTextField().then {
         $0.font = WALFont.body6.font
         $0.placeholder = "닉네임을 입력해주세요"
         $0.isFocusing = false
@@ -55,7 +59,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         $0.isHidden = true
     }
     
-    public let nextButton = WALPlainButton().then {
+    let nextButton = WALPlainButton().then {
         $0.title = "다음"
         $0.isDisabled = true
     }
@@ -124,6 +128,13 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     private func setupTextField() {
         nicknameTextField.delegate = self
         nicknameTextField.becomeFirstResponder()
+        setupNotificationCenter()
+    }
+    
+    // MARK: - Custom Method
+    
+    override func setupNotificationCenter() {
+        super.setupNotificationCenter()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(textDidChange(_:)),
@@ -171,7 +182,9 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
             self.nextButton.transform = .identity
         }
         guard let text = textField.text else { return }
-        UserDefaults.standard.setValue(text, forKey: Constant.Key.nickname)
+        NotificationCenter.default.post(name: .changeNickname,
+                                        object: nil,
+                                        userInfo: ["nickname": text])
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -182,7 +195,6 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
             nextButton.isDisabled = false
         }
         countLabel.text = "\(text.count)/10"
-        
         switch text.count {
         case 0...9:
             countLabel.addCharacterColor(color: .gray200, range: "\(text.count)")

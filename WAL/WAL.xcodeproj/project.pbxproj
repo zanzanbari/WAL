@@ -28,6 +28,7 @@
 		5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58728A6C881000ABF0C /* UserCategory.swift */; };
 		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
+		5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
 		5B86CD54289E08B300F8611C /* loginGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B86CD53289E08B300F8611C /* loginGif.gif */; };
@@ -138,6 +139,7 @@
 		5B44E58728A6C881000ABF0C /* UserCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCategory.swift; sourceTree = "<group>"; };
 		5B44E58928A6D044000ABF0C /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
+		5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+.swift"; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		5B86CD53289E08B300F8611C /* loginGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loginGif.gif; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				5BB661612828340100D54353 /* Bundle+.swift */,
 				5B020D36281EAF020057F9B7 /* String+.swift */,
 				5B020D38281F107C0057F9B7 /* UIViewController+.swift */,
+				5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1007,6 +1010,7 @@
 				5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */,
 				5B44E58628A6C846000ABF0C /* UserAlarm.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
+				5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */,
 				5BB17B3D2865BB4200029824 /* OnboardService.swift in Sources */,
 				5B0985E128A9577A00D8FDCC /* LoginModel.swift in Sources */,
 				E23FF602287FF7C3004016DC /* CreateService.swift in Sources */,

@@ -14,7 +14,7 @@ import WALKit
 final class OnboardCompleteViewController: UIViewController {
     
     // MARK: - Properties
-    
+        
     private let completeImageView = UIImageView().then {
         $0.image = WALIcon.icnSettingComplete.image
     }
