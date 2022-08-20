@@ -22,7 +22,7 @@ extension BaseTargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": GeneralAPI.contentType,
-                "accesstoken": GeneralAPI.accessToken]
+                "accesstoken": UserDefaults.standard.string(forKey: Constant.Key.accessToken) ?? ""]
     }
 }
 

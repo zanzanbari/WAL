@@ -60,7 +60,7 @@ extension AuthService: BaseTargetType {
                     "refreshtoken": GeneralAPI.refreshToken]
         default:
             return ["Content-Type": GeneralAPI.contentType,
-                    "accesstoken": GeneralAPI.accessToken]
+                    "accesstoken": UserDefaults.standard.string(forKey: Constant.Key.accessToken) ?? ""]
             
         }
     }
