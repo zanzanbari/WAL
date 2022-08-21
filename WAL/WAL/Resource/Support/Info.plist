@@ -4,7 +4,7 @@
 <dict>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>LSApplicationQueriesShcemes</key>
+	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>instagram-stories</string>
 	</array>
