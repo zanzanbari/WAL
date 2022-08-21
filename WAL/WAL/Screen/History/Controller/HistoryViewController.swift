@@ -8,8 +8,12 @@
 import UIKit
 
 import Then
-
 import WALKit
+
+enum ActionSheetType {
+    case delete
+    case reserve
+}
 
 final class HistoryViewController: UIViewController {
     
@@ -113,6 +117,30 @@ final class HistoryViewController: UIViewController {
     @objc func touchupCloseButton() {
         dismiss(animated: true)
     }
+    
+    func showActionSheet(type: ActionSheetType, postId: Int) {
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
+            self.deleteHistoryInfo(postId: postId)
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: { action in
+            self.cancelHistoryInfo(postId: postId)
+        })
+        
+        let closeAction = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
+        
+        switch type {
+        case .delete:
+            optionMenu.title = "이 왈소리를 삭제하시겠어요?"
+            optionMenu.addAction(deleteAction)
+        case .reserve:
+            optionMenu.title = "이 왈소리 예약을 취소하시겠어요?"
+            optionMenu.addAction(cancelAction)
+        }
+        optionMenu.addAction(closeAction)
+        self.present(optionMenu, animated: true)
+    }
 }
 
 // MARK: - UITableView Protocol
@@ -200,9 +228,7 @@ extension HistoryViewController: UITableViewDelegate {
         
         let cancelAction = UIContextualAction(style: .normal, title: "예약 취소") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-                DispatchQueue.main.async {
-                    self.cancelHistoryInfo(postId: cell.postId)
-                }
+                self.showActionSheet(type: .reserve, postId: cell.postId)
             }
             success(true)
         }
@@ -218,9 +244,7 @@ extension HistoryViewController: UITableViewDelegate {
         
         let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-                DispatchQueue.main.async {
-                    self.deleteHistoryInfo(postId: cell.postId)
-                }
+                self.showActionSheet(type: .delete, postId: cell.postId)
             }
             success(true)
         }
@@ -306,13 +330,30 @@ extension HistoryViewController {
         }
     }
     
+    func getHistoryInfoAfterDelete() {
+        HistoryAPI.shared.getHistoryData { historyData, err in
+            guard let historyData = historyData else {
+                return
+            }
+            if let sendingData = historyData.data?.sendingData {
+                self.sendingData = sendingData
+            }
+            if let completeData = historyData.data?.completeData {
+                self.completeData = completeData
+            }
+            DispatchQueue.main.async {
+                self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
+            }
+        }
+    }
+    
     func cancelHistoryInfo(postId: Int) {
         HistoryAPI.shared.cancelHistoryData(postId: postId) { cancelHistoryData, err in
             guard let cancelHistoryData = cancelHistoryData else {
                 return
             }
             print(cancelHistoryData)
-            self.getHistoryInfo()
+            self.getHistoryInfoAfterDelete()
         }
     }
     
@@ -322,7 +363,7 @@ extension HistoryViewController {
                 return
             }
             print(deleteHistoryData)
-            self.getHistoryInfo()
+            self.getHistoryInfoAfterDelete()
         }
     }
 }

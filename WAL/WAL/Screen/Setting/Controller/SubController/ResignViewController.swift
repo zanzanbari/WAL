@@ -16,6 +16,7 @@ final class ResignViewController: UIViewController {
     
     private let setting = SettingData()
     private var resignData = SettingData().resignRowData
+    private var reasonData: [String] = []
     
     private let navigationBar = WALNavigationBar(title: "왈 탈퇴").then {
         $0.backgroundColor = .white100
@@ -95,7 +96,8 @@ final class ResignViewController: UIViewController {
     @objc func touchupResignButton(_ sender: UIButton) {
         AuthAPI.shared.postResign(
             social: GeneralAPI.socialLogin,
-            socialToken:  GeneralAPI.socialToken) { (resignData, err) in
+            data: reasonData,
+            socialtoken: GeneralAPI.socialToken) { (resignData, err) in
                 guard let resignData = resignData else { return }
                 if resignData.status < 400 {
                     print("☘️-------회원탈퇴 서버 통신", resignData)
@@ -112,6 +114,7 @@ final class ResignViewController: UIViewController {
     
     @objc func touchupCheckButton(_ sender: UIButton) {
         resignData[sender.tag].select = !resignData[sender.tag].select
+        reasonData = resignData.filter({$0.select}).map { $0.menu }
         tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .automatic)
     }
 }

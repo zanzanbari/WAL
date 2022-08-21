@@ -15,6 +15,8 @@
 		5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D4228219C2F0057F9B7 /* LoginViewController.swift */; };
 		5B0985E128A9577A00D8FDCC /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0985E028A9577A00D8FDCC /* LoginModel.swift */; };
 		5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A2AA828572EF300CC9088 /* KeyInfo.plist */; };
+		5B2D675628B0AA2E006A0E70 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2D675528B0AA2E006A0E70 /* WALKit */; };
+		5B2D675828B0ADA3006A0E70 /* ResignRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D675728B0ADA3006A0E70 /* ResignRequest.swift */; };
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
@@ -81,7 +83,6 @@
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
-		5BF0FC38289E50E0004727F8 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF0FC37289E50E0004727F8 /* WALKit */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
 		9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* MainResponse.swift */; };
@@ -126,6 +127,7 @@
 		5B020D4228219C2F0057F9B7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B0985E028A9577A00D8FDCC /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		5B1A2AA828572EF300CC9088 /* KeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
+		5B2D675728B0ADA3006A0E70 /* ResignRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignRequest.swift; sourceTree = "<group>"; };
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A2C281E4EB4006FEFDA /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
@@ -236,7 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BF0FC38289E50E0004727F8 /* WALKit in Frameworks */,
+				5B2D675628B0AA2E006A0E70 /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,6 +586,7 @@
 				5BB17B3E286628F300029824 /* Logout.swift */,
 				5BB26D2F286646AA00257837 /* Reissue.swift */,
 				5B0985E028A9577A00D8FDCC /* LoginModel.swift */,
+				5B2D675728B0ADA3006A0E70 /* ResignRequest.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -884,7 +887,7 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5BF0FC37289E50E0004727F8 /* WALKit */,
+				5B2D675528B0AA2E006A0E70 /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -915,7 +918,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */,
+				5B2D675428B0AA2E006A0E70 /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -1008,6 +1011,7 @@
 				5B0985E128A9577A00D8FDCC /* LoginModel.swift in Sources */,
 				E23FF602287FF7C3004016DC /* CreateService.swift in Sources */,
 				927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */,
+				5B2D675828B0ADA3006A0E70 /* ResignRequest.swift in Sources */,
 				5BD17422282CDDD100C77A95 /* SettingTableViewCell.swift in Sources */,
 				5B020D39281F107C0057F9B7 /* UIViewController+.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
@@ -1323,7 +1327,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */ = {
+		5B2D675428B0AA2E006A0E70 /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1334,9 +1338,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5BF0FC37289E50E0004727F8 /* WALKit */ = {
+		5B2D675528B0AA2E006A0E70 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5BF0FC36289E50E0004727F8 /* XCRemoteSwiftPackageReference "WALKit.git" */;
+			package = 5B2D675428B0AA2E006A0E70 /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */

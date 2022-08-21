@@ -11,7 +11,7 @@ enum AuthService {
     case social(social: String, socialToken: String, fcmToken: String?)
     case logout
     case reissue
-    case resign(social: String, socialToken: String)
+    case resign(social: String, param: ResignRequest)
 }
 
 extension AuthService: BaseTargetType {
@@ -46,11 +46,10 @@ extension AuthService: BaseTargetType {
                     encoding: URLEncoding.queryString)
             }
         case .logout, .reissue: return .requestPlain
-        case .resign(_, let socialToken):
-            return .requestParameters(
-                parameters: ["socialtoken": socialToken],
-                encoding: URLEncoding.queryString)
+        case .resign(_, let param):
+            return .requestJSONEncodable(param)
         }
+        
     }
     
     var headers: [String : String]? {
@@ -62,7 +61,7 @@ extension AuthService: BaseTargetType {
         default:
             return ["Content-Type": GeneralAPI.contentType,
                     "accesstoken": GeneralAPI.accessToken]
-        
+            
         }
     }
 }
