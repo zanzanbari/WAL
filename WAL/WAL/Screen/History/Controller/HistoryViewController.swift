@@ -161,14 +161,6 @@ extension HistoryViewController: UITableViewDelegate {
         }
         
         return 125
-//        else if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-//            if cell.isExpanded {
-//                return UITableView.automaticDimension
-//            } else {
-//                return 125
-//            }
-//        }
-//        return 125
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -209,11 +201,20 @@ extension HistoryViewController: UITableViewDelegate {
             cell.isExpanded.toggle()
             if cell.isExpanded {
                 print("cell.isExpanded \(cell.isExpanded)")
-                selectedIndices[indexPath.row] = indexPath
+                if indexPath.section == 1 {
+                    selectedIndices[sendingData.count + indexPath.row] = indexPath
+                }
+                else {
+                    selectedIndices[indexPath.row] = indexPath
+                }
                 print(selectedIndices)
             } else {
                 print("cell.isExpanded \(cell.isExpanded)")
-                selectedIndices[indexPath.row] = [-1,-1]
+                if indexPath.section == 1 {
+                    selectedIndices[sendingData.count + indexPath.row] = [-1,-1]
+                } else {
+                    selectedIndices[indexPath.row] = [-1,-1]
+                }
                 print(selectedIndices)
             }
             historyTableView.beginUpdates()
@@ -356,6 +357,7 @@ extension HistoryViewController {
                 self.completeData = completeData
             }
             DispatchQueue.main.async {
+                self.selectedIndices = []
                 self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
             }
         }
