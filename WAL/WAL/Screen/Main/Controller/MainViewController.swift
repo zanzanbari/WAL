@@ -150,6 +150,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         checkTime()
+        print(#function)
     }
     
     override func viewDidLoad() {
@@ -279,32 +280,58 @@ final class MainViewController: UIViewController {
     }
     
     @objc func touchupShareButton() {
-        if let storyShareURL = URL(string: "instagram-stories://share") {
-            if UIApplication.shared.canOpenURL(storyShareURL) {
-                let renderer = UIGraphicsImageRenderer(size: walContentView.bounds.size)
-                
-                let renderImage = renderer.image { _ in
-                    walContentView.drawHierarchy(in: walContentView.bounds, afterScreenUpdates: true)
-                }
+//        if let storyShareURL = URL(string: "instagram-stories://share") {
+//            if UIApplication.shared.canOpenURL(storyShareURL) {
+//                let renderer = UIGraphicsImageRenderer(size: walContentView.bounds.size)
+//
+//                let renderImage = renderer.image { _ in
+//                    walContentView.drawHierarchy(in: walContentView.bounds, afterScreenUpdates: true)
+//                }
+//
+//                guard let imageData = renderImage.pngData() else { return }
+//
+//                let pasteboardItems : [String:Any] = [
+//                    "com.instagram.sharedSticker.stickerImage": imageData,
+//                    "com.instagram.sharedSticker.backgroundTopColor" : "#ffffff",
+//                    "com.instagram.sharedSticker.backgroundBottomColor" : "#ffffff",
+//                ]
+//
+//                let pasteboardOptions = [
+//                    UIPasteboard.OptionsKey.expirationDate : Date().addingTimeInterval(300)
+//                ]
+//
+//                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+//
+//                UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
+//            } else {
+//                print("인스타 앱이 깔려있지 않습니다.")
+//            }
+//        }
+        
+        let imageToShare = walContentView.toImage()
 
-                guard let imageData = renderImage.pngData() else { return }
-                
-                let pasteboardItems : [String:Any] = [
-                    "com.instagram.sharedSticker.stickerImage": imageData,
-                    "com.instagram.sharedSticker.backgroundTopColor" : "#ffffff",
-                    "com.instagram.sharedSticker.backgroundBottomColor" : "#ffffff",
-                ]
-                
-                let pasteboardOptions = [
-                    UIPasteboard.OptionsKey.expirationDate : Date().addingTimeInterval(300)
-                ]
-                
-                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
-                
-                UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
-            } else {
-                print("인스타 앱이 깔려있지 않습니다.")
-            }
+        let activityItems : NSMutableArray = []
+        activityItems.add(imageToShare)
+
+        guard let url = saveImageOnPhone(image: imageToShare, image_name: "WAL") else {
+            return
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
+        
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    private func saveImageOnPhone(image: UIImage, image_name: String) -> URL? {
+        let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(image_name).png"
+        let imageUrl: URL = URL(fileURLWithPath: imagePath)
+        
+        do {
+            try image.pngData()?.write(to: imageUrl)
+            return imageUrl
+        } catch {
+            return nil
         }
     }
 }
