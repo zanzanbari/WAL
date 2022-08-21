@@ -40,6 +40,6 @@ extension CreateService: BaseTargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwibmlja25hbWUiOiLro6jtnawiLCJlbWFpbCI6Imp3eWFuZGtyZ0BrYWthby5jb20iLCJzb2NpYWwiOiJrYWthbyIsImlhdCI6MTY2MDM5MzU1MCwiZXhwIjoxNjYxNjAzMTUwLCJpc3MiOiJjaGFud29vIn0.GetbS7CzKeUaCna4IIi_e2F4p8ZfLukES-N83RoxKKE"]
+                "accesstoken": GeneralAPI.accessToken]
     }
 }
