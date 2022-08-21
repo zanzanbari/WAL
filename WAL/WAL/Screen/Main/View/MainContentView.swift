@@ -10,10 +10,6 @@ import UIKit
 import WALKit
 import Lottie
 
-protocol MainContentViewDelegate: MainViewController {
-    func touchUpShareButton()
-}
-
 final class MainContentView: UIView {
     
     // MARK: - UI Property
@@ -45,15 +41,6 @@ final class MainContentView: UIView {
         $0.textAlignment = .center
     }
     
-    private lazy var shareButton = UIButton().then {
-        $0.setTitle("공유", for: .normal)
-        $0.setTitleColor(.white100, for: .normal)
-        $0.backgroundColor = .mint100
-        $0.titleLabel?.font = WALFont.body4.font
-        $0.layer.cornerRadius = 20
-        $0.addTarget(self, action: #selector(touchupShareButton), for: .touchUpInside)
-    }
-    
     // MARK: - Property
     
     var walContentType: WALContentType = .fun {
@@ -67,8 +54,6 @@ final class MainContentView: UIView {
             contentLabel.text = content
         }
     }
-    
-    weak var delegate: MainContentViewDelegate?
     
     // MARK: - Initializer
     
@@ -90,7 +75,7 @@ final class MainContentView: UIView {
     }
     
     private func setupLayout() {
-        addSubviews([bubbleImageView, imageView, contentLabel, shareButton])
+        addSubviews([bubbleImageView, imageView, contentLabel])
         
         bubbleImageView.addSubview(bubbleLabel)
         
@@ -117,13 +102,6 @@ final class MainContentView: UIView {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(313)
         }
-        
-        shareButton.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom).offset(79)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(97)
-            $0.height.equalTo(40)
-        }
     }
     
     private func setupGesture() {
@@ -135,9 +113,5 @@ final class MainContentView: UIView {
     
     @objc func touchupWal() {
         bubbleImageView.isHidden = true
-    }
-    
-    @objc func touchupShareButton() {
-        delegate?.touchUpShareButton()
     }
 }

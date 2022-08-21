@@ -12,10 +12,8 @@ import WALKit
 import Lottie
 
 final class MainViewController: UIViewController {
-    
-    private var mainData = [MainResponse]()
 
-    // MARK: - Properties
+    // MARK: - UI Property
     
     private lazy var navigationBar = UIView().then {
         $0.backgroundColor = .clear
@@ -75,6 +73,18 @@ final class MainViewController: UIViewController {
     private var walContentView = MainContentView().then {
         $0.isHidden = true
     }
+    
+    private lazy var shareButton = UIButton().then {
+        $0.setTitle("공유", for: .normal)
+        $0.setTitleColor(.white100, for: .normal)
+        $0.backgroundColor = .mint100
+        $0.titleLabel?.font = WALFont.body4.font
+        $0.layer.cornerRadius = 20
+        $0.addTarget(self, action: #selector(touchupShareButton), for: .touchUpInside)
+        $0.isHidden = true
+    }
+    
+    // MARK: - Property
 
     private var dataCount: Int = 0
     
@@ -108,6 +118,35 @@ final class MainViewController: UIViewController {
         }
     }
     
+    private var didTapCell: Bool = false {
+        didSet {
+            if didTapCell {
+                titleLabel.isHidden = true
+                subTitleLabel.isHidden = true
+                
+                walImageView.isHidden = true
+                contentLabel.isHidden = true
+                
+                walImageView.image = walArrivedImageList.randomElement()
+                
+                walContentView.isHidden = false
+                shareButton.isHidden = false
+            } else {
+                
+                titleLabel.isHidden = false
+                subTitleLabel.isHidden = false
+                
+                walImageView.isHidden = false
+                contentLabel.isHidden = false
+                
+                walContentView.isHidden = true
+                shareButton.isHidden = true
+            }
+        }
+    }
+    
+    private var mainData = [MainResponse]()
+    
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,7 +160,6 @@ final class MainViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
-        setupDelegate()
     }
     
     // MARK: - Init UI
@@ -142,7 +180,8 @@ final class MainViewController: UIViewController {
                           walImageView,
                           contentLabel,
                           walCollectionView,
-                          walContentView])
+                          walContentView,
+                          shareButton])
         
         navigationBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -199,7 +238,14 @@ final class MainViewController: UIViewController {
             $0.top.equalTo(navigationBar.snp.bottom).offset(UIScreen().hasNotch ? 93 : 43)
             $0.centerX.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(31)
-            $0.height.equalTo(383)
+            $0.height.equalTo(264)
+        }
+        
+        shareButton.snp.makeConstraints {
+            $0.top.equalTo(walContentView.snp.bottom).offset(79)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(97)
+            $0.height.equalTo(40)
         }
     }
     
@@ -223,10 +269,6 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func setupDelegate() {
-        walContentView.delegate = self
-    }
-    
     // MARK: - @objc
     
     @objc func touchupAddButton() {
@@ -238,12 +280,8 @@ final class MainViewController: UIViewController {
         let viewController = SettingViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
-}
-
-// MARK: - Custom Delegate
-
-extension MainViewController: MainContentViewDelegate {
-    func touchUpShareButton() {
+    
+    @objc func touchupShareButton() {
         if let storyShareURL = URL(string: "instagram-stories://share") {
             if UIApplication.shared.canOpenURL(storyShareURL) {
                 let renderer = UIGraphicsImageRenderer(size: walContentView.bounds.size)
@@ -295,21 +333,11 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         }
         
         if cell.isSelected {
-            titleLabel.isHidden = false
-            subTitleLabel.isHidden = false
-            
-            walContentView.isHidden = true
-            
+            didTapCell = false
             collectionView.deselectItem(at: indexPath, animated: false)
-            
             return false
         } else {
-            titleLabel.isHidden = true
-            subTitleLabel.isHidden = true
-            
-            walImageView.image = walArrivedImageList.randomElement()
-            
-            walContentView.isHidden = false
+            didTapCell = true
             walContentView.content = mainData[indexPath.item].content
             
             let walType = mainData[indexPath.item].categoryId
