@@ -150,7 +150,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         checkTime()
-        print(#function)
+        NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name("EnterMain"), object: nil)
     }
     
     override func viewDidLoad() {
@@ -267,6 +267,18 @@ final class MainViewController: UIViewController {
         }
     }
     
+    private func saveImageOnPhone(image: UIImage, image_name: String) -> URL? {
+        let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(image_name).png"
+        let imageUrl: URL = URL(fileURLWithPath: imagePath)
+        
+        do {
+            try image.pngData()?.write(to: imageUrl)
+            return imageUrl
+        } catch {
+            return nil
+        }
+    }
+    
     // MARK: - @objc
     
     @objc func touchupAddButton() {
@@ -323,16 +335,8 @@ final class MainViewController: UIViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
-    private func saveImageOnPhone(image: UIImage, image_name: String) -> URL? {
-        let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(image_name).png"
-        let imageUrl: URL = URL(fileURLWithPath: imagePath)
-        
-        do {
-            try image.pngData()?.write(to: imageUrl)
-            return imageUrl
-        } catch {
-            return nil
-        }
+    @objc func getNotification() {
+        checkTime()
     }
 }
 
