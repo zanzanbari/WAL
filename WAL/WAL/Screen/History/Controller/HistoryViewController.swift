@@ -33,6 +33,7 @@ final class HistoryViewController: UIViewController {
     private var completeData = [HistoryData]()
     
     var selectedIndex: IndexPath = []
+    var selectedIndices: [IndexPath] = []
     
     // MARK: - Life Cycle
     
@@ -89,6 +90,7 @@ final class HistoryViewController: UIViewController {
             if cell.isContentHidden {
                 switch sender.state {
                 case .ended:
+                    selectedIndex = []
                     UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
                         cell.coverView.alpha = 1
                     }, completion: { _ in
@@ -99,6 +101,7 @@ final class HistoryViewController: UIViewController {
                         cell.coverView.isHidden = false
                     })
                 default:
+                    selectedIndex = indexPath
                     UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
                         self.historyTableView.beginUpdates()
                         cell.isExpanded = true
@@ -150,14 +153,22 @@ extension HistoryViewController: UITableViewDelegate {
         if selectedIndex == indexPath {
             return UITableView.automaticDimension
         }
-        else if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-            if cell.isExpanded {
+        
+        for index in selectedIndices {
+            if index == indexPath {
                 return UITableView.automaticDimension
-            } else {
-                return 125
             }
         }
+        
         return 125
+//        else if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
+//            if cell.isExpanded {
+//                return UITableView.automaticDimension
+//            } else {
+//                return 125
+//            }
+//        }
+//        return 125
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -195,14 +206,15 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-            selectedIndex = indexPath
             cell.isExpanded.toggle()
             if cell.isExpanded {
                 print("cell.isExpanded \(cell.isExpanded)")
-                selectedIndex = indexPath
+                selectedIndices[indexPath.row] = indexPath
+                print(selectedIndices)
             } else {
                 print("cell.isExpanded \(cell.isExpanded)")
-                selectedIndex = []
+                selectedIndices[indexPath.row] = [-1,-1]
+                print(selectedIndices)
             }
             historyTableView.beginUpdates()
             cell.update()
@@ -289,12 +301,14 @@ extension HistoryViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.sendingDateLabelColor = .systemMint
             cell.setData(sendingData[indexPath.row])
+            selectedIndices.append([-1,-1])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.sendingDateLabelColor = .gray
             cell.setData(completeData[indexPath.row])
+            selectedIndices.append([-1,-1])
             return cell
         default:
             return UITableViewCell()
