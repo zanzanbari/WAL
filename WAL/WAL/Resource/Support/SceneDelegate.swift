@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //
 //        }
 //
-        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
+        window?.rootViewController = LoginViewController()
         window?.makeKeyAndVisible()
     }
 
