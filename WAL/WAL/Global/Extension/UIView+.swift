@@ -23,4 +23,15 @@ extension UIView {
     func addSubviews(_ views: [UIView]) {
         views.forEach { self.addSubview($0) }
     }
+    
+    func toImage() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
+        
+        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
 }
