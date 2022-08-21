@@ -121,26 +121,23 @@ final class MainViewController: UIViewController {
     private var didTapCell: Bool = false {
         didSet {
             if didTapCell {
-                titleLabel.isHidden = true
-                subTitleLabel.isHidden = true
+                [titleLabel, subTitleLabel, walImageView, contentLabel].forEach {
+                    $0.isHidden = true
+                }
                 
-                walImageView.isHidden = true
-                contentLabel.isHidden = true
+                [walContentView, shareButton].forEach {
+                    $0.isHidden = false
+                }
                 
                 walImageView.image = walArrivedImageList.randomElement()
-                
-                walContentView.isHidden = false
-                shareButton.isHidden = false
             } else {
+                [titleLabel, subTitleLabel, walImageView, contentLabel].forEach {
+                    $0.isHidden = false
+                }
                 
-                titleLabel.isHidden = false
-                subTitleLabel.isHidden = false
-                
-                walImageView.isHidden = false
-                contentLabel.isHidden = false
-                
-                walContentView.isHidden = true
-                shareButton.isHidden = true
+                [walContentView, shareButton].forEach {
+                    $0.isHidden = true
+                }
             }
         }
     }
