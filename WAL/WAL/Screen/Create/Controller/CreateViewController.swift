@@ -94,7 +94,6 @@ class CreateViewController: UIViewController {
                                                   width: $0.frame.size.width,
                                                   height: CGFloat.leastNonzeroMagnitude))
         $0.dataSource = self
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
     }
     
     private let toastMessageLabel = UILabel().then {
@@ -278,12 +277,6 @@ class CreateViewController: UIViewController {
     @objc private func touchUpHistoryButton() {
         let historyViewController = HistoryViewController()
         navigationController?.pushViewController(historyViewController, animated: true)
-    }
-    
-    @objc private func handleTap(sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            view.endEditing(true)
-        }
     }
     
     //MARK: - CustomMethod
