@@ -121,7 +121,6 @@ final class MainViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
-        checkTime()
         setupDelegate()
     }
     
@@ -257,8 +256,8 @@ extension MainViewController: MainContentViewDelegate {
                 
                 let pasteboardItems : [String:Any] = [
                     "com.instagram.sharedSticker.stickerImage": imageData,
-                    "com.instagram.sharedSticker.backgroundTopColor" : "#00000",
-                    "com.instagram.sharedSticker.backgroundBottomColor" : "#00000",
+                    "com.instagram.sharedSticker.backgroundTopColor" : "#ffffff",
+                    "com.instagram.sharedSticker.backgroundBottomColor" : "#ffffff",
                 ]
                 
                 let pasteboardOptions = [
