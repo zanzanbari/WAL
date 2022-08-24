@@ -41,15 +41,6 @@ final class MainContentView: UIView {
         $0.textAlignment = .center
     }
     
-    private lazy var shareButton = UIButton().then {
-        $0.setTitle("공유", for: .normal)
-        $0.setTitleColor(.white100, for: .normal)
-        $0.backgroundColor = .mint100
-        $0.titleLabel?.font = WALFont.body4.font
-        $0.layer.cornerRadius = 20
-        $0.addTarget(self, action: #selector(touchupShareButton), for: .touchUpInside)
-    }
-    
     // MARK: - Property
     
     var walContentType: WALContentType = .fun {
@@ -63,8 +54,6 @@ final class MainContentView: UIView {
             contentLabel.text = content
         }
     }
-    
-    let viewForRender = UIView()
     
     // MARK: - Initializer
     
@@ -86,7 +75,7 @@ final class MainContentView: UIView {
     }
     
     private func setupLayout() {
-        addSubviews([bubbleImageView, imageView, contentLabel, shareButton])
+        addSubviews([bubbleImageView, imageView, contentLabel])
         
         bubbleImageView.addSubview(bubbleLabel)
         
@@ -113,13 +102,6 @@ final class MainContentView: UIView {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(313)
         }
-        
-        shareButton.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom).offset(79)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(97)
-            $0.height.equalTo(40)
-        }
     }
     
     private func setupGesture() {
@@ -131,30 +113,5 @@ final class MainContentView: UIView {
     
     @objc func touchupWal() {
         bubbleImageView.isHidden = true
-    }
-    
-    @objc func touchupShareButton() {
-        let renderer = UIGraphicsImageRenderer(size: viewForRender.bounds.size)
-        let renderImage = renderer.image { _ in
-            viewForRender.drawHierarchy(in: viewForRender.bounds, afterScreenUpdates: true)
-        }
-        
-        if let storyShareURL = URL(string: "instagram-stories://share") {
-            if UIApplication.shared.canOpenURL(storyShareURL) {
-                guard let imageData = renderImage.pngData() else {return}
-                
-                let pasteboardItems: [String: Any] = [
-                    "com.instagram.sharedSticker.stickerImage": imageData,
-                    "com.instagram.sharedSticker.backgroundTopColor": "#8D8D88",
-                    "com.instagram.sharedSticker.backgroundBottomColor": "#8D8D88"]
-                
-                let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)]
-                
-                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
-                UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
-            } else {
-                print("인스타 앱이 깔려있지 않습니다.")
-            }
-        }
     }
 }

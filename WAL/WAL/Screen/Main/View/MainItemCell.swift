@@ -19,7 +19,7 @@ protocol MainItemCellDelegate: AnyObject {
 final class MainItemCell: UICollectionViewCell {
     static var cellIdentifier: String { return String(describing: self) }
     
-    private var imageView = UIImageView().then {
+    var imageView = UIImageView().then {
         $0.image = WALIcon.imgPawInAtive.image
         $0.contentMode = .scaleAspectFit
         $0.isHidden = false
@@ -50,6 +50,14 @@ final class MainItemCell: UICollectionViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        defaultAnimationView.isHidden = true
+        specialAnimationView.isHidden = true
+        imageView.isHidden = false
     }
     
     override var isSelected: Bool {
@@ -98,7 +106,7 @@ final class MainItemCell: UICollectionViewCell {
         }
     }
     
-    internal func setupData(_ data: MainResponse) {
+    func setupData(_ data: MainResponse) {
         if data.type == "스페셜" {
             type = .special
         } else {
@@ -106,29 +114,32 @@ final class MainItemCell: UICollectionViewCell {
         }
         
         if data.canOpen {
-            if type == .special {
-                imageView.isHidden = true
+            if data.isShown {
+                if type == .special {
+                    imageView.image = WALIcon.imgPawSpecial.image
+                } else {
+                    imageView.image = WALIcon.imgPawActive.image
+                }
+                
+                imageView.isHidden = false
                 defaultAnimationView.isHidden = true
-                specialAnimationView.isHidden = false
+                specialAnimationView.isHidden = true
             } else {
                 imageView.isHidden = true
-                defaultAnimationView.isHidden = false
-                specialAnimationView.isHidden = true
+                if type == .special {
+                    specialAnimationView.isHidden = false
+                    specialAnimationView.play()
+                    
+                    defaultAnimationView.isHidden = true
+                } else {
+                    specialAnimationView.isHidden = true
+                    
+                    defaultAnimationView.isHidden = false
+                    defaultAnimationView.play()
+                }
             }
         } else {
             imageView.image = WALIcon.imgPawInAtive.image
-        }
-        
-        if data.isShown {
-            if type == .special {
-                imageView.image = WALIcon.imgPawSpecial.image
-            } else {
-                imageView.image = WALIcon.imgPawActive.image
-            }
-            
-            imageView.isHidden = false
-            defaultAnimationView.isHidden = true
-            specialAnimationView.isHidden = true
         }
         
         self.content = data.content
