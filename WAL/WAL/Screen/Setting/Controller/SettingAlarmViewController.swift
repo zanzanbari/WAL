@@ -14,7 +14,6 @@ final class SettingAlarmViewController: UIViewController {
     
     // MARK: - Properties
     
-    // 바꾸기 이전 값을 저장하기 위한 프로퍼티 선언
     private var alarmBeforeChange = AlarmTime.init(false, false, false)
     
     private let setting = SettingData()
@@ -25,7 +24,9 @@ final class SettingAlarmViewController: UIViewController {
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
     }
     
-    private lazy var firstView = AlarmView(.firstMenu)
+    private lazy var firstView = AlarmView(.firstMenu).then {
+        $0.toggleSwitch.addTarget(self, action: #selector(switchValueChanged(toggle:)), for: .valueChanged)
+    }
     
     private let backView = UIView().then {
         $0.backgroundColor = .gray600
@@ -129,6 +130,10 @@ final class SettingAlarmViewController: UIViewController {
         sender.layer.borderColor = sender.isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
     }
+    
+    @objc func switchValueChanged(toggle: UISwitch) {
+        UserDefaults.standard.set(toggle.isOn, forKey: Constant.Key.alarmToggle)
+    }
 }
 
 // MARK: - Network
@@ -144,7 +149,6 @@ extension SettingAlarmViewController {
         SettingAPI.shared.getUserAlarm { (userAlarmData, nil) in
             guard let userAlarmData = userAlarmData?.data else { return }
             print("🥰 알림시간 값 가져오기 🥰", userAlarmData)
-            // MARK: - TODO 코드 개선
             self.buttonBorderColor(self.morningButton, userAlarmData.morning)
             self.buttonBorderColor(self.afternoonButton, userAlarmData.afternoon)
             self.buttonBorderColor(self.nightButton, userAlarmData.night)
@@ -154,9 +158,7 @@ extension SettingAlarmViewController {
     
     private func postAlarm() {
         SettingAPI.shared.postUserAlarm(data: [
-            // 바꾸기 이전 값
             alarmBeforeChange,
-            // 바꾼 이후 값
             AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { (userAlarmData, nil) in
                 guard let userAlarm = userAlarmData,
                       let userAlarmData = userAlarm.data else { return }

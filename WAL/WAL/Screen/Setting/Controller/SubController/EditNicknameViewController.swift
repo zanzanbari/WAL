@@ -16,7 +16,7 @@ final class EditNicknameViewController: BaseViewController {
     
     weak var sendNicknameDelegate: SendNicknameDelegate?
     
-    public var nickname = ""
+    var nickname = ""
     private let textCount: Int = 0
     private let maxLength: Int = 10
     
@@ -134,6 +134,11 @@ final class EditNicknameViewController: BaseViewController {
         nicknameTextField.delegate = self
         nicknameTextField.becomeFirstResponder()
         nicknameTextField.inputAccessoryView = toolBar
+        setupNotificationCenter()
+    }
+    
+    override func setupNotificationCenter() {
+        super.setupNotificationCenter()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(textDidChange(_:)),

@@ -87,6 +87,16 @@ final class ResignViewController: UIViewController {
         tableView.register(ResignTableViewCell.self, forCellReuseIdentifier: ResignTableViewCell.identifier)
     }
     
+    // MARK: - Custom Method
+    
+    func pushToLoginView() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let viewController = LoginViewController()
+        sceneDelegate?.window?.rootViewController = viewController
+        sceneDelegate?.window?.makeKeyAndVisible()
+    }
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -101,11 +111,7 @@ final class ResignViewController: UIViewController {
                 guard let resignData = resignData else { return }
                 if resignData.status < 400 {
                     print("☘️-------회원탈퇴 서버 통신", resignData)
-                    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                    let sceneDelegate = windowScene?.delegate as? SceneDelegate
-                    let viewController = LoginViewController()
-                    sceneDelegate?.window?.rootViewController = viewController
-                    sceneDelegate?.window?.makeKeyAndVisible()
+                    self.pushToLoginView()
                 } else {
                     print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
                 }

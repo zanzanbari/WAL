@@ -51,6 +51,25 @@ final class MoyaLoggerPlugin: PluginType {
         if let reString = String(bytes: response.data, encoding: String.Encoding.utf8) {
             log.append("4️⃣\(reString)\n")
         }
+        
+        if statusCode == 401 {
+            AuthAPI.shared.postReissue() { reissueData, err in
+                if reissueData?.status == 401 {
+                    print("🥳 리프레시토큰 만료 -> 로그아웃시키자!", reissueData?.status as Any)
+                    AuthAPI.shared.getLogout { (data, nil) in
+                        guard let data = data else { return }
+                        print("🥳 토큰 만료로 인한 로그아웃 서버통신", data)
+                        self.pushToLoginView()
+                    }
+                }
+                // MARK: - TODO 401이면 액세스토큰 만료 -> 토큰 재발급해주자!
+                guard let reissueData = reissueData?.data else { return }
+                print("🥳 액세스토큰 만료~", reissueData.accesstoken)
+                UserDefaults.standard.set(reissueData.accesstoken, forKey: GeneralAPI.accessToken)
+            }
+        } else {
+            print("5️⃣[\(statusCode)]\n")
+        }
         log.append("------------------- END HTTP -------------------")
         print(log)
     }
@@ -65,5 +84,15 @@ final class MoyaLoggerPlugin: PluginType {
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
         print(log)
+    }
+    
+    // MARK: - Custom Method
+    
+    func pushToLoginView() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let viewController = LoginViewController()
+        sceneDelegate?.window?.rootViewController = viewController
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
 }

@@ -15,12 +15,11 @@
 		5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D4228219C2F0057F9B7 /* LoginViewController.swift */; };
 		5B0985E128A9577A00D8FDCC /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0985E028A9577A00D8FDCC /* LoginModel.swift */; };
 		5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A2AA828572EF300CC9088 /* KeyInfo.plist */; };
-		5B2D675628B0AA2E006A0E70 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2D675528B0AA2E006A0E70 /* WALKit */; };
 		5B2D675828B0ADA3006A0E70 /* ResignRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D675728B0ADA3006A0E70 /* ResignRequest.swift */; };
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
-		5B422BA228676CF8001B6807 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		5B422BA228676CF8001B6807 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E57E28A6BCED000ABF0C /* SettingService.swift */; };
 		5B44E58128A6BCFC000ABF0C /* SettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */; };
 		5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58228A6C174000ABF0C /* UserInfo.swift */; };
@@ -28,6 +27,8 @@
 		5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58728A6C881000ABF0C /* UserCategory.swift */; };
 		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
+		5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */; };
+		5B77949F28B5C05000E62ACD /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B77949E28B5C05000E62ACD /* WALKit */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
 		5B86CD54289E08B300F8611C /* loginGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B86CD53289E08B300F8611C /* loginGif.gif */; };
@@ -35,7 +36,7 @@
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
-		5BA3893E27F6B9540010EAA1 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		5BA3893E27F6B9540010EAA1 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* MainDataModel.swift */; };
 		5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
@@ -138,6 +139,7 @@
 		5B44E58728A6C881000ABF0C /* UserCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCategory.swift; sourceTree = "<group>"; };
 		5B44E58928A6D044000ABF0C /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
+		5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+.swift"; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		5B86CD53289E08B300F8611C /* loginGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loginGif.gif; sourceTree = "<group>"; };
@@ -238,7 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B2D675628B0AA2E006A0E70 /* WALKit in Frameworks */,
+				5B77949F28B5C05000E62ACD /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +443,7 @@
 				5BB661612828340100D54353 /* Bundle+.swift */,
 				5B020D36281EAF020057F9B7 /* String+.swift */,
 				5B020D38281F107C0057F9B7 /* UIViewController+.swift */,
+				5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -887,7 +890,7 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B2D675528B0AA2E006A0E70 /* WALKit */,
+				5B77949E28B5C05000E62ACD /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -918,7 +921,7 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B2D675428B0AA2E006A0E70 /* XCRemoteSwiftPackageReference "WALKit" */,
+				5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -937,7 +940,7 @@
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
 				92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */,
-				5BA3893E27F6B9540010EAA1 /* BuildFile in Resources */,
+				5BA3893E27F6B9540010EAA1 /* (null) in Resources */,
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */,
@@ -1007,6 +1010,7 @@
 				5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */,
 				5B44E58628A6C846000ABF0C /* UserAlarm.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
+				5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */,
 				5BB17B3D2865BB4200029824 /* OnboardService.swift in Sources */,
 				5B0985E128A9577A00D8FDCC /* LoginModel.swift in Sources */,
 				E23FF602287FF7C3004016DC /* CreateService.swift in Sources */,
@@ -1061,7 +1065,7 @@
 				E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
 				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
-				5B422BA228676CF8001B6807 /* BuildFile in Sources */,
+				5B422BA228676CF8001B6807 /* (null) in Sources */,
 				5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
 				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
@@ -1249,10 +1253,11 @@
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1284,10 +1289,11 @@
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1327,7 +1333,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B2D675428B0AA2E006A0E70 /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1338,9 +1344,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B2D675528B0AA2E006A0E70 /* WALKit */ = {
+		5B77949E28B5C05000E62ACD /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B2D675428B0AA2E006A0E70 /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
