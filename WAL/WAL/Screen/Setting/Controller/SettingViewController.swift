@@ -16,7 +16,6 @@ class SettingViewController: UIViewController, SendNicknameDelegate {
     // MARK: - Properties
     
     var nickname = ""
-    var email = ""
     private let setting = SettingData()
     
     private let navigationBar = WALNavigationBar(title: "설정").then {
@@ -106,7 +105,6 @@ extension SettingViewController: UITableViewDelegate {
             let viewController = MypageViewController()
             viewController.modalPresentationStyle = .overFullScreen
             viewController.nickname = nickname
-            viewController.email = email
             viewController.sendNicknameDelegate = self
             present(viewController, animated: true, completion: nil)
         case 1:
@@ -178,7 +176,6 @@ extension SettingViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: MyInfoTableViewCell.identifier, for: indexPath) as? MyInfoTableViewCell
             else { return UITableViewCell() }
-            cell.emailLabel.text = email
             cell.nicknameLabel.text = nickname
             return cell
         case 1:
@@ -212,8 +209,6 @@ extension SettingViewController {
     func requestNickname() {
         SettingAPI.shared.getUserInfo { (userInfo, nil) in
             guard let userInfoData = userInfo?.data else { return }
-            self.email = UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "kakao" ?
-            userInfoData.email : "zanzanbari@apple.com"
             self.nickname = userInfoData.nickname
             DispatchQueue.main.async {
                 self.tableView.reloadData()

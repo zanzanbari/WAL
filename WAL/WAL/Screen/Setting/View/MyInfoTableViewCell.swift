@@ -17,7 +17,7 @@ class MyInfoTableViewCell: UITableViewCell {
         $0.layer.cornerRadius = 14
         $0.layer.borderColor = UIColor.mint100.cgColor
         $0.layer.borderWidth = 1
-        $0.addSubviews([nicknameLabel, emailLabel, infoLabel])
+        $0.addSubviews([nicknameLabel, socialTypeLabel, infoLabel])
     }
     
     let nicknameLabel = UILabel().then {
@@ -25,10 +25,14 @@ class MyInfoTableViewCell: UITableViewCell {
         $0.textColor = .black100
     }
     
-    let emailLabel = UILabel().then {
-        $0.text = "jiwonsocute@gmail.com"
+    let socialTypeLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
+        if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "kakao" {
+            $0.text = "카카오 계정으로 로그인"
+        } else if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "apple" {
+            $0.text = "애플 계정으로 로그인"
+        }
     }
     
     private let infoLabel = UILabel().then {
@@ -68,14 +72,14 @@ class MyInfoTableViewCell: UITableViewCell {
             make.leading.equalToSuperview().inset(20)
         }
         
-        emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(nicknameLabel.snp.bottom).offset(4)
+        socialTypeLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(19)
         }
         
         infoLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(33)
-            make.bottom.equalToSuperview().inset(31)
+            make.top.equalToSuperview().inset(32)
+            make.bottom.equalToSuperview().inset(32)
             make.trailing.equalToSuperview().inset(20)
         }
     }
