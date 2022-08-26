@@ -111,7 +111,7 @@ final class ZanzanbariViewController: UIViewController {
         statusBarView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(47)
+            make.bottom.equalTo(navigationBar.snp.top)
         }
         
         navigationBar.snp.makeConstraints { make in
