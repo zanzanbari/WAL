@@ -174,4 +174,10 @@ extension ResignViewController: UITableViewDataSource {
         cell.checkButton.addTarget(self, action: #selector(touchupCheckButton(_:)), for: .touchUpInside)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)) as? ResignTableViewCell
+        else { return }
+        touchupCheckButton(cell.checkButton)
+    }
 }
