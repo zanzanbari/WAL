@@ -84,6 +84,7 @@
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
+		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
 		9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* MainResponse.swift */; };
@@ -197,6 +198,7 @@
 		5BD35863289D482E0066C804 /* ZanzanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanView.swift; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BECCA8E286A43B800DD70A3 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		5BFC216028B920F100E4F65A /* Transition+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+.swift"; sourceTree = "<group>"; };
 		9205E746286EE1A4000F4B6D /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		9205E748286EE1AD000F4B6D /* MainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPI.swift; sourceTree = "<group>"; };
 		9205E74B286EE4CF000F4B6D /* MainResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponse.swift; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 				5B020D36281EAF020057F9B7 /* String+.swift */,
 				5B020D38281F107C0057F9B7 /* UIViewController+.swift */,
 				5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */,
+				5BFC216028B920F100E4F65A /* Transition+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1075,6 +1078,7 @@
 				5B020D3F281F31B00057F9B7 /* AlarmCollectionViewCell.swift in Sources */,
 				9213AD072865AB67009B6002 /* HistoryService.swift in Sources */,
 				5BA3897427F6C6290010EAA1 /* UIScreen+.swift in Sources */,
+				5BFC216128B920F100E4F65A /* Transition+.swift in Sources */,
 				5B44E58328A6C174000ABF0C /* UserInfo.swift in Sources */,
 				E213130528608077001238F3 /* CreateInformationViewController.swift in Sources */,
 				5BB17B372865BAB100029824 /* Onboard.swift in Sources */,

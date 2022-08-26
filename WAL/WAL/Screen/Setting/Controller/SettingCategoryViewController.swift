@@ -67,7 +67,7 @@ final class SettingCategoryViewController: UIViewController {
          complimentButton,
          condolenceButton,
          scoldingButton].forEach {
-            $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
         }
     }
     
@@ -82,7 +82,7 @@ final class SettingCategoryViewController: UIViewController {
         secondCategoryStackView.addArrangedSubviews([condolenceButton, scoldingButton])
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -97,7 +97,7 @@ final class SettingCategoryViewController: UIViewController {
         }
         
         firstCategoryStackView.snp.makeConstraints { make in
-            make.top.equalTo(subtitleLabel.snp.bottom).offset(16)
+            make.top.equalTo(subtitleLabel.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(163)
         }
@@ -128,7 +128,8 @@ final class SettingCategoryViewController: UIViewController {
         }
     }
     
-    @objc func touchupButton(sender: UIButton) {
+    @objc func touchupButton(_ sender: UIButton) {
+        print(sender.tag, "선택한 버튼")
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
@@ -175,7 +176,7 @@ extension SettingCategoryViewController {
                                  self.complimentButton.isSelected = userCategoryData.compliment
                                  self.condolenceButton.isSelected = userCategoryData.condolence
                                  self.scoldingButton.isSelected = userCategoryData.scolding
-                                 self.dismiss(animated: true, completion: nil)
+                                 self.transition(self, .pop)
                              } else {
                                  print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
                              }
