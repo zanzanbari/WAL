@@ -38,7 +38,7 @@ final class ZanzanbariViewController: UIViewController {
     }
     
     private let lineView = UIView().then {
-        $0.backgroundColor = .gray700
+        $0.backgroundColor = .gray500
     }
     
     private let designView = ZanzanView().then {

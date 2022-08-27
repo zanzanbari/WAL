@@ -129,7 +129,6 @@ final class SettingCategoryViewController: UIViewController {
     }
     
     @objc func touchupButton(_ sender: UIButton) {
-        print(sender.tag, "선택한 버튼")
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
@@ -164,10 +163,10 @@ extension SettingCategoryViewController {
     private func postCategory() {
         SettingAPI.shared.postUserCategory(data: [
             categoryBeforeChange,
-            CategoryType(self.jokeButton.isSelected,
-                         self.complimentButton.isSelected,
-                         self.condolenceButton.isSelected,
-                         self.scoldingButton.isSelected)]) { (userCategory, nil) in
+            CategoryType(jokeButton.isSelected,
+                         complimentButton.isSelected,
+                         condolenceButton.isSelected,
+                         scoldingButton.isSelected)]) { (userCategory, nil) in
                              guard let userCategory = userCategory,
                                    let userCategoryData = userCategory.data else { return }
                              if userCategory.status < 400 {
