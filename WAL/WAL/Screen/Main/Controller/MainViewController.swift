@@ -51,7 +51,7 @@ final class MainViewController: UIViewController {
     }
     
     private var contentLabel = UILabel().then {
-        $0.font = WALFont.body3.font
+        $0.font = WALFont.body7.font
         $0.textColor = .gray100
         $0.numberOfLines = 0
         $0.isHidden = false
@@ -149,6 +149,7 @@ final class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configNavigationUI()
+        setMainStatus()
         checkTime()
         NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name("EnterMain"), object: nil)
     }
@@ -199,7 +200,7 @@ final class MainViewController: UIViewController {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(10)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(8)
             $0.leading.equalToSuperview().inset(20)
         }
         
@@ -276,6 +277,20 @@ final class MainViewController: UIViewController {
             return imageUrl
         } catch {
             return nil
+        }
+    }
+    
+    private func setMainStatus() {
+        if titleLabel.isHidden == true {
+            titleLabel.isHidden = false
+            subTitleLabel.isHidden = false
+            
+            walImageView.isHidden = false
+            walContentView.isHidden = true
+            
+            contentLabel.isHidden = false
+            
+            shareButton.isHidden = true
         }
     }
     
@@ -372,7 +387,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             if walType == -1 {
                 walContentView.walContentType = .special
             } else if walType == 0 {
-                walContentView.walContentType = .angry
+                walContentView.walContentType = .fun
             } else if walType == 1 {
                 walContentView.walContentType = .love
             } else if walType == 2 {
