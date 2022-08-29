@@ -35,7 +35,7 @@ final class MainContentView: UIView {
     
     private var contentLabel = UILabel().then {
         $0.font = WALFont.body3.font
-        $0.textColor = .gray100
+        $0.textColor = .black100
         $0.numberOfLines = 0
         $0.isHidden = false
         $0.textAlignment = .center
@@ -52,6 +52,8 @@ final class MainContentView: UIView {
     var content: String = "" {
         didSet {
             contentLabel.text = content
+            contentLabel.addLineSpacing(spacing: 28)
+            contentLabel.textAlignment = .center
         }
     }
     
