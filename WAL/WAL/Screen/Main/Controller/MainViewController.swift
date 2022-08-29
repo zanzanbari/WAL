@@ -384,6 +384,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             walContentView.content = mainData[indexPath.item].content
             
             let walType = mainData[indexPath.item].categoryId
+            
             if walType == -1 {
                 walContentView.walContentType = .special
             } else if walType == 0 {
@@ -395,7 +396,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             } else {
                 walContentView.walContentType = .angry
             }
-            
             return true
         }
     }
