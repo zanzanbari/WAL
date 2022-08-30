@@ -158,7 +158,7 @@ class HistoryTableViewCell: UITableViewCell {
         }
         
         coverSubtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(coverTitleLabel.snp.bottom).offset(3)
+            $0.top.equalTo(coverTitleLabel.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
         }
         
