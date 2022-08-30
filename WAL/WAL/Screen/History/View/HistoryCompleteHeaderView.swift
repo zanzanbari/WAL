@@ -88,7 +88,7 @@ final class HistoryCompleteHeaderView: UIView {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(divideView.snp.bottom).offset(27)
+            $0.top.equalTo(divideView.snp.bottom).offset(30)
             $0.leading.equalToSuperview().inset(20)
         }
         
