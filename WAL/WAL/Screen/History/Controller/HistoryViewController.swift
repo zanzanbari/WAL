@@ -178,6 +178,7 @@ extension HistoryViewController: UITableViewDelegate {
         switch section {
         case 0:
             reserveHeader.title = "보내는 중"
+            reserveHeader.countLabel.text = String(sendingData.count)
             return reserveHeader
         case 1:
             completeHeader.delegate = self

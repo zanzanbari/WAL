@@ -26,6 +26,12 @@ final class HistoryReserveHeaderView: UIView {
         }
     }
     
+    var countLabel = UILabel().then {
+        $0.text = "234"
+        $0.textColor = .black
+        $0.font = WALFont.body5.font
+    }
+    
     // MARK: - Initializer
     
     init() {
@@ -45,11 +51,15 @@ final class HistoryReserveHeaderView: UIView {
     }
     
     private func setupLayout() {
-        addSubview(titleLabel)
+        addSubviews([titleLabel, countLabel])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
+        }
+        countLabel.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(4)
         }
     }
 }
