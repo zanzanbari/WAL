@@ -48,7 +48,7 @@ final class HistoryReserveHeaderView: UIView {
         addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(21)
+            $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
         }
     }
