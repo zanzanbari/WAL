@@ -30,6 +30,11 @@ final class HistoryCompleteHeaderView: UIView {
         }
     }
     
+    var countLabel = UILabel().then {
+        $0.textColor = .black
+        $0.font = WALFont.body5.font
+    }
+    
     private var divideView = UIView().then {
         $0.backgroundColor = .gray600
     }
@@ -79,7 +84,7 @@ final class HistoryCompleteHeaderView: UIView {
     }
     
     private func setupLayout() {
-        addSubviews([titleLabel, bubbleImageView, divideView, informationButton])
+        addSubviews([titleLabel, countLabel, bubbleImageView, divideView, informationButton])
         bubbleImageView.addSubview(informationTitleLabel)
         
         divideView.snp.makeConstraints {
@@ -92,9 +97,14 @@ final class HistoryCompleteHeaderView: UIView {
             $0.leading.equalToSuperview().inset(20)
         }
         
+        countLabel.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(4)
+        }
+        
         informationButton.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel.snp.centerY)
-            $0.leading.equalToSuperview().inset(45)
+            $0.leading.equalTo(countLabel.snp.trailing)
             $0.width.height.equalTo(30)
         }
         

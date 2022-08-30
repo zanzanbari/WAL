@@ -27,7 +27,6 @@ final class HistoryReserveHeaderView: UIView {
     }
     
     var countLabel = UILabel().then {
-        $0.text = "234"
         $0.textColor = .black
         $0.font = WALFont.body5.font
     }

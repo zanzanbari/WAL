@@ -183,6 +183,7 @@ extension HistoryViewController: UITableViewDelegate {
         case 1:
             completeHeader.delegate = self
             completeHeader.title = "완료"
+            completeHeader.countLabel.text = String(completeData.count)
             return completeHeader
         default:
             return UIView()
