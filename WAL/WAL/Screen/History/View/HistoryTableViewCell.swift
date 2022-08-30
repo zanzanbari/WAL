@@ -148,7 +148,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         lockIconImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(40)
-            $0.leading.equalToSuperview().inset(139)
+            $0.leading.equalToSuperview().inset(137)
             $0.width.height.equalTo(22)
         }
         
