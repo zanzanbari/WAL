@@ -170,6 +170,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         sendingDateLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
+            $0.height.equalTo(17)
         }
         
         contentLabel.snp.makeConstraints {
