@@ -72,6 +72,7 @@ class CreateFinishedViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = UIColor.white100
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         [textLabel, descriptionLabel].forEach {
             $0.font = WALFont.body5.font
@@ -117,8 +118,12 @@ class CreateFinishedViewController: UIViewController {
     // MARK: - @objc
     
     @objc private func touchUpMainButton() {
-        let mainViewController = UINavigationController(rootViewController: MainViewController())
-        mainViewController.modalPresentationStyle = .fullScreen
-        present(mainViewController, animated: true)
+        guard let viewControllerStack = navigationController?.viewControllers else { return }
+        
+        for viewController in viewControllerStack {
+            if let mainViewcontroller = viewController as? MainViewController {
+                navigationController?.popToViewController(mainViewcontroller, animated: true)
+            }
+        }
     }
 }
