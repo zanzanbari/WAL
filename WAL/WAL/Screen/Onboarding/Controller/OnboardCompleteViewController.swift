@@ -26,7 +26,6 @@ final class OnboardCompleteViewController: UIViewController {
     }
     
     private let subLabel = UILabel().then {
-        $0.text = "쟌쟌바리님 맞춤 설정을 끝냈어요\n왈을 시작해볼까요?"
         $0.font = WALFont.body5.font
         $0.numberOfLines = 2
         $0.textColor = .gray100
@@ -51,6 +50,9 @@ final class OnboardCompleteViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white
+        guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname)
+        else { return }
+        subLabel.text = nickname + "님 맞춤 설정을 끝냈어요\n왈을 시작해볼까요?"
         subLabel.addLineSpacing(spacing: 0.4)
         subLabel.addLetterSpacing()
     }

@@ -56,13 +56,14 @@ final class ResignViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white
+        
     }
     
     private func setupLayout() {
         view.addSubviews([navigationBar, tableView, backView, resignButton])
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -100,7 +101,7 @@ final class ResignViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        self.dismiss(animated: true, completion: nil)
+        transition(self, .pop)
     }
     
     @objc func touchupResignButton(_ sender: UIButton) {
@@ -121,7 +122,7 @@ final class ResignViewController: UIViewController {
     @objc func touchupCheckButton(_ sender: UIButton) {
         resignData[sender.tag].select = !resignData[sender.tag].select
         reasonData = resignData.filter({$0.select}).map { $0.menu }
-        tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .automatic)
+        tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .none)
     }
 }
 
@@ -172,5 +173,11 @@ extension ResignViewController: UITableViewDataSource {
         cell.setupData(index: indexPath.row)
         cell.checkButton.addTarget(self, action: #selector(touchupCheckButton(_:)), for: .touchUpInside)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)) as? ResignTableViewCell
+        else { return }
+        touchupCheckButton(cell.checkButton)
     }
 }

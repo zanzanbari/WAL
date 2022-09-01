@@ -89,7 +89,7 @@ final class OnboardingViewController: UIViewController {
         }
         
         pageControl.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 11 : 4)
+            make.top.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 10 : 4)
             make.centerX.equalToSuperview()
         }
         

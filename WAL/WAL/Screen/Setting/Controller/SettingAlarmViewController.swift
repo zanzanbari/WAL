@@ -80,7 +80,7 @@ final class SettingAlarmViewController: UIViewController {
                                                   nightButton])
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -167,7 +167,7 @@ extension SettingAlarmViewController {
                     self.morningButton.isSelected = userAlarmData.morning
                     self.afternoonButton.isSelected = userAlarmData.afternoon
                     self.nightButton.isSelected = userAlarmData.night
-                    self.dismiss(animated: true, completion: nil)
+                    self.transition(self, .pop)
                 } else {
                     print("🥰 알림시간 수정 서버 통신 실패로 화면전환 실패")
                 }
