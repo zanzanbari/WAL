@@ -54,6 +54,7 @@ final class MainContentView: UIView {
             contentLabel.text = content
             contentLabel.addLineSpacing(spacing: 28)
             contentLabel.textAlignment = .center
+            updateContentLabelLayout()
         }
     }
     
@@ -79,13 +80,16 @@ final class MainContentView: UIView {
     private func setupLayout() {
         addSubviews([bubbleImageView, imageView, contentLabel])
         
-        bubbleImageView.addSubview(bubbleLabel)
-        
         bubbleImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(1)
+            $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.width.equalTo(191.91)
             $0.height.equalTo(38.23)
+        }
+        
+        bubbleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(6.23)
+            $0.centerX.equalToSuperview()
         }
         
         imageView.snp.makeConstraints {
@@ -94,15 +98,36 @@ final class MainContentView: UIView {
             $0.width.height.equalTo(88)
         }
         
-        bubbleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(6.23)
-            $0.centerX.equalToSuperview()
-        }
-        
         contentLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(46)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(313)
+        }
+    }
+    
+    private func updateContentLabelLayout() {
+        let numberOfLines: Int = contentLabel.countCurrentLines()
+        
+        if numberOfLines == 1 {
+            contentLabel.snp.updateConstraints {
+                $0.top.equalTo(imageView.snp.bottom).offset(74)
+            }
+        } else if numberOfLines == 2 {
+            contentLabel.snp.updateConstraints {
+                $0.top.equalTo(imageView.snp.bottom).offset(60)
+            }
+        } else if numberOfLines == 3 {
+            contentLabel.snp.updateConstraints {
+                $0.top.equalTo(imageView.snp.bottom).offset(46)
+            }
+        } else if numberOfLines == 4 {
+            contentLabel.snp.updateConstraints {
+                $0.top.equalTo(imageView.snp.bottom).offset(32)
+            }
+        } else {
+            contentLabel.snp.updateConstraints {
+                $0.top.equalTo(imageView.snp.bottom).offset(18)
+            }
         }
     }
     

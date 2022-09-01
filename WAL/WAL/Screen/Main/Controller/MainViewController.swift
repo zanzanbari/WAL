@@ -231,12 +231,12 @@ final class MainViewController: UIViewController {
         walContentView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom).offset(UIScreen().hasNotch ? 93 : 43)
             $0.centerX.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(31)
-            $0.height.equalTo(264)
+            $0.leading.trailing.equalToSuperview().inset(21)
+            $0.height.equalTo(336)
         }
         
         shareButton.snp.makeConstraints {
-            $0.top.equalTo(walContentView.snp.bottom).offset(79)
+            $0.top.equalTo(walContentView.snp.bottom)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(97)
             $0.height.equalTo(40)
