@@ -50,9 +50,22 @@ class HistoryTableViewCell: UITableViewCell {
         $0.font = WALFont.body9.font
     }
     
+    var dDayView = UIView().then {
+        $0.backgroundColor = .mint100.withAlphaComponent(0.11)
+        $0.layer.cornerRadius = 10
+    }
+    
+    var dDayLabel = UILabel().then {
+        $0.text = "D-6"
+        //TODO: 나중에 슬랙으로 물어보고 폰트 바꾸세요
+        $0.font = WALFont.body8.font
+        $0.textColor = .mint100
+    }
+    
     private var sendingDateLabel = UILabel().then {
         $0.text = "보내는 날짜"
-        $0.font = WALFont.body8.font
+        $0.textColor = .gray200
+        $0.font = WALFont.body9.font
     }
     
     private var contentLabel = UILabel().then {
@@ -73,12 +86,6 @@ class HistoryTableViewCell: UITableViewCell {
         $0.axis = .vertical
         $0.alignment = .fill
         $0.distribution = .fill
-    }
-    
-    var sendingDateLabelColor: UIColor = .gray200 {
-        didSet {
-            sendingDateLabel.textColor = sendingDateLabelColor
-        }
     }
     
     var isExpanded: Bool = false {
@@ -122,7 +129,8 @@ class HistoryTableViewCell: UITableViewCell {
     
     private func setLayout() {
         contentView.addSubviews([backView, coverView, lineView])
-        historyStackView.addSubviews([sendingDateLabel, contentLabel, reserveAtLabel])
+        dDayView.addSubview(dDayLabel)
+        historyStackView.addSubviews([dDayView, sendingDateLabel, contentLabel, reserveAtLabel])
         backView.addSubviews([lineView, historyStackView])
         coverView.addSubviews([coverLineView, lockIconImageView, coverTitleLabel, coverSubtitleLabel])
         
@@ -168,9 +176,21 @@ class HistoryTableViewCell: UITableViewCell {
             $0.centerX.centerY.equalToSuperview()
         }
         
-        sendingDateLabel.snp.makeConstraints {
+        dDayView.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
-            $0.height.equalTo(17)
+            $0.height.equalTo(22)
+        }
+        
+        dDayLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(6)
+            $0.leading.equalToSuperview().inset(6)
+            $0.centerX.centerY.equalToSuperview()
+        }
+        
+        sendingDateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalTo(dDayView.snp.trailing).offset(7)
+            $0.centerY.equalTo(dDayView.snp.centerY)
         }
         
         contentLabel.snp.makeConstraints {

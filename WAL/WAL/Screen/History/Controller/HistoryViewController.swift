@@ -302,14 +302,12 @@ extension HistoryViewController: UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            cell.sendingDateLabelColor = .systemMint
             cell.setData(sendingData[indexPath.row])
             selectedIndices.append([-1,-1])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            cell.sendingDateLabelColor = .gray
             cell.setData(completeData[indexPath.row])
             selectedIndices.append([-1,-1])
             return cell
