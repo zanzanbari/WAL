@@ -62,7 +62,7 @@ class ResignHeaderView: UIView {
         addSubviews([cryingImageView, titleLabel, subtitleLabel, menuTitleLabel])
         
         cryingImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(35)
+            make.top.equalToSuperview().inset(33)
             make.centerX.equalToSuperview()
             make.width.equalTo(142)
             make.height.equalTo(127)
