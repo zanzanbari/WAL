@@ -211,10 +211,22 @@ class HistoryTableViewCell: UITableViewCell {
         self.historyStackView.layoutIfNeeded()
     }
     
+    func hideDdayView() {
+        dDayView.isHidden = true
+        dDayView.snp.makeConstraints {
+            $0.width.equalTo(0)
+        }
+        sendingDateLabel.snp.makeConstraints {
+            $0.leading.equalTo(dDayView.snp.trailing).offset(0)
+        }
+    }
+    
     internal func setData(_ data: HistoryData) {
         postId = data.postID
         
         isContentHidden = data.hidden ?? false
+        
+        //TODO: 디데이 계산해서 넣어주세요
         
         sendingDateLabel.text = "\(data.sendingDate)"
         
