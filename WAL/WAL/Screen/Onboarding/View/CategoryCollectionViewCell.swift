@@ -84,6 +84,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
         contentView.backgroundColor = .white100
         barWidth = (contentView.frame.width-61*2)/4
         [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
+            $0.categorySubLabel.addLetterSpacing()
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
@@ -165,7 +166,8 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     
     @objc func changeNickname(_ notification: Notification) {
         guard let nickname = notification.userInfo?["nickname"] as? String else { return }
-        titleLabel.text = nickname + "님이 받고싶은 \n 왈소리 유형은?"
+        titleLabel.text = nickname + "님이 받고싶은\n왈소리 유형은?"
+        titleLabel.addLetterSpacing()
     }
     
     @objc func touchupButton(sender: UIButton) {

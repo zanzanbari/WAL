@@ -94,7 +94,7 @@ final class EditNicknameViewController: BaseViewController {
                           warnLabel])
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -173,7 +173,6 @@ final class EditNicknameViewController: BaseViewController {
             self.sendNicknameDelegate?.sendNickname(userInfoData.nickname)
         }
         self.view.endEditing(true)
-        self.dismiss(animated: true)
     }
 }
 
