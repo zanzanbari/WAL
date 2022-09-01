@@ -95,10 +95,6 @@ final class MainViewController: UIViewController {
         $0.dateFormat = "HH"
     }
     
-    private var walArrivedImageList: [UIImage] = [WALIcon.imgWalBBongArrive1.image,
-                                                  WALIcon.imgWalBBongArrive2.image,
-                                                  WALIcon.imgWalBBongArrive3.image]
-    
     private var walStatus: WALStatus = .arrived {
         didSet {
             walImageView.image = walStatus.walImage
@@ -129,7 +125,6 @@ final class MainViewController: UIViewController {
                     $0.isHidden = false
                 }
                 
-                walImageView.image = walArrivedImageList.randomElement()
             } else {
                 [titleLabel, subTitleLabel, walImageView, contentLabel].forEach {
                     $0.isHidden = false
@@ -307,34 +302,6 @@ final class MainViewController: UIViewController {
     }
     
     @objc func touchupShareButton() {
-//        if let storyShareURL = URL(string: "instagram-stories://share") {
-//            if UIApplication.shared.canOpenURL(storyShareURL) {
-//                let renderer = UIGraphicsImageRenderer(size: walContentView.bounds.size)
-//
-//                let renderImage = renderer.image { _ in
-//                    walContentView.drawHierarchy(in: walContentView.bounds, afterScreenUpdates: true)
-//                }
-//
-//                guard let imageData = renderImage.pngData() else { return }
-//
-//                let pasteboardItems : [String:Any] = [
-//                    "com.instagram.sharedSticker.stickerImage": imageData,
-//                    "com.instagram.sharedSticker.backgroundTopColor" : "#ffffff",
-//                    "com.instagram.sharedSticker.backgroundBottomColor" : "#ffffff",
-//                ]
-//
-//                let pasteboardOptions = [
-//                    UIPasteboard.OptionsKey.expirationDate : Date().addingTimeInterval(300)
-//                ]
-//
-//                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
-//
-//                UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
-//            } else {
-//                print("인스타 앱이 깔려있지 않습니다.")
-//            }
-//        }
-        
         let imageToShare = walContentView.toImage()
 
         let activityItems : NSMutableArray = []
