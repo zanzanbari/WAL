@@ -174,7 +174,6 @@
 		5BB6616A28285B0200D54353 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5BB6616C28285B1300D54353 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		5BB80AB528A8394F0056E334 /* OnboardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardRequest.swift; sourceTree = "<group>"; };
-		5BB80AB728A839570056E334 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		5BC2DD032868DCCE00AFCC29 /* SettingCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCategoryViewController.swift; sourceTree = "<group>"; };
 		5BC2DD052868E04B00AFCC29 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		5BC2DD082868E71700AFCC29 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
@@ -283,14 +282,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		5B0985DF28A9565C00D8FDCC /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				5BB80AB728A839570056E334 /* Login.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		5B348A1B281E400E006FEFDA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,7 +355,6 @@
 				5BA3892F27F6B94F0010EAA1 /* Products */,
 				39F9685198E6E6F0F00BF62A /* Pods */,
 				4BBA73BC44D4E4FD58B9BC75 /* Frameworks */,
-				5B0985DF28A9565C00D8FDCC /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
