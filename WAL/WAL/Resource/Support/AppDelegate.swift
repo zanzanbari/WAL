@@ -30,7 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
-                completionHandler: { _, _ in }
+                completionHandler: { didAllow, Error in
+                    if didAllow { // 푸시알림 허용
+                        DispatchQueue.main.async {
+                            print("푸시알림 허용")
+                        }
+                    } else { // 푸시알림 비허용
+                        DispatchQueue.main.async {
+                            print("푸시알림 비허용")
+                        }
+                    }
+                }
             )
         } else {
             let settings: UIUserNotificationSettings =
@@ -90,6 +100,7 @@ extension AppDelegate: MessagingDelegate {
 
 @available(iOS 10, *)
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)

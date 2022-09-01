@@ -21,43 +21,43 @@ class ZanzanView: UIView {
     
     // MARK: - Properties
     
-    public var partType: PartType? {
+    var partType: PartType? {
         didSet {
             setupLayout(partType)
         }
     }
     
-    public var image: UIImage? {
+    var image: UIImage? {
         didSet {
             imageView.image = image
         }
     }
     
-    public var part: String? {
+    var part: String? {
         didSet {
             partLabel.text = part
         }
     }
     
-    public var firstName: String? {
+    var firstName: String? {
         didSet {
             firstNameLabel.text = firstName
         }
     }
     
-    public var secondName: String? {
+    var secondName: String? {
         didSet {
             secondNameLabel.text = secondName
         }
     }
     
-    public var thirdName: String? {
+    var thirdName: String? {
         didSet {
             thirdNameLabel.text = thirdName
         }
     }
     
-    public var fourthName: String? {
+    var fourthName: String? {
         didSet {
             fourthNameLabel.text = fourthName
         }

@@ -24,6 +24,16 @@
 			</array>
 		</dict>
 	</array>
+	<key>LSApplicationQueriesShcemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>instagram-stories</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Cafe24Ssurround.ttf</string>

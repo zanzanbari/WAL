@@ -15,13 +15,13 @@ class SettingAlarmCollectionViewCell: UICollectionViewCell {
     
     private var timeData = TimeData()
     
-    public override var isSelected: Bool {
+    override var isSelected: Bool {
         didSet {
             configUI()
         }
     }
         
-    public lazy var timeView = UIView().then {
+    lazy var timeView = UIView().then {
         $0.layer.cornerRadius = 10
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.gray400.cgColor
@@ -29,9 +29,9 @@ class SettingAlarmCollectionViewCell: UICollectionViewCell {
         $0.addSubviews([timeImageView, titleLabel])
     }
     
-    public let timeImageView = UIImageView()
+    let timeImageView = UIImageView()
     
-    public let titleLabel = UILabel().then {
+    let titleLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
         $0.textAlignment = .center
@@ -78,7 +78,7 @@ class SettingAlarmCollectionViewCell: UICollectionViewCell {
     
     // MARK: - setupData
     
-    public func setupData(index: Int) {
+    func setupData(index: Int) {
         titleLabel.text = timeData.getTimeLabel(index: index)
         timeImageView.image = timeData.getTimeImage(index: index)
     }

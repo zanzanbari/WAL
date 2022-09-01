@@ -197,7 +197,7 @@ extension LoginViewController {
                                         // MARK: - TODO 리프레시토큰도 만료 -> 로그아웃
                                         if reissueData?.status == 401 {
                                             AuthAPI.shared.getLogout { (data, nil) in
-                                                guard let data = data else { return }
+                                                guard data != nil else { return }
                                                 
                                             }
                                         }
@@ -228,6 +228,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         if let identityToken = appleIDCredential.identityToken {
             let tokenString = String(data: identityToken, encoding: .utf8)
             guard let tokenString = tokenString else { return }
+            var email = appleIDCredential.email ?? ""
+            
             AuthAPI.shared.postSocialLogin(social: "apple",
                                            socialToken: tokenString,
                                            fcmToken: nil) { (appleData, err) in

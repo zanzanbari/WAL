@@ -13,7 +13,7 @@ import WALKit
 final class OnboardingViewController: UIViewController {
     
     // MARK: - Properties
-    
+            
     private var currentRow: Int = 0
     private var didCurrentRow: Int = 0
     
@@ -25,7 +25,7 @@ final class OnboardingViewController: UIViewController {
     private var morning = false
     private var afternoon = false
     private var night = false
-        
+                
     private let navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
@@ -59,6 +59,7 @@ final class OnboardingViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
+        setupNotificationCenter()
         hideKeyboardWhenTappedAround()
     }
     
@@ -70,6 +71,7 @@ final class OnboardingViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white100
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupLayout() {
@@ -111,6 +113,16 @@ final class OnboardingViewController: UIViewController {
             forCellWithReuseIdentifier: AlarmCollectionViewCell.identifier)
     }
     
+    // MARK: - Custom Method
+    
+    func setupNotificationCenter() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(changeNickname(_:)),
+            name: .changeNickname,
+            object: nil)
+    }
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -122,17 +134,21 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func scrollToSecond() {
-        collectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .left, animated: true)
+        collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .left, animated: true)
     }
     
     @objc func scrollToThird() {
         collectionView.scrollToItem(at: IndexPath(row: 2, section: 0), at: .left, animated: true)
     }
     
+    @objc func changeNickname(_ notification: Notification) {
+        guard let nickname = notification.userInfo?["nickname"] as? String else { return }
+        UserDefaults.standard.set(nickname, forKey: Constant.Key.nickname)
+    }
+    
     @objc func touchupCompleteButton(_ sender: UIButton) {
         let categoryType = CategoryType(self.joke, self.compliment, self.condolence, self.scolding)
         let alarmTime = AlarmTime(self.morning, self.afternoon, self.night)
-        
         guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname) else { return }
         OnboardAPI.shared.postOnboardSetting(nickname: nickname,
                                              category: categoryType,
@@ -141,6 +157,8 @@ final class OnboardingViewController: UIViewController {
             if onboardData.status < 400 {
                 print("☘️--------온보딩 서버 통신 완료", onboardData)
                 let viewController = OnboardCompleteViewController()
+                // 버튼 누른 경우 온보딩 설정 완료! -> 앞으로 앱 실행 시에 자동로그인 + 메인으로 화면 전환
+                UserDefaults.standard.set(true, forKey: Constant.Key.complete)
                 self.navigationController?.pushViewController(viewController, animated: true)
             } else {
                 print("☘️--------온보딩 서버 통신 실패로 인해 화면 전환 실패")

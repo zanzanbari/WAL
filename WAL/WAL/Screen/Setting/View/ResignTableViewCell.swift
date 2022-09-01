@@ -16,9 +16,9 @@ class ResignTableViewCell: UITableViewCell {
     
     private var setting = SettingData()
 
-    public let checkButton = UIButton()
+    let checkButton = UIButton()
     
-    public let menuLabel = UILabel().then {
+    let menuLabel = UILabel().then {
         $0.font = WALFont.body8.font
         $0.textColor = .black100
     }
@@ -69,7 +69,7 @@ class ResignTableViewCell: UITableViewCell {
     
     // MARK: - Custom Method
 
-    public func setupData(index: Int) {
+    func setupData(index: Int) {
         menuLabel.text = setting.getResignMenuLabel(setting.resignRowData, index)
     }
 }

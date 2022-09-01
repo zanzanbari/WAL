@@ -47,6 +47,16 @@ final class LogoutPopupViewController: UIViewController {
         }
     }
     
+    // MARK: - Custom Method
+    
+    func pushToLoginView() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let viewController = LoginViewController()
+        sceneDelegate?.window?.rootViewController = viewController
+        sceneDelegate?.window?.makeKeyAndVisible()
+    }
+    
     // MARK: - @objc
     
     @objc func touchupCancelButton() {
@@ -58,11 +68,7 @@ final class LogoutPopupViewController: UIViewController {
             guard let logoutData = logoutData else { return }
             if logoutData.status < 400 {
                 print("☘️--------로그아웃 서버 통신 : ", logoutData)
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                let sceneDelegate = windowScene?.delegate as? SceneDelegate
-                let viewController = UINavigationController(rootViewController: LoginViewController())
-                sceneDelegate?.window?.rootViewController = viewController
-                sceneDelegate?.window?.makeKeyAndVisible()
+                self.pushToLoginView()
             } else {
                 print("☘️--------로그아웃 서버 통신 실패로 화면 전환 실패")
             }
