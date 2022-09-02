@@ -53,7 +53,7 @@ final class HistoryCompleteHeaderView: UIView {
     private var informationTitleLabel = UILabel().then {
         $0.text = "박스를 옆으로 밀어 재전송 할 수 있어요"
         $0.textColor = .white
-        $0.font = WALFont.body9.font
+        $0.font = WALFont.body10.font
         $0.addLetterSpacing()
     }
     
