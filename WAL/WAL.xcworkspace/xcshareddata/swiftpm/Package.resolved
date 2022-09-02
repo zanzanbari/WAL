@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "SnapKit",
-        "repositoryURL": "https://github.com/SnapKit/SnapKit",
-        "state": {
-          "branch": null,
-          "revision": "f222cbdf325885926566172f6f5f06af95473158",
-          "version": "5.6.0"
-        }
-      },
-      {
-        "package": "WALKit",
-        "repositoryURL": "https://github.com/zanzanbari/WALKit.git",
-        "state": {
-          "branch": "develop",
-          "revision": "8520711a5442393caf75b78eefe2ee58740ce47e",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "walkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zanzanbari/WALKit.git",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "2e5c56fce0c18a0f223872805c17e0c4bc8bc0a9"
+      }
+    }
+  ],
+  "version" : 2
 }
