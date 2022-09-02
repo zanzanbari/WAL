@@ -57,7 +57,6 @@ class HistoryTableViewCell: UITableViewCell {
     
     var dDayLabel = UILabel().then {
         $0.text = "D-6"
-        //TODO: 나중에 슬랙으로 물어보고 폰트 바꾸세요
         $0.font = WALFont.body8.font
         $0.textColor = .mint100
     }
@@ -71,8 +70,6 @@ class HistoryTableViewCell: UITableViewCell {
     private var contentLabel = UILabel().then {
         $0.textColor = .black
         $0.font = WALFont.body7.font
-        $0.numberOfLines = 0
-        $0.lineBreakMode = .byTruncatingTail
     }
     
     var reserveAtLabel = UILabel().then {
@@ -86,6 +83,13 @@ class HistoryTableViewCell: UITableViewCell {
         $0.axis = .vertical
         $0.alignment = .fill
         $0.distribution = .fill
+    }
+    
+    private lazy var dateStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.alignment = .fill
+        $0.distribution = .fillEqually
+//        $0.backgroundColor = .blue
     }
     
     var isExpanded: Bool = false {
@@ -129,8 +133,11 @@ class HistoryTableViewCell: UITableViewCell {
     
     private func setLayout() {
         contentView.addSubviews([backView, coverView, lineView])
-        dDayView.addSubview(dDayLabel)
-        historyStackView.addSubviews([dDayView, sendingDateLabel, contentLabel, reserveAtLabel])
+        historyStackView.addSubviews([dateStackView, contentLabel, reserveAtLabel])
+        dateStackView.addSubviews([dDayView, sendingDateLabel])
+//        dateStackView.addSubviews([sendingDateLabel])
+
+//        dDayView.addSubview(dDayLabel)
         backView.addSubviews([lineView, historyStackView])
         coverView.addSubviews([coverLineView, lockIconImageView, coverTitleLabel, coverSubtitleLabel])
         
@@ -176,25 +183,29 @@ class HistoryTableViewCell: UITableViewCell {
             $0.centerX.centerY.equalToSuperview()
         }
         
+        dateStackView.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+        
         dDayView.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
-            $0.height.equalTo(22)
+            $0.centerY.equalToSuperview()
+            $0.width.height.equalTo(22)
         }
-        
-        dDayLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(6)
-            $0.leading.equalToSuperview().inset(6)
-            $0.centerX.centerY.equalToSuperview()
-        }
+//
+//        dDayLabel.snp.makeConstraints {
+//            $0.top.leading.equalToSuperview().inset(6)
+//            $0.centerX.centerY.equalToSuperview()
+//        }
         
         sendingDateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
             $0.leading.equalTo(dDayView.snp.trailing).offset(7)
-            $0.centerY.equalTo(dDayView.snp.centerY)
+            $0.centerY.equalToSuperview()
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(sendingDateLabel.snp.bottom).offset(15)
+            $0.top.equalTo(dateStackView.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(42).priority(250)
         }
@@ -207,18 +218,17 @@ class HistoryTableViewCell: UITableViewCell {
     
     // MARK: - Custom Method
     
+    override func prepareForReuse() {
+        dDayView.isHidden = false
+    }
+    
     func update() {
-        self.historyStackView.layoutIfNeeded()
+        contentLabel.numberOfLines = 0
+        historyStackView.layoutIfNeeded()
     }
     
     func hideDdayView() {
         dDayView.isHidden = true
-        dDayView.snp.makeConstraints {
-            $0.width.equalTo(0)
-        }
-        sendingDateLabel.snp.makeConstraints {
-            $0.leading.equalTo(dDayView.snp.trailing).offset(0)
-        }
     }
     
     internal func setData(_ data: HistoryData) {
@@ -238,6 +248,9 @@ class HistoryTableViewCell: UITableViewCell {
             $0.addLetterSpacing()
             $0.textAlignment = .left
         }
+        
+        contentLabel.numberOfLines = 1
+        contentLabel.lineBreakMode = .byTruncatingTail
         
         coverView.isHidden = data.hidden ?? false ? false : true
     }
