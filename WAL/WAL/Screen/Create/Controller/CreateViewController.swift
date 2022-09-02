@@ -464,5 +464,14 @@ extension CreateViewController: ResendWalDelegate {
     func resendToCreate(_ vc: UIViewController, walsound: String) {
         walSoundTextView.text = walsound
         (walsound.count == 0) ? (placeholderLabel.isHidden = false) : (placeholderLabel.isHidden = true)
+        countLabel.text = "\(walSoundTextView.text.count)"
+        
+        countLabel.textColor = walSoundTextView.text.count >= 100 ? .orange100 : .gray200
+        
+        if walSoundTextView.text.count > 100 {
+            walSoundTextView.deleteBackward()
+        }
+        
+        setSendButton()
     }
 }
