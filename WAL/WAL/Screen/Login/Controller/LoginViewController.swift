@@ -71,7 +71,7 @@ final class LoginViewController: UIViewController {
         }
         
         appleButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(80)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(46)
             make.leading.trailing.equalToSuperview().inset(20)
         }
     }

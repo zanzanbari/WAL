@@ -101,7 +101,7 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
         }
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -151,20 +151,16 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
         switch sender {
         case navigationBar.leftBarButton:
             sendNicknameDelegate?.sendNickname(nickname)
-            self.dismiss(animated: true, completion: nil)
-            
+            transition(self, .pop)
         case nicknameButton:
             let viewController = EditNicknameViewController()
             viewController.modalPresentationStyle = .overFullScreen
             viewController.nickname = nickname
             viewController.sendNicknameDelegate = self
-            self.present(viewController, animated: false, completion: nil)
-            
+            present(viewController, animated: false)
         case resignButton:
             let viewController = ResignViewController()
-            viewController.modalPresentationStyle = .overFullScreen
-            present(viewController, animated: true, completion: nil)
-            
+            transition(viewController)
         default:
             let popupViewController = LogoutPopupViewController()
             popupViewController.modalPresentationStyle = .overFullScreen
