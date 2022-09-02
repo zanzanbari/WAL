@@ -89,7 +89,6 @@ class HistoryTableViewCell: UITableViewCell {
         $0.axis = .horizontal
         $0.alignment = .fill
         $0.distribution = .fillEqually
-//        $0.backgroundColor = .blue
     }
     
     var isExpanded: Bool = false {
@@ -135,9 +134,8 @@ class HistoryTableViewCell: UITableViewCell {
         contentView.addSubviews([backView, coverView, lineView])
         historyStackView.addSubviews([dateStackView, contentLabel, reserveAtLabel])
         dateStackView.addSubviews([dDayView, sendingDateLabel])
-//        dateStackView.addSubviews([sendingDateLabel])
 
-//        dDayView.addSubview(dDayLabel)
+        dDayView.addSubview(dDayLabel)
         backView.addSubviews([lineView, historyStackView])
         coverView.addSubviews([coverLineView, lockIconImageView, coverTitleLabel, coverSubtitleLabel])
         
@@ -191,13 +189,13 @@ class HistoryTableViewCell: UITableViewCell {
         dDayView.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(22)
+            $0.height.equalTo(22)
         }
-//
-//        dDayLabel.snp.makeConstraints {
-//            $0.top.leading.equalToSuperview().inset(6)
-//            $0.centerX.centerY.equalToSuperview()
-//        }
+
+        dDayLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().inset(6)
+            $0.centerX.centerY.equalToSuperview()
+        }
         
         sendingDateLabel.snp.makeConstraints {
             $0.leading.equalTo(dDayView.snp.trailing).offset(7)
@@ -229,6 +227,7 @@ class HistoryTableViewCell: UITableViewCell {
     
     func hideDdayView() {
         dDayView.isHidden = true
+        // TODO: 완료에서 hidden 처리 하면 보이는 공간 없애기
     }
     
     internal func setData(_ data: HistoryData) {
