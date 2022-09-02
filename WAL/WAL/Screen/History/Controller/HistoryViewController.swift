@@ -35,6 +35,8 @@ final class HistoryViewController: UIViewController {
     var selectedIndex: IndexPath = []
     var selectedIndices: [IndexPath] = []
     
+    var delegate: ResendWalDelegate?
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -227,7 +229,8 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-//            dismiss(animated: true)
+            self.delegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
+            self.presentingViewController?.dismiss(animated: true)
             success(true)
         }
         resendAction.backgroundColor = .mint100

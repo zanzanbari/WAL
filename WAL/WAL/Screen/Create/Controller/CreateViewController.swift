@@ -276,6 +276,7 @@ class CreateViewController: UIViewController {
     
     @objc private func touchUpHistoryButton() {
         let historyViewController = HistoryViewController()
+        historyViewController.delegate = self
         historyViewController.modalPresentationStyle = .overFullScreen
         present(historyViewController, animated: true)
     }
@@ -455,5 +456,13 @@ extension CreateViewController {
             guard let data = data else { return }
             print(data)
         }
+    }
+}
+
+//MARK: - Protocol
+extension CreateViewController: ResendWalDelegate {
+    func resendToCreate(_ vc: UIViewController, walsound: String) {
+        walSoundTextView.text = walsound
+        (walsound.count == 0) ? (placeholderLabel.isHidden = false) : (placeholderLabel.isHidden = true)
     }
 }
