@@ -276,7 +276,8 @@ class CreateViewController: UIViewController {
     
     @objc private func touchUpHistoryButton() {
         let historyViewController = HistoryViewController()
-        navigationController?.pushViewController(historyViewController, animated: true)
+        historyViewController.modalPresentationStyle = .overFullScreen
+        present(historyViewController, animated: true)
     }
     
     //MARK: - CustomMethod
