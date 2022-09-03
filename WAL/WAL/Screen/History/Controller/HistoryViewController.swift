@@ -35,6 +35,8 @@ final class HistoryViewController: UIViewController {
     var selectedIndex: IndexPath = []
     var selectedIndices: [IndexPath] = []
     
+    var delegate: ResendWalDelegate?
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -178,10 +180,12 @@ extension HistoryViewController: UITableViewDelegate {
         switch section {
         case 0:
             reserveHeader.title = "보내는 중"
+            reserveHeader.countLabel.text = String(sendingData.count)
             return reserveHeader
         case 1:
             completeHeader.delegate = self
             completeHeader.title = "완료"
+            completeHeader.countLabel.text = String(completeData.count)
             return completeHeader
         default:
             return UIView()
@@ -225,7 +229,8 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-//            dismiss(animated: true)
+            self.delegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
+            self.presentingViewController?.dismiss(animated: true)
             success(true)
         }
         resendAction.backgroundColor = .mint100
@@ -300,14 +305,13 @@ extension HistoryViewController: UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            cell.sendingDateLabelColor = .systemMint
             cell.setData(sendingData[indexPath.row])
             selectedIndices.append([-1,-1])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            cell.sendingDateLabelColor = .gray
+            cell.hideDdayView()
             cell.setData(completeData[indexPath.row])
             selectedIndices.append([-1,-1])
             return cell
