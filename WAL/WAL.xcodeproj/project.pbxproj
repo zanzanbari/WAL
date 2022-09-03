@@ -30,7 +30,6 @@
 		5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
-		5B972BF928C129CB001AAD7B /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 5B972BF828C129CB001AAD7B /* Gifu */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
@@ -81,10 +80,8 @@
 		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */; };
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
-		5BD7114728C17EF6000866C9 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5BD7114628C17EF6000866C9 /* login500.gif */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
-		5BF3D56528C36A0E009663EA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF3D56428C36A0E009663EA /* WALKit */; };
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
@@ -103,6 +100,9 @@
 		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
+		92D87F7C28C37D58009AAFE5 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 92D87F7B28C37D58009AAFE5 /* Gifu */; };
+		92D87F7F28C37D87009AAFE5 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 92D87F7E28C37D87009AAFE5 /* WALKit */; };
+		92D87F8128C37EED009AAFE5 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92D87F8028C37EED009AAFE5 /* login500.gif */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
 		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
@@ -195,7 +195,6 @@
 		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanbariViewController.swift; sourceTree = "<group>"; };
 		5BD35863289D482E0066C804 /* ZanzanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanView.swift; sourceTree = "<group>"; };
-		5BD7114628C17EF6000866C9 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = login500.gif; path = ../../../../../Downloads/login500.gif; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BECCA8E286A43B800DD70A3 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		5BFC216028B920F100E4F65A /* Transition+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+.swift"; sourceTree = "<group>"; };
@@ -217,6 +216,7 @@
 		929756A8285A4C4600A9FFA8 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		92C1B84C28633FB500F97D75 /* mintPaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mintPaw.json; sourceTree = "<group>"; };
 		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
+		92D87F8028C37EED009AAFE5 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login500.gif; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -242,9 +242,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BF3D56528C36A0E009663EA /* WALKit in Frameworks */,
+				92D87F7F28C37D87009AAFE5 /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
-				5B972BF928C129CB001AAD7B /* Gifu in Frameworks */,
+				92D87F7C28C37D58009AAFE5 /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,9 +405,9 @@
 		5BA3894727F6C0410010EAA1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				92D87F8228C38030009AAFE5 /* Lottie */,
 				E29B141A281E7A39005275B2 /* Font */,
 				5BA3895127F6C1570010EAA1 /* Asset */,
-				5BA3894F27F6C14B0010EAA1 /* Lottie */,
 				5BA3894D27F6C0D30010EAA1 /* Storyboard */,
 				5BA3895227F6C1B10010EAA1 /* Support */,
 			);
@@ -497,17 +497,6 @@
 				5BA3895B27F6C23B0010EAA1 /* Protocol.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		5BA3894F27F6C14B0010EAA1 /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-				92C1B84C28633FB500F97D75 /* mintPaw.json */,
-				92C1B84D28633FB500F97D75 /* orangePaw.json */,
-				5BC58097289D332C0095F8E4 /* login.json */,
-				5BD7114628C17EF6000866C9 /* login500.gif */,
-			);
-			name = Lottie;
 			sourceTree = "<group>";
 		};
 		5BA3895127F6C1570010EAA1 /* Asset */ = {
@@ -791,6 +780,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		92D87F8228C38030009AAFE5 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				92D87F8028C37EED009AAFE5 /* login500.gif */,
+				92C1B84C28633FB500F97D75 /* mintPaw.json */,
+				92C1B84D28633FB500F97D75 /* orangePaw.json */,
+				5BC58097289D332C0095F8E4 /* login.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		E29B141A281E7A39005275B2 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -885,8 +885,8 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B972BF828C129CB001AAD7B /* Gifu */,
-				5BF3D56428C36A0E009663EA /* WALKit */,
+				92D87F7B28C37D58009AAFE5 /* Gifu */,
+				92D87F7E28C37D87009AAFE5 /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -917,8 +917,8 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */,
-				5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */,
+				92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */,
+				92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -941,13 +941,13 @@
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */,
+				92D87F8128C37EED009AAFE5 /* login500.gif in Resources */,
 				5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
 				5BC58098289D332C0095F8E4 /* login.json in Resources */,
 				5BC58094289D2CEF0095F8E4 /* Launch Screen.storyboard in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
-				5BD7114728C17EF6000866C9 /* login500.gif in Resources */,
 				5BC5809C289D3C120095F8E4 /* Cafe24Ssurround.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1331,7 +1331,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */ = {
+		92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kaishin/Gifu.git";
 			requirement = {
@@ -1339,7 +1339,7 @@
 				version = 3.3.1;
 			};
 		};
-		5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1350,14 +1350,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B972BF828C129CB001AAD7B /* Gifu */ = {
+		92D87F7B28C37D58009AAFE5 /* Gifu */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */;
+			package = 92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */;
 			productName = Gifu;
 		};
-		5BF3D56428C36A0E009663EA /* WALKit */ = {
+		92D87F7E28C37D87009AAFE5 /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
