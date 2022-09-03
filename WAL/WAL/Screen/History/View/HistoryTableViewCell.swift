@@ -50,16 +50,26 @@ class HistoryTableViewCell: UITableViewCell {
         $0.font = WALFont.body9.font
     }
     
+    var dDayView = UIView().then {
+        $0.backgroundColor = .mint100.withAlphaComponent(0.11)
+        $0.layer.cornerRadius = 10
+    }
+    
+    var dDayLabel = UILabel().then {
+        $0.text = "D-6"
+        $0.font = WALFont.body8.font
+        $0.textColor = .mint100
+    }
+    
     private var sendingDateLabel = UILabel().then {
         $0.text = "보내는 날짜"
-        $0.font = WALFont.body8.font
+        $0.textColor = .gray200
+        $0.font = WALFont.body9.font
     }
     
     private var contentLabel = UILabel().then {
         $0.textColor = .black
         $0.font = WALFont.body7.font
-        $0.numberOfLines = 0
-        $0.lineBreakMode = .byTruncatingTail
     }
     
     var reserveAtLabel = UILabel().then {
@@ -75,10 +85,10 @@ class HistoryTableViewCell: UITableViewCell {
         $0.distribution = .fill
     }
     
-    var sendingDateLabelColor: UIColor = .gray200 {
-        didSet {
-            sendingDateLabel.textColor = sendingDateLabelColor
-        }
+    private lazy var dateStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.alignment = .fill
+        $0.distribution = .fillEqually
     }
     
     var isExpanded: Bool = false {
@@ -122,7 +132,10 @@ class HistoryTableViewCell: UITableViewCell {
     
     private func setLayout() {
         contentView.addSubviews([backView, coverView, lineView])
-        historyStackView.addSubviews([sendingDateLabel, contentLabel, reserveAtLabel])
+        historyStackView.addSubviews([dateStackView, contentLabel, reserveAtLabel])
+        dateStackView.addSubviews([dDayView, sendingDateLabel])
+
+        dDayView.addSubview(dDayLabel)
         backView.addSubviews([lineView, historyStackView])
         coverView.addSubviews([coverLineView, lockIconImageView, coverTitleLabel, coverSubtitleLabel])
         
@@ -148,7 +161,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         lockIconImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(40)
-            $0.leading.equalToSuperview().inset(139)
+            $0.leading.equalToSuperview().inset(137)
             $0.width.height.equalTo(22)
         }
         
@@ -158,7 +171,7 @@ class HistoryTableViewCell: UITableViewCell {
         }
         
         coverSubtitleLabel.snp.makeConstraints {
-            $0.top.equalTo(coverTitleLabel.snp.bottom).offset(3)
+            $0.top.equalTo(coverTitleLabel.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
         }
         
@@ -168,12 +181,29 @@ class HistoryTableViewCell: UITableViewCell {
             $0.centerX.centerY.equalToSuperview()
         }
         
-        sendingDateLabel.snp.makeConstraints {
+        dateStackView.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+        
+        dDayView.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(22)
+        }
+
+        dDayLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().inset(6)
+            $0.centerX.centerY.equalToSuperview()
+        }
+        
+        sendingDateLabel.snp.makeConstraints {
+            $0.leading.equalTo(dDayView.snp.trailing).offset(7)
+            $0.centerY.equalToSuperview()
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(sendingDateLabel.snp.bottom).offset(15)
+            $0.top.equalTo(dateStackView.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(42).priority(250)
         }
@@ -186,14 +216,26 @@ class HistoryTableViewCell: UITableViewCell {
     
     // MARK: - Custom Method
     
+    override func prepareForReuse() {
+        dDayView.isHidden = false
+    }
+    
     func update() {
-        self.historyStackView.layoutIfNeeded()
+        contentLabel.numberOfLines = 0
+        historyStackView.layoutIfNeeded()
+    }
+    
+    func hideDdayView() {
+        dDayView.isHidden = true
+        // TODO: 완료에서 hidden 처리 하면 보이는 공간 없애기
     }
     
     internal func setData(_ data: HistoryData) {
         postId = data.postID
         
         isContentHidden = data.hidden ?? false
+        
+        //TODO: 디데이 계산해서 넣어주세요
         
         sendingDateLabel.text = "\(data.sendingDate)"
         
@@ -205,6 +247,9 @@ class HistoryTableViewCell: UITableViewCell {
             $0.addLetterSpacing()
             $0.textAlignment = .left
         }
+        
+        contentLabel.numberOfLines = 1
+        contentLabel.lineBreakMode = .byTruncatingTail
         
         coverView.isHidden = data.hidden ?? false ? false : true
     }

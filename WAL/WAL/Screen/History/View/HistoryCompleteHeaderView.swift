@@ -30,6 +30,11 @@ final class HistoryCompleteHeaderView: UIView {
         }
     }
     
+    var countLabel = UILabel().then {
+        $0.textColor = .black
+        $0.font = WALFont.body5.font
+    }
+    
     private var divideView = UIView().then {
         $0.backgroundColor = .gray600
     }
@@ -48,7 +53,7 @@ final class HistoryCompleteHeaderView: UIView {
     private var informationTitleLabel = UILabel().then {
         $0.text = "박스를 옆으로 밀어 재전송 할 수 있어요"
         $0.textColor = .white
-        $0.font = WALFont.body9.font
+        $0.font = WALFont.body10.font
         $0.addLetterSpacing()
     }
     
@@ -79,7 +84,7 @@ final class HistoryCompleteHeaderView: UIView {
     }
     
     private func setupLayout() {
-        addSubviews([titleLabel, bubbleImageView, divideView, informationButton])
+        addSubviews([titleLabel, countLabel, bubbleImageView, divideView, informationButton])
         bubbleImageView.addSubview(informationTitleLabel)
         
         divideView.snp.makeConstraints {
@@ -88,13 +93,18 @@ final class HistoryCompleteHeaderView: UIView {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(divideView.snp.bottom).offset(27)
+            $0.top.equalTo(divideView.snp.bottom).offset(30)
             $0.leading.equalToSuperview().inset(20)
+        }
+        
+        countLabel.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(4)
         }
         
         informationButton.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel.snp.centerY)
-            $0.leading.equalToSuperview().inset(45)
+            $0.leading.equalTo(countLabel.snp.trailing)
             $0.width.height.equalTo(30)
         }
         

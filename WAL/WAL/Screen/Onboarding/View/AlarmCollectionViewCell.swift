@@ -20,7 +20,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     private let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
-        $0.text = "언제 알림이 \n 울리길 원하나요?"
+        $0.text = "언제 알림이\n울리길 원하나요?"
         $0.textAlignment = .center
         $0.numberOfLines = 2
     }
@@ -63,6 +63,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     private func configUI() {
         contentView.backgroundColor = .white100
+        titleLabel.addLetterSpacing()
         [moringButtoon, afternoonButton, nightButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }

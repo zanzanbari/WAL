@@ -41,3 +41,7 @@ protocol SendCategoryDelegate: OnboardingViewController {
 protocol SendAlarmTimeDelegate: OnboardingViewController {
     func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool)
 }
+
+protocol ResendWalDelegate {
+    func resendToCreate(_ vc: UIViewController, walsound: String)
+}

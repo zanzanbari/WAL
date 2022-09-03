@@ -38,7 +38,7 @@ final class ZanzanbariViewController: UIViewController {
     }
     
     private let lineView = UIView().then {
-        $0.backgroundColor = .gray400
+        $0.backgroundColor = .gray500
     }
     
     private let designView = ZanzanView().then {
@@ -111,11 +111,11 @@ final class ZanzanbariViewController: UIViewController {
         statusBarView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(47)
+            make.bottom.equalTo(navigationBar.snp.top)
         }
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -171,13 +171,12 @@ final class ZanzanbariViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        self.dismiss(animated: true, completion: nil)
+        transition(self, .pop)
     }
     
     @objc func touchupSendOpinionButton() {
         guard let url = NSURL(string: Constant.URL.walURL) else { return }
         let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
-        safariView.modalPresentationStyle = .overFullScreen
-        self.present(safariView, animated: true)
+        transition(safariView, .present)
     }
 }
