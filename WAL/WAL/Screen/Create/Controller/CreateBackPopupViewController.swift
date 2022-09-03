@@ -53,6 +53,8 @@ class CreateBackPopupViewController: UIViewController {
     
     @objc func touchUpOkButton() {
         guard let createViewController = presentingViewController as? UINavigationController else { return }
+        createViewController.modalTransitionStyle = .crossDissolve
+        modalTransitionStyle = .crossDissolve
         
         dismiss(animated: true) {
             createViewController.popViewController(animated: true)

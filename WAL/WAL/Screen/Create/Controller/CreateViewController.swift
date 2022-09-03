@@ -86,8 +86,10 @@ class CreateViewController: UIViewController {
     
     private lazy var reservationTableView = UITableView(frame: .zero, style: .insetGrouped).then {
         $0.backgroundColor = .white100
+        $0.separatorColor = .gray500
         $0.isScrollEnabled = false
         $0.makeRound(radius: 10)
+        $0.separatorInset = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
         $0.rowHeight = UITableView.automaticDimension
         $0.tableHeaderView = UIView(frame: CGRect(x: 0,
                                                   y: 0,
@@ -191,7 +193,7 @@ class CreateViewController: UIViewController {
         }
         
         walSoundLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(33)
+            $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
         }
         
@@ -216,12 +218,12 @@ class CreateViewController: UIViewController {
         }
         
         hideHistoryButton.snp.makeConstraints {
-            $0.top.equalTo(walSoundTextView.snp.bottom)
+            $0.top.equalTo(walSoundTextView.snp.bottom).offset(-4)
             $0.leading.equalToSuperview()
         }
         
         reservationTableView.snp.makeConstraints {
-            $0.top.equalTo(hideHistoryButton.snp.bottom).offset(14)
+            $0.top.equalTo(hideHistoryButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(0)
             $0.bottom.equalToSuperview()
         }
@@ -269,9 +271,13 @@ class CreateViewController: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
-        let popupViewController = CreateBackPopupViewController()
-        popupViewController.modalPresentationStyle = .overFullScreen
-        present(popupViewController, animated: false)
+        if walSoundTextView.text.count > 0 || datePickerData.date != nil || datePickerData.time != nil {
+            let popupViewController = CreateBackPopupViewController()
+            popupViewController.modalPresentationStyle = .overFullScreen
+            present(popupViewController, animated: false)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc private func touchUpHistoryButton() {

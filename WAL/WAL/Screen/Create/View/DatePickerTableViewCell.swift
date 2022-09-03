@@ -100,9 +100,7 @@ class DatePickerTableViewCell: UITableViewCell {
         var selectedDate = datePicker.date
         
         if datePickerType == .date, reservedDates.contains(dateFormatter.string(from: selectedDate)) {
-            while reservedDates.contains(dateFormatter.string(from: selectedDate)) {
-                selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? Date()
-            }
+            selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
             sendDate?(selectedDate, true)
         } else {
             sendDate?(selectedDate, false)
