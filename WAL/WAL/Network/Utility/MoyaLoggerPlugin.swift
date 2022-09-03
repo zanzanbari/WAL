@@ -64,7 +64,7 @@ final class MoyaLoggerPlugin: PluginType {
                 }
                 // MARK: - TODO 401이면 액세스토큰 만료 -> 토큰 재발급해주자!
                 guard let reissueData = reissueData?.data else { return }
-                print("🥳 액세스토큰 만료~", reissueData.accesstoken)
+                print("🥳 액세스토큰 만료~", reissueData)
                 UserDefaults.standard.set(reissueData.accesstoken, forKey: GeneralAPI.accessToken)
             }
         } else {

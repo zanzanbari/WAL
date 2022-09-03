@@ -28,7 +28,6 @@
 		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
 		5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */; };
-		5B77949F28B5C05000E62ACD /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B77949E28B5C05000E62ACD /* WALKit */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
 		5B972BF928C129CB001AAD7B /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 5B972BF828C129CB001AAD7B /* Gifu */; };
@@ -85,6 +84,7 @@
 		5BD7114728C17EF6000866C9 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5BD7114628C17EF6000866C9 /* login500.gif */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
+		5BF3D56528C36A0E009663EA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF3D56428C36A0E009663EA /* WALKit */; };
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
@@ -242,7 +242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B77949F28B5C05000E62ACD /* WALKit in Frameworks */,
+				5BF3D56528C36A0E009663EA /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 				5B972BF928C129CB001AAD7B /* Gifu in Frameworks */,
 			);
@@ -877,7 +877,7 @@
 				5BA3892A27F6B94F0010EAA1 /* Sources */,
 				5BA3892B27F6B94F0010EAA1 /* Frameworks */,
 				5BA3892C27F6B94F0010EAA1 /* Resources */,
-				277A8E9181A244FE3559A10A /* [CP] Embed Pods Frameworks */,
+				C50A00F4B1AB7F1F5C4C7E54 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -885,8 +885,8 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B77949E28B5C05000E62ACD /* WALKit */,
 				5B972BF828C129CB001AAD7B /* Gifu */,
+				5BF3D56428C36A0E009663EA /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -917,8 +917,8 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */,
 				5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */,
+				5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -955,23 +955,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		277A8E9181A244FE3559A10A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A3120CCE326C712212982ADA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -992,6 +975,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C50A00F4B1AB7F1F5C4C7E54 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1331,14 +1331,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
 		5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kaishin/Gifu.git";
@@ -1347,18 +1339,26 @@
 				version = 3.3.1;
 			};
 		};
+		5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B77949E28B5C05000E62ACD /* WALKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */;
-			productName = WALKit;
-		};
 		5B972BF828C129CB001AAD7B /* Gifu */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */;
 			productName = Gifu;
+		};
+		5BF3D56428C36A0E009663EA /* WALKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */;
+			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -19,20 +19,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = LoginViewController()
         // 액세스토큰 X -> 로그인 화면을 띄워줄 경우
-//        if GeneralAPI.accessToken == "" {
-//            print("로그인이 완료되지 않아 로그인뷰입니다.")
-//            window?.rootViewController = LoginViewController()
-//        } else {
-//            // 액세스토큰 O -> 자동로그인 -> 근데 아직 온보딩화면을 완료X
-//            if !UserDefaults.standard.bool(forKey: Constant.Key.complete) {
-//                print("자동로그인 후 온보딩입니다.")
-//                window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
-//            } else {
-//                // 액세스토큰 O -> 자동로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
-//                print("자동로그인 후 온보딩 완료 후 메인입니다.")
-//                window?.rootViewController = UINavigationController(rootViewController: MainViewController())
-//            }
-//        }
+        if GeneralAPI.accessToken == "" {
+            print("로그인이 완료되지 않아 로그인뷰입니다.")
+            window?.rootViewController = LoginViewController()
+        } else {
+            // 액세스토큰 O -> 자동로그인 -> 근데 아직 온보딩화면을 완료X
+            if !UserDefaults.standard.bool(forKey: Constant.Key.complete) {
+                print("자동로그인 후 온보딩입니다.")
+                window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+            } else {
+                // 액세스토큰 O -> 자동로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
+                print("자동로그인 후 온보딩 완료 후 메인입니다.")
+                window?.rootViewController = UINavigationController(rootViewController: MainViewController())
+            }
+        }
+        
         window?.makeKeyAndVisible()
     }
 
