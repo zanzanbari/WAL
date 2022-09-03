@@ -54,9 +54,11 @@ extension AuthService: BaseTargetType {
     
     var headers: [String : String]? {
         switch self {
+        case .social:
+            return ["Content-Type": GeneralAPI.contentType]
         case .reissue:
             return ["Content-Type": GeneralAPI.contentType,
-                    "accesstoken": GeneralAPI.accessToken,
+                    "accesstoken": UserDefaults.standard.string(forKey: Constant.Key.accessToken) ?? "",
                     "refreshtoken": GeneralAPI.refreshToken]
         default:
             return ["Content-Type": GeneralAPI.contentType,

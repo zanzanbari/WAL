@@ -16,28 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
-                                <rect key="frame" x="0.0" y="876" width="414" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn_wal" translatesAutoresizingMaskIntoConstraints="NO" id="CGn-Cn-MxO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn_wal" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-Ib-rfj">
                                 <rect key="frame" x="82" y="323" width="250" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="CGn-Cn-MxO" secondAttribute="height" multiplier="1:1" id="Xwb-EF-hFd"/>
-                                    <constraint firstAttribute="width" constant="250" id="d3W-oI-zcf"/>
+                                    <constraint firstAttribute="height" constant="250" id="dHG-37-ruo"/>
+                                    <constraint firstAttribute="width" constant="250" id="iqi-Ec-v40"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" name="orange100"/>
                         <constraints>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
-                            <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="20" symbolic="YES" id="SfN-ll-jLj"/>
-                            <constraint firstItem="CGn-Cn-MxO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="VUR-Iv-YFS"/>
-                            <constraint firstAttribute="bottom" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="20" id="Y44-ml-fuU"/>
-                            <constraint firstItem="CGn-Cn-MxO" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="cbC-PG-W5k"/>
+                            <constraint firstItem="Iux-Ib-rfj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="DKW-5y-LnF"/>
+                            <constraint firstItem="Iux-Ib-rfj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Ic2-sF-sI6"/>
                         </constraints>
                     </view>
                 </viewController>

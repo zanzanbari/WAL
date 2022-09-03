@@ -28,10 +28,9 @@
 		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
 		5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */; };
-		5B77949F28B5C05000E62ACD /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B77949E28B5C05000E62ACD /* WALKit */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
-		5B86CD54289E08B300F8611C /* loginGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B86CD53289E08B300F8611C /* loginGif.gif */; };
+		5B972BF928C129CB001AAD7B /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 5B972BF828C129CB001AAD7B /* Gifu */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
 		5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */; };
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
@@ -82,8 +81,10 @@
 		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */; };
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
+		5BD7114728C17EF6000866C9 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5BD7114628C17EF6000866C9 /* login500.gif */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
+		5BF3D56528C36A0E009663EA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF3D56428C36A0E009663EA /* WALKit */; };
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
@@ -102,7 +103,6 @@
 		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
-		92CDC91228BCA48F00150360 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 92CDC91128BCA48F00150360 /* WALKit */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
 		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
@@ -144,7 +144,6 @@
 		5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+.swift"; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
-		5B86CD53289E08B300F8611C /* loginGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loginGif.gif; sourceTree = "<group>"; };
 		5BA3892E27F6B94F0010EAA1 /* WAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BA3893327F6B94F0010EAA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,7 +174,6 @@
 		5BB6616A28285B0200D54353 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5BB6616C28285B1300D54353 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		5BB80AB528A8394F0056E334 /* OnboardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardRequest.swift; sourceTree = "<group>"; };
-		5BB80AB728A839570056E334 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		5BC2DD032868DCCE00AFCC29 /* SettingCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCategoryViewController.swift; sourceTree = "<group>"; };
 		5BC2DD052868E04B00AFCC29 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		5BC2DD082868E71700AFCC29 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +195,7 @@
 		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanbariViewController.swift; sourceTree = "<group>"; };
 		5BD35863289D482E0066C804 /* ZanzanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanView.swift; sourceTree = "<group>"; };
+		5BD7114628C17EF6000866C9 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = login500.gif; path = ../../../../../Downloads/login500.gif; sourceTree = "<group>"; };
 		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BECCA8E286A43B800DD70A3 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		5BFC216028B920F100E4F65A /* Transition+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+.swift"; sourceTree = "<group>"; };
@@ -243,8 +242,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B77949F28B5C05000E62ACD /* WALKit in Frameworks */,
+				5BF3D56528C36A0E009663EA /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
+				5B972BF928C129CB001AAD7B /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,14 +282,6 @@
 				5B020D4228219C2F0057F9B7 /* LoginViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		5B0985DF28A9565C00D8FDCC /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				5BB80AB728A839570056E334 /* Login.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		5B348A1B281E400E006FEFDA /* Onboarding */ = {
@@ -365,7 +357,6 @@
 				5BA3892F27F6B94F0010EAA1 /* Products */,
 				39F9685198E6E6F0F00BF62A /* Pods */,
 				4BBA73BC44D4E4FD58B9BC75 /* Frameworks */,
-				5B0985DF28A9565C00D8FDCC /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -514,7 +505,7 @@
 				92C1B84C28633FB500F97D75 /* mintPaw.json */,
 				92C1B84D28633FB500F97D75 /* orangePaw.json */,
 				5BC58097289D332C0095F8E4 /* login.json */,
-				5B86CD53289E08B300F8611C /* loginGif.gif */,
+				5BD7114628C17EF6000866C9 /* login500.gif */,
 			);
 			name = Lottie;
 			sourceTree = "<group>";
@@ -894,7 +885,8 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				5B77949E28B5C05000E62ACD /* WALKit */,
+				5B972BF828C129CB001AAD7B /* Gifu */,
+				5BF3D56428C36A0E009663EA /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -925,7 +917,8 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */,
+				5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */,
+				5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -951,10 +944,10 @@
 				5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
-				5B86CD54289E08B300F8611C /* loginGif.gif in Resources */,
 				5BC58098289D332C0095F8E4 /* login.json in Resources */,
 				5BC58094289D2CEF0095F8E4 /* Launch Screen.storyboard in Resources */,
 				5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */,
+				5BD7114728C17EF6000866C9 /* login500.gif in Resources */,
 				5BC5809C289D3C120095F8E4 /* Cafe24Ssurround.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1338,7 +1331,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kaishin/Gifu.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.3.1;
+			};
+		};
+		5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1349,9 +1350,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B77949E28B5C05000E62ACD /* WALKit */ = {
+		5B972BF828C129CB001AAD7B /* Gifu */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B77949D28B5C05000E62ACD /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5B972BF728C129CB001AAD7B /* XCRemoteSwiftPackageReference "Gifu" */;
+			productName = Gifu;
+		};
+		5BF3D56428C36A0E009663EA /* WALKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5BF3D56328C36A0E009663EA /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
