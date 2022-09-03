@@ -54,6 +54,8 @@ final class MoyaLoggerPlugin: PluginType {
         
         if statusCode == 401 {
             AuthAPI.shared.postReissue() { reissueData, err in
+                print("🥳 액세스토큰 만료로 토큰 재발급했다!", reissueData)
+
                 if reissueData?.status == 401 {
                     print("🥳 리프레시토큰 만료 -> 로그아웃시키자!", reissueData?.status as Any)
                     AuthAPI.shared.getLogout { (data, nil) in
@@ -64,8 +66,10 @@ final class MoyaLoggerPlugin: PluginType {
                 }
                 // MARK: - TODO 401이면 액세스토큰 만료 -> 토큰 재발급해주자!
                 guard let reissueData = reissueData?.data else { return }
-                print("🥳 액세스토큰 만료~", reissueData)
-                UserDefaults.standard.set(reissueData.accesstoken, forKey: GeneralAPI.accessToken)
+                print("🥳 액세스토큰 만료로 토큰 재발급했다!", reissueData)
+                UserDefaults.standard.set(reissueData.accesstoken, forKey: Constant.Key.accessToken)
+                guard let key =  UserDefaults.standard.string(forKey: Constant.Key.accessToken) else { return }
+                print("🥳", key)
             }
         } else {
             print("5️⃣[\(statusCode)]\n")
