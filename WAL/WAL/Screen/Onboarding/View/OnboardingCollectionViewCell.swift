@@ -19,7 +19,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
-        $0.text = "왈이 당신을 뭐라고 \n 부르면 되나요?"
+        $0.text = "왈뿡이가 당신을 뭐라고\n부르면 되나요?"
         $0.textAlignment = .center
         $0.numberOfLines = 2
     }
@@ -64,6 +64,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configUI()
         setupLayout()
         setupTextField()
         nicknameTextField.becomeFirstResponder()
@@ -74,6 +75,10 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     }
     
     // MARK: - InitUI
+    
+    private func configUI() {
+        titleLabel.addLetterSpacing()
+    }
     
     private func setupLayout() {
         contentView.addSubviews([titleLabel,

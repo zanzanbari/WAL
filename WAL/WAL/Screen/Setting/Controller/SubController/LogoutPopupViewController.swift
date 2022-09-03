@@ -60,7 +60,7 @@ final class LogoutPopupViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupCancelButton() {
-        dismiss(animated: true)
+        dismiss(animated: false)
     }
     
     @objc func touchupOkButton() {

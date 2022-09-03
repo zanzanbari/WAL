@@ -71,7 +71,7 @@ class WALPopupView: UIView {
         makeRound(radius: 15)
         
         [horizontalLineView, verticalLineView].forEach {
-            $0.backgroundColor = .gray300
+            $0.backgroundColor = .gray500
         }
         
         [leftButton, rightButton].forEach {

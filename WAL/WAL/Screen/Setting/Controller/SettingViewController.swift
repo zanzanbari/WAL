@@ -28,13 +28,14 @@ class SettingViewController: UIViewController, SendNicknameDelegate {
         $0.backgroundColor = .white100
     }
     
-    private lazy var tableView = UITableView(frame: .zero, style: .plain).then {
+    private lazy var tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.backgroundColor = .gray600
         $0.separatorStyle = .none
         $0.allowsSelection = true
         $0.delegate = self
         $0.dataSource = self
         $0.sectionHeaderTopPadding = 0
+        $0.sectionFooterHeight = 0
     }
     
     // MARK: - Life Cycle
@@ -57,7 +58,7 @@ class SettingViewController: UIViewController, SendNicknameDelegate {
         view.addSubviews([navigationBar, tableView, backView])
         
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -103,36 +104,29 @@ extension SettingViewController: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             let viewController = MypageViewController()
-            viewController.modalPresentationStyle = .overFullScreen
+            transition(viewController)
             viewController.nickname = nickname
             viewController.sendNicknameDelegate = self
-            present(viewController, animated: true, completion: nil)
         case 1:
             if indexPath.row == 0 {
                 let viewController = SettingAlarmViewController()
-                viewController.modalPresentationStyle = .overFullScreen
-                present(viewController, animated: true, completion: nil)
+                transition(viewController)
             } else if indexPath.row == 1 {
                 let viewController = SettingCategoryViewController()
-                viewController.modalPresentationStyle = .overFullScreen
-                present(viewController, animated: true, completion: nil)
+                transition(viewController)
             }
         default:
             if indexPath.row == 0 {
                 let viewController = ZanzanbariViewController()
-                viewController.modalPresentationStyle = .overFullScreen
-                present(viewController, animated: true, completion: nil)
+                transition(viewController)
             } else if indexPath.row == 1 {
                 guard let url = NSURL(string: Constant.URL.walURL) else { return }
                 let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
-                safariView.modalPresentationStyle = .overFullScreen
-                self.present(safariView, animated: true)
-                
+                transition(safariView, .present)
             } else if indexPath.row == 2 {
                 guard let url = NSURL(string: Constant.URL.serviceURL) else { return }
                 let safariView: SFSafariViewController = SFSafariViewController(url: url as URL)
-                safariView.modalPresentationStyle = .overFullScreen
-                self.present(safariView, animated: true)
+                transition(safariView, .present)
             }
             break
         }

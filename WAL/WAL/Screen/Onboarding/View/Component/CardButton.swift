@@ -24,7 +24,7 @@ class CardButton: UIButton {
         $0.textAlignment = .center
     }
     
-    private let categorySubLabel = UILabel().then {
+    let categorySubLabel = UILabel().then {
         $0.font = WALFont.body7.font
         $0.textColor = .black100
         $0.textAlignment = .center

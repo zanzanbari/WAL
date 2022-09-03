@@ -53,6 +53,7 @@ class ResignHeaderView: UIView {
     
     private func configUI() {
         backgroundColor = .white
+        titleLabel.addLetterSpacing()
         subtitleLabel.addLetterSpacing(kernValue: -0.4, paragraphValue: 8.0)
         subtitleLabel.textAlignment = .left
     }
@@ -61,7 +62,7 @@ class ResignHeaderView: UIView {
         addSubviews([cryingImageView, titleLabel, subtitleLabel, menuTitleLabel])
         
         cryingImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(35)
+            make.top.equalToSuperview().inset(33)
             make.centerX.equalToSuperview()
             make.width.equalTo(142)
             make.height.equalTo(127)
@@ -74,7 +75,7 @@ class ResignHeaderView: UIView {
         }
         
         subtitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
