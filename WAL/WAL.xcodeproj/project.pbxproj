@@ -405,9 +405,9 @@
 		5BA3894727F6C0410010EAA1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				92D87F8228C38030009AAFE5 /* Lottie */,
 				E29B141A281E7A39005275B2 /* Font */,
 				5BA3895127F6C1570010EAA1 /* Asset */,
-				5BA3894F27F6C14B0010EAA1 /* Lottie */,
 				5BA3894D27F6C0D30010EAA1 /* Storyboard */,
 				5BA3895227F6C1B10010EAA1 /* Support */,
 			);
@@ -497,17 +497,6 @@
 				5BA3895B27F6C23B0010EAA1 /* Protocol.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		5BA3894F27F6C14B0010EAA1 /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-				92D87F8028C37EED009AAFE5 /* login500.gif */,
-				92C1B84C28633FB500F97D75 /* mintPaw.json */,
-				92C1B84D28633FB500F97D75 /* orangePaw.json */,
-				5BC58097289D332C0095F8E4 /* login.json */,
-			);
-			name = Lottie;
 			sourceTree = "<group>";
 		};
 		5BA3895127F6C1570010EAA1 /* Asset */ = {
@@ -789,6 +778,17 @@
 				927D10F328211017001AEB78 /* HistoryDataModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		92D87F8228C38030009AAFE5 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				92D87F8028C37EED009AAFE5 /* login500.gif */,
+				92C1B84C28633FB500F97D75 /* mintPaw.json */,
+				92C1B84D28633FB500F97D75 /* orangePaw.json */,
+				5BC58097289D332C0095F8E4 /* login.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		E29B141A281E7A39005275B2 /* Font */ = {
