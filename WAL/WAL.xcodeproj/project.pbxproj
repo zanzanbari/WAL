@@ -82,6 +82,8 @@
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
+		5BF3D56828C381D7009663EA /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF3D56728C381D7009663EA /* Gifu */; };
+		5BF3D56B28C381F1009663EA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF3D56A28C381F1009663EA /* WALKit */; };
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
@@ -100,8 +102,6 @@
 		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
-		92D87F7C28C37D58009AAFE5 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 92D87F7B28C37D58009AAFE5 /* Gifu */; };
-		92D87F7F28C37D87009AAFE5 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 92D87F7E28C37D87009AAFE5 /* WALKit */; };
 		92D87F8128C37EED009AAFE5 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92D87F8028C37EED009AAFE5 /* login500.gif */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
@@ -242,9 +242,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92D87F7F28C37D87009AAFE5 /* WALKit in Frameworks */,
+				5BF3D56B28C381F1009663EA /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
-				92D87F7C28C37D58009AAFE5 /* Gifu in Frameworks */,
+				5BF3D56828C381D7009663EA /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,8 +885,8 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				92D87F7B28C37D58009AAFE5 /* Gifu */,
-				92D87F7E28C37D87009AAFE5 /* WALKit */,
+				5BF3D56728C381D7009663EA /* Gifu */,
+				5BF3D56A28C381F1009663EA /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -917,8 +917,8 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */,
-				92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */,
+				5BF3D56628C381D7009663EA /* XCRemoteSwiftPackageReference "Gifu" */,
+				5BF3D56928C381F1009663EA /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -1331,7 +1331,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */ = {
+		5BF3D56628C381D7009663EA /* XCRemoteSwiftPackageReference "Gifu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kaishin/Gifu.git";
 			requirement = {
@@ -1339,7 +1339,7 @@
 				version = 3.3.1;
 			};
 		};
-		92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5BF3D56928C381F1009663EA /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1350,14 +1350,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		92D87F7B28C37D58009AAFE5 /* Gifu */ = {
+		5BF3D56728C381D7009663EA /* Gifu */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */;
+			package = 5BF3D56628C381D7009663EA /* XCRemoteSwiftPackageReference "Gifu" */;
 			productName = Gifu;
 		};
-		92D87F7E28C37D87009AAFE5 /* WALKit */ = {
+		5BF3D56A28C381F1009663EA /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5BF3D56928C381F1009663EA /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */
