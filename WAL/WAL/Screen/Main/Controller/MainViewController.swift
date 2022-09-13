@@ -145,7 +145,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         setMainStatus()
-        checkTime()
+        fetchMainData()
         NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name("EnterMain"), object: nil)
     }
     
@@ -252,7 +252,7 @@ final class MainViewController: UIViewController {
         walCollectionView.register(MainItemCell.self, forCellWithReuseIdentifier: MainItemCell.cellIdentifier)
     }
     
-    private func checkTime() {
+    private func fetchMainData() {
         let stringDate = dateFormatter.string(from: date)
         guard let intDate = Int(stringDate) else { return }
         
@@ -318,7 +318,8 @@ final class MainViewController: UIViewController {
     }
     
     @objc func getNotification() {
-        checkTime()
+        setMainStatus()
+        fetchMainData()
     }
 }
 
