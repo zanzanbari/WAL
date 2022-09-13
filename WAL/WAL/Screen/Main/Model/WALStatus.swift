@@ -30,7 +30,7 @@ enum WALStatus {
         case .checkedAll:
             return "새로운 왈소리를 기다려보세요"
         case .arrived:
-            return "왈소리가 도착했어요\n발바닥을 탭하여 확인해주세요"
+            return "왈소리가 도착했어요\n발바닥을 눌러 확인해주세요"
         }
     }
     
