@@ -87,6 +87,8 @@ final class MainViewController: UIViewController {
     // MARK: - Property
 
     private var dataCount: Int = 0
+    private var isShownCount: Int = 0
+    private var canOpenCount: Int = 0
     
     private let date = Date()
     private let dateFormatter = DateFormatter().then {
@@ -145,7 +147,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         setMainStatus()
-        fetchMainData()
+        getMainInfo()
         NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name("EnterMain"), object: nil)
     }
     
@@ -252,17 +254,6 @@ final class MainViewController: UIViewController {
         walCollectionView.register(MainItemCell.self, forCellWithReuseIdentifier: MainItemCell.cellIdentifier)
     }
     
-    private func fetchMainData() {
-        let stringDate = dateFormatter.string(from: date)
-        guard let intDate = Int(stringDate) else { return }
-        
-        if intDate >= 0 && intDate <= 7 {
-            walStatus = .sleeping
-        } else {
-            getMainInfo()
-        }
-    }
-    
     private func saveImageOnPhone(image: UIImage, image_name: String) -> URL? {
         let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(image_name).png"
         let imageUrl: URL = URL(fileURLWithPath: imagePath)
@@ -319,7 +310,7 @@ final class MainViewController: UIViewController {
     
     @objc func getNotification() {
         setMainStatus()
-        fetchMainData()
+        getMainInfo()
     }
 }
 
@@ -344,6 +335,9 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         }
         
         if cell.isSelected {
+            if isShownCount == dataCount {
+                walStatus == .checkedAll
+            }
             didTapCell = false
             collectionView.deselectItem(at: indexPath, animated: false)
             return false
@@ -409,18 +403,31 @@ extension MainViewController {
                 self.walCollectionView.reloadData()
                 self.updateCollectionViewLayout()
                 
-                var isShownCount: Int = 0
-                
                 for item in self.mainData {
                     if item.isShown {
-                        isShownCount += 1
+                        self.isShownCount += 1
+                    }
+                    
+                    if item.canOpen {
+                        self.canOpenCount += 1
                     }
                 }
                 
-                if isShownCount == self.dataCount {
-                    self.walStatus = .checkedAll
+                if self.canOpenCount == 0 {
+                    let stringDate = self.dateFormatter.string(from: self.date)
+                    guard let intDate = Int(stringDate) else { return }
+                    
+                    if intDate >= 0 && intDate <= 7 {
+                        self.walStatus = .sleeping
+                    } else {
+                        self.walStatus = .arrived
+                    }
                 } else {
-                    self.walStatus = .arrived
+                    if self.isShownCount == self.dataCount {
+                        self.walStatus = .checkedAll
+                    } else {
+                        self.walStatus = .arrived
+                    }
                 }
             }
         }
