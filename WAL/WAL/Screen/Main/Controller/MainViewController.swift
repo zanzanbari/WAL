@@ -87,8 +87,6 @@ final class MainViewController: UIViewController {
     // MARK: - Property
 
     private var dataCount: Int = 0
-    private var isShownCount: Int = 0
-    private var canOpenCount: Int = 0
     
     private let date = Date()
     private let dateFormatter = DateFormatter().then {
@@ -335,9 +333,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         }
         
         if cell.isSelected {
-            if isShownCount == dataCount {
-                walStatus == .checkedAll
-            }
             didTapCell = false
             collectionView.deselectItem(at: indexPath, animated: false)
             return false
@@ -403,17 +398,20 @@ extension MainViewController {
                 self.walCollectionView.reloadData()
                 self.updateCollectionViewLayout()
                 
+                var isShownCount: Int = 0
+                var canOpenCount: Int = 0
+                
                 for item in self.mainData {
                     if item.isShown {
-                        self.isShownCount += 1
+                        isShownCount += 1
                     }
                     
                     if item.canOpen {
-                        self.canOpenCount += 1
+                        canOpenCount += 1
                     }
                 }
                 
-                if self.canOpenCount == 0 {
+                if canOpenCount == 0 {
                     let stringDate = self.dateFormatter.string(from: self.date)
                     guard let intDate = Int(stringDate) else { return }
                     
@@ -423,7 +421,7 @@ extension MainViewController {
                         self.walStatus = .arrived
                     }
                 } else {
-                    if self.isShownCount == self.dataCount {
+                    if isShownCount == self.dataCount {
                         self.walStatus = .checkedAll
                     } else {
                         self.walStatus = .arrived
@@ -455,10 +453,26 @@ extension MainViewController {
     
     private func updateMainData(item: Int) {
         MainAPI.shared.updateMainData(item: self.mainData[item].id) { mainData, error in
-            guard let mainData = mainData else {
-                return
+            guard let mainData = mainData else { return }
+            guard let data = mainData.data else { return }
+            
+            self.mainData = data
+            self.dataCount = data.count
+            
+            var isShownCount: Int = 0
+            
+            DispatchQueue.main.async {
+                for item in self.mainData {
+                    if item.isShown {
+                        isShownCount += 1
+                    }
+                }
+                
+                if isShownCount == self.dataCount {
+                    self.walStatus = .checkedAll
+                }
             }
-            print(mainData)
+            
         }
     }
 }
