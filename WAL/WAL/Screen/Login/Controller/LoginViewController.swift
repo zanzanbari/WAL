@@ -105,10 +105,16 @@ final class LoginViewController: UIViewController {
     }
     
     private func pushToHome() {
-        let viewController = UINavigationController(rootViewController: OnboardingViewController())
-        viewController.navigationBar.isHidden = true
-        viewController.modalPresentationStyle = .fullScreen
-        present(viewController, animated: true, completion: nil)
+        if !UserDefaults.standard.bool(forKey: Constant.Key.complete) {
+            print("자동로그인 후 온보딩입니다.")
+            let viewController = OnboardingViewController()
+            transition(viewController, .presentFullNavigation)
+        } else {
+            // 액세스토큰 O -> 자동로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
+            print("자동로그인 후 온보딩 완료 후 메인입니다.")
+            let viewController = MainViewController()
+            transition(viewController, .presentFullNavigation)
+        }
     }
     
     private func checkToken() {
