@@ -56,7 +56,7 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        $0.text = "여기 원래는 이메일"
+        $0.text = "-"
     }
     
     private let logoutButton = MenuButton(0).then {

@@ -8,7 +8,7 @@
 import UIKit
 
 import AuthenticationServices
-import Lottie
+import Gifu
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
@@ -23,20 +23,19 @@ final class LoginViewController: UIViewController {
     private var socialLogin: String = ""
     private var socialToken: String = ""
     private var refreshToken: String = ""
-    
-    private let logoImageView = AnimationView().then {
-        $0.animation = Animation.named("login")
-        $0.contentMode = .scaleAspectFit
-        $0.loopMode = .repeat(5)
-        $0.play()
+
+    private let logoImageView = GIFImageView().then {
+        $0.animate(withGIFNamed: "login500", loopCount: 5)
     }
     
     private let kakaoButton = WALAuthButton(type: .kakao).then {
         $0.addTarget(self, action: #selector(touchupKakaoButton), for: .touchUpInside)
+        $0.alpha = 0
     }
     
     private let appleButton = WALAuthButton(type: .apple).then {
         $0.addTarget(self, action: #selector(touchupAppleButton), for: .touchUpInside)
+        $0.alpha = 0
     }
     
     // MARK: - Life Cycle
@@ -45,6 +44,7 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
+        setLoginAnimation()
         checkToken()
     }
     
@@ -59,8 +59,9 @@ final class LoginViewController: UIViewController {
         view.addSubviews([logoImageView, kakaoButton, appleButton])
         
         logoImageView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(150)
-            make.centerX.equalToSuperview()
+//            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(150)
+//            make.centerX.equalToSuperview()
+            make.center.equalToSuperview()
             make.width.equalTo(250)
             make.height.equalTo(250)
         }
@@ -77,6 +78,17 @@ final class LoginViewController: UIViewController {
     }
     
     // MARK: - Custom Method
+    
+    private func setLoginAnimation() {
+        UIView.animate(withDuration: 1, delay: 0.5) {
+            self.logoImageView.transform = CGAffineTransform(translationX: 0, y: -80)
+        }
+
+        UIView.animate(withDuration: 1, delay: 0.5) {
+            self.appleButton.alpha = 1
+            self.kakaoButton.alpha = 1
+        }
+    }
     
     private func setUserDefaults(_ type: String,
                                  _ accessToken: String,
