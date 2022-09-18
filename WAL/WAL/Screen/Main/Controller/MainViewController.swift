@@ -108,7 +108,7 @@ final class MainViewController: UIViewController {
             switch walStatus {
             case .sleeping:
                 walCollectionView.isHidden = true
-            case .checkedAll, .arrived:
+            case .arrived, .checkedAvailable, .checkedAll:
                 walCollectionView.isHidden = false
             }
         }
@@ -418,11 +418,15 @@ extension MainViewController {
                     if intDate >= 0 && intDate <= 7 {
                         self.walStatus = .sleeping
                     } else {
-                        self.walStatus = .arrived
+                        self.walStatus = .checkedAvailable
                     }
                 } else {
-                    if isShownCount == self.dataCount {
-                        self.walStatus = .checkedAll
+                    if isShownCount == canOpenCount {
+                        if isShownCount == self.dataCount {
+                            self.walStatus = .checkedAll
+                        } else {
+                            self.walStatus = .checkedAvailable
+                        }
                     } else {
                         self.walStatus = .arrived
                     }
@@ -459,17 +463,39 @@ extension MainViewController {
             self.mainData = data
             self.dataCount = data.count
             
-            var isShownCount: Int = 0
-            
             DispatchQueue.main.async {
+                var isShownCount: Int = 0
+                var canOpenCount: Int = 0
+                
                 for item in self.mainData {
                     if item.isShown {
                         isShownCount += 1
                     }
+                    
+                    if item.canOpen {
+                        canOpenCount += 1
+                    }
                 }
                 
-                if isShownCount == self.dataCount {
-                    self.walStatus = .checkedAll
+                if canOpenCount == 0 {
+                    let stringDate = self.dateFormatter.string(from: self.date)
+                    guard let intDate = Int(stringDate) else { return }
+                    
+                    if intDate >= 0 && intDate <= 7 {
+                        self.walStatus = .sleeping
+                    } else {
+                        self.walStatus = .checkedAvailable
+                    }
+                } else {
+                    if isShownCount == canOpenCount {
+                        if isShownCount == self.dataCount {
+                            self.walStatus = .checkedAll
+                        } else {
+                            self.walStatus = .checkedAvailable
+                        }
+                    } else {
+                        self.walStatus = .arrived
+                    }
                 }
             }
             
