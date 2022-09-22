@@ -37,7 +37,6 @@ final class MainViewController: UIViewController {
     }
     
     private var subTitleLabel = UILabel().then {
-        $0.text = "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
         $0.textColor = .black100
         $0.font = WALFont.body3.font
     }
