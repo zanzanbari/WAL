@@ -35,7 +35,8 @@ final class HistoryViewController: UIViewController {
     var selectedIndex: IndexPath = []
     var selectedIndices: [IndexPath] = []
     
-    var delegate: ResendWalDelegate?
+    var resendWalDelegate: ResendWalDelegate?
+    var refreshDelegate: RefreshDelegate?
     
     // MARK: - Life Cycle
     
@@ -120,7 +121,10 @@ final class HistoryViewController: UIViewController {
     }
     
     @objc func touchupCloseButton() {
-        dismiss(animated: true)
+        //self.delegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
+        self.refreshDelegate?.refresh(self)
+        self.presentingViewController?.dismiss(animated: true)
+        //dismiss(animated: true)
     }
     
     func showActionSheet(type: ActionSheetType, postId: Int) {
@@ -229,7 +233,7 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            self.delegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
+            self.resendWalDelegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
             self.presentingViewController?.dismiss(animated: true)
             success(true)
         }

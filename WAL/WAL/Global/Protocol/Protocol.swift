@@ -45,3 +45,7 @@ protocol SendAlarmTimeDelegate: OnboardingViewController {
 protocol ResendWalDelegate {
     func resendToCreate(_ vc: UIViewController, walsound: String)
 }
+
+protocol RefreshDelegate {
+    func refresh(_ vc: UIViewController)
+}

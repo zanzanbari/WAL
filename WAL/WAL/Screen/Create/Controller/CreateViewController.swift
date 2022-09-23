@@ -282,7 +282,8 @@ class CreateViewController: UIViewController {
     
     @objc private func touchUpHistoryButton() {
         let historyViewController = HistoryViewController()
-        historyViewController.delegate = self
+        historyViewController.resendWalDelegate = self
+        historyViewController.refreshDelegate = self
         historyViewController.modalPresentationStyle = .overFullScreen
         present(historyViewController, animated: true)
     }
@@ -479,5 +480,11 @@ extension CreateViewController: ResendWalDelegate {
         }
         
         setSendButton()
+    }
+}
+
+extension CreateViewController: RefreshDelegate {
+    func refresh(_ vc: UIViewController) {
+        getReservedDate()
     }
 }
