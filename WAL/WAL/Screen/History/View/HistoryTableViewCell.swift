@@ -235,7 +235,16 @@ class HistoryTableViewCell: UITableViewCell {
         
         isContentHidden = data.hidden ?? false
         
-        //TODO: 디데이 계산해서 넣어주세요
+        let calendar = Calendar.current
+        let currentDate = Date()
+        var daysCount:Int = 0
+  
+        func days(from date: Date) -> Int {
+            return (calendar.dateComponents([.day], from: currentDate, to: date).day ?? 0) + 1
+        }
+        daysCount = days(from: data.sendDueDate.toDate() ?? currentDate)
+        
+        dDayLabel.text = "D-\(daysCount)"
         
         sendingDateLabel.text = "\(data.sendingDate)"
         
