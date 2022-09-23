@@ -121,10 +121,8 @@ final class HistoryViewController: UIViewController {
     }
     
     @objc func touchupCloseButton() {
-        //self.delegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
         self.refreshDelegate?.refresh(self)
         self.presentingViewController?.dismiss(animated: true)
-        //dismiss(animated: true)
     }
     
     func showActionSheet(type: ActionSheetType, postId: Int) {
