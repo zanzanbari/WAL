@@ -104,6 +104,10 @@ final class HistoryViewController: UIViewController {
                         cell.coverView.isHidden = false
                     })
                 default:
+                    let point: CGPoint = sender.location(in: self.historyTableView.cellForRow(at: indexPath))
+                    if point.y > 100 || point.y < 15 {
+                        sender.state = .ended
+                    }
                     selectedIndex = indexPath
                     UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
                         self.historyTableView.beginUpdates()
