@@ -25,6 +25,8 @@ final class OnboardingViewController: UIViewController {
     private var morning = false
     private var afternoon = false
     private var night = false
+    
+    private let loadingView = LoadingView()
                 
     private let navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
@@ -51,7 +53,7 @@ final class OnboardingViewController: UIViewController {
     private let collectionViewFlowLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
     }
-    
+        
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -75,7 +77,9 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar, topView, collectionView])
+        view.addSubviews([navigationBar,
+                          topView,
+                          collectionView])
         topView.addSubview(pageControl)
         
         navigationBar.snp.makeConstraints { make in
@@ -97,6 +101,15 @@ final class OnboardingViewController: UIViewController {
             make.top.equalTo(topView.snp.bottom)
             make.leading.bottom.trailing.equalToSuperview()
         }
+ 
+    }
+    
+    private func configureLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        loadingView.play()
     }
     
     private func setupCollectionView() {
@@ -153,13 +166,18 @@ final class OnboardingViewController: UIViewController {
         OnboardAPI.shared.postOnboardSetting(nickname: nickname,
                                              category: categoryType,
                                              alarm: alarmTime) { (onboardData, err) in
+            self.loadingView.play()
             guard let onboardData = onboardData else { return }
             if onboardData.status < 400 {
                 print("☘️--------온보딩 서버 통신 완료", onboardData)
                 let viewController = OnboardCompleteViewController()
                 // 버튼 누른 경우 온보딩 설정 완료! -> 앞으로 앱 실행 시에 자동로그인 + 메인으로 화면 전환
                 UserDefaults.standard.set(true, forKey: Constant.Key.complete)
-                self.navigationController?.pushViewController(viewController, animated: true)
+                self.configureLoadingView()
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.loadingView.hide()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
             } else {
                 print("☘️--------온보딩 서버 통신 실패로 인해 화면 전환 실패")
             }

@@ -35,6 +35,8 @@ final class SettingCategoryViewController: UIViewController {
         $0.textColor = .gray100
     }
     
+    private let loadingView = LoadingView()
+    
     private lazy var firstCategoryStackView = UIStackView()
     private lazy var secondCategoryStackView = UIStackView()
     
@@ -115,6 +117,16 @@ final class SettingCategoryViewController: UIViewController {
         }
     }
     
+    // MARK: - Custom Method
+    
+    private func configureLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        loadingView.play()
+    }
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -175,7 +187,11 @@ extension SettingCategoryViewController {
                                  self.complimentButton.isSelected = userCategoryData.compliment
                                  self.condolenceButton.isSelected = userCategoryData.condolence
                                  self.scoldingButton.isSelected = userCategoryData.scolding
-                                 self.transition(self, .pop)
+                                 self.configureLoadingView()
+                                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                                     self.loadingView.hide()
+                                     self.transition(self, .pop)
+                                 }
                              } else {
                                  print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
                              }
