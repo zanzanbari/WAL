@@ -149,7 +149,7 @@ final class EditNicknameViewController: BaseViewController {
     // MARK: - @objc
     
     @objc func touchupCloseButton() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
     
     @objc private func textDidChange(_ notification: Notification) {
@@ -171,8 +171,10 @@ final class EditNicknameViewController: BaseViewController {
             guard let userInfoData = userInfoData?.data else { return }
             self.nickname = userInfoData.nickname
             self.sendNicknameDelegate?.sendNickname(userInfoData.nickname)
+            self.dismiss(animated: false)
         }
         self.view.endEditing(true)
+        
     }
 }
 
