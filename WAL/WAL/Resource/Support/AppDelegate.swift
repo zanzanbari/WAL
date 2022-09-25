@@ -81,18 +81,12 @@ extension AppDelegate: MessagingDelegate {
             if let error = error {
                 print("Error fetching FCM registration token: \(error)")
             } else if let token = token {
-                print("FCM registration token: \(token)")
+                print("FCM registration token: 💾\(token)")
+                let fcmtoken: [String: String] = ["token": fcmToken ?? ""]
+                UserDefaults.standard.set(fcmtoken, forKey: Constant.Key.fcmtoken)
             }
         }
-        
         print("Firebase registration token: \(String(describing: fcmToken))")
-        
-        let dataDict: [String: String] = ["token": fcmToken ?? ""]
-        NotificationCenter.default.post(
-            name: Notification.Name("FCMToken"),
-            object: nil,
-            userInfo: dataDict
-        )
     }
 }
 

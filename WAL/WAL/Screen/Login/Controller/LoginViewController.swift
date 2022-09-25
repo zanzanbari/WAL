@@ -59,8 +59,6 @@ final class LoginViewController: UIViewController {
         view.addSubviews([logoImageView, kakaoButton, appleButton])
         
         logoImageView.snp.makeConstraints { make in
-//            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(150)
-//            make.centerX.equalToSuperview()
             make.center.equalToSuperview()
             make.width.equalTo(250)
             make.height.equalTo(250)
@@ -78,6 +76,12 @@ final class LoginViewController: UIViewController {
     }
     
     // MARK: - Custom Method
+    
+    private func setupFcmToken() -> String {
+        let fcmtoken = UserDefaults.standard.dictionary(forKey: Constant.Key.fcmtoken)
+        guard let fcmtoken = fcmtoken else { return String() }
+        return fcmtoken["token"] as! String
+    }
     
     private func setLoginAnimation() {
         UIView.animate(withDuration: 1, delay: 0.5) {
@@ -177,7 +181,7 @@ extension LoginViewController {
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao",
                             socialToken: oauthToken.accessToken,
-                            fcmToken: nil) { (kakaoData, err) in
+                            fcmtoken: self.setupFcmToken()) { (kakaoData, err) in
                                 guard let kakaoData = kakaoData,
                                       let accessData = kakaoData.data else { return }
                                 self.setUserDefaults("kakao",
@@ -206,7 +210,7 @@ extension LoginViewController {
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao",
                             socialToken: oauthToken.accessToken,
-                            fcmToken: nil) { (kakaoData, err) in
+                            fcmtoken: self.setupFcmToken()) { (kakaoData, err) in
                                 guard let kakaoData = kakaoData,
                                       let accessData = kakaoData.data else { return }
                                 if kakaoData.status == 401 {
@@ -250,7 +254,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             
             AuthAPI.shared.postSocialLogin(social: "apple",
                                            socialToken: tokenString,
-                                           fcmToken: nil) { (appleData, err) in
+                                           fcmtoken: setupFcmToken()) { (appleData, err) in
                 guard let appleData = appleData,
                         let accessData = appleData.data else { return }
                 self.setUserDefaults("apple",

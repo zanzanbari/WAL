@@ -16,6 +16,7 @@ struct Constant {
         static let refreshToken = "refreshToken"
         static let socialToken = "socialToken"
         static let socialLogin = "socialLogin"
+        static let fcmtoken = "fcmtoken"
         static let nickname = "nickname"
         static let complete = "complete"
         static let alarmToggle = "alarmToggle"

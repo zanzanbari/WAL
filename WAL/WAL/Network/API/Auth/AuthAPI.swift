@@ -21,10 +21,10 @@ final class AuthAPI {
     
     // MARK: - POST 소셜로그인
     
-    func postSocialLogin(social: String, socialToken: String, fcmToken: String?,
+    func postSocialLogin(social: String, socialToken: String, fcmtoken: String,
                                 completion: @escaping ((GenericResponse<Login>?, Int?) -> ())) {
         
-        authProvider.request(.social(social: social, socialToken: socialToken, fcmToken: fcmToken)) { result in
+        authProvider.request(.social(social: social, socialToken: socialToken, fcmtoken: fcmtoken)) { result in
             switch result {
             case .success(let response):
                 do {
