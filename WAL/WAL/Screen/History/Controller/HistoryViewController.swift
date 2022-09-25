@@ -316,7 +316,7 @@ extension HistoryViewController: UITableViewDataSource {
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            cell.hideDdayView()
+            // cell.hideDdayView()
             cell.setData(completeData[indexPath.row])
             return cell
         default:
