@@ -60,9 +60,14 @@ final class SettingAlarmViewController: UIViewController {
         setupLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
     // MARK: - InitUI
     
     private func configUI() {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         view.backgroundColor = .white100
         [morningButton,
          afternoonButton,

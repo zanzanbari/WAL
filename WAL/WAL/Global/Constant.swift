@@ -12,7 +12,6 @@ struct Constant {
     
     // MARK: - UserDefaults Key
     enum Key {
-        static let complete = "complete"
         static let alarmToggle = "alarmToggle"
     }
     

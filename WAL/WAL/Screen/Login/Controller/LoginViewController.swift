@@ -83,13 +83,14 @@ final class LoginViewController: UIViewController {
     }
     
     private func pushToHome() {
-        if !UserDefaults.standard.bool(forKey: Constant.Key.complete) {
-            print("자동로그인 후 온보딩입니다.")
+        // 어쨌든 이 경우에는 액세스 토큰이 없어서 로그인 단계를 거치는 것
+        if UserDefaultsHelper.standard.complete == false {
+            print("🛼 pushToHome() 로그인 후 온보딩을 완료하지 않아 온보딩뷰입니다.")
             let viewController = OnboardingViewController()
             transition(viewController, .presentFullNavigation)
         } else {
-            // 액세스토큰 O -> 자동로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
-            print("자동로그인 후 온보딩 완료 후 메인입니다.")
+            // 로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
+            print("🛼 pushToHome() 로그인 후 온보딩 완료 후 메인뷰입니다.")
             let viewController = MainViewController()
             transition(viewController, .presentFullNavigation)
         }
@@ -158,7 +159,8 @@ extension LoginViewController {
     private func loginWithKakaoWeb() {
         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error {
-                print(error) } else {
+                print(error)
+            } else {
                 UserApi.shared.me { (user, error) in
                     if let error = error {
                         print("----------- 카카오 로그인 웹 에러 :", error)
@@ -185,8 +187,8 @@ extension LoginViewController {
                                     UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                                     UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
                                     UserDefaultsHelper.standard.social = "kakao"
+                                    self.pushToHome()
                                 }
-                                self.pushToHome()
                             }
                     }
                 }

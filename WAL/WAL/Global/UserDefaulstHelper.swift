@@ -20,6 +20,7 @@ final class UserDefaultsHelper {
         static let social = "social"
         static let fcmtoken = "fcmtoken"
         static let nickname = "nickname"
+        static let complete = "complete"
     }
     
     var accesstoken: String? {
@@ -76,4 +77,23 @@ final class UserDefaultsHelper {
         }
     }
     
+    // default 값이 false임 설정을 따로 안해주면
+    var complete: Bool {
+        get {
+            return userDefaults.bool(forKey: Key.complete)
+        }
+        set {
+            userDefaults.set(newValue, forKey: Key.complete)
+        }
+    }
+    
+    func removeObject() {
+        userDefaults.removeObject(forKey: Key.accesstoken)
+        userDefaults.removeObject(forKey: Key.refreshtoken)
+        userDefaults.removeObject(forKey: Key.socialtoken)
+        userDefaults.removeObject(forKey: Key.social)
+        userDefaults.removeObject(forKey: Key.fcmtoken)
+        userDefaults.removeObject(forKey: Key.nickname)
+        userDefaults.removeObject(forKey: Key.complete)
+    }
 }

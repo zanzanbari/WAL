@@ -54,9 +54,14 @@ final class SettingCategoryViewController: UIViewController {
         setupLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
     // MARK: - InitUI
     
     private func configUI() {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         view.backgroundColor = .white100
         [firstCategoryStackView, secondCategoryStackView].forEach {
             $0.axis = .horizontal
