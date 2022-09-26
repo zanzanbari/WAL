@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = LoginViewController()
         // 액세스토큰 X -> 로그인 화면을 띄워줄 경우
-        if GeneralAPI.accessToken == "" {
+        if UserDefaultsHelper.standard.accesstoken ?? "" == "" {
             print("로그인이 완료되지 않아 로그인뷰입니다.")
             window?.rootViewController = LoginViewController()
         } else {

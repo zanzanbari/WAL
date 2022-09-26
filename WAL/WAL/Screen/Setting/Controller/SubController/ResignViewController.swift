@@ -56,7 +56,6 @@ final class ResignViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white
-        
     }
     
     private func setupLayout() {
@@ -106,9 +105,9 @@ final class ResignViewController: UIViewController {
     
     @objc func touchupResignButton(_ sender: UIButton) {
         AuthAPI.shared.postResign(
-            social: GeneralAPI.socialLogin,
+            social: UserDefaultsHelper.standard.social ?? "",
             data: reasonData,
-            socialtoken: GeneralAPI.socialToken) { (resignData, err) in
+            socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { (resignData, err) in
                 guard let resignData = resignData else { return }
                 if resignData.status < 400 {
                     print("☘️-------회원탈퇴 서버 통신", resignData)

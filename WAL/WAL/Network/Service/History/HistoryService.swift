@@ -51,6 +51,6 @@ extension HistoryService: TargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": UserDefaults.standard.string(forKey: Constant.Key.accessToken) ?? ""]
+                "accesstoken": UserDefaultsHelper.standard.accesstoken ?? ""]
     }
 }

@@ -26,7 +26,9 @@ final class OnboardingViewController: UIViewController {
     private var afternoon = false
     private var night = false
     
-    private let loadingView = LoadingView()
+    private let loadingView = LoadingView().then {
+        $0.alpha = 0
+    }
                 
     private let navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
@@ -101,8 +103,7 @@ final class OnboardingViewController: UIViewController {
             make.top.equalTo(topView.snp.bottom)
             make.leading.bottom.trailing.equalToSuperview()
         }
- 
-    }
+     }
     
     private func configureLoadingView() {
         view.addSubview(loadingView)
@@ -156,13 +157,13 @@ final class OnboardingViewController: UIViewController {
     
     @objc func changeNickname(_ notification: Notification) {
         guard let nickname = notification.userInfo?["nickname"] as? String else { return }
-        UserDefaults.standard.set(nickname, forKey: Constant.Key.nickname)
+        UserDefaultsHelper.standard.nickname = nickname
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
         let categoryType = CategoryType(self.joke, self.compliment, self.condolence, self.scolding)
         let alarmTime = AlarmTime(self.morning, self.afternoon, self.night)
-        guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname) else { return }
+        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         OnboardAPI.shared.postOnboardSetting(nickname: nickname,
                                              category: categoryType,
                                              alarm: alarmTime) { (onboardData, err) in

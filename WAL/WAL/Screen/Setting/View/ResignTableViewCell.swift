@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class ResignTableViewCell: UITableViewCell {
+final class ResignTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -19,7 +19,7 @@ class ResignTableViewCell: UITableViewCell {
     let checkButton = UIButton()
     
     let menuLabel = UILabel().then {
-        $0.font = WALFont.body8.font
+        $0.font = WALFont.body9.font
         $0.textColor = .black100
     }
     

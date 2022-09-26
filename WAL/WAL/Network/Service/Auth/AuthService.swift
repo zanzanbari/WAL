@@ -52,11 +52,11 @@ extension AuthService: BaseTargetType {
             return ["Content-Type": GeneralAPI.contentType]
         case .reissue:
             return ["Content-Type": GeneralAPI.contentType,
-                    "accesstoken": UserDefaults.standard.string(forKey: Constant.Key.accessToken) ?? "",
-                    "refreshtoken": GeneralAPI.refreshToken]
+                    "accesstoken": UserDefaultsHelper.standard.accesstoken ?? "",
+                    "refreshtoken": UserDefaultsHelper.standard.refreshtoken ?? ""]
         default:
             return ["Content-Type": GeneralAPI.contentType,
-                    "accesstoken": UserDefaults.standard.string(forKey: Constant.Key.accessToken) ?? ""]
+                    "accesstoken": UserDefaultsHelper.standard.accesstoken ?? ""]
         }
     }
 }

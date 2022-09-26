@@ -134,6 +134,10 @@ class CreateViewController: UIViewController {
     private var datePickerType: DatePickerType = .none
     private var datePickerData = DatePickerData()
     
+    private let loadingView = LoadingView().then {
+        $0.alpha = 0
+    }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -235,6 +239,16 @@ class CreateViewController: UIViewController {
         }
     }
     
+    // MARK: - Custom Method
+    
+    private func configureLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        loadingView.play()
+    }
+    
     //MARK: - @objc
     
     @objc private func touchUpHideHistoryButton() {
@@ -260,8 +274,11 @@ class CreateViewController: UIViewController {
         let reservationData = Reserve(content: walSoundTextView.text, date: date, time: time, hide: isSelectedHideHistory)
         
         postReservation(data: reservationData)
-        
-        navigationController?.pushViewController(viewController, animated: true)
+        self.configureLoadingView()
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.loadingView.hide()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     @objc private func touchUpInformationButton() {

@@ -83,7 +83,7 @@ extension AppDelegate: MessagingDelegate {
             } else if let token = token {
                 print("FCM registration token: 💾\(token)")
                 let fcmtoken: [String: String] = ["token": fcmToken ?? ""]
-                UserDefaults.standard.set(fcmtoken, forKey: Constant.Key.fcmtoken)
+                UserDefaultsHelper.standard.fcmtoken = fcmtoken
             }
         }
         print("Firebase registration token: \(String(describing: fcmToken))")
