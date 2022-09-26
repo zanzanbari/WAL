@@ -45,13 +45,23 @@ final class LoadingView: UIView {
     }
     
     // MARK: - Custom Method
-    
+
     func play() {
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.timingFunction = CAMediaTimingFunction(name: .default)
+        transition.type = .fade
+        loadingAnimationView.layer.add(transition, forKey: nil)
         loadingAnimationView.play()
         loadingAnimationView.loopMode = .loop
     }
     
     func hide() {
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.timingFunction = CAMediaTimingFunction(name: .default)
+        transition.type = .fade
+        loadingAnimationView.layer.add(transition, forKey: nil)
         loadingAnimationView.stop()
         loadingAnimationView.removeFromSuperview()
     }
