@@ -37,7 +37,6 @@ final class MainViewController: UIViewController {
     }
     
     private var subTitleLabel = UILabel().then {
-        $0.text = "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
         $0.textColor = .black100
         $0.font = WALFont.body3.font
     }
@@ -108,7 +107,7 @@ final class MainViewController: UIViewController {
             switch walStatus {
             case .sleeping:
                 walCollectionView.isHidden = true
-            case .checkedAll, .arrived:
+            case .arrived, .checkedAvailable, .checkedAll:
                 walCollectionView.isHidden = false
             }
         }
@@ -145,7 +144,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         setMainStatus()
-        checkTime()
+        getMainInfo()
         NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name("EnterMain"), object: nil)
     }
     
@@ -252,17 +251,6 @@ final class MainViewController: UIViewController {
         walCollectionView.register(MainItemCell.self, forCellWithReuseIdentifier: MainItemCell.cellIdentifier)
     }
     
-    private func checkTime() {
-        let stringDate = dateFormatter.string(from: date)
-        guard let intDate = Int(stringDate) else { return }
-        
-        if intDate >= 0 && intDate <= 7 {
-            walStatus = .sleeping
-        } else {
-            getMainInfo()
-        }
-    }
-    
     private func saveImageOnPhone(image: UIImage, image_name: String) -> URL? {
         let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(image_name).png"
         let imageUrl: URL = URL(fileURLWithPath: imagePath)
@@ -318,7 +306,8 @@ final class MainViewController: UIViewController {
     }
     
     @objc func getNotification() {
-        checkTime()
+        setMainStatus()
+        getMainInfo()
     }
 }
 
@@ -409,17 +398,37 @@ extension MainViewController {
                 self.updateCollectionViewLayout()
                 
                 var isShownCount: Int = 0
+                var canOpenCount: Int = 0
                 
                 for item in self.mainData {
                     if item.isShown {
                         isShownCount += 1
                     }
+                    
+                    if item.canOpen {
+                        canOpenCount += 1
+                    }
                 }
                 
-                if isShownCount == self.dataCount {
-                    self.walStatus = .checkedAll
+                if canOpenCount == 0 {
+                    let stringDate = self.dateFormatter.string(from: self.date)
+                    guard let intDate = Int(stringDate) else { return }
+                    
+                    if intDate >= 0 && intDate <= 7 {
+                        self.walStatus = .sleeping
+                    } else {
+                        self.walStatus = .checkedAvailable
+                    }
                 } else {
-                    self.walStatus = .arrived
+                    if isShownCount == canOpenCount {
+                        if isShownCount == self.dataCount {
+                            self.walStatus = .checkedAll
+                        } else {
+                            self.walStatus = .checkedAvailable
+                        }
+                    } else {
+                        self.walStatus = .arrived
+                    }
                 }
             }
         }
@@ -447,10 +456,48 @@ extension MainViewController {
     
     private func updateMainData(item: Int) {
         MainAPI.shared.updateMainData(item: self.mainData[item].id) { mainData, error in
-            guard let mainData = mainData else {
-                return
+            guard let mainData = mainData else { return }
+            guard let data = mainData.data else { return }
+            
+            self.mainData = data
+            self.dataCount = data.count
+            
+            DispatchQueue.main.async {
+                var isShownCount: Int = 0
+                var canOpenCount: Int = 0
+                
+                for item in self.mainData {
+                    if item.isShown {
+                        isShownCount += 1
+                    }
+                    
+                    if item.canOpen {
+                        canOpenCount += 1
+                    }
+                }
+                
+                if canOpenCount == 0 {
+                    let stringDate = self.dateFormatter.string(from: self.date)
+                    guard let intDate = Int(stringDate) else { return }
+                    
+                    if intDate >= 0 && intDate <= 7 {
+                        self.walStatus = .sleeping
+                    } else {
+                        self.walStatus = .checkedAvailable
+                    }
+                } else {
+                    if isShownCount == canOpenCount {
+                        if isShownCount == self.dataCount {
+                            self.walStatus = .checkedAll
+                        } else {
+                            self.walStatus = .checkedAvailable
+                        }
+                    } else {
+                        self.walStatus = .arrived
+                    }
+                }
             }
-            print(mainData)
+            
         }
     }
 }

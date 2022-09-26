@@ -229,7 +229,7 @@ class CreateViewController: UIViewController {
         reservationTableView.snp.makeConstraints {
             $0.top.equalTo(hideHistoryButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(0)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(sendButton.snp.top).inset(22)
         }
         
         sendButton.snp.makeConstraints {
@@ -317,7 +317,7 @@ class CreateViewController: UIViewController {
         switch datePickerType {
         case .date:
             if datePickerData.didShowView.date {
-                scrollView.setContentOffset(CGPoint(x: 0, y: 55), animated: true)
+                scrollView.setContentOffset(CGPoint(x: 0, y: UIScreen().hasNotch ? 55 : 130), animated: true)
             } else {
                 scrollView.setContentOffset(.zero, animated: true)
             }
