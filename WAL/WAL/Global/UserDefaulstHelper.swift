@@ -59,9 +59,9 @@ final class UserDefaultsHelper {
         }
     }
     
-    var fcmtoken: [String: Any]? {
+    var fcmtoken: String? {
         get {
-            return userDefaults.dictionary(forKey: Key.fcmtoken) ?? ["": ""]
+            return userDefaults.string(forKey: Key.fcmtoken)
         }
         set {
             userDefaults.set(newValue, forKey: Key.fcmtoken)
@@ -92,7 +92,6 @@ final class UserDefaultsHelper {
         userDefaults.removeObject(forKey: Key.refreshtoken)
         userDefaults.removeObject(forKey: Key.socialtoken)
         userDefaults.removeObject(forKey: Key.social)
-        userDefaults.removeObject(forKey: Key.fcmtoken)
         userDefaults.removeObject(forKey: Key.nickname)
         userDefaults.removeObject(forKey: Key.complete)
     }

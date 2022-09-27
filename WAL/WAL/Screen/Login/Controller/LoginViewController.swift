@@ -96,13 +96,6 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    // MARK: - Checking Token
-    
-    private func setupFcmToken() -> String? {
-        guard let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return nil }
-        return fcmtoken["token"] as? String
-    }
-    
     // MARK: - @objc
     
     @objc func touchupKakaoButton() {
@@ -137,19 +130,20 @@ extension LoginViewController {
                     if let error = error {
                         print("----------- 카카오 로그인 앱 에러:", error)
                     } else {
-                        guard let oauthToken = oauthToken else { return  }
+                        guard let oauthToken = oauthToken,
+                        let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao",
-                            socialToken: oauthToken.accessToken,
-                            fcmtoken: self.setupFcmToken()) { (kakaoData, err) in
+                            socialtoken: oauthToken.accessToken,
+                            fcmtoken: fcmtoken) { (kakaoData, err) in
                                 guard let kakaoData = kakaoData,
                                       let accessData = kakaoData.data else { return }
                                 UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
                                 UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                                 UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
                                 UserDefaultsHelper.standard.social = "kakao"
-                                self.pushToHome()
                             }
+                        self.pushToHome()
                     }
                 }
             }
@@ -165,11 +159,12 @@ extension LoginViewController {
                     if let error = error {
                         print("----------- 카카오 로그인 웹 에러 :", error)
                     } else {
-                        guard let oauthToken = oauthToken else { return  }
+                        guard let oauthToken = oauthToken,
+                              let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao",
-                            socialToken: oauthToken.accessToken,
-                            fcmtoken: self.setupFcmToken()) { (kakaoData, err) in
+                            socialtoken: oauthToken.accessToken,
+                            fcmtoken: fcmtoken) { (kakaoData, err) in
                                 guard let kakaoData = kakaoData,
                                       let accessData = kakaoData.data else { return }
                                 if kakaoData.status == 401 {
@@ -187,8 +182,8 @@ extension LoginViewController {
                                     UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                                     UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
                                     UserDefaultsHelper.standard.social = "kakao"
-                                    self.pushToHome()
                                 }
+                                self.pushToHome()
                             }
                     }
                 }
@@ -204,16 +199,17 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         if let identityToken = appleIDCredential.identityToken {
             let tokenString = String(data: identityToken, encoding: .utf8)
-            guard let tokenString = tokenString else { return }
-            AuthAPI.shared.postSocialLogin(social: "apple", socialToken: tokenString, fcmtoken: setupFcmToken()) { (appleData, err) in
+            guard let tokenString = tokenString,
+                  let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
+            AuthAPI.shared.postSocialLogin(social: "apple", socialtoken: tokenString, fcmtoken: fcmtoken) { (appleData, err) in
                 guard let appleData = appleData,
                       let accessData = appleData.data else { return }
                 UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
                 UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                 UserDefaultsHelper.standard.socialtoken = tokenString
                 UserDefaultsHelper.standard.social = "apple"
-                self.pushToHome()
             }
+            self.pushToHome()
         }
     }
     
