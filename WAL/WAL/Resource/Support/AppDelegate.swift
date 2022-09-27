@@ -77,13 +77,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        Messaging.messaging().token { token, error in
+        Messaging.messaging().token { [self] fcmToken, error in
             if let error = error {
                 print("Error fetching FCM registration token: \(error)")
-            } else if let token = token {
-                print("FCM registration token: 💾\(token)")
-                let fcmtoken: [String: String] = ["token": fcmToken ?? ""]
-                UserDefaultsHelper.standard.fcmtoken = fcmtoken
+            } else if let fcmToken = fcmToken {
+                let dataDict: [String: String] = ["token": fcmToken]
+                NotificationCenter.default.post(
+                    name: .fcmToken,
+                    object: nil,
+                    userInfo: dataDict)
+                print("💾 - 푸쉬알림토큰임 : \(fcmToken)")
+                UserDefaultsHelper.standard.fcmtoken = fcmToken
             }
         }
         print("Firebase registration token: \(String(describing: fcmToken))")

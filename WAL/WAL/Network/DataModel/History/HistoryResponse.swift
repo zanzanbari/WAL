@@ -17,12 +17,12 @@ struct HistoryResponse: Codable {
 
 struct HistoryData: Codable {
     let postID: Int
-    let sendingDate, content, reserveAt: String
+    let sendingDate, content, reserveAt, sendDueDate: String
     let hidden: Bool?
     
     enum CodingKeys: String, CodingKey {
         case postID = "postId"
-        case sendingDate, content, reserveAt, hidden
+        case sendingDate, content, reserveAt, sendDueDate, hidden
     }
     
     init(from decoder: Decoder) throws {
@@ -31,6 +31,7 @@ struct HistoryData: Codable {
         sendingDate = (try? values.decode(String.self, forKey: .sendingDate)) ?? ""
         content = (try? values.decode(String.self, forKey: .content)) ?? ""
         reserveAt = (try? values.decode(String.self, forKey: .reserveAt)) ?? ""
+        sendDueDate = (try? values.decode(String.self, forKey: .sendDueDate)) ?? ""
         hidden = (try? values.decode(Bool.self, forKey: .hidden)) ?? false
     }
 }
