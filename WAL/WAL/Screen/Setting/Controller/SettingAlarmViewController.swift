@@ -45,6 +45,8 @@ final class SettingAlarmViewController: UIViewController {
         $0.spacing = 16
     }
     
+    private let loadingView = LoadingView()
+    
     private let morningButton = TimeButton(0)
     private let afternoonButton = TimeButton(1)
     private let nightButton = TimeButton(2)
@@ -58,9 +60,14 @@ final class SettingAlarmViewController: UIViewController {
         setupLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
     // MARK: - InitUI
     
     private func configUI() {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         view.backgroundColor = .white100
         [morningButton,
          afternoonButton,
@@ -111,6 +118,17 @@ final class SettingAlarmViewController: UIViewController {
                 make.height.equalTo(104)
             }
         }
+    }
+    
+    // MARK: - Custom Method
+    
+    private func configureLoadingView() {
+        let loadingView = LoadingView()
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        loadingView.play()
     }
     
     // MARK: - @objc
@@ -167,7 +185,11 @@ extension SettingAlarmViewController {
                     self.morningButton.isSelected = userAlarmData.morning
                     self.afternoonButton.isSelected = userAlarmData.afternoon
                     self.nightButton.isSelected = userAlarmData.night
-                    self.transition(self, .pop)
+                    self.configureLoadingView()
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        self.loadingView.hide()
+                        self.transition(self, .pop)
+                    }
                 } else {
                     print("🥰 알림시간 수정 서버 통신 실패로 화면전환 실패")
                 }

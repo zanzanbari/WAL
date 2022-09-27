@@ -17,6 +17,7 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
     weak var sendNicknameDelegate: SendNicknameDelegate?
     
     var nickname = ""
+    var email = ""
     
     private let navigationBar = WALNavigationBar(title: "내 정보").then {
         $0.backgroundColor = .white100
@@ -46,9 +47,9 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var loginSubtitleLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "kakao" {
+        if UserDefaultsHelper.standard.social == "kakao" {
             $0.text = "카카오 계정으로 로그인"
-        } else if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "apple" {
+        } else if UserDefaultsHelper.standard.social == "apple" {
             $0.text = "애플 계정으로 로그인"
         }
     }
@@ -56,7 +57,11 @@ class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        $0.text = "-"
+        if UserDefaultsHelper.standard.social == "kakao" {
+            $0.text = email
+        } else if UserDefaultsHelper.standard.social == "apple" {
+            $0.text = "-"
+        }
     }
     
     private let logoutButton = MenuButton(0).then {

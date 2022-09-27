@@ -66,6 +66,8 @@ final class EditNicknameViewController: BaseViewController {
         $0.isHidden = true
     }
     
+    private let loadingView = LoadingView()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -125,10 +127,17 @@ final class EditNicknameViewController: BaseViewController {
             make.top.equalTo(nicknameTextField.snp.bottom).offset(6)
             make.trailing.equalToSuperview().inset(20)
         }
-        
     }
     
     // MARK: - Custom Method
+    
+    private func configureLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        loadingView.play()
+    }
     
     private func setupTextField() {
         nicknameTextField.delegate = self
@@ -149,7 +158,7 @@ final class EditNicknameViewController: BaseViewController {
     // MARK: - @objc
     
     @objc func touchupCloseButton() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
     
     @objc private func textDidChange(_ notification: Notification) {
@@ -171,6 +180,11 @@ final class EditNicknameViewController: BaseViewController {
             guard let userInfoData = userInfoData?.data else { return }
             self.nickname = userInfoData.nickname
             self.sendNicknameDelegate?.sendNickname(userInfoData.nickname)
+            self.configureLoadingView()
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.loadingView.hide()
+                self.dismiss(animated: false)
+            }
         }
         self.view.endEditing(true)
     }

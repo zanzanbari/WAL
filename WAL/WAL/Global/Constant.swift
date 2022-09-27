@@ -12,12 +12,6 @@ struct Constant {
     
     // MARK: - UserDefaults Key
     enum Key {
-        static let accessToken = "accessToken"
-        static let refreshToken = "refreshToken"
-        static let socialToken = "socialToken"
-        static let socialLogin = "socialLogin"
-        static let nickname = "nickname"
-        static let complete = "complete"
         static let alarmToggle = "alarmToggle"
     }
     
