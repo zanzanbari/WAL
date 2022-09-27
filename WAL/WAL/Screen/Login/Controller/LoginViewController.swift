@@ -98,9 +98,9 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Checking Token
     
-    private func setupFcmToken() -> String {
-        guard let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return String() }
-        return fcmtoken["token"] as! String
+    private func setupFcmToken() -> String? {
+        guard let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return nil }
+        return fcmtoken["token"] as? String
     }
     
     // MARK: - @objc
