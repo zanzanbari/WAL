@@ -55,6 +55,7 @@ final class LogoutPopupViewController: UIViewController {
         let viewController = LoginViewController()
         sceneDelegate?.window?.rootViewController = viewController
         sceneDelegate?.window?.makeKeyAndVisible()
+        UserDefaultsHelper.standard.removeAccessToken()
     }
     
     // MARK: - @objc
