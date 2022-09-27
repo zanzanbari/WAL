@@ -28,9 +28,9 @@ class MyInfoTableViewCell: UITableViewCell {
     let socialTypeLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "kakao" {
+        if UserDefaultsHelper.standard.social == "kakao" {
             $0.text = "카카오 계정으로 로그인"
-        } else if UserDefaults.standard.string(forKey: Constant.Key.socialLogin) == "apple" {
+        } else if UserDefaultsHelper.standard.social == "apple" {
             $0.text = "애플 계정으로 로그인"
         }
     }

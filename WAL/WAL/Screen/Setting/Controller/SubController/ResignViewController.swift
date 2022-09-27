@@ -56,7 +56,6 @@ final class ResignViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white
-        
     }
     
     private func setupLayout() {
@@ -106,12 +105,20 @@ final class ResignViewController: UIViewController {
     
     @objc func touchupResignButton(_ sender: UIButton) {
         AuthAPI.shared.postResign(
-            social: GeneralAPI.socialLogin,
+            social: UserDefaultsHelper.standard.social ?? "",
             data: reasonData,
-            socialtoken: GeneralAPI.socialToken) { (resignData, err) in
+            socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { (resignData, err) in
                 guard let resignData = resignData else { return }
                 if resignData.status < 400 {
                     print("☘️-------회원탈퇴 서버 통신", resignData)
+                    UserDefaultsHelper.standard.removeObject()
+                    print("🏓====탈퇴 후 UserDefaults 값들 확인하기====")
+                    print(UserDefaultsHelper.standard.accesstoken)
+                    print(UserDefaultsHelper.standard.refreshtoken)
+                    print(UserDefaultsHelper.standard.social)
+                    print(UserDefaultsHelper.standard.socialtoken)
+                    print(UserDefaultsHelper.standard.nickname)
+                    print("🏓====탈퇴 후 UserDefaults 값들 확인하기====")
                     self.pushToLoginView()
                 } else {
                     print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")

@@ -134,6 +134,10 @@ class CreateViewController: UIViewController {
     private var datePickerType: DatePickerType = .none
     private var datePickerData = DatePickerData()
     
+    private let loadingView = LoadingView().then {
+        $0.alpha = 0
+    }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -225,7 +229,7 @@ class CreateViewController: UIViewController {
         reservationTableView.snp.makeConstraints {
             $0.top.equalTo(hideHistoryButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(0)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalTo(sendButton.snp.top).inset(22)
         }
         
         sendButton.snp.makeConstraints {
@@ -233,6 +237,16 @@ class CreateViewController: UIViewController {
             $0.bottom.equalTo(view.layoutMarginsGuide).inset(11)
             $0.height.equalTo(52)
         }
+    }
+    
+    // MARK: - Custom Method
+    
+    private func configureLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        loadingView.play()
     }
     
     //MARK: - @objc
@@ -260,8 +274,11 @@ class CreateViewController: UIViewController {
         let reservationData = Reserve(content: walSoundTextView.text, date: date, time: time, hide: isSelectedHideHistory)
         
         postReservation(data: reservationData)
-        
-        navigationController?.pushViewController(viewController, animated: true)
+        self.configureLoadingView()
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.loadingView.hide()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     @objc private func touchUpInformationButton() {
@@ -300,7 +317,7 @@ class CreateViewController: UIViewController {
         switch datePickerType {
         case .date:
             if datePickerData.didShowView.date {
-                scrollView.setContentOffset(CGPoint(x: 0, y: 55), animated: true)
+                scrollView.setContentOffset(CGPoint(x: 0, y: UIScreen().hasNotch ? 55 : 130), animated: true)
             } else {
                 scrollView.setContentOffset(.zero, animated: true)
             }

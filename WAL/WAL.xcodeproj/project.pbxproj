@@ -19,6 +19,8 @@
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
 		5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */; };
 		5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B348A2C281E4EB4006FEFDA /* Asset.xcassets */; };
+		5B3E2C9228E0300A000A7BA4 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3E2C9128E0300A000A7BA4 /* LoadingView.swift */; };
+		5B3E2C9428E0314B000A7BA4 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B3E2C9328E0314B000A7BA4 /* loading.json */; };
 		5B422BA228676CF8001B6807 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E57E28A6BCED000ABF0C /* SettingService.swift */; };
 		5B44E58128A6BCFC000ABF0C /* SettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */; };
@@ -28,6 +30,7 @@
 		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
 		5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */; };
+		5B66CF4228E153C8009ED52F /* UserDefaulstHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B66CF4128E153C8009ED52F /* UserDefaulstHelper.swift */; };
 		5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */; };
 		5B7EE87E2822DCB5007BC265 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */; };
 		5BA3893227F6B94F0010EAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893127F6B94F0010EAA1 /* AppDelegate.swift */; };
@@ -82,6 +85,8 @@
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
 		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
+		5BF3D56828C381D7009663EA /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF3D56728C381D7009663EA /* Gifu */; };
+		5BF3D56B28C381F1009663EA /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5BF3D56A28C381F1009663EA /* WALKit */; };
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
@@ -100,8 +105,6 @@
 		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
-		92D87F7C28C37D58009AAFE5 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 92D87F7B28C37D58009AAFE5 /* Gifu */; };
-		92D87F7F28C37D87009AAFE5 /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 92D87F7E28C37D87009AAFE5 /* WALKit */; };
 		92D87F8128C37EED009AAFE5 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92D87F8028C37EED009AAFE5 /* login500.gif */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
@@ -134,6 +137,8 @@
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5B348A29281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B348A2C281E4EB4006FEFDA /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
+		5B3E2C9128E0300A000A7BA4 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		5B3E2C9328E0314B000A7BA4 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		5B44E57E28A6BCED000ABF0C /* SettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingService.swift; sourceTree = "<group>"; };
 		5B44E58028A6BCFC000ABF0C /* SettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAPI.swift; sourceTree = "<group>"; };
 		5B44E58228A6C174000ABF0C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -142,6 +147,7 @@
 		5B44E58928A6D044000ABF0C /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+.swift"; sourceTree = "<group>"; };
+		5B66CF4128E153C8009ED52F /* UserDefaulstHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaulstHelper.swift; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		5BA3892E27F6B94F0010EAA1 /* WAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,9 +248,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92D87F7F28C37D87009AAFE5 /* WALKit in Frameworks */,
+				5BF3D56B28C381F1009663EA /* WALKit in Frameworks */,
 				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
-				92D87F7C28C37D58009AAFE5 /* Gifu in Frameworks */,
+				5BF3D56828C381D7009663EA /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +319,14 @@
 				5B020D3E281F31B00057F9B7 /* AlarmCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5B3E2C9028E02FE6000A7BA4 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				5B3E2C9128E0300A000A7BA4 /* LoadingView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		5B44E57C28A6BCC5000ABF0C /* Setting */ = {
@@ -395,9 +409,11 @@
 		5BA3894627F6C03A0010EAA1 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				5B3E2C9028E02FE6000A7BA4 /* Component */,
 				5BA3894927F6C0B10010EAA1 /* Extension */,
 				5BA3894E27F6C1230010EAA1 /* Protocol */,
 				5BB3FB782857254200A8A70D /* Constant.swift */,
+				5B66CF4128E153C8009ED52F /* UserDefaulstHelper.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -784,6 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				92D87F8028C37EED009AAFE5 /* login500.gif */,
+				5B3E2C9328E0314B000A7BA4 /* loading.json */,
 				92C1B84C28633FB500F97D75 /* mintPaw.json */,
 				92C1B84D28633FB500F97D75 /* orangePaw.json */,
 				5BC58097289D332C0095F8E4 /* login.json */,
@@ -885,8 +902,8 @@
 			);
 			name = WAL;
 			packageProductDependencies = (
-				92D87F7B28C37D58009AAFE5 /* Gifu */,
-				92D87F7E28C37D87009AAFE5 /* WALKit */,
+				5BF3D56728C381D7009663EA /* Gifu */,
+				5BF3D56A28C381F1009663EA /* WALKit */,
 			);
 			productName = WAL;
 			productReference = 5BA3892E27F6B94F0010EAA1 /* WAL.app */;
@@ -917,8 +934,8 @@
 			);
 			mainGroup = 5BA3892527F6B94F0010EAA1;
 			packageReferences = (
-				92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */,
-				92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */,
+				5BF3D56628C381D7009663EA /* XCRemoteSwiftPackageReference "Gifu" */,
+				5BF3D56928C381F1009663EA /* XCRemoteSwiftPackageReference "WALKit" */,
 			);
 			productRefGroup = 5BA3892F27F6B94F0010EAA1 /* Products */;
 			projectDirPath = "";
@@ -936,6 +953,7 @@
 			files = (
 				5B348A2D281E4EB5006FEFDA /* Asset.xcassets in Resources */,
 				E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */,
+				5B3E2C9428E0314B000A7BA4 /* loading.json in Resources */,
 				92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */,
 				5BA3893E27F6B9540010EAA1 /* (null) in Resources */,
 				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
@@ -1006,6 +1024,7 @@
 				5BB17B3F286628F300029824 /* Logout.swift in Sources */,
 				5B44E58828A6C881000ABF0C /* UserCategory.swift in Sources */,
 				5B44E58628A6C846000ABF0C /* UserAlarm.swift in Sources */,
+				5B66CF4228E153C8009ED52F /* UserDefaulstHelper.swift in Sources */,
 				5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */,
 				5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */,
 				5BB17B3D2865BB4200029824 /* OnboardService.swift in Sources */,
@@ -1094,6 +1113,7 @@
 				9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */,
 				5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
+				5B3E2C9228E0300A000A7BA4 /* LoadingView.swift in Sources */,
 				E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */,
 				E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */,
 				5BB80AB628A8394F0056E334 /* OnboardRequest.swift in Sources */,
@@ -1331,7 +1351,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */ = {
+		5BF3D56628C381D7009663EA /* XCRemoteSwiftPackageReference "Gifu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kaishin/Gifu.git";
 			requirement = {
@@ -1339,7 +1359,7 @@
 				version = 3.3.1;
 			};
 		};
-		92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */ = {
+		5BF3D56928C381F1009663EA /* XCRemoteSwiftPackageReference "WALKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zanzanbari/WALKit.git";
 			requirement = {
@@ -1350,14 +1370,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		92D87F7B28C37D58009AAFE5 /* Gifu */ = {
+		5BF3D56728C381D7009663EA /* Gifu */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 92D87F7A28C37D58009AAFE5 /* XCRemoteSwiftPackageReference "Gifu" */;
+			package = 5BF3D56628C381D7009663EA /* XCRemoteSwiftPackageReference "Gifu" */;
 			productName = Gifu;
 		};
-		92D87F7E28C37D87009AAFE5 /* WALKit */ = {
+		5BF3D56A28C381F1009663EA /* WALKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 92D87F7D28C37D87009AAFE5 /* XCRemoteSwiftPackageReference "WALKit" */;
+			package = 5BF3D56928C381F1009663EA /* XCRemoteSwiftPackageReference "WALKit" */;
 			productName = WALKit;
 		};
 /* End XCSwiftPackageProductDependency section */

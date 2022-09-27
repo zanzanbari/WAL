@@ -50,8 +50,7 @@ final class OnboardCompleteViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white
-        guard let nickname = UserDefaults.standard.string(forKey: Constant.Key.nickname)
-        else { return }
+        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         subLabel.text = nickname + "님 맞춤 설정을 끝냈어요\n왈을 시작해볼까요?"
         subLabel.addLineSpacing(spacing: 0.4)
         subLabel.addLetterSpacing()

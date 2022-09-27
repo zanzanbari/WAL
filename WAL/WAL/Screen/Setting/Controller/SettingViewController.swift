@@ -16,6 +16,7 @@ class SettingViewController: UIViewController, SendNicknameDelegate {
     // MARK: - Properties
     
     var nickname = ""
+    var email = ""
     private let setting = SettingData()
     
     private let navigationBar = WALNavigationBar(title: "설정").then {
@@ -105,6 +106,7 @@ extension SettingViewController: UITableViewDelegate {
         case 0:
             let viewController = MypageViewController()
             transition(viewController)
+            viewController.email = email
             viewController.nickname = nickname
             viewController.sendNicknameDelegate = self
         case 1:
@@ -204,6 +206,7 @@ extension SettingViewController {
         SettingAPI.shared.getUserInfo { (userInfo, nil) in
             guard let userInfoData = userInfo?.data else { return }
             self.nickname = userInfoData.nickname
+            self.email = userInfoData.email
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

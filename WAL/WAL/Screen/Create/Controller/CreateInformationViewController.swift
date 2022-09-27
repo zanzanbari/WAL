@@ -67,7 +67,9 @@ class CreateInformationViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        dismiss(animated: false)
+        if let touch = touches.first, touch.view == view {
+            dismiss(animated: false)
+        }
     }
     
     // MARK: - InitUI
