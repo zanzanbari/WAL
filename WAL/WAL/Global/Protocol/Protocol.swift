@@ -42,6 +42,10 @@ protocol SendAlarmTimeDelegate: OnboardingViewController {
     func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool)
 }
 
-protocol ResendWalDelegate {
+protocol ResendWalDelegate: AnyObject{
     func resendToCreate(_ vc: UIViewController, walsound: String)
+}
+
+protocol RefreshDelegate: AnyObject {
+    func refresh(_ vc: UIViewController)
 }
