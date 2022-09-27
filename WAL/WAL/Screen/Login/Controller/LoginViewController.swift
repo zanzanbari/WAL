@@ -142,8 +142,9 @@ extension LoginViewController {
                                 UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                                 UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
                                 UserDefaultsHelper.standard.social = "kakao"
+                                self.pushToHome()
                             }
-                        self.pushToHome()
+                       
                     }
                 }
             }
@@ -182,8 +183,9 @@ extension LoginViewController {
                                     UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                                     UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
                                     UserDefaultsHelper.standard.social = "kakao"
+                                    self.pushToHome()
                                 }
-                                self.pushToHome()
+                                
                             }
                     }
                 }
@@ -208,8 +210,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
                 UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                 UserDefaultsHelper.standard.socialtoken = tokenString
                 UserDefaultsHelper.standard.social = "apple"
+                self.pushToHome()
             }
-            self.pushToHome()
+            
         }
     }
     

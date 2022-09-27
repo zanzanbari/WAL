@@ -95,4 +95,9 @@ final class UserDefaultsHelper {
         userDefaults.removeObject(forKey: Key.nickname)
         userDefaults.removeObject(forKey: Key.complete)
     }
+    
+    // 로그아웃을 위해
+    func removeAccessToken() {
+        userDefaults.removeObject(forKey: Key.accesstoken)
+    }
 }
