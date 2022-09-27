@@ -35,7 +35,8 @@ final class HistoryViewController: UIViewController {
     var selectedIndex: IndexPath = []
     var selectedIndices: [IndexPath] = []
     
-    var delegate: ResendWalDelegate?
+    weak var resendWalDelegate: ResendWalDelegate?
+    weak var refreshDelegate: RefreshDelegate?
     
     // MARK: - Life Cycle
     
@@ -103,6 +104,10 @@ final class HistoryViewController: UIViewController {
                         cell.coverView.isHidden = false
                     })
                 default:
+                    let point: CGPoint = sender.location(in: self.historyTableView.cellForRow(at: indexPath))
+                    if point.y > 100 || point.y < 15 {
+                        sender.state = .ended
+                    }
                     selectedIndex = indexPath
                     UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
                         self.historyTableView.beginUpdates()
@@ -120,7 +125,8 @@ final class HistoryViewController: UIViewController {
     }
     
     @objc func touchupCloseButton() {
-        dismiss(animated: true)
+        self.refreshDelegate?.refresh(self)
+        self.presentingViewController?.dismiss(animated: true)
     }
     
     func showActionSheet(type: ActionSheetType, postId: Int) {
@@ -229,7 +235,7 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            self.delegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
+            self.resendWalDelegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
             self.presentingViewController?.dismiss(animated: true)
             success(true)
         }
@@ -306,14 +312,12 @@ extension HistoryViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.setData(sendingData[indexPath.row])
-            selectedIndices.append([-1,-1])
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            cell.hideDdayView()
+            // cell.hideDdayView()
             cell.setData(completeData[indexPath.row])
-            selectedIndices.append([-1,-1])
             return cell
         default:
             return UITableViewCell()
@@ -339,10 +343,17 @@ extension HistoryViewController {
             }
             if let sendingData = historyData.data?.sendingData {
                 self.sendingData = sendingData
+                for _ in 0 ..< sendingData.count {
+                    self.selectedIndices.append([-1,-1])
+                }
             }
             if let completeData = historyData.data?.completeData {
                 self.completeData = completeData
+                for _ in 0 ..< completeData.count {
+                    self.selectedIndices.append([-1,-1])
+                }
             }
+
             DispatchQueue.main.async {
                 self.historyTableView.reloadData()
             }
@@ -350,18 +361,25 @@ extension HistoryViewController {
     }
     
     func getHistoryInfoAfterDelete() {
+        selectedIndices = []
         HistoryAPI.shared.getHistoryData { historyData, err in
             guard let historyData = historyData else {
                 return
             }
             if let sendingData = historyData.data?.sendingData {
                 self.sendingData = sendingData
+                for _ in 0 ..< sendingData.count {
+                    self.selectedIndices.append([-1,-1])
+                }
             }
             if let completeData = historyData.data?.completeData {
                 self.completeData = completeData
+                for _ in 0 ..< completeData.count {
+                    self.selectedIndices.append([-1,-1])
+                }
             }
+            
             DispatchQueue.main.async {
-                self.selectedIndices = []
                 self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
             }
         }
