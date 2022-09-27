@@ -35,8 +35,8 @@ final class HistoryViewController: UIViewController {
     var selectedIndex: IndexPath = []
     var selectedIndices: [IndexPath] = []
     
-    var resendWalDelegate: ResendWalDelegate?
-    var refreshDelegate: RefreshDelegate?
+    weak var resendWalDelegate: ResendWalDelegate?
+    weak var refreshDelegate: RefreshDelegate?
     
     // MARK: - Life Cycle
     
