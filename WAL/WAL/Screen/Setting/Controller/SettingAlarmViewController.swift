@@ -69,9 +69,7 @@ final class SettingAlarmViewController: UIViewController {
     private func configUI() {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         view.backgroundColor = .white100
-        [morningButton,
-         afternoonButton,
-         nightButton].forEach {
+        [morningButton, afternoonButton, nightButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }

@@ -44,7 +44,8 @@ final class EditNicknameViewController: BaseViewController {
     private let nicknameTextField = WALTextField().then {
         $0.font = WALFont.body6.font
         $0.placeholder = "닉네임을 입력해주세요"
-        $0.isFocusing = false
+        $0.isFocusing = true
+        $0.clearButtonMode = .whileEditing
     }
     
     private lazy var countLabel = UILabel().then {
@@ -143,6 +144,7 @@ final class EditNicknameViewController: BaseViewController {
         nicknameTextField.delegate = self
         nicknameTextField.becomeFirstResponder()
         nicknameTextField.inputAccessoryView = toolBar
+        nicknameTextField.text = nickname
         setupNotificationCenter()
     }
     
