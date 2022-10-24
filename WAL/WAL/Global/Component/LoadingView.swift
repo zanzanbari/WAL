@@ -32,7 +32,7 @@ final class LoadingView: UIView {
     // MARK: - Configure UI & Layout
     
     private func configureUI() {
-        self.backgroundColor = .black100.withAlphaComponent(0.5)
+        self.backgroundColor = .black100.withAlphaComponent(0)
     }
     
     private func setupLayout() {
@@ -45,24 +45,21 @@ final class LoadingView: UIView {
     }
     
     // MARK: - Custom Method
-
+    
     func play() {
-        let transition = CATransition()
-        transition.duration = 0.2
-        transition.timingFunction = CAMediaTimingFunction(name: .default)
-        transition.type = .fade
-        loadingAnimationView.layer.add(transition, forKey: nil)
-        loadingAnimationView.play()
-        loadingAnimationView.loopMode = .loop
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            self.backgroundColor = .black100.withAlphaComponent(0.5)
+            self.loadingAnimationView.play()
+            self.loadingAnimationView.loopMode = .loop
+        })
     }
     
+    
     func hide() {
-        let transition = CATransition()
-        transition.duration = 0.2
-        transition.timingFunction = CAMediaTimingFunction(name: .default)
-        transition.type = .fade
-        loadingAnimationView.layer.add(transition, forKey: nil)
-        loadingAnimationView.stop()
-        loadingAnimationView.removeFromSuperview()
+        UIView.animate(withDuration: 0.3, delay: 0, options: .transitionCrossDissolve, animations: {
+            self.loadingAnimationView.stop()
+            self.loadingAnimationView.removeFromSuperview()
+        })
     }
 }
+
