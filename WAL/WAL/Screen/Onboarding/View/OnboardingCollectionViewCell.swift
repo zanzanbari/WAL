@@ -34,7 +34,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         $0.font = WALFont.body6.font
         $0.placeholder = "닉네임을 입력해주세요"
         $0.isFocusing = false
-        $0.clearButtonMode = .whileEditing
+        $0.clearButtonMode = .always
     }
     
     private lazy var countLabel = UILabel().then {

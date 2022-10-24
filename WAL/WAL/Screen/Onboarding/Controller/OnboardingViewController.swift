@@ -104,6 +104,7 @@ final class OnboardingViewController: UIViewController {
      }
     
     private func configureLoadingView() {
+        let loadingView = LoadingView()
         view.addSubview(loadingView)
         loadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

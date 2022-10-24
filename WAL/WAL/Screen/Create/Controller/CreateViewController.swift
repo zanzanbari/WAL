@@ -242,6 +242,7 @@ class CreateViewController: UIViewController {
     // MARK: - Custom Method
     
     private func configureLoadingView() {
+        let loadingView = LoadingView()
         view.addSubview(loadingView)
         loadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
