@@ -162,7 +162,8 @@ extension SettingAlarmViewController {
     }
     
     private func requestAlarm() {
-        SettingAPI.shared.getUserAlarm { (userAlarmData, nil) in
+        SettingAPI.shared.getUserAlarm { [weak self] (userAlarmData, nil) in
+            guard let self = self else { return }
             guard let userAlarmData = userAlarmData?.data else { return }
             print("🥰 알림시간 값 가져오기 🥰", userAlarmData)
             self.buttonBorderColor(self.morningButton, userAlarmData.morning)
@@ -175,7 +176,8 @@ extension SettingAlarmViewController {
     private func postAlarm() {
         SettingAPI.shared.postUserAlarm(data: [
             alarmBeforeChange,
-            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { (userAlarmData, nil) in
+            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { [weak self] (userAlarmData, nil) in
+                guard let self = self else { return }
                 guard let userAlarm = userAlarmData,
                       let userAlarmData = userAlarm.data else { return }
                 if userAlarm.status < 400 {
@@ -183,10 +185,16 @@ extension SettingAlarmViewController {
                     self.morningButton.isSelected = userAlarmData.morning
                     self.afternoonButton.isSelected = userAlarmData.afternoon
                     self.nightButton.isSelected = userAlarmData.night
-                    self.configureLoadingView()
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        self.loadingView.hide()
+                    if self.alarmBeforeChange.morning == self.morningButton.isSelected &&
+                        self.alarmBeforeChange.afternoon == self.afternoonButton.isSelected &&
+                        self.alarmBeforeChange.night == self.nightButton.isSelected {
                         self.transition(self, .pop)
+                    } else {
+                        self.configureLoadingView()
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                            self.loadingView.hide()
+                            self.transition(self, .pop)
+                        }
                     }
                 } else {
                     print("🥰 알림시간 수정 서버 통신 실패로 화면전환 실패")

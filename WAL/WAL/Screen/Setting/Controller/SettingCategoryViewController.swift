@@ -163,7 +163,8 @@ extension SettingCategoryViewController {
     }
     
     private func requestCategory() {
-        SettingAPI.shared.getUserCategory { (userCategoryData, nil) in
+        SettingAPI.shared.getUserCategory { [weak self] (userCategoryData, nil) in
+            guard let self = self else { return }
             guard let userCategory = userCategoryData?.data else { return }
             print("🌈 카테고리 가져오기 서버통신 🌈", userCategory)
             self.buttonBorderColor(self.jokeButton, userCategory.joke)
@@ -171,36 +172,39 @@ extension SettingCategoryViewController {
             self.buttonBorderColor(self.condolenceButton, userCategory.condolence)
             self.buttonBorderColor(self.scoldingButton, userCategory.scolding)
             self.categoryBeforeChange = CategoryType(
-                userCategory.joke,
-                userCategory.compliment,
-                userCategory.condolence,
-                userCategory.scolding)
+                userCategory.joke, userCategory.compliment, userCategory.condolence, userCategory.scolding)
         }
     }
     
     private func postCategory() {
         SettingAPI.shared.postUserCategory(data: [
             categoryBeforeChange,
-            CategoryType(jokeButton.isSelected,
-                         complimentButton.isSelected,
-                         condolenceButton.isSelected,
-                         scoldingButton.isSelected)]) { (userCategory, nil) in
-                             guard let userCategory = userCategory,
-                                   let userCategoryData = userCategory.data else { return }
-                             if userCategory.status < 400 {
-                                 print("🌈 카테고리 수정 서버 통신 🌈", userCategoryData)
-                                 self.jokeButton.isSelected = userCategoryData.joke
-                                 self.complimentButton.isSelected = userCategoryData.compliment
-                                 self.condolenceButton.isSelected = userCategoryData.condolence
-                                 self.scoldingButton.isSelected = userCategoryData.scolding
-                                 self.configureLoadingView()
-                                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                                     self.loadingView.hide()
-                                     self.transition(self, .pop)
-                                 }
-                             } else {
-                                 print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
-                             }
-                         }
+            CategoryType(jokeButton.isSelected, complimentButton.isSelected,
+                         condolenceButton.isSelected, scoldingButton.isSelected)]) { [weak self] (userCategory, nil) in
+                guard let self = self else { return }
+                guard let userCategory = userCategory,
+                      let userCategoryData = userCategory.data else { return }
+                if userCategory.status < 400 {
+                    print("🌈 카테고리 수정 서버 통신 🌈", userCategoryData)
+                    self.jokeButton.isSelected = userCategoryData.joke
+                    self.complimentButton.isSelected = userCategoryData.compliment
+                    self.condolenceButton.isSelected = userCategoryData.condolence
+                    self.scoldingButton.isSelected = userCategoryData.scolding
+                    if self.categoryBeforeChange.joke == self.jokeButton.isSelected &&
+                        self.categoryBeforeChange.compliment == self.complimentButton.isSelected &&
+                        self.categoryBeforeChange.condolence == self.condolenceButton.isSelected &&
+                        self.categoryBeforeChange.scolding == self.scoldingButton.isSelected {
+                        self.transition(self, .pop)
+                    } else {
+                        self.configureLoadingView()
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                            self.loadingView.hide()
+                            self.transition(self, .pop)
+                        }
+                    }
+                } else {
+                print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
+            }
+        }
     }
 }
