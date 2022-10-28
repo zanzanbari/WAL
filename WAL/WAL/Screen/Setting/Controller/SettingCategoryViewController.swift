@@ -166,13 +166,13 @@ extension SettingCategoryViewController {
         SettingAPI.shared.getUserCategory { [weak self] (userCategoryData, nil) in
             guard let self = self else { return }
             guard let userCategory = userCategoryData?.data else { return }
-            print("🌈 카테고리 가져오기 서버통신 🌈", userCategory)
+            print("🌈 카테고리 가져오기 서버통신 🌈", "위로", userCategory.condolence, "꾸중",userCategory.scolding)
             self.buttonBorderColor(self.jokeButton, userCategory.joke)
             self.buttonBorderColor(self.complimentButton, userCategory.compliment)
             self.buttonBorderColor(self.condolenceButton, userCategory.condolence)
             self.buttonBorderColor(self.scoldingButton, userCategory.scolding)
             self.categoryBeforeChange = CategoryType(
-                userCategory.joke, userCategory.compliment, userCategory.condolence, userCategory.scolding)
+                userCategory.joke, userCategory.compliment, userCategory.scolding, userCategory.condolence)
         }
     }
     
@@ -180,7 +180,7 @@ extension SettingCategoryViewController {
         SettingAPI.shared.postUserCategory(data: [
             categoryBeforeChange,
             CategoryType(jokeButton.isSelected, complimentButton.isSelected,
-                         condolenceButton.isSelected, scoldingButton.isSelected)]) { [weak self] (userCategory, nil) in
+                         scoldingButton.isSelected, condolenceButton.isSelected)]) { [weak self] (userCategory, nil) in
                 guard let self = self else { return }
                 guard let userCategory = userCategory,
                       let userCategoryData = userCategory.data else { return }
