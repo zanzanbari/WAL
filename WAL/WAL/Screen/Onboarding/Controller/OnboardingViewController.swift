@@ -40,8 +40,7 @@ final class OnboardingViewController: UIViewController {
         $0.image = WALIcon.icnProgress1.image
     }
     
-    private lazy var collectionView = UICollectionView(
-        frame: .zero, collectionViewLayout: collectionViewFlowLayout).then {
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout).then {
             $0.backgroundColor = .white100
             $0.allowsSelection = true
             $0.contentInsetAdjustmentBehavior = .never
@@ -68,6 +67,10 @@ final class OnboardingViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+   }
     
     // MARK: - InitUI
     
@@ -160,13 +163,14 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
-        let categoryType = CategoryType(self.joke, self.compliment, self.condolence, self.scolding)
-        let alarmTime = AlarmTime(self.morning, self.afternoon, self.night)
+        let categoryType = CategoryType(joke, compliment, condolence, scolding)
+        let alarmTime = AlarmTime(morning, afternoon, night)
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         OnboardAPI.shared.postOnboardSetting(nickname: nickname,
                                              category: categoryType,
-                                             alarm: alarmTime) { (onboardData, err) in
+                                             alarm: alarmTime) { [weak self] (onboardData, err) in
             guard let onboardData = onboardData else { return }
+            guard let self = self else { return }
             if onboardData.status < 400 {
                 print("☘️--------온보딩 서버 통신 완료", onboardData)
                 let viewController = OnboardCompleteViewController()
