@@ -25,6 +25,8 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private lazy var firstView = AlarmView(.firstMenu).then {
+        let isPushNotificationOn = UIApplication.shared.isRegisteredForRemoteNotifications
+        $0.toggleSwitch.isOn = isPushNotificationOn
         $0.toggleSwitch.addTarget(self, action: #selector(switchValueChanged(toggle:)), for: .valueChanged)
     }
     
@@ -148,7 +150,11 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     @objc func switchValueChanged(toggle: UISwitch) {
-        UserDefaults.standard.set(toggle.isOn, forKey: Constant.Key.alarmToggle)
+        if toggle.isOn {
+            UIApplication.shared.registerForRemoteNotifications()
+        } else {
+            UIApplication.shared.unregisterForRemoteNotifications()
+        }
     }
 }
 
