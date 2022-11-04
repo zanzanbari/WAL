@@ -42,4 +42,10 @@ extension UIViewController {
             toastLabel.removeFromSuperview()
         }
     }
+    
+    func configureCellBackgroundColor(_ cell: UITableViewCell) {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .gray600
+        cell.selectedBackgroundView = backgroundView
+    }
 }
