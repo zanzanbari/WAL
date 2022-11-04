@@ -166,7 +166,7 @@ extension SettingCategoryViewController {
         SettingAPI.shared.getUserCategory { [weak self] (userCategoryData, nil) in
             guard let self = self else { return }
             guard let userCategory = userCategoryData?.data else { return }
-            print("🌈 카테고리 가져오기 서버통신 🌈", "위로", userCategory.condolence, "꾸중",userCategory.scolding)
+            print("🌈 카테고리 가져오기 서버통신 🌈")
             self.buttonBorderColor(self.jokeButton, userCategory.joke)
             self.buttonBorderColor(self.complimentButton, userCategory.compliment)
             self.buttonBorderColor(self.condolenceButton, userCategory.condolence)
@@ -181,30 +181,30 @@ extension SettingCategoryViewController {
             categoryBeforeChange,
             CategoryType(jokeButton.isSelected, complimentButton.isSelected,
                          scoldingButton.isSelected, condolenceButton.isSelected)]) { [weak self] (userCategory, nil) in
-                guard let self = self else { return }
-                guard let userCategory = userCategory,
-                      let userCategoryData = userCategory.data else { return }
-                if userCategory.status < 400 {
-                    print("🌈 카테고리 수정 서버 통신 🌈", userCategoryData)
-                    self.jokeButton.isSelected = userCategoryData.joke
-                    self.complimentButton.isSelected = userCategoryData.compliment
-                    self.condolenceButton.isSelected = userCategoryData.condolence
-                    self.scoldingButton.isSelected = userCategoryData.scolding
-                    if self.categoryBeforeChange.joke == self.jokeButton.isSelected &&
-                        self.categoryBeforeChange.compliment == self.complimentButton.isSelected &&
-                        self.categoryBeforeChange.condolence == self.condolenceButton.isSelected &&
-                        self.categoryBeforeChange.scolding == self.scoldingButton.isSelected {
-                        self.transition(self, .pop)
-                    } else {
-                        self.configureLoadingView()
-                        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                            self.loadingView.hide()
-                            self.transition(self, .pop)
-                        }
-                    }
-                } else {
-                print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
-            }
-        }
+                             guard let self = self else { return }
+                             guard let userCategory = userCategory,
+                                   let userCategoryData = userCategory.data else { return }
+                             if userCategory.status < 400 {
+                                 print("🌈 카테고리 수정 서버 통신 🌈", userCategoryData)
+                                 self.jokeButton.isSelected = userCategoryData.joke
+                                 self.complimentButton.isSelected = userCategoryData.compliment
+                                 self.condolenceButton.isSelected = userCategoryData.condolence
+                                 self.scoldingButton.isSelected = userCategoryData.scolding
+                                 if self.categoryBeforeChange.joke == self.jokeButton.isSelected &&
+                                        self.categoryBeforeChange.compliment == self.complimentButton.isSelected &&
+                                        self.categoryBeforeChange.condolence == !self.condolenceButton.isSelected &&
+                                        self.categoryBeforeChange.scolding == !self.scoldingButton.isSelected {
+                                     self.transition(self, .pop)
+                                 } else {
+                                     self.configureLoadingView()
+                                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                                         self.loadingView.hide()
+                                         self.transition(self, .pop)
+                                     }
+                                 }
+                             } else {
+                                 print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
+                             }
+                         }
     }
 }
