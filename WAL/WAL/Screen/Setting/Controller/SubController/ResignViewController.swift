@@ -31,7 +31,6 @@ final class ResignViewController: UIViewController {
     private lazy var tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.backgroundColor = .gray600
         $0.separatorStyle = .none
-        $0.allowsSelection = true
         $0.delegate = self
         $0.dataSource = self
         $0.sectionHeaderTopPadding = 0
@@ -104,15 +103,14 @@ final class ResignViewController: UIViewController {
     }
     
     @objc func touchupResignButton(_ sender: UIButton) {
-        AuthAPI.shared.postResign(
-            social: UserDefaultsHelper.standard.social ?? "",
-            data: reasonData,
-            socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { (resignData, err) in
-                guard let resignData = resignData else { return }
-                if resignData.status < 400 {
-                    print("☘️-------회원탈퇴 서버 통신", resignData)
-                    UserDefaultsHelper.standard.removeObject()
-                    self.pushToLoginView()
+        AuthAPI.shared.postResign(social: UserDefaultsHelper.standard.social ?? "",
+                                  data: reasonData,
+                                  socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { (resignData, err) in
+            guard let resignData = resignData else { return }
+            if resignData.status < 400 {
+                print("☘️-------회원탈퇴 서버 통신", resignData)
+                UserDefaultsHelper.standard.removeObject()
+                self.pushToLoginView()
                 } else {
                     print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
                 }
@@ -172,10 +170,12 @@ extension ResignViewController: UITableViewDataSource {
         cell.checkButton.tag = indexPath.row
         cell.setupData(index: indexPath.row)
         cell.checkButton.addTarget(self, action: #selector(touchupCheckButton(_:)), for: .touchUpInside)
+        configureCellBackgroundColor(cell)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)) as? ResignTableViewCell
         else { return }
         touchupCheckButton(cell.checkButton)

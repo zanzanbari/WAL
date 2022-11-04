@@ -13,6 +13,12 @@ class MenuButton: UIButton {
     
     // MARK: - Property
     
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? .gray600 : .white
+        }
+    }
+    
     private let settingData = SettingData()
            
     private let lineView = UIView().then {
@@ -44,7 +50,8 @@ class MenuButton: UIButton {
     }
     
     private func setupLayout() {
-       addSubviews([lineView, menuLabel])
+       addSubviews([lineView,
+                    menuLabel])
         
         lineView.snp.makeConstraints { make in
             make.top.equalToSuperview()
