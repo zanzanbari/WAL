@@ -46,7 +46,7 @@ final class HistoryViewController: UIViewController {
     
     private let reserveHeader = HistoryReserveHeaderView()
     private let completeHeader = HistoryCompleteHeaderView()
-        
+    
     private var sendingData = [HistoryData]()
     private var completeData = [HistoryData]()
     
@@ -116,6 +116,16 @@ final class HistoryViewController: UIViewController {
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(sender:)))
         historyTableView.addGestureRecognizer(longPress)
+    }
+    
+    private func checkHistoryData() {
+        if sendingData.isEmpty && completeData.isEmpty {
+            historyTableView.isHidden = true
+            historyEmptyView.isHidden = false
+        } else {
+            historyTableView.isHidden = false
+            historyEmptyView.isHidden = true
+        }
     }
     
     // MARK: - @objc
@@ -387,8 +397,8 @@ extension HistoryViewController {
                     self.selectedIndices.append([-1,-1])
                 }
             }
-
             DispatchQueue.main.async {
+                self.checkHistoryData()
                 self.historyTableView.reloadData()
             }
         }
@@ -414,6 +424,7 @@ extension HistoryViewController {
             }
             
             DispatchQueue.main.async {
+                self.checkHistoryData()
                 self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
             }
         }
