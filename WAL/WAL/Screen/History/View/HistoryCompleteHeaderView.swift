@@ -53,7 +53,7 @@ final class HistoryCompleteHeaderView: UIView {
     private var informationTitleLabel = UILabel().then {
         $0.text = "박스를 옆으로 밀어 재전송 할 수 있어요"
         $0.textColor = .white
-        $0.font = WALFont.body10.font
+        $0.font = WALFont.body9.font
         $0.addLetterSpacing()
     }
     
@@ -111,11 +111,12 @@ final class HistoryCompleteHeaderView: UIView {
         bubbleImageView.snp.makeConstraints {
             $0.centerY.equalTo(informationButton.snp.centerY)
             $0.leading.equalTo(informationButton.snp.trailing)
-            $0.width.equalTo(217)
+            //$0.width.equalTo(217)
             $0.height.equalTo(26)
         }
         
         informationTitleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
             $0.top.bottom.equalToSuperview().inset(5)
             $0.leading.equalToSuperview().inset(15)
         }
