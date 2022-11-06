@@ -73,9 +73,10 @@ final class MainViewController: UIViewController {
         $0.isHidden = true
     }
     
-    private lazy var shareButton = UIButton().then {
+    private lazy var shareButton = UIButton(type: .custom).then {
         $0.setTitle("공유", for: .normal)
         $0.setTitleColor(.white100, for: .normal)
+        $0.setTitleColor(.gray500, for: .highlighted)
         $0.backgroundColor = .mint100
         $0.titleLabel?.font = WALFont.body4.font
         $0.layer.cornerRadius = 20
