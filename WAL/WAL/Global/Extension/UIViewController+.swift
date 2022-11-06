@@ -48,4 +48,18 @@ extension UIViewController {
         backgroundView.backgroundColor = .gray600
         cell.selectedBackgroundView = backgroundView
     }
+    
+    func showAlert(title: String? = nil,
+                   message: String? = nil,
+                   actions: [UIAlertAction] = [],
+                   cancelTitle: String? = "취소",
+                   preferredStyle: UIAlertController.Style = .actionSheet) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: preferredStyle)
+        let cancel = UIAlertAction(title: cancelTitle, style: .cancel)
+        actions.forEach { alert.addAction($0) }
+        alert.addAction(cancel)
+        transition(alert, .present)
+    }
 }
