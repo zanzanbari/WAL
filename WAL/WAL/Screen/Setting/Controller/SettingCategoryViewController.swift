@@ -133,6 +133,15 @@ final class SettingCategoryViewController: UIViewController {
         loadingView.play()
     }
     
+    private func showToastMessage() {
+        if jokeButton.layer.borderColor == UIColor.gray400.cgColor &&
+            complimentButton.layer.borderColor == UIColor.gray400.cgColor &&
+            condolenceButton.layer.borderColor == UIColor.gray400.cgColor &&
+            scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
+            showToast(message: "1개 이상 선택해주세요")
+        }
+    }
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -140,7 +149,7 @@ final class SettingCategoryViewController: UIViewController {
             complimentButton.layer.borderColor == UIColor.gray400.cgColor &&
             condolenceButton.layer.borderColor == UIColor.gray400.cgColor &&
             scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
-            showToast(message: "1개 이상 선택해주세요")
+            //            showToast(message: "1개 이상 선택해주세요")
         } else {
             postCategory()
         }
@@ -150,6 +159,7 @@ final class SettingCategoryViewController: UIViewController {
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        showToastMessage()
     }
 }
 

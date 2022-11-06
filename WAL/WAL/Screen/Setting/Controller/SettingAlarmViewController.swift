@@ -131,13 +131,21 @@ final class SettingAlarmViewController: UIViewController {
         loadingView.play()
     }
     
+    private func showToastMessage() {
+        if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
+            afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
+            nightButton.layer.borderColor == UIColor.gray400.cgColor {
+            showToast(message: "1개 이상 선택해주세요")
+        }
+    }
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
         if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
             afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
             nightButton.layer.borderColor == UIColor.gray400.cgColor {
-            showToast(message: "1개 이상 선택해주세요")
+            //            showToast(message: "1개 이상 선택해주세요")
         } else {
             postAlarm()
         }
@@ -147,9 +155,12 @@ final class SettingAlarmViewController: UIViewController {
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        showToastMessage()
     }
     
     @objc func switchValueChanged(toggle: UISwitch) {
+        // MARK: - TODO 이거를 통해서 뱃지 차단 시키면 될 거 같은데
+        
         if toggle.isOn {
             UIApplication.shared.registerForRemoteNotifications()
         } else {

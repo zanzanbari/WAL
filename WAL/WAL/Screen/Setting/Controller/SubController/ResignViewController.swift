@@ -34,6 +34,8 @@ final class ResignViewController: UIViewController {
         $0.delegate = self
         $0.dataSource = self
         $0.sectionHeaderTopPadding = 0
+        $0.sectionFooterHeight = 0
+        $0.sectionHeaderHeight = UITableView.automaticDimension
     }
     
     private let resignButton = WALPlainButton().then {
@@ -105,16 +107,18 @@ final class ResignViewController: UIViewController {
     @objc func touchupResignButton(_ sender: UIButton) {
         AuthAPI.shared.postResign(social: UserDefaultsHelper.standard.social ?? "",
                                   data: reasonData,
-                                  socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { (resignData, err) in
+                                  socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { [weak self] (resignData, err) in
+            guard let self = self else { return }
             guard let resignData = resignData else { return }
             if resignData.status < 400 {
                 print("☘️-------회원탈퇴 서버 통신", resignData)
                 UserDefaultsHelper.standard.removeObject()
                 self.pushToLoginView()
-                } else {
-                    print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
-                }
+            } else {
+                self.showAlert(title: "탈퇴오류", message: err.debugDescription, cancelTitle: "확인", preferredStyle: .alert)
+                print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
             }
+        }
     }
     
     @objc func touchupCheckButton(_ sender: UIButton) {
@@ -141,14 +145,6 @@ extension ResignViewController: UITableViewDelegate {
 extension ResignViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return ResignHeaderView()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-        
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
