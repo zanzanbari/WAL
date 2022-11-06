@@ -165,7 +165,7 @@ class CategoryCollectionViewCell: BaseCollectionViewCell {
     // MARK: - @objc
     
     @objc func changeNickname(_ notification: Notification) {
-        guard let nickname = notification.userInfo?["nickname"] as? String else { return }
+        guard let nickname = notification.userInfo?["nickname"] as? String else { return print("여기로빠지냐?")}
         titleLabel.text = nickname + "님이 받고싶은\n왈소리 유형은?"
         titleLabel.addLetterSpacing()
     }

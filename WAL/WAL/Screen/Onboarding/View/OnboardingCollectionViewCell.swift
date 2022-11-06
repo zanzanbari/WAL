@@ -11,7 +11,7 @@ import Then
 import WALKit
 
 class OnboardingCollectionViewCell: BaseCollectionViewCell {
-            
+    
     // MARK: - Properties
     
     private let textCount: Int = 0
@@ -73,6 +73,10 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        contentView.endEditing(true)
     }
     
     // MARK: - InitUI
@@ -143,7 +147,7 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
             name: UITextField.textDidChangeNotification,
             object: nicknameTextField)
     }
-        
+    
     // MARK: - @objc
     
     @objc private func textDidChange(_ notification: Notification) {
@@ -204,7 +208,7 @@ extension OnboardingCollectionViewCell: UITextFieldDelegate {
             countLabel.addCharacterColor(color: .orange100, range: "\(text.count)")
         }
     }
-        
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = nicknameTextField.text else { return false }
         let utf8Char = string.cString(using: .utf8)

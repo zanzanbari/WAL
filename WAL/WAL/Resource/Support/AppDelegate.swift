@@ -12,6 +12,7 @@ import Firebase
 import FirebaseMessaging
 
 import UserNotifications
+import AuthenticationServices
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -77,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        Messaging.messaging().token { [self] fcmToken, error in
+        Messaging.messaging().token { fcmToken, error in
             if let error = error {
                 print("Error fetching FCM registration token: \(error)")
             } else if let fcmToken = fcmToken {

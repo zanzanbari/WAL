@@ -144,7 +144,6 @@ extension LoginViewController {
                                 UserDefaultsHelper.standard.social = "kakao"
                                 self.pushToHome()
                             }
-                       
                     }
                 }
             }
@@ -203,7 +202,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             let tokenString = String(data: identityToken, encoding: .utf8)
             guard let tokenString = tokenString,
                   let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-            AuthAPI.shared.postSocialLogin(social: "apple", socialtoken: tokenString, fcmtoken: fcmtoken) { (appleData, err) in
+            AuthAPI.shared.postSocialLogin(social: "apple",
+                                           socialtoken: tokenString,
+                                           fcmtoken: fcmtoken) { (appleData, err) in
                 guard let appleData = appleData,
                       let accessData = appleData.data else { return }
                 UserDefaultsHelper.standard.accesstoken = accessData.accesstoken

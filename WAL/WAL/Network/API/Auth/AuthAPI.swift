@@ -21,16 +21,21 @@ final class AuthAPI {
     
     // MARK: - POST 소셜로그인
     
-    func postSocialLogin(social: String, socialtoken: String, fcmtoken: String?,
-                                completion: @escaping ((GenericResponse<Login>?, Int?) -> ())) {
+    func postSocialLogin(social: String,
+                         socialtoken: String,
+                         fcmtoken: String?,
+                         completion: @escaping ((GenericResponse<Login>?, Int?) -> ())) {
         
-        authProvider.request(.social(social: social, socialtoken: socialtoken, fcmtoken: fcmtoken)) { result in
+        authProvider.request(.social(social: social,
+                                     socialtoken: socialtoken,
+                                     fcmtoken: fcmtoken)) { result in
             switch result {
             case .success(let response):
                 do {
                     self.loginData = try response.map(GenericResponse<Login>?.self)
                     guard let loginData = self.loginData else { return }
                     completion(loginData, nil)
+                    UserDefaultsHelper.standard.accesstoken = loginData.data?.accesstoken
                     
                 } catch(let err) {
                     print(err.localizedDescription, 500)
@@ -65,12 +70,15 @@ final class AuthAPI {
     
     // MARK: - POST 회원탈퇴
         
-    func postResign(social: String, data: [String], socialtoken: String,
-                           completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
+    func postResign(social: String,
+                    data: [String],
+                    socialtoken: String,
+                    completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
        
         let reason = ResignRequest.init(socialtoken, data)
         
-        authProvider.request(.resign(social: social, param: reason)) { result in
+        authProvider.request(.resign(social: social,
+                                     param: reason)) { result in
             switch result {
             case .success(let response):
                 do {

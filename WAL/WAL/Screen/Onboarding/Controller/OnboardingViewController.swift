@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-final class OnboardingViewController: UIViewController {
+final class OnboardingViewController: BaseViewController {
     
     // MARK: - Properties
             
@@ -60,17 +60,11 @@ final class OnboardingViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
-        setupNotificationCenter()
-        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-         self.view.endEditing(true)
-   }
     
     // MARK: - InitUI
     
@@ -129,16 +123,6 @@ final class OnboardingViewController: UIViewController {
             forCellWithReuseIdentifier: AlarmCollectionViewCell.identifier)
     }
     
-    // MARK: - Custom Method
-    
-    func setupNotificationCenter() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(changeNickname(_:)),
-            name: .changeNickname,
-            object: nil)
-    }
-    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -150,6 +134,11 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func scrollToSecond() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(changeNickname(_:)),
+            name: .changeNickname,
+            object: nil)
         collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .left, animated: true)
     }
     
