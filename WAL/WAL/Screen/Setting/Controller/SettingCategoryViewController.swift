@@ -202,8 +202,8 @@ extension SettingCategoryViewController {
                                  self.scoldingButton.isSelected = userCategoryData.scolding
                                  if self.categoryBeforeChange.joke == self.jokeButton.isSelected &&
                                         self.categoryBeforeChange.compliment == self.complimentButton.isSelected &&
-                                        self.categoryBeforeChange.condolence == !self.condolenceButton.isSelected &&
-                                        self.categoryBeforeChange.scolding == !self.scoldingButton.isSelected {
+                                        self.categoryBeforeChange.condolence == self.condolenceButton.isSelected &&
+                                        self.categoryBeforeChange.scolding == self.scoldingButton.isSelected {
                                      self.transition(self, .pop)
                                  } else {
                                      self.configureLoadingView()

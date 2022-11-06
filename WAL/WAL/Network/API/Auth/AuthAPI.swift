@@ -35,7 +35,6 @@ final class AuthAPI {
                     self.loginData = try response.map(GenericResponse<Login>?.self)
                     guard let loginData = self.loginData else { return }
                     completion(loginData, nil)
-                    UserDefaultsHelper.standard.accesstoken = loginData.data?.accesstoken
                     
                 } catch(let err) {
                     print(err.localizedDescription, 500)

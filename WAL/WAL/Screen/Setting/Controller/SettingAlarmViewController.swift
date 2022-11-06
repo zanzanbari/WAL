@@ -159,13 +159,17 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     @objc func switchValueChanged(toggle: UISwitch) {
-        // MARK: - TODO 이거를 통해서 뱃지 차단 시키면 될 거 같은데
-        
         if toggle.isOn {
             UIApplication.shared.registerForRemoteNotifications()
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                print(granted, error)
+            }
         } else {
             UIApplication.shared.unregisterForRemoteNotifications()
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
+        UserDefaults.standard.set(toggle.isOn, forKey: "toggle")
+        firstView.toggleSwitch.isOn = UserDefaults.standard.bool(forKey: "toggle")
     }
 }
 

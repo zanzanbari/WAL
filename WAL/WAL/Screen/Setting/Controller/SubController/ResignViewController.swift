@@ -112,10 +112,20 @@ final class ResignViewController: UIViewController {
             guard let resignData = resignData else { return }
             if resignData.status < 400 {
                 print("☘️-------회원탈퇴 서버 통신", resignData)
-                UserDefaultsHelper.standard.removeObject()
                 self.pushToLoginView()
+                UserDefaultsHelper.standard.removeObject()
             } else {
-                self.showAlert(title: "탈퇴오류", message: err.debugDescription, cancelTitle: "확인", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "초기화면으로", style: .default) { _ in
+                    self.pushToLoginView()
+                    UserDefaultsHelper.standard.removeObject()
+                }
+                
+                self.showAlert(title: "탈퇴오류 - 캡처해서 루희한테",
+                               message: "(초기화면으로 선택해서 안되면 앱삭하고 해보세요)" + err.debugDescription,
+                               actions: [okAction],
+                               cancelTitle: "취소",
+                               preferredStyle: .alert)
+                
                 print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
             }
         }

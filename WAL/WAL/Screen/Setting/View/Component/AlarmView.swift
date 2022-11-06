@@ -53,7 +53,7 @@ class AlarmView: UIView {
         $0.textColor = .gray100
     }
     
-    let toggleSwitch = UISwitch().then {
+    var toggleSwitch = UISwitch().then {
         $0.onTintColor = .mint100
     }
     
