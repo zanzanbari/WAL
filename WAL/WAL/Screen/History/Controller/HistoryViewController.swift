@@ -26,9 +26,27 @@ final class HistoryViewController: UIViewController {
     
     private var historyTableView = UITableView(frame: .zero, style: .grouped)
     
+    private var historyEmptyView = UIView().then {
+        $0.backgroundColor = .white
+        $0.clipsToBounds = true
+    }
+    
+    private var historyEmptyImageView = UIImageView().then {
+        $0.image = WALIcon.icnHistoryEmpty.image
+    }
+    
+    private var historyEmptyLabel = UILabel().then {
+        $0.text = "아직 히스토리가 없어요\n나만의 왈소리를 보내보세요!"
+        $0.textColor = .gray200
+        $0.font = WALFont.body6.font
+        $0.numberOfLines = 2
+        $0.addLineSpacing(spacing: 22)
+        $0.textAlignment = .center
+    }
+    
     private let reserveHeader = HistoryReserveHeaderView()
     private let completeHeader = HistoryCompleteHeaderView()
-        
+    
     private var sendingData = [HistoryData]()
     private var completeData = [HistoryData]()
     
@@ -55,10 +73,26 @@ final class HistoryViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar, historyTableView])
+        historyEmptyView.addSubviews([historyEmptyImageView, historyEmptyLabel])
+        view.addSubviews([navigationBar, historyEmptyView ,historyTableView])
         
         navigationBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        historyEmptyImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(248)
+        }
+        
+        historyEmptyLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(historyEmptyImageView.snp.bottom).offset(3)
+        }
+        
+        historyEmptyView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         historyTableView.snp.makeConstraints {
@@ -82,6 +116,16 @@ final class HistoryViewController: UIViewController {
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(sender:)))
         historyTableView.addGestureRecognizer(longPress)
+    }
+    
+    private func checkHistoryData() {
+        if sendingData.isEmpty && completeData.isEmpty {
+            historyTableView.isHidden = true
+            historyEmptyView.isHidden = false
+        } else {
+            historyTableView.isHidden = false
+            historyEmptyView.isHidden = true
+        }
     }
     
     // MARK: - @objc
@@ -316,8 +360,8 @@ extension HistoryViewController: UITableViewDataSource {
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.cellIdentifier) as? HistoryTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            // cell.hideDdayView()
             cell.setData(completeData[indexPath.row])
+            cell.hideDdayView()
             return cell
         default:
             return UITableViewCell()
@@ -353,8 +397,8 @@ extension HistoryViewController {
                     self.selectedIndices.append([-1,-1])
                 }
             }
-
             DispatchQueue.main.async {
+                self.checkHistoryData()
                 self.historyTableView.reloadData()
             }
         }
@@ -380,6 +424,7 @@ extension HistoryViewController {
             }
             
             DispatchQueue.main.async {
+                self.checkHistoryData()
                 self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
             }
         }

@@ -87,8 +87,8 @@ class HistoryTableViewCell: UITableViewCell {
     
     private lazy var dateStackView = UIStackView().then {
         $0.axis = .horizontal
-        $0.alignment = .fill
-        $0.distribution = .fillEqually
+        $0.distribution = .equalSpacing
+        $0.spacing = 7
     }
     
     var isExpanded: Bool = false {
@@ -133,7 +133,7 @@ class HistoryTableViewCell: UITableViewCell {
     private func setLayout() {
         contentView.addSubviews([backView, coverView, lineView])
         historyStackView.addSubviews([dateStackView, contentLabel, reserveAtLabel])
-        dateStackView.addSubviews([dDayView, sendingDateLabel])
+        dateStackView.addArrangedSubviews([dDayView, sendingDateLabel])
 
         dDayView.addSubview(dDayLabel)
         backView.addSubviews([lineView, historyStackView])
@@ -183,7 +183,6 @@ class HistoryTableViewCell: UITableViewCell {
         
         dateStackView.snp.makeConstraints {
             $0.top.leading.equalToSuperview()
-            $0.centerX.equalToSuperview()
         }
         
         dDayView.snp.makeConstraints {
@@ -198,7 +197,6 @@ class HistoryTableViewCell: UITableViewCell {
         }
         
         sendingDateLabel.snp.makeConstraints {
-            $0.leading.equalTo(dDayView.snp.trailing).offset(7)
             $0.centerY.equalToSuperview()
         }
         
@@ -227,7 +225,6 @@ class HistoryTableViewCell: UITableViewCell {
     
     func hideDdayView() {
         dDayView.isHidden = true
-        // TODO: 완료에서 hidden 처리 하면 보이는 공간 없애기
     }
     
     internal func setData(_ data: HistoryData) {
