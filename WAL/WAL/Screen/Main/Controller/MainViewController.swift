@@ -98,10 +98,7 @@ final class MainViewController: UIViewController {
     private var walStatus: WALStatus = .arrived {
         didSet {
             walImageView.image = walStatus.walImage
-            
-            subTitleLabel.text = walStatus.subTitle
-            subTitleLabel.addLetterSpacing()
-            
+
             contentLabel.text = walStatus.content
             contentLabel.addLetterSpacing()
             
@@ -137,7 +134,7 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private var mainData = [MainResponse]()
+    private var mainData = MainResponse(subtitle: "", todayWal: [])
     
     // MARK: - Life Cycle
     
@@ -338,9 +335,9 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             return false
         } else {
             didTapCell = true
-            walContentView.content = mainData[indexPath.item].content
+            walContentView.content = mainData.todayWal[indexPath.item].content
             
-            let walType = mainData[indexPath.item].categoryId
+            let walType = mainData.todayWal[indexPath.item].categoryID
             
             if walType == -1 {
                 walContentView.walContentType = .special
@@ -369,9 +366,9 @@ extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainItemCell.cellIdentifier, for: indexPath) as? MainItemCell else { return UICollectionViewCell() }
-        cell.setupData(mainData[indexPath.item])
+        cell.setupData(mainData.todayWal[indexPath.item])
         
-        if mainData[indexPath.item].canOpen {
+        if mainData.todayWal[indexPath.item].canOpen {
             cell.isUserInteractionEnabled = true
         } else {
             cell.isUserInteractionEnabled = false
@@ -385,7 +382,10 @@ extension MainViewController: UICollectionViewDataSource {
 
 extension MainViewController {
     func getMainInfo() {
-        MainAPI.shared.getMainData { mainData, err in
+        MainAPI.shared.getMainData { [weak self] mainData, err in
+            guard let self = self else { return }
+            dump(mainData?.data)
+            
             guard let mainData = mainData else {
                 return
             }
@@ -393,7 +393,10 @@ extension MainViewController {
             DispatchQueue.main.async {
                 guard let data = mainData.data else { return }
                 self.mainData = data
-                self.dataCount = data.count
+                self.dataCount = data.todayWal.count
+                
+                self.subTitleLabel.text = data.subtitle
+                self.subTitleLabel.addLetterSpacing()
                 
                 self.walCollectionView.reloadData()
                 self.updateCollectionViewLayout()
@@ -401,7 +404,7 @@ extension MainViewController {
                 var isShownCount: Int = 0
                 var canOpenCount: Int = 0
                 
-                for item in self.mainData {
+                for item in self.mainData.todayWal {
                     if item.isShown {
                         isShownCount += 1
                     }
@@ -416,7 +419,7 @@ extension MainViewController {
                     guard let intDate = Int(stringDate) else { return }
                     
                     if intDate >= 0 && intDate <= 7 {
-                        self.walStatus = .sleeping
+                        self.walStatus = .checkedAvailable
                     } else {
                         self.walStatus = .checkedAvailable
                     }
@@ -456,18 +459,19 @@ extension MainViewController {
     }
     
     private func updateMainData(item: Int) {
-        MainAPI.shared.updateMainData(item: self.mainData[item].id) { mainData, error in
+        MainAPI.shared.updateMainData(item: self.mainData.todayWal[item].id) { [weak self] mainData, error in
+            guard let self = self else { return }
             guard let mainData = mainData else { return }
             guard let data = mainData.data else { return }
             
             self.mainData = data
-            self.dataCount = data.count
+            self.dataCount = data.todayWal.count
             
             DispatchQueue.main.async {
                 var isShownCount: Int = 0
                 var canOpenCount: Int = 0
                 
-                for item in self.mainData {
+                for item in self.mainData.todayWal {
                     if item.isShown {
                         isShownCount += 1
                     }

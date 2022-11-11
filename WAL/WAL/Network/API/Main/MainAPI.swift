@@ -12,14 +12,14 @@ final class MainAPI {
     private let mainProvider = MoyaProvider<MainService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
     
-    public private(set) var mainData: GenericArrayResponse<MainResponse>?
+    public private(set) var mainData: GenericResponse<MainResponse>?
     
-    public func getMainData(completion: @escaping ((GenericArrayResponse<MainResponse>?, Int?) -> ())) {
+    public func getMainData(completion: @escaping ((GenericResponse<MainResponse>?, Int?) -> ())) {
         mainProvider.request(.main) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.mainData = try response.map(GenericArrayResponse<MainResponse>?.self)
+                    self.mainData = try response.map(GenericResponse<MainResponse>?.self)
                     guard let mainData = self.mainData else { return }
                     completion(mainData, nil)
                     
@@ -33,12 +33,12 @@ final class MainAPI {
         }
     }
     
-    public func updateMainData(item: Int, completion: @escaping ((GenericArrayResponse<MainResponse>?, Int?) -> ())) {
+    public func updateMainData(item: Int, completion: @escaping ((GenericResponse<MainResponse>?, Int?) -> ())) {
         mainProvider.request(.mainItem(param: item)) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.mainData = try response.map(GenericArrayResponse<MainResponse>?.self)
+                    self.mainData = try response.map(GenericResponse<MainResponse>?.self)
                     guard let mainData = self.mainData else { return }
                     completion(mainData, nil)
                     
