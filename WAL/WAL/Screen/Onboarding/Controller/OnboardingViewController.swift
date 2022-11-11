@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-final class OnboardingViewController: UIViewController {
+final class OnboardingViewController: BaseViewController {
     
     // MARK: - Properties
             
@@ -40,8 +40,7 @@ final class OnboardingViewController: UIViewController {
         $0.image = WALIcon.icnProgress1.image
     }
     
-    private lazy var collectionView = UICollectionView(
-        frame: .zero, collectionViewLayout: collectionViewFlowLayout).then {
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout).then {
             $0.backgroundColor = .white100
             $0.allowsSelection = true
             $0.contentInsetAdjustmentBehavior = .never
@@ -61,8 +60,6 @@ final class OnboardingViewController: UIViewController {
         configUI()
         setupLayout()
         setupCollectionView()
-        setupNotificationCenter()
-        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,6 +101,7 @@ final class OnboardingViewController: UIViewController {
      }
     
     private func configureLoadingView() {
+        let loadingView = LoadingView()
         view.addSubview(loadingView)
         loadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -125,16 +123,6 @@ final class OnboardingViewController: UIViewController {
             forCellWithReuseIdentifier: AlarmCollectionViewCell.identifier)
     }
     
-    // MARK: - Custom Method
-    
-    func setupNotificationCenter() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(changeNickname(_:)),
-            name: .changeNickname,
-            object: nil)
-    }
-    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -146,6 +134,11 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func scrollToSecond() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(changeNickname(_:)),
+            name: .changeNickname,
+            object: nil)
         collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .left, animated: true)
     }
     
@@ -159,13 +152,14 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
-        let categoryType = CategoryType(self.joke, self.compliment, self.condolence, self.scolding)
-        let alarmTime = AlarmTime(self.morning, self.afternoon, self.night)
+        let categoryType = CategoryType(joke, compliment, condolence, scolding)
+        let alarmTime = AlarmTime(morning, afternoon, night)
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         OnboardAPI.shared.postOnboardSetting(nickname: nickname,
                                              category: categoryType,
-                                             alarm: alarmTime) { (onboardData, err) in
+                                             alarm: alarmTime) { [weak self] (onboardData, err) in
             guard let onboardData = onboardData else { return }
+            guard let self = self else { return }
             if onboardData.status < 400 {
                 print("☘️--------온보딩 서버 통신 완료", onboardData)
                 let viewController = OnboardCompleteViewController()

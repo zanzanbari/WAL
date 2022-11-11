@@ -30,6 +30,7 @@
 		5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44E58928A6D044000ABF0C /* UserRequest.swift */; };
 		5B4A844B2857D3780032287D /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A844A2857D3780032287D /* CardButton.swift */; };
 		5B567E2128B0FCC300BF9E17 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */; };
+		5B6495DA2914001A001AD437 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6495D92914001A001AD437 /* BaseTableViewCell.swift */; };
 		5B66CF4228E153C8009ED52F /* UserDefaulstHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B66CF4128E153C8009ED52F /* UserDefaulstHelper.swift */; };
 		5B66CF4528E2A3B0009ED52F /* WALKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5B66CF4428E2A3B0009ED52F /* WALKit */; };
 		5B66CF4B28E2A6F9009ED52F /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 5B66CF4A28E2A6F9009ED52F /* Gifu */; };
@@ -147,6 +148,7 @@
 		5B44E58928A6D044000ABF0C /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		5B4A844A2857D3780032287D /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+.swift"; sourceTree = "<group>"; };
+		5B6495D92914001A001AD437 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		5B66CF4128E153C8009ED52F /* UserDefaulstHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaulstHelper.swift; sourceTree = "<group>"; };
 		5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		5B7EE87D2822DCB5007BC265 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
@@ -414,6 +416,8 @@
 				5BA3894E27F6C1230010EAA1 /* Protocol */,
 				5BB3FB782857254200A8A70D /* Constant.swift */,
 				5B66CF4128E153C8009ED52F /* UserDefaulstHelper.swift */,
+				5B6495D92914001A001AD437 /* BaseTableViewCell.swift */,
+				5BC2DD0E2868EA7E00AFCC29 /* BaseViewController.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -690,7 +694,6 @@
 		5BD1741A282CDD1C00C77A95 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5BC2DD0E2868EA7E00AFCC29 /* BaseViewController.swift */,
 				5BD1741B282CDD3400C77A95 /* SettingViewController.swift */,
 				5BD1741D282CDD4F00C77A95 /* SettingAlarmViewController.swift */,
 				5BC2DD032868DCCE00AFCC29 /* SettingCategoryViewController.swift */,
@@ -1065,6 +1068,7 @@
 				5B348A2A281E4ACA006FEFDA /* OnboardingCollectionViewCell.swift in Sources */,
 				E2CD8B0628219B57009277C3 /* CreateViewController.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
+				5B6495DA2914001A001AD437 /* BaseTableViewCell.swift in Sources */,
 				E281B4D1282D6BDB005667FD /* WALCreateView.swift in Sources */,
 				5B4A844B2857D3780032287D /* CardButton.swift in Sources */,
 				5BC5809A289D35780095F8E4 /* OnboardCompleteViewController.swift in Sources */,

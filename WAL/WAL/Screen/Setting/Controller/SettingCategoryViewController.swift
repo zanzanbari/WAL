@@ -125,11 +125,21 @@ final class SettingCategoryViewController: UIViewController {
     // MARK: - Custom Method
     
     private func configureLoadingView() {
+        let loadingView = LoadingView()
         view.addSubview(loadingView)
         loadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         loadingView.play()
+    }
+    
+    private func showToastMessage() {
+        if jokeButton.layer.borderColor == UIColor.gray400.cgColor &&
+            complimentButton.layer.borderColor == UIColor.gray400.cgColor &&
+            condolenceButton.layer.borderColor == UIColor.gray400.cgColor &&
+            scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
+            showToast(message: "1개 이상 선택해주세요")
+        }
     }
     
     // MARK: - @objc
@@ -139,7 +149,7 @@ final class SettingCategoryViewController: UIViewController {
             complimentButton.layer.borderColor == UIColor.gray400.cgColor &&
             condolenceButton.layer.borderColor == UIColor.gray400.cgColor &&
             scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
-            showToast(message: "1개 이상 선택해주세요")
+            //            showToast(message: "1개 이상 선택해주세요")
         } else {
             postCategory()
         }
@@ -149,6 +159,7 @@ final class SettingCategoryViewController: UIViewController {
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        showToastMessage()
     }
 }
 
@@ -162,28 +173,25 @@ extension SettingCategoryViewController {
     }
     
     private func requestCategory() {
-        SettingAPI.shared.getUserCategory { (userCategoryData, nil) in
+        SettingAPI.shared.getUserCategory { [weak self] (userCategoryData, nil) in
+            guard let self = self else { return }
             guard let userCategory = userCategoryData?.data else { return }
-            print("🌈 카테고리 가져오기 서버통신 🌈", userCategory)
+            print("🌈 카테고리 가져오기 서버통신 🌈")
             self.buttonBorderColor(self.jokeButton, userCategory.joke)
             self.buttonBorderColor(self.complimentButton, userCategory.compliment)
             self.buttonBorderColor(self.condolenceButton, userCategory.condolence)
             self.buttonBorderColor(self.scoldingButton, userCategory.scolding)
             self.categoryBeforeChange = CategoryType(
-                userCategory.joke,
-                userCategory.compliment,
-                userCategory.condolence,
-                userCategory.scolding)
+                userCategory.joke, userCategory.compliment, userCategory.scolding, userCategory.condolence)
         }
     }
     
     private func postCategory() {
         SettingAPI.shared.postUserCategory(data: [
             categoryBeforeChange,
-            CategoryType(jokeButton.isSelected,
-                         complimentButton.isSelected,
-                         condolenceButton.isSelected,
-                         scoldingButton.isSelected)]) { (userCategory, nil) in
+            CategoryType(jokeButton.isSelected, complimentButton.isSelected,
+                         scoldingButton.isSelected, condolenceButton.isSelected)]) { [weak self] (userCategory, nil) in
+                             guard let self = self else { return }
                              guard let userCategory = userCategory,
                                    let userCategoryData = userCategory.data else { return }
                              if userCategory.status < 400 {
@@ -192,10 +200,17 @@ extension SettingCategoryViewController {
                                  self.complimentButton.isSelected = userCategoryData.compliment
                                  self.condolenceButton.isSelected = userCategoryData.condolence
                                  self.scoldingButton.isSelected = userCategoryData.scolding
-                                 self.configureLoadingView()
-                                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                                     self.loadingView.hide()
+                                 if self.categoryBeforeChange.joke == self.jokeButton.isSelected &&
+                                        self.categoryBeforeChange.compliment == self.complimentButton.isSelected &&
+                                        self.categoryBeforeChange.condolence == self.condolenceButton.isSelected &&
+                                        self.categoryBeforeChange.scolding == self.scoldingButton.isSelected {
                                      self.transition(self, .pop)
+                                 } else {
+                                     self.configureLoadingView()
+                                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                                         self.loadingView.hide()
+                                         self.transition(self, .pop)
+                                     }
                                  }
                              } else {
                                  print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")

@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class MypageViewController: UIViewController, SendNicknameDelegate {
+final class MypageViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - Properties
     

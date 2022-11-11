@@ -7,6 +7,9 @@
 
 import UIKit
 
+import KakaoSDKAuth
+import KakaoSDKCommon
+import KakaoSDKUser
 import Then
 import WALKit
 
@@ -69,7 +72,20 @@ final class LogoutPopupViewController: UIViewController {
             guard let logoutData = logoutData else { return }
             if logoutData.status < 400 {
                 print("☘️--------로그아웃 서버 통신 : ", logoutData)
-                self.pushToLoginView()
+                switch UserDefaultsHelper.standard.social {
+                case "kakao":
+                    UserApi.shared.logout {(error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            print("logout() success.")
+                            self.pushToLoginView()
+                        }
+                    }
+                    
+                default: break
+                }                
             } else {
                 print("☘️--------로그아웃 서버 통신 실패로 화면 전환 실패")
             }

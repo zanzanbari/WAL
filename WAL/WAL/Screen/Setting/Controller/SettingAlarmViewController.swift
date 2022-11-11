@@ -25,6 +25,8 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private lazy var firstView = AlarmView(.firstMenu).then {
+        let isPushNotificationOn = UIApplication.shared.isRegisteredForRemoteNotifications
+        $0.toggleSwitch.isOn = isPushNotificationOn
         $0.toggleSwitch.addTarget(self, action: #selector(switchValueChanged(toggle:)), for: .valueChanged)
     }
     
@@ -69,9 +71,7 @@ final class SettingAlarmViewController: UIViewController {
     private func configUI() {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         view.backgroundColor = .white100
-        [morningButton,
-         afternoonButton,
-         nightButton].forEach {
+        [morningButton, afternoonButton, nightButton].forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
@@ -131,13 +131,21 @@ final class SettingAlarmViewController: UIViewController {
         loadingView.play()
     }
     
+    private func showToastMessage() {
+        if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
+            afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
+            nightButton.layer.borderColor == UIColor.gray400.cgColor {
+            showToast(message: "1개 이상 선택해주세요")
+        }
+    }
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
         if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
             afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
             nightButton.layer.borderColor == UIColor.gray400.cgColor {
-            showToast(message: "1개 이상 선택해주세요")
+            //            showToast(message: "1개 이상 선택해주세요")
         } else {
             postAlarm()
         }
@@ -147,10 +155,21 @@ final class SettingAlarmViewController: UIViewController {
         sender.isSelected = !sender.isSelected
         sender.layer.borderColor = sender.isSelected ?
         UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        showToastMessage()
     }
     
     @objc func switchValueChanged(toggle: UISwitch) {
-        UserDefaults.standard.set(toggle.isOn, forKey: Constant.Key.alarmToggle)
+        if toggle.isOn {
+            UIApplication.shared.registerForRemoteNotifications()
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                print(granted, error)
+            }
+        } else {
+            UIApplication.shared.unregisterForRemoteNotifications()
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        }
+        UserDefaults.standard.set(toggle.isOn, forKey: "toggle")
+        firstView.toggleSwitch.isOn = UserDefaults.standard.bool(forKey: "toggle")
     }
 }
 
@@ -164,7 +183,8 @@ extension SettingAlarmViewController {
     }
     
     private func requestAlarm() {
-        SettingAPI.shared.getUserAlarm { (userAlarmData, nil) in
+        SettingAPI.shared.getUserAlarm { [weak self] (userAlarmData, nil) in
+            guard let self = self else { return }
             guard let userAlarmData = userAlarmData?.data else { return }
             print("🥰 알림시간 값 가져오기 🥰", userAlarmData)
             self.buttonBorderColor(self.morningButton, userAlarmData.morning)
@@ -177,7 +197,8 @@ extension SettingAlarmViewController {
     private func postAlarm() {
         SettingAPI.shared.postUserAlarm(data: [
             alarmBeforeChange,
-            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { (userAlarmData, nil) in
+            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { [weak self] (userAlarmData, nil) in
+                guard let self = self else { return }
                 guard let userAlarm = userAlarmData,
                       let userAlarmData = userAlarm.data else { return }
                 if userAlarm.status < 400 {
@@ -185,10 +206,16 @@ extension SettingAlarmViewController {
                     self.morningButton.isSelected = userAlarmData.morning
                     self.afternoonButton.isSelected = userAlarmData.afternoon
                     self.nightButton.isSelected = userAlarmData.night
-                    self.configureLoadingView()
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        self.loadingView.hide()
+                    if self.alarmBeforeChange.morning == self.morningButton.isSelected &&
+                        self.alarmBeforeChange.afternoon == self.afternoonButton.isSelected &&
+                        self.alarmBeforeChange.night == self.nightButton.isSelected {
                         self.transition(self, .pop)
+                    } else {
+                        self.configureLoadingView()
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                            self.loadingView.hide()
+                            self.transition(self, .pop)
+                        }
                     }
                 } else {
                     print("🥰 알림시간 수정 서버 통신 실패로 화면전환 실패")

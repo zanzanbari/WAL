@@ -32,7 +32,6 @@ class SettingViewController: UIViewController, SendNicknameDelegate {
     private lazy var tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.backgroundColor = .gray600
         $0.separatorStyle = .none
-        $0.allowsSelection = true
         $0.delegate = self
         $0.dataSource = self
         $0.sectionHeaderTopPadding = 0
@@ -173,18 +172,21 @@ extension SettingViewController: UITableViewDataSource {
                 withIdentifier: MyInfoTableViewCell.identifier, for: indexPath) as? MyInfoTableViewCell
             else { return UITableViewCell() }
             cell.nicknameLabel.text = nickname
+            cell.selectionStyle = .none
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
             cell.menuLabel.text = setting.getMenuLabel(setting.firstRowData, indexPath.row)
+            configureCellBackgroundColor(cell)
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
             cell.setupData(index: indexPath.row)
+            configureCellBackgroundColor(cell)
             return cell
             
         default: return UITableViewCell()
