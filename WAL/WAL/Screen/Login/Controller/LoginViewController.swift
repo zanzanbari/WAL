@@ -131,18 +131,26 @@ extension LoginViewController {
                         print("----------- 카카오 로그인 앱 에러:", error)
                     } else {
                         guard let oauthToken = oauthToken,
-                        let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
+                              let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
                         AuthAPI.shared.postSocialLogin(
                             social: "kakao",
                             socialtoken: oauthToken.accessToken,
                             fcmtoken: fcmtoken) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData,
-                                      let accessData = kakaoData.data else { return }
-                                UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
-                                UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
-                                UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
-                                UserDefaultsHelper.standard.social = "kakao"
-                                self.pushToHome()
+                                if kakaoData!.status == 403 {
+                                    self.showAlert(title: "탈퇴 후 24시간 내 재가입 불가합니다.",
+                                                   message: "",
+                                                   actions: [],
+                                                   cancelTitle: "확인",
+                                                   preferredStyle: .alert)
+                                } else {
+                                    guard let kakaoData = kakaoData,
+                                          let accessData = kakaoData.data else { return }
+                                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
+                                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
+                                    UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
+                                    UserDefaultsHelper.standard.social = "kakao"
+                                    self.pushToHome()
+                                }
                             }
                     }
                 }
@@ -165,9 +173,8 @@ extension LoginViewController {
                             social: "kakao",
                             socialtoken: oauthToken.accessToken,
                             fcmtoken: fcmtoken) { (kakaoData, err) in
-                                guard let kakaoData = kakaoData,
-                                      let accessData = kakaoData.data else { return }
-                                if kakaoData.status == 401 {
+                                
+                                if kakaoData!.status == 401 {
                                     AuthAPI.shared.postReissue() { reissueData, err in
                                         if reissueData?.status == 401 {
                                             AuthAPI.shared.getLogout { (data, nil) in
@@ -177,7 +184,15 @@ extension LoginViewController {
                                         guard let reissueData = reissueData?.data else { return }
                                         UserDefaultsHelper.standard.accesstoken = reissueData.accesstoken
                                     }
+                                } else if kakaoData!.status == 403 {
+                                    self.showAlert(title: "탈퇴 후 24시간 내 재가입 불가합니다.",
+                                                   message: "",
+                                                   actions: [],
+                                                   cancelTitle: "확인",
+                                                   preferredStyle: .alert)
                                 } else {
+                                    guard let kakaoData = kakaoData,
+                                          let accessData = kakaoData.data else { return }
                                     UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
                                     UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                                     UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
@@ -205,13 +220,22 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             AuthAPI.shared.postSocialLogin(social: "apple",
                                            socialtoken: tokenString,
                                            fcmtoken: fcmtoken) { (appleData, err) in
-                guard let appleData = appleData,
-                      let accessData = appleData.data else { return }
-                UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
-                UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
-                UserDefaultsHelper.standard.socialtoken = tokenString
-                UserDefaultsHelper.standard.social = "apple"
-                self.pushToHome()
+                
+                if appleData!.status == 403 {
+                    self.showAlert(title: "탈퇴 후 24시간 내 재가입 불가합니다.",
+                                   message: "",
+                                   actions: [],
+                                   cancelTitle: "확인",
+                                   preferredStyle: .alert)
+                } else {
+                    guard let appleData = appleData,
+                          let accessData = appleData.data else { return }
+                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
+                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
+                    UserDefaultsHelper.standard.socialtoken = tokenString
+                    UserDefaultsHelper.standard.social = "apple"
+                    self.pushToHome()
+                }
             }
             
         }
