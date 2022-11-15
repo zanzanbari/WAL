@@ -31,10 +31,11 @@ final class ResignViewController: UIViewController {
     private lazy var tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.backgroundColor = .gray600
         $0.separatorStyle = .none
-        $0.allowsSelection = true
         $0.delegate = self
         $0.dataSource = self
         $0.sectionHeaderTopPadding = 0
+        $0.sectionFooterHeight = 0
+        $0.sectionHeaderHeight = UITableView.automaticDimension
     }
     
     private let resignButton = WALPlainButton().then {
@@ -104,19 +105,30 @@ final class ResignViewController: UIViewController {
     }
     
     @objc func touchupResignButton(_ sender: UIButton) {
-        AuthAPI.shared.postResign(
-            social: UserDefaultsHelper.standard.social ?? "",
-            data: reasonData,
-            socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { (resignData, err) in
-                guard let resignData = resignData else { return }
-                if resignData.status < 400 {
-                    print("☘️-------회원탈퇴 서버 통신", resignData)
-                    UserDefaultsHelper.standard.removeObject()
+        AuthAPI.shared.postResign(social: UserDefaultsHelper.standard.social ?? "",
+                                  data: reasonData,
+                                  socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { [weak self] (resignData, err) in
+            guard let self = self else { return }
+            guard let resignData = resignData else { return }
+            if resignData.status < 400 {
+                print("☘️-------회원탈퇴 서버 통신", resignData)
+                self.pushToLoginView()
+                UserDefaultsHelper.standard.removeObject()
+            } else {
+                let okAction = UIAlertAction(title: "초기화면으로", style: .default) { _ in
                     self.pushToLoginView()
-                } else {
-                    print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
+                    UserDefaultsHelper.standard.removeObject()
                 }
+                
+                self.showAlert(title: "탈퇴오류 - 캡처해서 루희한테",
+                               message: "(초기화면으로 선택해서 안되면 앱삭하고 해보세요)" + err.debugDescription,
+                               actions: [okAction],
+                               cancelTitle: "취소",
+                               preferredStyle: .alert)
+                
+                print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
             }
+        }
     }
     
     @objc func touchupCheckButton(_ sender: UIButton) {
@@ -145,14 +157,6 @@ extension ResignViewController: UITableViewDataSource {
         return ResignHeaderView()
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-        
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -172,10 +176,12 @@ extension ResignViewController: UITableViewDataSource {
         cell.checkButton.tag = indexPath.row
         cell.setupData(index: indexPath.row)
         cell.checkButton.addTarget(self, action: #selector(touchupCheckButton(_:)), for: .touchUpInside)
+        configureCellBackgroundColor(cell)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)) as? ResignTableViewCell
         else { return }
         touchupCheckButton(cell.checkButton)
