@@ -75,7 +75,9 @@ class CreateInformationViewController: UIViewController {
     // MARK: - InitUI
     
     private func configUI() {
-        view.backgroundColor = .black100.withAlphaComponent(0.7)
+        view.backgroundColor = .black100.withAlphaComponent(0.5)
+//        titleLabel.addLabelSpacing(fontStyle: WALFont.title2)
+//        subTitleLabel.addLabelSpacing(fontStyle: WALFont.body7)
     }
     
     private func setupLayout() {
@@ -88,7 +90,6 @@ class CreateInformationViewController: UIViewController {
         
         informationView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.width.equalTo(279)
         }
         
         closeButton.snp.makeConstraints {
@@ -110,6 +111,8 @@ class CreateInformationViewController: UIViewController {
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(20)
             $0.bottom.equalTo(informationView.snp.bottom).inset(36)
+            $0.leading.equalTo(informationView.snp.leading).inset(19)
+            $0.trailing.equalTo(informationView.snp.trailing).inset(26)
         }
         
         [titleLabel, imageView, subTitleLabel, descriptionLabel].forEach {
