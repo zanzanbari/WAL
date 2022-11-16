@@ -7,19 +7,26 @@
 
 import Foundation
 
-// MARK: - MainResponse
+// MARK: - Main Response
 
 struct MainResponse: Codable {
+    let subtitle: String
+    let todayWal: [TodayWal]
+}
+
+// MARK: - Today Wal
+
+struct TodayWal: Codable {
     let id: Int
     let type, content: String
     let canOpen: Bool
-    let categoryId: Int
+    let categoryID: Int
     let isShown: Bool
     let voice: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id, type, content, canOpen
-        case categoryId
+        case categoryID = "categoryId"
         case isShown, voice
     }
 }

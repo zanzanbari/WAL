@@ -106,7 +106,7 @@ final class MainItemCell: UICollectionViewCell {
         }
     }
     
-    func setupData(_ data: MainResponse) {
+    func setupData(_ data: TodayWal) {
         if data.type == "스페셜" {
             type = .special
         } else {
