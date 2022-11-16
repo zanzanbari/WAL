@@ -285,6 +285,7 @@ class CreateViewController: UIViewController {
     @objc private func touchUpInformationButton() {
         let viewController = CreateInformationViewController()
         viewController.modalPresentationStyle = .overFullScreen
+        viewController.modalTransitionStyle = .crossDissolve
         present(viewController, animated: false)
     }
     
@@ -292,6 +293,7 @@ class CreateViewController: UIViewController {
         if walSoundTextView.text.count > 0 || datePickerData.date != nil || datePickerData.time != nil {
             let popupViewController = CreateBackPopupViewController()
             popupViewController.modalPresentationStyle = .overFullScreen
+            popupViewController.modalTransitionStyle = .crossDissolve
             present(popupViewController, animated: false)
         } else {
             navigationController?.popViewController(animated: true)
