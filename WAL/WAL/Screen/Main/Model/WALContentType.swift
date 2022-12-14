@@ -9,25 +9,25 @@ import UIKit
 
 import WALKit
 
-enum WALContentType {
-    case fun
-    case angry
-    case cheer
-    case love
-    case special
+enum WALContentType: Int {
+    case special = -1
+    case fun = 0
+    case love = 1
+    case cheer = 2
+    case angry = 3
     
     var walImage: UIImage {
         switch self {
-        case .fun:
-            return WALIcon.imgWallbbongFun.image
-        case .angry:
-            return WALIcon.imgWallbbongAngry.image
-        case .cheer:
-            return WALIcon.imgWallbbongCheer.image
-        case .love:
-            return WALIcon.imgWallbbongLove.image
         case .special:
             return WALIcon.imgWalbbongSpecial.image
+        case .fun:
+            return WALIcon.imgWallbbongFun.image
+        case .love:
+            return WALIcon.imgWallbbongLove.image
+        case .cheer:
+            return WALIcon.imgWallbbongCheer.image
+        case .angry:
+            return WALIcon.imgWallbbongAngry.image
         }
     }
 }

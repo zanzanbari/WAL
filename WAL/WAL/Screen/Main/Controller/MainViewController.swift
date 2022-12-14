@@ -45,7 +45,7 @@ final class MainViewController: UIViewController {
         $0.contentMode = .scaleToFill
     }
     
-    private var walLottieView: AnimationView = .init(name: "paw").then {
+    private var walLottieView: LottieAnimationView = .init(name: "paw").then {
         $0.isHidden = true
     }
     
@@ -150,7 +150,6 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
-        setupCollectionView()
     }
     
     // MARK: - Init UI
@@ -161,6 +160,8 @@ final class MainViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white100
+        
+        setupCollectionView()
     }
     
     private func setupLayout() {
@@ -338,18 +339,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             walContentView.content = mainData.todayWal[indexPath.item].content
             
             let walType = mainData.todayWal[indexPath.item].categoryID
-            
-            if walType == -1 {
-                walContentView.walContentType = .special
-            } else if walType == 0 {
-                walContentView.walContentType = .fun
-            } else if walType == 1 {
-                walContentView.walContentType = .love
-            } else if walType == 2 {
-                walContentView.walContentType = .cheer
-            } else {
-                walContentView.walContentType = .angry
-            }
+            walContentView.walContentType = WALContentType(rawValue: walType) ?? .fun
             return true
         }
     }
@@ -386,9 +376,7 @@ extension MainViewController {
             guard let self = self else { return }
             dump(mainData?.data)
             
-            guard let mainData = mainData else {
-                return
-            }
+            guard let mainData = mainData else { return }
             
             DispatchQueue.main.async {
                 guard let data = mainData.data else { return }
@@ -399,7 +387,7 @@ extension MainViewController {
                 self.subTitleLabel.addLetterSpacing()
                 
                 self.walCollectionView.reloadData()
-                self.updateCollectionViewLayout()
+                self.updateCollectionViewLayout(data.todayWal.count)
                 
                 var isShownCount: Int = 0
                 var canOpenCount: Int = 0
@@ -415,11 +403,10 @@ extension MainViewController {
                 }
                 
                 if canOpenCount == 0 {
-                    let stringDate = self.dateFormatter.string(from: self.date)
-                    guard let intDate = Int(stringDate) else { return }
+                    guard let intDate = Int(self.dateFormatter.string(from: self.date)) else { return }
                     
                     if intDate >= 0 && intDate <= 7 {
-                        self.walStatus = .checkedAvailable
+                        self.walStatus = .sleeping
                     } else {
                         self.walStatus = .checkedAvailable
                     }
@@ -438,20 +425,20 @@ extension MainViewController {
         }
     }
     
-    private func updateCollectionViewLayout() {
-        if self.dataCount == 1 {
+    private func updateCollectionViewLayout(_ todalWalCount: Int) {
+        if todalWalCount == 1 {
             self.walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(149)
             }
-        } else if self.dataCount == 2 {
+        } else if todalWalCount == 2 {
             self.walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(106)
             }
-        } else if self.dataCount == 3 {
+        } else if todalWalCount == 3 {
             self.walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(63)
             }
-        } else if self.dataCount == 4 {
+        } else if todalWalCount == 4 {
             self.walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(20)
             }
@@ -482,10 +469,9 @@ extension MainViewController {
                 }
                 
                 if canOpenCount == 0 {
-                    let stringDate = self.dateFormatter.string(from: self.date)
-                    guard let intDate = Int(stringDate) else { return }
+                    guard let currentTime = Int(self.dateFormatter.string(from: self.date)) else { return }
                     
-                    if intDate >= 0 && intDate <= 7 {
+                    if currentTime >= 0 && currentTime <= 7 {
                         self.walStatus = .sleeping
                     } else {
                         self.walStatus = .checkedAvailable
@@ -502,7 +488,6 @@ extension MainViewController {
                     }
                 }
             }
-            
         }
     }
 }
