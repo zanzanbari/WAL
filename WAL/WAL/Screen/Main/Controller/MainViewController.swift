@@ -264,15 +264,13 @@ final class MainViewController: UIViewController {
     
     private func setMainStatus() {
         if titleLabel.isHidden == true {
-            titleLabel.isHidden = false
-            subTitleLabel.isHidden = false
+            [titleLabel, subTitleLabel, walImageView, contentLabel].forEach {
+                $0.isHidden = false
+            }
             
-            walImageView.isHidden = false
-            walContentView.isHidden = true
-            
-            contentLabel.isHidden = false
-            
-            shareButton.isHidden = true
+            [walContentView, shareButton].forEach {
+                $0.isHidden = true
+            }
         }
     }
     
@@ -374,8 +372,6 @@ extension MainViewController {
     func getMainInfo() {
         MainAPI.shared.getMainData { [weak self] mainData, err in
             guard let self = self else { return }
-            dump(mainData?.data)
-            
             guard let mainData = mainData else { return }
             
             DispatchQueue.main.async {
@@ -427,19 +423,19 @@ extension MainViewController {
     
     private func updateCollectionViewLayout(_ todalWalCount: Int) {
         if todalWalCount == 1 {
-            self.walCollectionView.snp.updateConstraints {
+            walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(149)
             }
         } else if todalWalCount == 2 {
-            self.walCollectionView.snp.updateConstraints {
+            walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(106)
             }
         } else if todalWalCount == 3 {
-            self.walCollectionView.snp.updateConstraints {
+            walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(63)
             }
         } else if todalWalCount == 4 {
-            self.walCollectionView.snp.updateConstraints {
+            walCollectionView.snp.updateConstraints {
                 $0.leading.trailing.equalToSuperview().inset(20)
             }
         }
