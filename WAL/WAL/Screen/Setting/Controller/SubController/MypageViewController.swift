@@ -19,7 +19,7 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     var nickname = ""
     var email = ""
     
-    private let navigationBar = WALNavigationBar(title: "내 정보").then {
+    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.mypage).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
@@ -47,19 +47,19 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var loginSubtitleLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaultsHelper.standard.social == "kakao" {
-            $0.text = "카카오 계정으로 로그인"
-        } else if UserDefaultsHelper.standard.social == "apple" {
-            $0.text = "애플 계정으로 로그인"
+        if UserDefaultsHelper.standard.social == SocialType.kakao.rawValue {
+            $0.text = SocialType.kakao.login
+        } else if UserDefaultsHelper.standard.social == SocialType.apple.rawValue {
+            $0.text = SocialType.apple.login
         }
     }
     
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        if UserDefaultsHelper.standard.social == "kakao" {
+        if UserDefaultsHelper.standard.social == SocialType.kakao.rawValue {
             $0.text = email
-        } else if UserDefaultsHelper.standard.social == "apple" {
+        } else if UserDefaultsHelper.standard.social == SocialType.apple.rawValue {
             $0.text = "-"
         }
     }

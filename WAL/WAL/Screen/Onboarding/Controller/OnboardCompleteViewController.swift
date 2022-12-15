@@ -20,7 +20,7 @@ final class OnboardCompleteViewController: UIViewController {
     }
     
     private let completeLabel = UILabel().then {
-        $0.text = "맞춤 설정 완료"
+        $0.text = Constant.OnboardComplete.complete
         $0.font = WALFont.cafe24.font
         $0.textAlignment = .center
     }
@@ -33,7 +33,7 @@ final class OnboardCompleteViewController: UIViewController {
     }
     
     private let startButton = WALPlainButton().then {
-        $0.title = "시작하기"
+        $0.title = Constant.OnboardComplete.start
         $0.isDisabled = false
         $0.addTarget(self, action: #selector(touchupStartButton), for: .touchUpInside)
     }
@@ -51,7 +51,7 @@ final class OnboardCompleteViewController: UIViewController {
     private func configUI() {
         view.backgroundColor = .white
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
-        subLabel.text = nickname + "님 맞춤 설정을 끝냈어요\n왈을 시작해볼까요?"
+        subLabel.text = nickname + Constant.OnboardComplete.description
         subLabel.addLineSpacing(spacing: 0.4)
         subLabel.addLetterSpacing()
     }

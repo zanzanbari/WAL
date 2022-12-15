@@ -17,7 +17,7 @@ final class ZanzanbariViewController: UIViewController {
     
     private let statusBarView = UIView()
     
-    private let navigationBar = WALNavigationBar(title: "왈이 궁금해요").then {
+    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.zanzan).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)

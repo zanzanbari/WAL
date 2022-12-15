@@ -48,6 +48,10 @@ enum Constant {
         static let description = "님 맞춤 설정을 끝냈어요\n왈을 시작해볼까요?"
     }
     
+    enum EditNickname {
+        static let placeholder = "닉네임을 입력해주세요"
+    }
+    
     enum SettingAlarm {
         static let title = "왈소리 받는 시간"
     }

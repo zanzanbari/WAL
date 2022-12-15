@@ -9,7 +9,7 @@ import UIKit
 
 import WALKit
 
-class MyInfoTableViewCell: BaseTableViewCell {
+final class MyInfoTableViewCell: BaseTableViewCell {
         
     // MARK: - Properties
     
@@ -28,10 +28,10 @@ class MyInfoTableViewCell: BaseTableViewCell {
     let socialTypeLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaultsHelper.standard.social == "kakao" {
-            $0.text = "카카오 계정으로 로그인"
-        } else if UserDefaultsHelper.standard.social == "apple" {
-            $0.text = "애플 계정으로 로그인"
+        if UserDefaultsHelper.standard.social == SocialType.kakao.rawValue {
+            $0.text = SocialType.kakao.login
+        } else if UserDefaultsHelper.standard.social == SocialType.apple.rawValue {
+            $0.text = SocialType.apple.login
         }
     }
     

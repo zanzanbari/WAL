@@ -9,7 +9,7 @@ import UIKit
 
 import WALKit
 
-class TimeButton: UIButton {
+final class TimeButton: UIButton {
     
     // MARK: - Property
     

@@ -31,7 +31,7 @@ final class EditNicknameViewController: BaseViewController {
                                                       target: self,
                                                       action: #selector(touchupDoneButton))
     
-    private let navigationBar = WALNavigationBar(title: "닉네임 수정").then {
+    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.editNick).then {
         $0.backgroundColor = .white100
         $0.rightIcon = WALIcon.btnDelete.image
         $0.rightBarButton.addTarget(self, action: #selector(touchupCloseButton), for: .touchUpInside)
@@ -43,7 +43,7 @@ final class EditNicknameViewController: BaseViewController {
     
     private let nicknameTextField = WALTextField().then {
         $0.font = WALFont.body6.font
-        $0.placeholder = "닉네임을 입력해주세요"
+        $0.placeholder = Constant.EditNickname.placeholder
         $0.isFocusing = true
         $0.clearButtonMode = .whileEditing
     }
@@ -61,7 +61,7 @@ final class EditNicknameViewController: BaseViewController {
     
     private let warnLabel = UILabel().then {
         $0.font = WALFont.body9.font
-        $0.text = "띄어쓰기 없이 한글, 영문, 숫자만 가능해요"
+        $0.text = Constant.Placeholder.warnText
         $0.numberOfLines = 0
         $0.textColor = .red100
         $0.isHidden = true

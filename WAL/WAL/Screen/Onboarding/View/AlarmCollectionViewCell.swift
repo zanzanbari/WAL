@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class AlarmCollectionViewCell: BaseCollectionViewCell {
+final class AlarmCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
         
@@ -54,11 +54,7 @@ class AlarmCollectionViewCell: BaseCollectionViewCell {
         configUI()
         setupLayout()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+ 
     // MARK: - InitUI
     
     private func configUI() {

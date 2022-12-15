@@ -9,7 +9,7 @@ import UIKit
 
 import WALKit
 
-class SettingTableViewCell: BaseTableViewCell {
+final class SettingTableViewCell: BaseTableViewCell {
     
     // MARK: - Properties
     
