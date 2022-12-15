@@ -21,6 +21,7 @@ final class UserDefaultsHelper {
         static let fcmtoken = "fcmtoken"
         static let nickname = "nickname"
         static let complete = "complete"
+        static let pushNoti = "toggle"
     }
     
     var accesstoken: String? {
@@ -87,13 +88,24 @@ final class UserDefaultsHelper {
         }
     }
     
+    var pushNoti: Bool {
+        get {
+            return userDefaults.bool(forKey: Key.pushNoti)
+        }
+        set {
+            userDefaults.set(newValue, forKey: Key.pushNoti)
+        }
+    }
+    
     func removeObject() {
         userDefaults.removeObject(forKey: Key.accesstoken)
         userDefaults.removeObject(forKey: Key.refreshtoken)
         userDefaults.removeObject(forKey: Key.socialtoken)
         userDefaults.removeObject(forKey: Key.social)
+        userDefaults.removeObject(forKey: Key.fcmtoken)
         userDefaults.removeObject(forKey: Key.nickname)
         userDefaults.removeObject(forKey: Key.complete)
+        userDefaults.removeObject(forKey: Key.pushNoti)
     }
     
     // 로그아웃을 위해

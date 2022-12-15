@@ -31,16 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
-                completionHandler: { didAllow, Error in
-                    if didAllow { // 푸시알림 허용
-                        DispatchQueue.main.async {
-                            print("푸시알림 허용")
-                        }
-                    } else { // 푸시알림 비허용
-                        DispatchQueue.main.async {
-                            print("푸시알림 비허용")
-                        }
-                    }
+                completionHandler: { didAllow, error in
+                    UserDefaultsHelper.standard.pushNoti = didAllow
                 }
             )
         } else {
