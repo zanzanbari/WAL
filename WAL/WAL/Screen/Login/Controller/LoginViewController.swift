@@ -20,7 +20,7 @@ final class LoginViewController: UIViewController {
     // MARK: - Properties
     
     private let logoImageView = GIFImageView().then {
-        $0.animate(withGIFNamed: "login500", loopCount: 5)
+        $0.animate(withGIFNamed: Constant.Login.gif, loopCount: 5)
     }
     
     private let kakaoButton = WALAuthButton(type: .kakao).then {
@@ -118,97 +118,63 @@ final class LoginViewController: UIViewController {
     }
 }
 
-// MARK: - 카카오 로그인
+// MARK: - Network
+
+extension LoginViewController {
+    func postSocialLogin(social: String, socialtoken: String, fcmtoken: String) {
+        AuthAPI.shared.postSocialLogin(social: social, socialtoken: socialtoken,
+            fcmtoken: fcmtoken) { [weak self] ( data, error) in
+                guard let self = self else { return }
+                if data!.status == 403 {
+                    self.showAlert(title: Constant.Login.resign,
+                                   message: nil,
+                                   actions: [],
+                                   cancelTitle: "확인",
+                                   preferredStyle: .alert)
+                } else {
+                    guard let data = data,
+                          let accessData = data.data else { return }
+                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
+                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
+                    UserDefaultsHelper.standard.socialtoken = socialtoken
+                    UserDefaultsHelper.standard.social = social
+                    self.pushToHome()
+                }
+            }
+    }
+}
+
+// MARK: - Kakao Login
 
 extension LoginViewController {
     private func loginWithKakaoApp() {
-        UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-            if let error = error {
-                print(error)
-            } else {
-                UserApi.shared.me {(user, error) in
-                    if let error = error {
-                        print("----------- 카카오 로그인 앱 에러:", error)
-                    } else {
-                        guard let oauthToken = oauthToken,
-                              let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-                        AuthAPI.shared.postSocialLogin(
-                            social: "kakao",
-                            socialtoken: oauthToken.accessToken,
-                            fcmtoken: fcmtoken) { (kakaoData, err) in
-                                if kakaoData!.status == 403 {
-                                    self.showAlert(title: "탈퇴 후 24시간 내 재가입 불가합니다.",
-                                                   message: "",
-                                                   actions: [],
-                                                   cancelTitle: "확인",
-                                                   preferredStyle: .alert)
-                                } else {
-                                    guard let kakaoData = kakaoData,
-                                          let accessData = kakaoData.data else { return }
-                                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
-                                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
-                                    UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
-                                    UserDefaultsHelper.standard.social = "kakao"
-                                    self.pushToHome()
-                                }
-                            }
-                    }
-                }
+        UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
+            guard let self = self else { return }
+            UserApi.shared.me { (user, error) in
+                guard let oauthToken = oauthToken,
+                      let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
+                self.postSocialLogin(social: SocialType.kakao.rawValue,
+                                     socialtoken: oauthToken.accessToken,
+                                     fcmtoken: fcmtoken)
             }
         }
     }
     
     private func loginWithKakaoWeb() {
         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-            if let error = error {
-                print(error)
-            } else {
-                UserApi.shared.me { (user, error) in
-                    if let error = error {
-                        print("----------- 카카오 로그인 웹 에러 :", error)
-                    } else {
-                        guard let oauthToken = oauthToken,
-                              let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-                        AuthAPI.shared.postSocialLogin(
-                            social: "kakao",
-                            socialtoken: oauthToken.accessToken,
-                            fcmtoken: fcmtoken) { (kakaoData, err) in
-                                
-                                if kakaoData!.status == 401 {
-                                    AuthAPI.shared.postReissue() { reissueData, err in
-                                        if reissueData?.status == 401 {
-                                            AuthAPI.shared.getLogout { (data, nil) in
-                                                guard data != nil else { return }
-                                            }
-                                        }
-                                        guard let reissueData = reissueData?.data else { return }
-                                        UserDefaultsHelper.standard.accesstoken = reissueData.accesstoken
-                                    }
-                                } else if kakaoData!.status == 403 {
-                                    self.showAlert(title: "탈퇴 후 24시간 내 재가입 불가합니다.",
-                                                   message: "",
-                                                   actions: [],
-                                                   cancelTitle: "확인",
-                                                   preferredStyle: .alert)
-                                } else {
-                                    guard let kakaoData = kakaoData,
-                                          let accessData = kakaoData.data else { return }
-                                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
-                                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
-                                    UserDefaultsHelper.standard.socialtoken = oauthToken.accessToken
-                                    UserDefaultsHelper.standard.social = "kakao"
-                                    self.pushToHome()
-                                }
-                                
-                            }
-                    }
-                }
+            UserApi.shared.me { [weak self] (user, error) in
+                guard let self = self else { return }
+                guard let oauthToken = oauthToken,
+                      let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
+                self.postSocialLogin(social: SocialType.kakao.rawValue,
+                                     socialtoken: oauthToken.accessToken,
+                                     fcmtoken: fcmtoken)
             }
         }
     }
 }
 
-// MARK: - 애플 로그인
+// MARK: - Apple Login
 
 extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -217,32 +183,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             let tokenString = String(data: identityToken, encoding: .utf8)
             guard let tokenString = tokenString,
                   let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-            AuthAPI.shared.postSocialLogin(social: "apple",
-                                           socialtoken: tokenString,
-                                           fcmtoken: fcmtoken) { (appleData, err) in
-                
-                if appleData!.status == 403 {
-                    self.showAlert(title: "탈퇴 후 24시간 내 재가입 불가합니다.",
-                                   message: "",
-                                   actions: [],
-                                   cancelTitle: "확인",
-                                   preferredStyle: .alert)
-                } else {
-                    guard let appleData = appleData,
-                          let accessData = appleData.data else { return }
-                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
-                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
-                    UserDefaultsHelper.standard.socialtoken = tokenString
-                    UserDefaultsHelper.standard.social = "apple"
-                    self.pushToHome()
-                }
-            }
-            
+            self.postSocialLogin(social: SocialType.apple.rawValue,
+                                 socialtoken: tokenString,
+                                 fcmtoken: fcmtoken)            
         }
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("ERROR : 애플아이디", error.localizedDescription)
     }
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
