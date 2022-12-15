@@ -41,7 +41,7 @@
 		5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3893527F6B94F0010EAA1 /* MainViewController.swift */; };
 		5BA3893927F6B94F0010EAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BA3893727F6B94F0010EAA1 /* Main.storyboard */; };
 		5BA3893E27F6B9540010EAA1 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* MainDataModel.swift */; };
+		5BA3895827F6C2260010EAA1 /* WALDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895727F6C2260010EAA1 /* WALDataType.swift */; };
 		5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */; };
 		5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3895B27F6C23B0010EAA1 /* Protocol.swift */; };
 		5BA3896127F6C2680010EAA1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3896027F6C2680010EAA1 /* UIView+.swift */; };
@@ -158,7 +158,7 @@
 		5BA3893527F6B94F0010EAA1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5BA3893827F6B94F0010EAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5BA3893F27F6B9540010EAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5BA3895727F6C2260010EAA1 /* MainDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataModel.swift; sourceTree = "<group>"; };
+		5BA3895727F6C2260010EAA1 /* WALDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALDataType.swift; sourceTree = "<group>"; };
 		5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainItemCell.swift; sourceTree = "<group>"; };
 		5BA3895B27F6C23B0010EAA1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5BA3896027F6C2680010EAA1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -559,7 +559,7 @@
 		5BA3895527F6C1FC0010EAA1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5BA3895727F6C2260010EAA1 /* MainDataModel.swift */,
+				5BA3895727F6C2260010EAA1 /* WALDataType.swift */,
 				928A2A2F28A6339F0033FEC8 /* WALContentType.swift */,
 				924B60FC28A7D1E4002804B1 /* WALStatus.swift */,
 			);
@@ -1049,7 +1049,7 @@
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */,
 				E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */,
-				5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */,
+				5BA3895827F6C2260010EAA1 /* WALDataType.swift in Sources */,
 				924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5BB26D30286646AA00257837 /* Reissue.swift in Sources */,
@@ -1058,7 +1058,7 @@
 				5BC2DD092868E71700AFCC29 /* MypageViewController.swift in Sources */,
 				5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */,
 				E23FF600287FF7B0004016DC /* CreateAPI.swift in Sources */,
-				5BA3895827F6C2260010EAA1 /* MainDataModel.swift in Sources */,
+				5BA3895827F6C2260010EAA1 /* WALDataType.swift in Sources */,
 				927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
@@ -1269,7 +1269,7 @@
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
@@ -1306,7 +1306,7 @@
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
