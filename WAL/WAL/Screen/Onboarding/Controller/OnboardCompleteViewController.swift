@@ -50,6 +50,7 @@ final class OnboardCompleteViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         subLabel.text = nickname + Constant.OnboardComplete.description
         subLabel.addLineSpacing(spacing: 0.4)
