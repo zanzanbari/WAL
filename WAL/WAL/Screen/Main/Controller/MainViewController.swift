@@ -324,9 +324,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MainItemCell else {
-            return true
-        }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MainItemCell else { return true }
         
         if cell.isSelected {
             didTapCell = false
@@ -370,7 +368,7 @@ extension MainViewController: UICollectionViewDataSource {
 
 extension MainViewController {
     func getMainInfo() {
-        MainAPI.shared.getMainData { [weak self] mainData, err in
+        MainAPI.shared.getMainData { [weak self] mainData, statusCode in
             guard let self = self else { return }
             guard let mainData = mainData else { return }
             
