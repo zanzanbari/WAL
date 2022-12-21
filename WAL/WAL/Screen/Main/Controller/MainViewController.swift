@@ -400,6 +400,7 @@ extension MainViewController {
                     guard let intDate = Int(self.dateFormatter.string(from: self.date)) else { return }
                     
                     if intDate >= 0 && intDate <= 7 {
+                        self.subTitleLabel.text = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
                         self.walStatus = .sleeping
                     } else {
                         self.walStatus = .checkedAvailable
@@ -466,6 +467,7 @@ extension MainViewController {
                     guard let currentTime = Int(self.dateFormatter.string(from: self.date)) else { return }
                     
                     if currentTime >= 0 && currentTime <= 7 {
+                        self.subTitleLabel.text = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
                         self.walStatus = .sleeping
                     } else {
                         self.walStatus = .checkedAvailable
