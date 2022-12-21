@@ -8,7 +8,29 @@
 import UIKit
 
 import WALKit
-import Lottie
+
+enum NumberOfContentLabel: Int {
+    case one = 1
+    case two
+    case three
+    case four
+    case five
+    
+    var topConstraints: CGFloat {
+        switch self {
+        case .one:
+            return 74
+        case .two:
+            return 60
+        case .three:
+            return 46
+        case .four:
+            return 32
+        case .five:
+            return 18
+        }
+    }
+}
 
 final class MainContentView: UIView {
     
@@ -18,6 +40,7 @@ final class MainContentView: UIView {
         $0.image = WALIcon.imgMainBubble.image
         $0.contentMode = .scaleToFill
         $0.addSubview(bubbleLabel)
+        // TODO: - 음성메세지 기능 추가 후 false로 변경
         $0.isHidden = true
     }
     
@@ -25,6 +48,7 @@ final class MainContentView: UIView {
         $0.text = "왈뿡이를 탭하면 소리가 나와요!"
         $0.textColor = .white100
         $0.font = WALFont.body8.font
+        // TODO: - 음성메세지 기능 추가 후 false로 변경
         $0.isHidden = true
     }
     
@@ -51,9 +75,7 @@ final class MainContentView: UIView {
     
     var content: String = "" {
         didSet {
-            contentLabel.text = content
-            contentLabel.addLineSpacing(spacing: 28)
-            contentLabel.textAlignment = .center
+            configureContentLabel()
             updateContentLabelLayout()
         }
     }
@@ -105,30 +127,40 @@ final class MainContentView: UIView {
         }
     }
     
+    private func configureContentLabel() {
+        contentLabel.text = content
+        contentLabel.addLineSpacing(spacing: 28)
+        contentLabel.textAlignment = .center
+    }
+    
     private func updateContentLabelLayout() {
-        let numberOfLines: Int = contentLabel.countCurrentLines()
+        let numberOfLines: NumberOfContentLabel = NumberOfContentLabel(rawValue: contentLabel.countCurrentLines()) ?? .five
         
-        if numberOfLines == 1 {
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(imageView.snp.bottom).offset(74)
-            }
-        } else if numberOfLines == 2 {
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(imageView.snp.bottom).offset(60)
-            }
-        } else if numberOfLines == 3 {
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(imageView.snp.bottom).offset(46)
-            }
-        } else if numberOfLines == 4 {
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(imageView.snp.bottom).offset(32)
-            }
-        } else {
-            contentLabel.snp.updateConstraints {
-                $0.top.equalTo(imageView.snp.bottom).offset(18)
-            }
+        contentLabel.snp.updateConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(numberOfLines.topConstraints)
         }
+        
+//        if numberOfLines == 1 {
+//            contentLabel.snp.updateConstraints {
+//                $0.top.equalTo(imageView.snp.bottom).offset(74)
+//            }
+//        } else if numberOfLines == 2 {
+//            contentLabel.snp.updateConstraints {
+//                $0.top.equalTo(imageView.snp.bottom).offset(60)
+//            }
+//        } else if numberOfLines == 3 {
+//            contentLabel.snp.updateConstraints {
+//                $0.top.equalTo(imageView.snp.bottom).offset(46)
+//            }
+//        } else if numberOfLines == 4 {
+//            contentLabel.snp.updateConstraints {
+//                $0.top.equalTo(imageView.snp.bottom).offset(32)
+//            }
+//        } else {
+//            contentLabel.snp.updateConstraints {
+//                $0.top.equalTo(imageView.snp.bottom).offset(18)
+//            }
+//        }
     }
     
     private func setupGesture() {
