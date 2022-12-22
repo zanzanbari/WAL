@@ -143,7 +143,7 @@ final class MainViewController: UIViewController {
         configNavigationUI()
         setMainStatus()
         getMainInfo()
-        NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name("EnterMain"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name.enterMain, object: nil)
     }
     
     override func viewDidLoad() {
