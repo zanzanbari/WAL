@@ -15,14 +15,15 @@ final class MainAPI {
     public private(set) var mainData: GenericResponse<MainResponse>?
     
     public func getMainData(completion: @escaping ((GenericResponse<MainResponse>?, Int?) -> ())) {
-        mainProvider.request(.main) { result in
+        mainProvider.request(.main) { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let response):
                 do {
                     self.mainData = try response.map(GenericResponse<MainResponse>?.self)
                     guard let mainData = self.mainData else { return }
                     completion(mainData, nil)
-                    
                 } catch(let err) {
                     print(err.localizedDescription, 500)
                 }
@@ -34,14 +35,15 @@ final class MainAPI {
     }
     
     public func updateMainData(item: Int, completion: @escaping ((GenericResponse<MainResponse>?, Int?) -> ())) {
-        mainProvider.request(.mainItem(param: item)) { result in
+        mainProvider.request(.mainItem(param: item)) { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let response):
                 do {
                     self.mainData = try response.map(GenericResponse<MainResponse>?.self)
                     guard let mainData = self.mainData else { return }
                     completion(mainData, nil)
-                    
                 } catch(let err) {
                     print(err.localizedDescription, 500)
                 }

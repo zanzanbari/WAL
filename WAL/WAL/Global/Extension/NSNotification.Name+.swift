@@ -11,4 +11,6 @@ extension NSNotification.Name {
     static let changeNickname = NSNotification.Name("changeNickname")
     static let fcmToken = Notification.Name("FCMToken")
     static let renewToken = Notification.Name("renewToken")
+    
+    static let enterMain = NSNotification.Name("EnterMain")
 }
