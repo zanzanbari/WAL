@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class OnboardingCollectionViewCell: BaseCollectionViewCell {
+final class OnboardingCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
     
@@ -69,10 +69,6 @@ class OnboardingCollectionViewCell: BaseCollectionViewCell {
         setupLayout()
         setupTextField()
         nicknameTextField.becomeFirstResponder()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

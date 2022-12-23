@@ -14,7 +14,7 @@ final class LoadingView: UIView {
     
     // MARK: - Property
     
-    private var loadingAnimationView = AnimationView(name: "loading")
+    private var loadingAnimationView = LottieAnimationView(name: Constant.Lottie.loading)
     
     // MARK: - Initializer
     

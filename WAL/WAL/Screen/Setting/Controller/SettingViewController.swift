@@ -11,7 +11,7 @@ import SafariServices
 import Then
 import WALKit
 
-class SettingViewController: UIViewController, SendNicknameDelegate {
+final class SettingViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - Properties
     
@@ -19,7 +19,7 @@ class SettingViewController: UIViewController, SendNicknameDelegate {
     var email = ""
     private let setting = SettingData()
     
-    private let navigationBar = WALNavigationBar(title: "설정").then {
+    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.setting).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -207,6 +207,7 @@ extension SettingViewController {
     func requestNickname() {
         SettingAPI.shared.getUserInfo { (userInfo, nil) in
             guard let userInfoData = userInfo?.data else { return }
+            print("🔶🔶🔶 ", userInfoData)
             self.nickname = userInfoData.nickname
             self.email = userInfoData.email
             DispatchQueue.main.async {

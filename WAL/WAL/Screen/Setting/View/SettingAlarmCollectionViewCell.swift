@@ -9,7 +9,7 @@ import UIKit
 
 import WALKit
 
-class SettingAlarmCollectionViewCell: UICollectionViewCell {
+final class SettingAlarmCollectionViewCell: UICollectionViewCell {
         
     // MARK: - Property
     

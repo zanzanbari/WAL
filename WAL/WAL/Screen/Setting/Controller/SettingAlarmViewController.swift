@@ -18,15 +18,14 @@ final class SettingAlarmViewController: UIViewController {
     
     private let setting = SettingData()
     
-    private let navigationBar = WALNavigationBar(title: "알림").then {
+    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingAlarm).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
     }
     
     private lazy var firstView = AlarmView(.firstMenu).then {
-        let isPushNotificationOn = UIApplication.shared.isRegisteredForRemoteNotifications
-        $0.toggleSwitch.isOn = isPushNotificationOn
+        $0.toggleSwitch.isOn = UserDefaultsHelper.standard.pushNoti
         $0.toggleSwitch.addTarget(self, action: #selector(switchValueChanged(toggle:)), for: .valueChanged)
     }
     
@@ -35,7 +34,7 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private let titleLabel = UILabel().then {
-        $0.text = "왈소리 받는 시간"
+        $0.text = Constant.SettingAlarm.title
         $0.font = WALFont.body6.font
         $0.textColor = .black100
     }
@@ -77,14 +76,8 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar,
-                          firstView,
-                          backView,
-                          titleLabel,
-                          alarmButtonStackView])
-        alarmButtonStackView.addArrangedSubviews([morningButton,
-                                                  afternoonButton,
-                                                  nightButton])
+        view.addSubviews([navigationBar, firstView, backView, titleLabel, alarmButtonStackView])
+        alarmButtonStackView.addArrangedSubviews([morningButton, afternoonButton, nightButton])
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -135,7 +128,7 @@ final class SettingAlarmViewController: UIViewController {
         if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
             afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
             nightButton.layer.borderColor == UIColor.gray400.cgColor {
-            showToast(message: "1개 이상 선택해주세요")
+            showToast(message: Constant.Toast.selectOneMore)
         }
     }
     
@@ -159,17 +152,13 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     @objc func switchValueChanged(toggle: UISwitch) {
-        if toggle.isOn {
-            UIApplication.shared.registerForRemoteNotifications()
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-                print(granted, error)
-            }
-        } else {
-            UIApplication.shared.unregisterForRemoteNotifications()
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
         }
-        UserDefaults.standard.set(toggle.isOn, forKey: "toggle")
-        firstView.toggleSwitch.isOn = UserDefaults.standard.bool(forKey: "toggle")
+        UserDefaultsHelper.standard.pushNoti = toggle.isOn
+        firstView.toggleSwitch.isOn = UserDefaultsHelper.standard.pushNoti
     }
 }
 

@@ -8,6 +8,7 @@
 import Foundation
 
 import Moya
+import KakaoSDKAuth
 
 final class MoyaLoggerPlugin: PluginType {
     
@@ -35,13 +36,13 @@ final class MoyaLoggerPlugin: PluginType {
     func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
         switch result {
         case let .success(response):
-            onSuceed(response)
+            onSucceed(response)
         case let .failure(error):
             onFail(error)
         }
     }
     
-    func onSuceed(_ response: Response) {
+    func onSucceed(_ response: Response) {
         let request = response.request
         let url = request?.url?.absoluteString ?? "nil"
         let statusCode = response.statusCode
@@ -51,35 +52,21 @@ final class MoyaLoggerPlugin: PluginType {
         if let reString = String(bytes: response.data, encoding: String.Encoding.utf8) {
             log.append("4️⃣\(reString)\n")
         }
-        
-        if statusCode == 401 {
-            AuthAPI.shared.postReissue() { reissueData, err in
-                print("🥳 액세스토큰 만료로 토큰 재발급했다!", reissueData)
-                if reissueData?.status == 401 {
-                    print("🥳 리프레시토큰 만료 -> 로그아웃시키자!", reissueData?.status as Any)
-                    AuthAPI.shared.getLogout { (data, nil) in
-                        guard let data = data else { return }
-                        print("🥳 토큰 만료로 인한 로그아웃 서버통신", data)
-                        self.pushToLoginView()
-                    }
-                }
-                // MARK: - TODO 401이면 액세스토큰 만료 -> 토큰 재발급해주자!
-                guard let reissueData = reissueData?.data else { return }
-                print("🥳 액세스토큰 만료로 토큰 재발급했다!", reissueData)
-                UserDefaultsHelper.standard.accesstoken = reissueData.accesstoken
-                guard let key =  UserDefaultsHelper.standard.accesstoken else { return }
-                print("🥳", key)
-            }
-        } else {
-            print("5️⃣[\(statusCode)]\n")
-        }
-        log.append("------------------- END HTTP -------------------")
+        print("5️⃣[\(statusCode)]\n")
+        log.append("============================================= END HTTP =============================================\n\n")
         print(log)
+        
+        switch statusCode {
+        case 401:
+            refreshTokenAPI()
+        default:
+            return
+        }
     }
     
     func onFail(_ error: MoyaError) {
         if let response = error.response {
-            onSuceed(response)
+            onSucceed(response)
             return
         }
         var log = "네트워크 오류"
@@ -88,14 +75,48 @@ final class MoyaLoggerPlugin: PluginType {
         log.append("<-- END HTTP")
         print(log)
     }
+}
+
+extension MoyaLoggerPlugin {
+    func refreshTokenAPI() {
+        AuthAPI.shared.postReissue { [weak self] tokenData, status in
+            guard let self = self else { return }
+            /// 성공적으로 액세스 토큰이 갱신됐다면,
+            if let tokenData = tokenData?.data {
+                /// 일단 시험삼아 로그아웃 시키기
+                self.pushToLoginView()
+                UserDefaultsHelper.standard.accesstoken = tokenData.accesstoken
+                print("액세스토큰 새롭게 저장 - ", UserDefaultsHelper.standard.accesstoken)
+                
+            }
+
+            /// 401이 뜨면 리프레시 토큰도 만료
+            /// 로그아웃 서버통신 + 액세스 토큰 삭제
+            // TODO: - 여기서 리프레쉬 토큰도 삭제할 필요가 있나?
+            if let statusCode = tokenData?.status, statusCode == 401 {
+                print("리프레시 토큰 만료! -> 로그아웃")
+                self.logoutAPI()
+            }
+        }
+    }
     
-    // MARK: - Custom Method
+    func logoutAPI() {
+        AuthAPI.shared.getLogout { [weak self] logoutData, status in
+            guard let self = self else { return }
+            if let logoutData = logoutData {
+                print("로그아웃 - ", logoutData)
+                self.pushToLoginView()
+            }
+        }
+    }
     
     func pushToLoginView() {
+        print(#function, "로그인뷰로 이동")
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         let viewController = LoginViewController()
         sceneDelegate?.window?.rootViewController = viewController
         sceneDelegate?.window?.makeKeyAndVisible()
+        UserDefaultsHelper.standard.removeAccessToken()
     }
 }

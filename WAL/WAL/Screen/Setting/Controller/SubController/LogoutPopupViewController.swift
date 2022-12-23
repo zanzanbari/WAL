@@ -17,11 +17,11 @@ final class LogoutPopupViewController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var backPopupView = WALPopupView(title: "로그아웃",
-                                                  subTitle: "정말 로그아웃 하시겠어요?",
+    private lazy var backPopupView = WALPopupView(title: Constant.Logout.title,
+                                                  subTitle: Constant.Logout.subtitle,
                                                   rightButtonColor: .mint100).then {
-        $0.leftText = "취소"
-        $0.rightText = "로그아웃"
+        $0.leftText = Constant.Logout.left
+        $0.rightText = Constant.Logout.right
         $0.leftButton.addTarget(self, action: #selector(touchupCancelButton), for: .touchUpInside)
         $0.rightButton.addTarget(self, action: #selector(touchupOkButton), for: .touchUpInside)
     }
@@ -50,17 +50,6 @@ final class LogoutPopupViewController: UIViewController {
         }
     }
     
-    // MARK: - Custom Method
-    
-    func pushToLoginView() {
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let viewController = LoginViewController()
-        sceneDelegate?.window?.rootViewController = viewController
-        sceneDelegate?.window?.makeKeyAndVisible()
-        UserDefaultsHelper.standard.removeAccessToken()
-    }
-    
     // MARK: - @objc
     
     @objc func touchupCancelButton() {
@@ -68,23 +57,16 @@ final class LogoutPopupViewController: UIViewController {
     }
     
     @objc func touchupOkButton() {
-        AuthAPI.shared.getLogout { logoutData, err in
-            guard let logoutData = logoutData else { return }
-            if logoutData.status < 400 {
-                print("☘️--------로그아웃 서버 통신 : ", logoutData)
+        AuthAPI.shared.getLogout { data, err in
+            guard let data = data else { return }
+            if data.status < 400 {
+                print("☘️--------로그아웃 서버 통신 : ", data)
                 switch UserDefaultsHelper.standard.social {
-                case "kakao":
-                    UserApi.shared.logout {(error) in
-                        if let error = error {
-                            print(error)
-                        }
-                        else {
-                            print("logout() success.")
-                            self.pushToLoginView()
-                        }
+                case SocialType.kakao.rawValue:
+                    UserApi.shared.logout { (error) in
+                        TokenManager.shared.pushToLoginView()
                     }
-                    
-                default: break
+                default: TokenManager.shared.pushToLoginView()
                 }                
             } else {
                 print("☘️--------로그아웃 서버 통신 실패로 화면 전환 실패")

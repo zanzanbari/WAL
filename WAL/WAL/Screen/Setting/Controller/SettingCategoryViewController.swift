@@ -17,20 +17,20 @@ final class SettingCategoryViewController: UIViewController {
     
     private let setting = SettingData()
     
-    private let navigationBar = WALNavigationBar(title: "왈소리 유형").then {
+    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingCategory).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
     }
     
     private let titleLabel = UILabel().then {
-        $0.text = "받고 싶은 왈소리 유형을 선택해주세요"
+        $0.text = Constant.SettingCategory.title
         $0.font = WALFont.body6.font
         $0.textColor = .black100
     }
     
     private let subtitleLabel = UILabel().then {
-        $0.text = "다중 선택 가능해요"
+        $0.text = Constant.SettingCategory.subtitle
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
     }
@@ -138,7 +138,7 @@ final class SettingCategoryViewController: UIViewController {
             complimentButton.layer.borderColor == UIColor.gray400.cgColor &&
             condolenceButton.layer.borderColor == UIColor.gray400.cgColor &&
             scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
-            showToast(message: "1개 이상 선택해주세요")
+            showToast(message: Constant.Toast.selectOneMore)
         }
     }
     

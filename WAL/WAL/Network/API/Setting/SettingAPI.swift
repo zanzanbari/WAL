@@ -30,9 +30,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.userInfoData = try response.map(UserInfo?.self)
-                    guard let userInfoData = self.userInfoData else {
-                        return
-                    }
+                    guard let userInfoData = self.userInfoData else { return }
                     completion(userInfoData, nil)
                     
                 } catch(let error) {
@@ -54,9 +52,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.userInfoData = try response.map(UserInfo?.self)
-                    guard let userInfoData = self.userInfoData else {
-                        return
-                    }
+                    guard let userInfoData = self.userInfoData else { return }
                     completion(userInfoData, nil)
                     
                 } catch(let error) {
@@ -78,9 +74,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.userAlarmData = try response.map(UserAlarm?.self)
-                    guard let userTimeData = self.userAlarmData else {
-                        return
-                    }
+                    guard let userTimeData = self.userAlarmData else { return }
                     alarmCompletion(userTimeData, nil)
                     
                 } catch(let error) {
@@ -104,9 +98,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.userAlarmData = try response.map(UserAlarm?.self)
-                    guard let userTimeData = self.userAlarmData else {
-                        return
-                    }
+                    guard let userTimeData = self.userAlarmData else { return }
                     alarmCompletion(userTimeData, nil)
                     
                 } catch(let error) {
@@ -128,9 +120,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.userCategoryData = try response.map(UserCategory?.self)
-                    guard let userCategoryData = self.userCategoryData else {
-                        return
-                    }
+                    guard let userCategoryData = self.userCategoryData else { return }
                     categoryCompletion(userCategoryData, nil)
                     
                 } catch(let error) {
@@ -152,9 +142,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.userCategoryData = try response.map(UserCategory?.self)
-                    guard let userCategoryData = self.userCategoryData else {
-                        return
-                    }
+                    guard let userCategoryData = self.userCategoryData else { return }
                     categoryCompletion(userCategoryData, nil)
                     
                 } catch(let error) {
