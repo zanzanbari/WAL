@@ -9,14 +9,13 @@ import UIKit
 
 import Then
 import WALKit
-import Lottie
 
 final class MainViewController: UIViewController {
 
     // MARK: - UI Property
     
     private lazy var navigationBar = UIView().then {
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .white
         $0.addSubviews([addButton, settingButton])
     }
     
@@ -30,23 +29,10 @@ final class MainViewController: UIViewController {
         $0.addTarget(self, action: #selector(touchupSettingButton), for: .touchUpInside)
     }
     
-    private var titleLabel = UILabel().then {
-        $0.text = "오늘의 왈소리"
-        $0.textColor = .black100
-        $0.font = WALFont.title0.font
-    }
-    
-    private var subTitleLabel = UILabel().then {
-        $0.textColor = .black100
-        $0.font = WALFont.body3.font
-    }
+    private var titleView = MainTitleView()
     
     private var walImageView = UIImageView().then {
         $0.contentMode = .scaleToFill
-    }
-    
-    private var walLottieView: LottieAnimationView = .init(name: "paw").then {
-        $0.isHidden = true
     }
     
     private var contentLabel = UILabel().then {
@@ -114,7 +100,7 @@ final class MainViewController: UIViewController {
     private var didTapCell: Bool = false {
         didSet {
             if didTapCell {
-                [titleLabel, subTitleLabel, walImageView, contentLabel].forEach {
+                [titleView, walImageView, contentLabel].forEach {
                     $0.isHidden = true
                 }
                 
@@ -123,7 +109,7 @@ final class MainViewController: UIViewController {
                 }
                 
             } else {
-                [titleLabel, subTitleLabel, walImageView, contentLabel].forEach {
+                [titleView, walImageView, contentLabel].forEach {
                     $0.isHidden = false
                 }
                 
@@ -158,6 +144,10 @@ final class MainViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    @objc func didTap() {
+        self.didTapCell.toggle()
+    }
+    
     private func configUI() {
         view.backgroundColor = .white100
         
@@ -165,10 +155,8 @@ final class MainViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar,
-                          titleLabel,
-                          subTitleLabel,
-                          walLottieView,
+        view.addSubviews([titleView,
+                          navigationBar,
                           walImageView,
                           contentLabel,
                           walCollectionView,
@@ -192,20 +180,10 @@ final class MainViewController: UIViewController {
             $0.width.height.equalTo(44)
         }
         
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(8)
-            $0.leading.equalToSuperview().inset(20)
-        }
-        
-        subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.leading.equalToSuperview().inset(20)
-        }
-        
-        walLottieView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom).offset(139)
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(88)
+        titleView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom).offset(10)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(54)
+            $0.horizontalEdges.equalToSuperview()
         }
         
         walImageView.snp.makeConstraints {
@@ -263,8 +241,8 @@ final class MainViewController: UIViewController {
     }
     
     private func setMainStatus() {
-        if titleLabel.isHidden == true {
-            [titleLabel, subTitleLabel, walImageView, contentLabel].forEach {
+        if titleView.isHidden == true {
+            [titleView, walImageView, contentLabel].forEach {
                 $0.isHidden = false
             }
             
@@ -292,9 +270,7 @@ final class MainViewController: UIViewController {
         let activityItems : NSMutableArray = []
         activityItems.add(imageToShare)
 
-        guard let url = saveImageOnPhone(image: imageToShare, image_name: "WAL") else {
-            return
-        }
+        guard let url = saveImageOnPhone(image: imageToShare, image_name: "WAL") else { return }
         
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
@@ -377,8 +353,7 @@ extension MainViewController {
                 self.mainData = data
                 self.dataCount = data.todayWal.count
                 
-                self.subTitleLabel.text = data.subtitle
-                self.subTitleLabel.addLetterSpacing()
+                self.titleView.subTitle = data.subtitle
                 
                 self.walCollectionView.reloadData()
                 self.updateCollectionViewLayout(data.todayWal.count)
@@ -400,7 +375,7 @@ extension MainViewController {
                     guard let intDate = Int(self.dateFormatter.string(from: self.date)) else { return }
                     
                     if intDate >= 0 && intDate <= 7 {
-                        self.subTitleLabel.text = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
+                        self.titleView.subTitle = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
                         self.walStatus = .sleeping
                     } else {
                         self.walStatus = .checkedAvailable
@@ -467,7 +442,7 @@ extension MainViewController {
                     guard let currentTime = Int(self.dateFormatter.string(from: self.date)) else { return }
                     
                     if currentTime >= 0 && currentTime <= 7 {
-                        self.subTitleLabel.text = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
+                        self.titleView.subTitle = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
                         self.walStatus = .sleeping
                     } else {
                         self.walStatus = .checkedAvailable
