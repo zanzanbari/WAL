@@ -18,7 +18,7 @@ final class ResignViewController: UIViewController {
     private var resignData = SettingData().resignRowData
     private var reasonData: [String] = []
     
-    private let navigationBar = WALNavigationBar(title: "왈 탈퇴").then {
+    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.resign).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -87,17 +87,7 @@ final class ResignViewController: UIViewController {
     private func setupTableView() {
         tableView.register(ResignTableViewCell.self, forCellReuseIdentifier: ResignTableViewCell.identifier)
     }
-    
-    // MARK: - Custom Method
-    
-    func pushToLoginView() {
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let viewController = LoginViewController()
-        sceneDelegate?.window?.rootViewController = viewController
-        sceneDelegate?.window?.makeKeyAndVisible()
-    }
-    
+   
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -110,18 +100,19 @@ final class ResignViewController: UIViewController {
                                   socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { [weak self] (resignData, err) in
             guard let self = self else { return }
             guard let resignData = resignData else { return }
+            
             if resignData.status < 400 {
                 print("☘️-------회원탈퇴 서버 통신", resignData)
-                self.pushToLoginView()
+                TokenManager.shared.pushToLoginView()
                 UserDefaultsHelper.standard.removeObject()
             } else {
                 let okAction = UIAlertAction(title: "초기화면으로", style: .default) { _ in
-                    self.pushToLoginView()
+                    TokenManager.shared.pushToLoginView()
                     UserDefaultsHelper.standard.removeObject()
                 }
                 
-                self.showAlert(title: "탈퇴오류 - 캡처해서 루희한테",
-                               message: "(초기화면으로 선택해서 안되면 앱삭하고 해보세요)" + err.debugDescription,
+                self.showAlert(title: "탈퇴오류 - 캡처해서 루희한테\(resignData.status)",
+                               message: "\(err), \(resignData.message), \(resignData)",
                                actions: [okAction],
                                cancelTitle: "취소",
                                preferredStyle: .alert)

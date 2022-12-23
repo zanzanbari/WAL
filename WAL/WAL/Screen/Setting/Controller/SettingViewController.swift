@@ -207,6 +207,7 @@ extension SettingViewController {
     func requestNickname() {
         SettingAPI.shared.getUserInfo { (userInfo, nil) in
             guard let userInfoData = userInfo?.data else { return }
+            print("🔶🔶🔶 ", userInfoData)
             self.nickname = userInfoData.nickname
             self.email = userInfoData.email
             DispatchQueue.main.async {
