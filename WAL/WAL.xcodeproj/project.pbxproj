@@ -104,6 +104,7 @@
 		927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */; };
 		928A2A3028A6339F0033FEC8 /* WALContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A2A2F28A6339F0033FEC8 /* WALContentType.swift */; };
 		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
+		92B152D02954569800918A3B /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B152CF2954569800918A3B /* MainTitleView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
 		92D87F8128C37EED009AAFE5 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92D87F8028C37EED009AAFE5 /* login500.gif */; };
@@ -222,6 +223,7 @@
 		927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		928A2A2F28A6339F0033FEC8 /* WALContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALContentType.swift; sourceTree = "<group>"; };
 		929756A8285A4C4600A9FFA8 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
+		92B152CF2954569800918A3B /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
 		92C1B84C28633FB500F97D75 /* mintPaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mintPaw.json; sourceTree = "<group>"; };
 		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
 		92D87F8028C37EED009AAFE5 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login500.gif; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 			children = (
 				5BA3895927F6C22F0010EAA1 /* MainItemCell.swift */,
 				929756A8285A4C4600A9FFA8 /* MainContentView.swift */,
+				92B152CF2954569800918A3B /* MainTitleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1055,6 +1058,7 @@
 				5BB26D30286646AA00257837 /* Reissue.swift in Sources */,
 				5BB6616B28285B0200D54353 /* Category.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,
+				92B152D02954569800918A3B /* MainTitleView.swift in Sources */,
 				5BC2DD092868E71700AFCC29 /* MypageViewController.swift in Sources */,
 				5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */,
 				E23FF600287FF7B0004016DC /* CreateAPI.swift in Sources */,
