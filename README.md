@@ -143,6 +143,143 @@ func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options conn
 </br>
 
 ### 김소연
+> 동적 레이아웃(메인화면의 경우 사용자에 따라서, 상황에 따라서 여러 UI가 보여지게 되었다.)의 대응 
+  - 아침, 점심, 저녁 왈소리를 어떻게 선택했는가? 
+  - 예약한 왈소리가 있는가?
+  - 현재 확인할 수 있는 왈소리/확인한 왈소리는 몇개인가?
+  - 오늘 도착한 왈소리를 모두 읽었는가? 
+
+</br>
+
+위의 상황들을 포함한 여러 상황에 동적으로 UI가 변경되는 화면이었기에, 이를 **enum의 case로 관리**
+1. 왈소리 데이터 타입 (아침/점심/저녁/사용자 직접 작성)
+```
+enum WALDataType {
+    case morning
+    case lunch
+    case evening
+    case special
+    
+    var image: UIImage {
+        switch self {
+        case .morning, .lunch, .evening:
+            return WALIcon.imgPawActive.image
+        case .special:
+            return WALIcon.imgPawSpecial.image
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .morning, .lunch, .evening:
+            return UIColor.orange100
+        case .special:
+            return UIColor.mint100
+        }
+    }
+}
+```
+
+</br>
+
+2. 왈소리 컨텐츠의 타입 (드립/주접/위로/꾸중)
+```
+enum WALContentType: Int {
+    case special = -1
+    case fun = 0
+    case love = 1
+    case cheer = 2
+    case angry = 3
+    
+    var walImage: UIImage {
+        switch self {
+        case .special:
+            return WALIcon.imgWalbbongSpecial.image
+        case .fun:
+            return WALIcon.imgWallbbongFun.image
+        case .love:
+            return WALIcon.imgWallbbongLove.image
+        case .cheer:
+            return WALIcon.imgWallbbongCheer.image
+        case .angry:
+            return WALIcon.imgWallbbongAngry.image
+        }
+    }
+}
+```
+
+</br>
+
+3. 메인 화면 캐릭터/타이틀 분기처리
+```
+enum WALStatus {
+    case sleeping
+    case arrived
+    case checkedAvailable
+    case checkedAll
+    
+    var subTitle: String {
+        switch self {
+        case .sleeping:
+            return "왈뿡이가 자는 시간이에요. 아침에 만나요!"
+        case .arrived, .checkedAvailable, .checkedAll:
+            return "다들 밥 잘 먹어! 난 뼈다구가 젤루 좋아"
+        }
+    }
+    
+    var content: String {
+        switch self {
+        case .sleeping:
+            return ""
+        case .arrived:
+            return "왈소리가 도착했어요\n발바닥을 눌러 확인해주세요"
+        case .checkedAvailable:
+            return "왈소리가 열심히 달려오고 있어요"
+        case .checkedAll:
+            return "오늘의 왈소리가 전부 도착했어요"
+        }
+    }
+    
+    var walImage: UIImage {
+        switch self {
+        case .sleeping:
+            return WALIcon.imgWalBBongSleeping.image
+        case .arrived:
+            let walArrivedImageList: [UIImage] = [WALIcon.imgWalBBongArrive1.image,
+                                                  WALIcon.imgWalBBongArrive2.image,
+                                                  WALIcon.imgWalBBongArrive3.image]
+            return walArrivedImageList.randomElement() ?? WALIcon.imgWalBBongArrive1.image
+        case .checkedAll, .checkedAvailable:
+            return WALIcon.imgWalBBongWaiting.image
+        }
+    }
+}
+```
+
+</br>
+</br>
+
+> 오늘의 왈소리 중 확인할 수 있는/확인한 왈소리의 분기
+`PATCH`를 통해 확인한 경우, 서버의 DB에서 확인한 왈소리로 업데이트 구현 
+```
+    var path: String {
+        switch self {
+        case .main:
+            return "/main"
+        case .mainItem(let param):
+            return "/main/\(param)"
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .main:
+            return .get
+        case .mainItem:
+            return .patch
+        }
+    }
+```
 
 </br>
 
@@ -169,6 +306,14 @@ func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options conn
 </br>
 
 #### 김소연
+- 코드를 개선하는 과정 속에서 enun을 사용하게 되었다. 
+  - enum으로 나타날 수 있는 경우의 수를 case로 나눠서 그에 맞는 Image, Color, Constraints 등을 관리하는 방법에 대해 알게 되었다. 
+
+- QA를 진행하면서 기획, 디자인에 대해 꼼꼼하게 이해하고 정리한 뒤, 개발을 진행할 때 보다 많은 경우의 수를 고려하면서 구현할 수 있다는 것을 알게 되었다. 
+- 꼼꼼한 확인이 보다 유연한 사고의 확장으로 이어진다는 것을 배웠다. 
+
+- 개선하고 싶은 부분은 아직까지도 로우한 값으로 관리되고 있는 부분들에 대해서 좀 더 추상화된 방법으로 코드를 작성하고 싶다.
+- 또한, 기획이 변경될 경우에 대비해서 enum의 case로 관리하는 것보다 더 유연한 대처 방법을 찾고 싶다. (아침, 점심, 저녁이 아니라 다른 상황에 왈소리가 추가되는 경우 등이 있을 수 있으므로)
 
 </br>
 
