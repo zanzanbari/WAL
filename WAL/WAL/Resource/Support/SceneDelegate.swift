@@ -20,7 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 액세스토큰 X -> 로그인 화면을 띄워줄 경우
         guard let accesstoken = UserDefaultsHelper.standard.accesstoken else { return }
-        print("🛼", UserDefaultsHelper.standard.complete, accesstoken)
+        print("🛼 SceneDelegate 액세스 토큰", UserDefaultsHelper.standard.complete, accesstoken)
+        print("🛼 SceneDelegate 리프레시 토큰", UserDefaultsHelper.standard.refreshtoken as Any)
         if accesstoken == "" {
             print("🛼 scene() 로그인이 완료되지 않아 로그인뷰입니다.")
             window?.rootViewController = LoginViewController()
