@@ -58,6 +58,7 @@ final class MoyaLoggerPlugin: PluginType {
         
         switch statusCode {
         case 401:
+            print("1-1. 앗! 액세스토큰이 만료됐으니 갱신API 호출할게요!")
             refreshTokenAPI()
         default:
             return
@@ -83,10 +84,11 @@ extension MoyaLoggerPlugin {
             guard let self = self else { return }
             /// 성공적으로 액세스 토큰이 갱신됐다면,
             if let tokenData = tokenData?.data {
+                print("1-2. 성공적으로 액세스 토큰이 갱신되었구요, 일단 로그아웃을 시켜볼게요!")
                 /// 일단 시험삼아 로그아웃 시키기
                 self.pushToLoginView()
                 UserDefaultsHelper.standard.accesstoken = tokenData.accesstoken
-                print("액세스토큰 새롭게 저장 - ", UserDefaultsHelper.standard.accesstoken)
+                print("1-3. 액세스토큰 새롭게 저장 - ", UserDefaultsHelper.standard.accesstoken)
                 
             }
 
@@ -94,12 +96,13 @@ extension MoyaLoggerPlugin {
             /// 로그아웃 서버통신 + 액세스 토큰 삭제
             // TODO: - 여기서 리프레쉬 토큰도 삭제할 필요가 있나?
             if let statusCode = tokenData?.status, statusCode == 401 {
-                print("리프레시 토큰 만료! -> 로그아웃")
-                self.logoutAPI()
+                print("2-1. 리프레시 토큰 만료! -> 로그아웃")
+                self.pushToLoginView()
             }
         }
     }
     
+    /// 이거 필요없음 일단 써둔 것임 -> 그냥 로그아웃 시에 리무브 해주는 걸로 변경
     func logoutAPI() {
         AuthAPI.shared.getLogout { [weak self] logoutData, status in
             guard let self = self else { return }

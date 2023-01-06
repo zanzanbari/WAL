@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn_wal" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-Ib-rfj">
+                            <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wal" highlightedImage="btn_select_box_active" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-Ib-rfj">
                                 <rect key="frame" x="82" y="323" width="250" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="dHG-37-ruo"/>
@@ -38,7 +38,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icn_wal" width="250" height="250"/>
+        <image name="btn_select_box_active" width="42" height="42"/>
+        <image name="wal" width="250.5" height="250"/>
         <namedColor name="orange100">
             <color red="1" green="0.37299999594688416" blue="0.10999999940395355" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

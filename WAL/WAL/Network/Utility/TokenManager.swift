@@ -44,8 +44,7 @@ final class TokenManager {
         print(#function, "로그인뷰로 이동")
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let viewController = LoginViewController()
-        sceneDelegate?.window?.rootViewController = viewController
+        sceneDelegate?.window?.rootViewController = LoginViewController()
         sceneDelegate?.window?.makeKeyAndVisible()
         UserDefaultsHelper.standard.removeAccessToken()
     }
