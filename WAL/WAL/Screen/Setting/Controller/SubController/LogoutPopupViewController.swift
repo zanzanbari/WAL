@@ -58,22 +58,5 @@ final class LogoutPopupViewController: UIViewController {
     
     @objc func touchupOkButton() {
         TokenManager.shared.pushToLoginView()
-        
-        // MARK: - 로그아웃 서버통신 X 대신에 로그인 화면전환 + userdefault token 값 삭제
-//        AuthAPI.shared.getLogout { data, err in
-//            guard let data = data else { return }
-//            if data.status < 400 {
-//                print("☘️--------로그아웃 서버 통신 : ", data)
-//                switch UserDefaultsHelper.standard.social {
-//                case SocialType.kakao.rawValue:
-//                    UserApi.shared.logout { (error) in
-//                        TokenManager.shared.pushToLoginView()
-//                    }
-//                default: TokenManager.shared.pushToLoginView()
-//                }
-//            } else {
-//                print("☘️--------로그아웃 서버 통신 실패로 화면 전환 실패")
-//            }
-//        }
     }
 }
