@@ -76,8 +76,6 @@ class CreateInformationViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .black100.withAlphaComponent(0.5)
-//        titleLabel.addLabelSpacing(fontStyle: WALFont.title2)
-//        subTitleLabel.addLabelSpacing(fontStyle: WALFont.body7)
     }
     
     private func setupLayout() {
@@ -125,7 +123,7 @@ class CreateInformationViewController: UIViewController {
     //MARK: - @objc
     
     @objc private func touchUpCloseButton() {
-        dismiss(animated: false)
+        dismiss(animated: true)
     }
     
     // MARK: - Custom Method
