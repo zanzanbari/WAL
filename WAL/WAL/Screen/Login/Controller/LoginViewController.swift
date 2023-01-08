@@ -83,14 +83,15 @@ final class LoginViewController: UIViewController {
     }
     
     private func pushToHome() {
-        // 어쨌든 이 경우에는 액세스 토큰이 없어서 로그인 단계를 거치는 것
-        if let nickname = UserDefaultsHelper.standard.nickname {
+        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
+        print(nickname, "LoginView 닉네임==================")
+        if nickname == "" {
+            print("🛼 pushToHome() 로그인 후 온보딩을 완료하지 않아 온보딩뷰입니다.")
+            transition(OnboardingViewController(), .presentFullNavigation)
+        } else {
             // 로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
             print("🛼 pushToHome() \(nickname)님, 로그인 후 온보딩 완료 후 메인뷰입니다.")
             transition(MainViewController(), .presentFullNavigation)
-        } else {
-            print("🛼 pushToHome() 로그인 후 온보딩을 완료하지 않아 온보딩뷰입니다.")
-            transition(OnboardingViewController(), .presentFullNavigation)
         }
     }
     
