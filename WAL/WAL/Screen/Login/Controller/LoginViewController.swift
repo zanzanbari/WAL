@@ -134,6 +134,8 @@ extension LoginViewController {
                 } else {
                     guard let data = data,
                           let accessData = data.data else { return }
+                    print(accessData.nickname, "닉네임이다 이거")
+                    UserDefaultsHelper.standard.nickname = accessData.nickname
                     UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
                     UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
                     UserDefaultsHelper.standard.socialtoken = socialtoken
