@@ -113,6 +113,8 @@ class ReservationTableViewCell: UITableViewCell {
         components.day = 1
         guard let tomorrow = Calendar.autoupdatingCurrent.date(byAdding: components, to: Date()) else { return }
         
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
         dateFormatter.dateFormat = "yyyy. MM. dd"
         dateButton.setTitle(dateFormatter.string(from: data.date ?? tomorrow), for: .normal)
         dateButton.layer.borderColor = data.didShowView.date ? UIColor.mint100.cgColor : UIColor.white100.cgColor
