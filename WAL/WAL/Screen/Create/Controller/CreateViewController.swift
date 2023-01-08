@@ -156,6 +156,7 @@ class CreateViewController: UIViewController {
     private func configUI() {
         view.backgroundColor = .white100
         navigationController?.navigationBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         walSoundTextView.returnKeyType = .done
         
         [countLabel, maximumCountLabel].forEach {
