@@ -20,17 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         print("🛼 SceneDelegate - 리프레시 토큰: ", UserDefaultsHelper.standard.refreshtoken as Any)
         
-//        1. 닉네임이있음 -> 메인
-//        2. 닉네임이없고, 액세스토큰이 있는 경우 -> 온보딩
-//        3. 닉네임이없고, 액세스토큰도 없는 경우 -> 로그인
-        
-        // 닉네임O, 액세스토큰 O -> 자동로그인 -> 메인화면으로 이동
+        // 닉네임O, 액세스토큰 O -> 자동로그인 -> 메인
         if let nickname = UserDefaultsHelper.standard.nickname {
             print("🛼 SceneDelegate: \(nickname)님 자동로그인 후 온보딩 완료해서 메인뷰입니다.")
             print("🛼 SceneDelegate 액세스 토큰", UserDefaultsHelper.standard.refreshtoken as Any)
             window?.rootViewController = UINavigationController(rootViewController: MainViewController())
             window?.makeKeyAndVisible()
-        } else { // 닉네임이 없는 경우
+        } else {
             // 닉네임X, 액세스토큰 O -> 온보딩
             if let accesstoken = UserDefaultsHelper.standard.accesstoken {
                 print("🛼 SceneDelegate: 자동로그인 후 온보딩을 완료하지 않아서 온보딩뷰입니다. - 액세스토큰: ", accesstoken)
