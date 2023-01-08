@@ -13,6 +13,7 @@ final class MainAPI {
     private init() { }
     
     public private(set) var mainData: GenericResponse<MainResponse>?
+    private var refreshValue = 0
     
     public func getMainData(completion: @escaping ((GenericResponse<MainResponse>?, Int?) -> ())) {
         mainProvider.request(.main) { [weak self] result in
@@ -24,6 +25,12 @@ final class MainAPI {
                     self.mainData = try response.map(GenericResponse<MainResponse>?.self)
                     guard let mainData = self.mainData else { return }
                     completion(mainData, nil)
+                    if mainData.status == 401 {
+                        self.refreshValue += 1
+                        print("이것입니다 ===>>>", self.refreshValue)
+                        TokenManager.shared.refreshTokenAPI(401)
+                        self.getMainData(completion: completion)
+                    }
                 } catch(let err) {
                     print(err.localizedDescription, 500)
                 }
