@@ -144,10 +144,6 @@ final class MainViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    @objc func didTap() {
-        self.didTapCell.toggle()
-    }
-    
     private func configUI() {
         view.backgroundColor = .white100
         
@@ -254,6 +250,10 @@ final class MainViewController: UIViewController {
     
     // MARK: - @objc
     
+    @objc func didTap() {
+        self.didTapCell.toggle()
+    }
+    
     @objc func touchupAddButton() {
         let viewController = CreateViewController()
         navigationController?.pushViewController(viewController, animated: true)
@@ -270,7 +270,7 @@ final class MainViewController: UIViewController {
         let activityItems : NSMutableArray = []
         activityItems.add(imageToShare)
 
-        guard let url = saveImageOnPhone(image: imageToShare, image_name: "WAL") else { return }
+        guard let url = saveImageOnPhone(image: imageToShare, image_name: "왈") else { return }
         
         let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
