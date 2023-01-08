@@ -98,26 +98,11 @@ final class ResignViewController: UIViewController {
         AuthAPI.shared.postResign(social: UserDefaultsHelper.standard.social ?? "",
                                   data: reasonData,
                                   socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { [weak self] (resignData, err) in
-            guard let self = self else { return }
             guard let resignData = resignData else { return }
-            
             if resignData.status < 400 {
                 print("☘️-------회원탈퇴 서버 통신", resignData)
                 TokenManager.shared.pushToLoginView()
                 UserDefaultsHelper.standard.removeObject()
-            } else {
-                let okAction = UIAlertAction(title: "초기화면으로", style: .default) { _ in
-                    TokenManager.shared.pushToLoginView()
-                    UserDefaultsHelper.standard.removeObject()
-                }
-                
-                self.showAlert(title: "탈퇴오류 - 캡처해서 루희한테\(resignData.status)",
-                               message: "\(err), \(resignData.message), \(resignData)",
-                               actions: [okAction],
-                               cancelTitle: "취소",
-                               preferredStyle: .alert)
-                
-                print("☘️-------회원 탈퇴 서버 통신 실패로 화면전환 실패")
             }
         }
     }
