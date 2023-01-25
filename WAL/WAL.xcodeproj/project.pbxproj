@@ -100,6 +100,7 @@
 		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
 		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
 		924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B60FC28A7D1E4002804B1 /* WALStatus.swift */; };
+		927519AF29815A6B0010022A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927519AE29815A6B0010022A /* MainViewModel.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
@@ -222,6 +223,7 @@
 		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		924B60FC28A7D1E4002804B1 /* WALStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALStatus.swift; sourceTree = "<group>"; };
+		927519AE29815A6B0010022A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
 		927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCompleteHeaderView.swift; sourceTree = "<group>"; };
@@ -554,6 +556,7 @@
 				5BA3895527F6C1FC0010EAA1 /* Model */,
 				5BA3895627F6C2010010EAA1 /* View */,
 				5BA3895427F6C1F40010EAA1 /* Controller */,
+				927519AD29815A520010022A /* ViewModel */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -781,6 +784,14 @@
 				9213AD092865ADBC009B6002 /* HistoryAPI.swift */,
 			);
 			path = History;
+			sourceTree = "<group>";
+		};
+		927519AD29815A520010022A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				927519AE29815A6B0010022A /* MainViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		927D10E928210F3A001AEB78 /* History */ = {
@@ -1066,6 +1077,7 @@
 				5BC2DD042868DCCE00AFCC29 /* SettingCategoryViewController.swift in Sources */,
 				5BC2DD0D2868E75100AFCC29 /* ResignViewController.swift in Sources */,
 				5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */,
+				927519AF29815A6B0010022A /* MainViewModel.swift in Sources */,
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */,
