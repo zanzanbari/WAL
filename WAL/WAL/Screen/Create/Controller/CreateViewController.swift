@@ -156,6 +156,8 @@ class CreateViewController: UIViewController {
     private func configUI() {
         view.backgroundColor = .white100
         navigationController?.navigationBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        walSoundTextView.returnKeyType = .done
         
         [countLabel, maximumCountLabel].forEach {
             $0.font = WALFont.body8.font
@@ -424,8 +426,30 @@ extension CreateViewController: UITableViewDataSource {
                 self.datePickerData.didShowView.date.toggle()
                 self.datePickerData.didShowView.time = false
                 self.datePickerType = .date
-                self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
                 
+                var components = DateComponents()
+                components.day = 1
+                guard let tomorrow = Calendar.autoupdatingCurrent.date(byAdding: components, to: Date()) else { return }
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                
+                if self.datePickerData.date == nil {
+                    if self.reservedDates.contains(dateFormatter.string(from: tomorrow)) {
+                        if !self.datePickerData.didShowView.date {
+                            self.showToastMessage()
+                        }
+                    } else {
+                        self.datePickerData.date = tomorrow
+                    }
+                } else if self.reservedDates.contains(dateFormatter.string(from: self.datePickerData.date ?? Date())) {
+                    self.datePickerData.date = nil
+                    if !self.datePickerData.didShowView.date {
+                        self.showToastMessage()
+                    }
+                }
+                
+                self.reservationTableView.reloadSections([indexPath.section], with: .automatic)
                 self.scroll(.date)
             }
             
