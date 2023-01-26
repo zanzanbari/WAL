@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import Then
 import WALKit
 
@@ -21,12 +23,10 @@ final class MainViewController: UIViewController {
     
     private lazy var addButton = UIButton().then {
         $0.setImage(WALIcon.btnPlus.image, for: .normal)
-        $0.addTarget(self, action: #selector(touchupAddButton), for: .touchUpInside)
     }
     
     private lazy var settingButton = UIButton().then {
         $0.setImage(WALIcon.btnSetting.image, for: .normal)
-        $0.addTarget(self, action: #selector(touchupSettingButton), for: .touchUpInside)
     }
     
     private var titleView = MainTitleView()
@@ -66,13 +66,10 @@ final class MainViewController: UIViewController {
         $0.backgroundColor = .mint100
         $0.titleLabel?.font = WALFont.body4.font
         $0.layer.cornerRadius = 20
-        $0.addTarget(self, action: #selector(touchupShareButton), for: .touchUpInside)
         $0.isHidden = true
     }
     
     // MARK: - Property
-
-    private var dataCount: Int = 0
     
     private let date = Date()
     private let dateFormatter = DateFormatter().then {
@@ -120,7 +117,11 @@ final class MainViewController: UIViewController {
         }
     }
     
+    private var dataCount: Int = 0
     private var mainData = MainResponse(subtitle: "", todayWal: [])
+    
+    private let viewModel = MainViewModel()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
     
@@ -136,6 +137,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
+        bind()
     }
     
     // MARK: - Init UI
@@ -215,6 +217,45 @@ final class MainViewController: UIViewController {
         }
     }
     
+    // MARK: - Bind
+    
+    private func bind() {
+        shareButton.rx.tap
+            .withUnretained(self)
+            .bind { vc, _ in
+                let imageToShare = vc.walContentView.toImage()
+
+                let activityItems : NSMutableArray = []
+                activityItems.add(imageToShare)
+
+                guard let url = vc.viewModel.saveImageOnPhone(image: imageToShare, image_name: "왈") else { return }
+                
+                let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                activityViewController.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
+                
+                vc.present(activityViewController, animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+        
+        addButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let self = self else { return }
+                let viewController = CreateViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        settingButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let self = self else { return }
+                let viewController = SettingViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     // MARK: - Custom Method
     
     private func setupCollectionView() {
@@ -222,18 +263,6 @@ final class MainViewController: UIViewController {
         walCollectionView.dataSource = self
         
         walCollectionView.register(MainItemCell.self, forCellWithReuseIdentifier: MainItemCell.cellIdentifier)
-    }
-    
-    private func saveImageOnPhone(image: UIImage, image_name: String) -> URL? {
-        let imagePath: String = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(image_name).png"
-        let imageUrl: URL = URL(fileURLWithPath: imagePath)
-        
-        do {
-            try image.pngData()?.write(to: imageUrl)
-            return imageUrl
-        } catch {
-            return nil
-        }
     }
     
     private func setMainStatus() {
@@ -252,30 +281,6 @@ final class MainViewController: UIViewController {
     
     @objc func didTap() {
         self.didTapCell.toggle()
-    }
-    
-    @objc func touchupAddButton() {
-        let viewController = CreateViewController()
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    @objc func touchupSettingButton() {
-        let viewController = SettingViewController()
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    @objc func touchupShareButton() {
-        let imageToShare = walContentView.toImage()
-
-        let activityItems : NSMutableArray = []
-        activityItems.add(imageToShare)
-
-        guard let url = saveImageOnPhone(image: imageToShare, image_name: "왈") else { return }
-        
-        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        activityVC.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
-        
-        self.present(activityVC, animated: true, completion: nil)
     }
     
     @objc func getNotification() {
