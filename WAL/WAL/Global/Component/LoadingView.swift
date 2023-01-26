@@ -54,7 +54,6 @@ final class LoadingView: UIView {
         })
     }
     
-    
     func hide() {
         UIView.animate(withDuration: 0.3, delay: 0, options: .transitionCrossDissolve, animations: {
             self.loadingAnimationView.stop()
@@ -62,4 +61,3 @@ final class LoadingView: UIView {
         })
     }
 }
-
