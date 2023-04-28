@@ -25,11 +25,11 @@ final class MainItemCell: UICollectionViewCell {
         $0.isHidden = false
     }
     
-    private let defaultAnimationView: AnimationView = .init(name: "orangePaw").then {
+    private let defaultAnimationView: LottieAnimationView = .init(name: "orangePaw").then {
         $0.isHidden = true
     }
     
-    private let specialAnimationView: AnimationView = .init(name: "mintPaw").then {
+    private let specialAnimationView: LottieAnimationView = .init(name: "mintPaw").then {
         $0.isHidden = true
     }
     
@@ -56,7 +56,9 @@ final class MainItemCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         defaultAnimationView.isHidden = true
+        defaultAnimationView.stop()
         specialAnimationView.isHidden = true
+        specialAnimationView.stop()
         imageView.isHidden = false
     }
     
@@ -107,14 +109,17 @@ final class MainItemCell: UICollectionViewCell {
     }
     
     func setupData(_ data: TodayWal) {
-        if data.type == "스페셜" {
+        let catetoryType = data.getCategoryType()
+        
+        switch catetoryType {
+        case .reservation:
             type = .special
-        } else {
+        default:
             type = .morning
         }
         
-        if data.canOpen {
-            if data.isShown {
+        if data.getOpenStatus() {
+            if data.getShowStatus() {
                 if type == .special {
                     imageView.image = WALIcon.imgPawSpecial.image
                 } else {
@@ -131,8 +136,10 @@ final class MainItemCell: UICollectionViewCell {
                     specialAnimationView.play()
                     
                     defaultAnimationView.isHidden = true
+                    defaultAnimationView.stop()
                 } else {
                     specialAnimationView.isHidden = true
+                    specialAnimationView.stop()
                     
                     defaultAnimationView.isHidden = false
                     defaultAnimationView.play()
@@ -142,7 +149,11 @@ final class MainItemCell: UICollectionViewCell {
             imageView.image = WALIcon.imgPawInAtive.image
         }
         
-        self.content = data.content
+        if let _message = data.message {
+            content = _message
+        } else {
+            content = "-"
+        }
     }
 }
 
