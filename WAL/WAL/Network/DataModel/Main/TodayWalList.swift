@@ -7,14 +7,10 @@
 
 import Foundation
 
-// MARK: - Main Response
-
-struct MainResponse: Codable {
-    let subtitle: String
+/// [메인화면] 오늘의 왈소리 조회 Response
+struct TodayWalList: Codable {
     let todayWal: [TodayWal]
 }
-
-// MARK: - Today Wal
 
 struct TodayWal: Codable {
     let id: Int
