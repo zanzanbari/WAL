@@ -107,7 +107,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         if userInfo != nil {
             print("푸시 클릭, userinfo 있음")
             if UIApplication.shared.applicationState == .active {
-                let vc = MainViewController()
+                let vc = MainViewController(viewModel: .init())
                 window?.rootViewController?.present(vc, animated: true, completion: nil)
                 
             } else {

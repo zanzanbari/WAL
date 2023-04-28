@@ -18,28 +18,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        print("🛼 SceneDelegate - 리프레시 토큰: ", UserDefaultsHelper.standard.refreshtoken as Any)
-        print("닉네임", UserDefaultsHelper.standard.nickname as Any)
+//        print("🛼 SceneDelegate - 리프레시 토큰: ", UserDefaultsHelper.standard.refreshtoken as Any)
+//        print("닉네임", UserDefaultsHelper.standard.nickname as Any)
+//
+//        // 닉네임O, 액세스토큰 O -> 자동로그인 -> 메인
+//        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
+//        guard let accesstoken = UserDefaultsHelper.standard.accesstoken else { return }
+//        if nickname != "" {
+//            print("🛼 SceneDelegate: nickname = \(nickname)님 자동로그인 후 온보딩 완료해서 메인뷰입니다.")
+//            print("🛼 SceneDelegate 액세스 토큰", UserDefaultsHelper.standard.refreshtoken as Any)
+//            window?.rootViewController = UINavigationController(rootViewController: MainViewController(viewModel: .init()))
+//            window?.makeKeyAndVisible()
+//        } else {
+//            // 닉네임X, 액세스토큰 O -> 온보딩
+//            if accesstoken != "" {
+//                print("🛼 SceneDelegate: 자동로그인 후 온보딩을 완료하지 않아서 온보딩뷰입니다. - 액세스토큰: ", accesstoken)
+//                window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+//                window?.makeKeyAndVisible()
+//            } else { // 닉네임X, 액세스토큰 X -> 로그인
+//                print("🛼 SceneDelegate: 가입이 완료되지 않아 로그인뷰입니다.")
+//                window?.rootViewController = LoginViewController()
+//            }
+//        }
         
-        // 닉네임O, 액세스토큰 O -> 자동로그인 -> 메인
-        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
-        guard let accesstoken = UserDefaultsHelper.standard.accesstoken else { return }
-        if nickname != "" {
-            print("🛼 SceneDelegate: nickname = \(nickname)님 자동로그인 후 온보딩 완료해서 메인뷰입니다.")
-            print("🛼 SceneDelegate 액세스 토큰", UserDefaultsHelper.standard.refreshtoken as Any)
-            window?.rootViewController = UINavigationController(rootViewController: MainViewController())
-            window?.makeKeyAndVisible()
-        } else {
-            // 닉네임X, 액세스토큰 O -> 온보딩
-            if accesstoken != "" {
-                print("🛼 SceneDelegate: 자동로그인 후 온보딩을 완료하지 않아서 온보딩뷰입니다. - 액세스토큰: ", accesstoken)
-                window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
-                window?.makeKeyAndVisible()
-            } else { // 닉네임X, 액세스토큰 X -> 로그인
-                print("🛼 SceneDelegate: 가입이 완료되지 않아 로그인뷰입니다.")
-                window?.rootViewController = LoginViewController()
-            }
-        }
+        
+        window?.rootViewController = MainViewController(viewModel: .init())
         window?.makeKeyAndVisible()
     }
 
