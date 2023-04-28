@@ -72,22 +72,6 @@ final class MainViewController: UIViewController {
     
     // MARK: - Property
     
-    private var walStatus: WALStatus = .arrived {
-        didSet {
-            walImageView.image = walStatus.walImage
-
-            contentLabel.text = walStatus.content
-            contentLabel.addLetterSpacing()
-            
-            switch walStatus {
-            case .sleeping:
-                walCollectionView.isHidden = true
-            case .arrived, .checkedAvailable, .checkedAll:
-                walCollectionView.isHidden = false
-            }
-        }
-    }
-    
     private var didTapCell: Bool = false {
         didSet {
             if didTapCell {
@@ -254,7 +238,12 @@ final class MainViewController: UIViewController {
         
         viewModel.output.walStatus
             .bind(with: self) { owner, res in
-                owner.walStatus = res
+                owner.walImageView.image = res.walImage
+
+                owner.contentLabel.text = res.content
+                owner.contentLabel.addLetterSpacing()
+                
+                owner.walCollectionView.isHidden = res == .sleeping ? true : false
             }
             .disposed(by: disposeBag)
         
@@ -264,6 +253,16 @@ final class MainViewController: UIViewController {
                 let activityViewController = UIActivityViewController(activityItems: [_url], applicationActivities: nil)
                 activityViewController.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
                 owner.present(activityViewController, animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.openWal
+            .bind(with: self) { owner, res in
+                if let _res = res {
+                    // TODO: 상태코드 별 분기처리 (error)
+                } else {
+                    owner.viewModel.input.reqTodayWal.accept(())
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -304,7 +303,7 @@ final class MainViewController: UIViewController {
     // MARK: - Custom Method
     
     private func setMainStatus() {
-        if titleView.isHidden == true {
+        if titleView.isHidden {
             [titleView, walImageView, contentLabel].forEach {
                 $0.isHidden = false
             }
@@ -379,34 +378,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        updateMainData(index: indexPath.item)
-    }
-    
-}
-
-// MARK: - NetWork
-
-extension MainViewController {
-    
-    private func updateMainData(index: Int) {
-        guard let _todayWalId = todayWalList[index].todayWalId else { return }
-        
-        MainAPI.shared.updateMainData(id: _todayWalId) { [weak self] _, statusCode in
-            guard let self = self else { return }
-            
-            if let _statusCode = statusCode {
-                
-                // TODO: 상태코드에 따른 분기처리
-                let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
-//                switch networkResult {
-//
-//                }
-                
-            } else {
-                self.viewModel.input.reqTodayWal.accept(())
-            }
-        }
-        
+        guard let _todayWalId = todayWalList[indexPath.item].todayWalId else { return }
+        viewModel.input.reqOpenWal.accept(_todayWalId)
     }
     
 }

@@ -49,7 +49,7 @@ extension MainService: TargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJVU0VSX0lEIjoxLCJpYXQiOjE2ODI2MDMzMDMsImV4cCI6MTY4MjY4OTcwM30.kzSEzhx2MYjYSa4pwzaSVZYt4fRVPTL1NrPnmBvf47_OOVsLx0X7EAmKdf_hHbVjclqeECuT0ffdUJO20SWGIw"]
+                "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJVU0VSX0lEIjoxLCJpYXQiOjE2ODI2ODMwMDMsImV4cCI6MTY4Mjc2OTQwM30.FGVV9HdBoQ232wT8d4NPRh6xzNUnrE8FOL-Rs87N3dt2s5-kK8G2xqaYlP0_bDgg2XX_Q10tZRIMmVR064HnLA"]
     }
 }
 

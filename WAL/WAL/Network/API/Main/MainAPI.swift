@@ -63,7 +63,7 @@ final class MainAPI {
         
     }
     
-    /// 메인 - 오늘의 왈소리 조회 
+    /// 메인 - 오늘의 왈소리 확인
     func updateMainData(id: Int, completion: @escaping ((Void, Int?) -> ())) {
         
         mainProvider.request(.openTodayWal(todayWalId: id)) { [weak self] result in
@@ -72,11 +72,6 @@ final class MainAPI {
             switch result {
             case .success(let response):
                 do {
-                    
-                    self.mainData = try response.map(TodayWalList.self)
-                    
-                    // 200
-                    guard let _mainData = self.mainData else { return }
                     
                     // 300 ~ 500
                     if let _statusCase = self.mainData?.statusCase {

@@ -39,7 +39,7 @@ final class MainViewModel {
     private func rxBind() {
         input.reqTodayWal
             .bind(with: self) { owner, _ in
-                owner.requestMainInfo()
+                owner.requestTodayWal()
             }
             .disposed(by: disposeBag)
         
@@ -47,6 +47,12 @@ final class MainViewModel {
             .bind(with: self) { owner, res in
                 let (image, imageName) = res
                 owner.converImageToUrl(image: image, imageName: imageName)
+            }
+            .disposed(by: disposeBag)
+        
+        input.reqOpenWal
+            .bind(with: self) { owner, res in
+                owner.requestOpenWal(id: res)
             }
             .disposed(by: disposeBag)
     }
@@ -67,17 +73,18 @@ final class MainViewModel {
             }
         }
         
-        if canOpenCount == 0 {
+        switch canOpenCount {
+        case 0:
             guard let intDate = Int(dateFormatter.string(from: date)) else { return }
             
-            output.walStatus.accept(.checkedAvailable)
             if intDate >= 0 && intDate <= 7 {
                 output.subTitle.accept("왈뿡이가 자는 시간이에요. 아침에 만나요!")
                 output.walStatus.accept(.sleeping)
             } else {
                 output.walStatus.accept(.checkedAvailable)
             }
-        } else {
+            output.walStatus.accept(.checkedAvailable)
+        default:
             if isShownCount == canOpenCount {
                 output.walStatus.accept(isShownCount == output.todayWalCount.value ? .checkedAll : .checkedAvailable)
             } else {
@@ -104,19 +111,22 @@ final class MainViewModel {
 // MARK: - API Request
 
 extension MainViewModel {
-    private func requestMainInfo() {
-        
+    
+    private func requestTodayWal() {
         MainAPI.shared.getMainData { [weak self] mainData, statusCode in
             guard let self = self else { return }
-//            guard let data = mainData else { return }
+            guard let _todayWalInfo = mainData?.todayWalInfo else { return }
             
-            let todayWalInfo = [TodayWal(todayWalId: 1, timeType: "NIGHT", categoryType: "COMEDY", message: "더미데이터입니다더미데이터입니다", showStatus: "CLOSED", openStatus: "ABLE"),
-                                TodayWal(todayWalId: 1, timeType: "NIGHT", categoryType: "COMEDY", message: "더미데이터입니다더미데이터입니다", showStatus: "CLOSED", openStatus: "ABLE"),
-                                TodayWal(todayWalId: 1, timeType: "NIGHT", categoryType: "COMEDY", message: "더미데이터입니다더미데이터입니다", showStatus: "CLOSED", openStatus: "ABLE")]
-            
-            self.output.todayWal.accept(todayWalInfo)
-            self.output.todayWalCount.accept(todayWalInfo.count)
-            self.handleWalState(todayWalList: todayWalInfo)
+            self.output.todayWal.accept(_todayWalInfo)
+            self.output.todayWalCount.accept(_todayWalInfo.count)
+            self.handleWalState(todayWalList: _todayWalInfo)
+        }
+    }
+    
+    private func requestOpenWal(id: Int) {
+        MainAPI.shared.updateMainData(id: id) { [weak self] _, statusCode in
+            guard let self = self else { return }
+            self.output.openWal.accept(statusCode)
         }
     }
     
@@ -129,6 +139,8 @@ extension MainViewModel {
     struct Input {
         let reqTodayWal = PublishRelay<Void>()
         let reqImageUrl = PublishRelay<(UIImage, String)>()
+        let reqOpenWal = PublishRelay<Int>()
+        let checkTime = PublishRelay<Int>()
     }
     
     struct Output {
@@ -137,6 +149,7 @@ extension MainViewModel {
         let subTitle = BehaviorRelay<String>(value: "")
         let walStatus = PublishRelay<WALStatus>()
         let imageUrl = PublishRelay<URL?>()
+        let openWal = PublishRelay<Int?>()
     }
     
 }
