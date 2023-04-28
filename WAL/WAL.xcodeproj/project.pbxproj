@@ -94,24 +94,28 @@
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
-		9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* MainResponse.swift */; };
+		9205E74C286EE4CF000F4B6D /* TodayWalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* TodayWalList.swift */; };
 		9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */; };
 		9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD032865A93A009B6002 /* HistoryResponse.swift */; };
 		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
 		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
 		924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B60FC28A7D1E4002804B1 /* WALStatus.swift */; };
+		925D13F929F95FB00024F0E5 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13F829F95FB00024F0E5 /* BaseResponse.swift */; };
+		925D13FB29FABF220024F0E5 /* WalCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FA29FABF220024F0E5 /* WalCategoryType.swift */; };
+		925D13FD29FABF360024F0E5 /* AlarmTimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */; };
+		925D13FF29FAC29B0024F0E5 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FE29FAC29B0024F0E5 /* UICollectionViewCell+.swift */; };
 		927519AF29815A6B0010022A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927519AE29815A6B0010022A /* MainViewModel.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
 		927D10F228210FF2001AEB78 /* HistoryCompleteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */; };
 		927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F328211017001AEB78 /* HistoryDataModel.swift */; };
 		927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */; };
-		928A2A3028A6339F0033FEC8 /* WALContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A2A2F28A6339F0033FEC8 /* WALContentType.swift */; };
 		929756A9285A4C4600A9FFA8 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929756A8285A4C4600A9FFA8 /* MainContentView.swift */; };
 		92B152D02954569800918A3B /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B152CF2954569800918A3B /* MainTitleView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
 		92D87F8128C37EED009AAFE5 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92D87F8028C37EED009AAFE5 /* login500.gif */; };
+		92F4F1EC29FBFE6F00F33394 /* ObservableType+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
 		E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */; };
 		E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F69281E7EB700576135 /* Pretendard-Regular.otf */; };
@@ -216,25 +220,29 @@
 		5BFC216028B920F100E4F65A /* Transition+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+.swift"; sourceTree = "<group>"; };
 		9205E746286EE1A4000F4B6D /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		9205E748286EE1AD000F4B6D /* MainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPI.swift; sourceTree = "<group>"; };
-		9205E74B286EE4CF000F4B6D /* MainResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponse.swift; sourceTree = "<group>"; };
+		9205E74B286EE4CF000F4B6D /* TodayWalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWalList.swift; sourceTree = "<group>"; };
 		9210071B2865CECD008DA060 /* DeleteHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteHistoryResponse.swift; sourceTree = "<group>"; };
 		9213AD032865A93A009B6002 /* HistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponse.swift; sourceTree = "<group>"; };
 		9213AD062865AB67009B6002 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
 		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		924B60FC28A7D1E4002804B1 /* WALStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALStatus.swift; sourceTree = "<group>"; };
+		925D13F829F95FB00024F0E5 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		925D13FA29FABF220024F0E5 /* WalCategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalCategoryType.swift; sourceTree = "<group>"; };
+		925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTimeType.swift; sourceTree = "<group>"; };
+		925D13FE29FAC29B0024F0E5 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
 		927519AE29815A6B0010022A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
 		927D10F128210FF2001AEB78 /* HistoryCompleteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCompleteHeaderView.swift; sourceTree = "<group>"; };
 		927D10F328211017001AEB78 /* HistoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataModel.swift; sourceTree = "<group>"; };
 		927D10F5282110AA001AEB78 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
-		928A2A2F28A6339F0033FEC8 /* WALContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALContentType.swift; sourceTree = "<group>"; };
 		929756A8285A4C4600A9FFA8 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		92B152CF2954569800918A3B /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
 		92C1B84C28633FB500F97D75 /* mintPaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mintPaw.json; sourceTree = "<group>"; };
 		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
 		92D87F8028C37EED009AAFE5 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login500.gif; sourceTree = "<group>"; };
+		92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+.swift"; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -471,6 +479,8 @@
 				5B020D38281F107C0057F9B7 /* UIViewController+.swift */,
 				5B567E2028B0FCC300BF9E17 /* NSNotification.Name+.swift */,
 				5BFC216028B920F100E4F65A /* Transition+.swift */,
+				925D13FE29FAC29B0024F0E5 /* UICollectionViewCell+.swift */,
+				92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -573,7 +583,6 @@
 			isa = PBXGroup;
 			children = (
 				5BA3895727F6C2260010EAA1 /* WALDataType.swift */,
-				928A2A2F28A6339F0033FEC8 /* WALContentType.swift */,
 				924B60FC28A7D1E4002804B1 /* WALStatus.swift */,
 			);
 			path = Model;
@@ -592,6 +601,7 @@
 		5BA3896A27F6C3190010EAA1 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				925D13F729F95F920024F0E5 /* Protocol */,
 				5B7EE87B2822D6FE007BC265 /* BaseTargetType.swift */,
 				5BA3896F27F6C3C50010EAA1 /* GeneralAPI.swift */,
 				5BA3896B27F6C3260010EAA1 /* GenericResponse.swift */,
@@ -756,7 +766,9 @@
 		9205E74A286EE4C6000F4B6D /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				9205E74B286EE4CF000F4B6D /* MainResponse.swift */,
+				9205E74B286EE4CF000F4B6D /* TodayWalList.swift */,
+				925D13FA29FABF220024F0E5 /* WalCategoryType.swift */,
+				925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -784,6 +796,14 @@
 				9213AD092865ADBC009B6002 /* HistoryAPI.swift */,
 			);
 			path = History;
+			sourceTree = "<group>";
+		};
+		925D13F729F95F920024F0E5 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				925D13F829F95FB00024F0E5 /* BaseResponse.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		927519AD29815A520010022A /* ViewModel */ = {
@@ -1071,10 +1091,12 @@
 				5B020D39281F107C0057F9B7 /* UIViewController+.swift in Sources */,
 				5BA3893627F6B94F0010EAA1 /* MainViewController.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
+				92F4F1EC29FBFE6F00F33394 /* ObservableType+.swift in Sources */,
 				E2FD851728782CEC00335667 /* WALPopupView.swift in Sources */,
 				927D10F428211017001AEB78 /* HistoryDataModel.swift in Sources */,
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5BC2DD042868DCCE00AFCC29 /* SettingCategoryViewController.swift in Sources */,
+				925D13FD29FABF360024F0E5 /* AlarmTimeType.swift in Sources */,
 				5BC2DD0D2868E75100AFCC29 /* ResignViewController.swift in Sources */,
 				5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */,
 				927519AF29815A6B0010022A /* MainViewModel.swift in Sources */,
@@ -1107,7 +1129,7 @@
 				5B4A844B2857D3780032287D /* CardButton.swift in Sources */,
 				5BC5809A289D35780095F8E4 /* OnboardCompleteViewController.swift in Sources */,
 				5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */,
-				9205E74C286EE4CF000F4B6D /* MainResponse.swift in Sources */,
+				9205E74C286EE4CF000F4B6D /* TodayWalList.swift in Sources */,
 				5BA3895A27F6C22F0010EAA1 /* MainItemCell.swift in Sources */,
 				5BF33A6D2955D10300550932 /* SplahViewController.swift in Sources */,
 				9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */,
@@ -1120,6 +1142,7 @@
 				E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */,
 				927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */,
 				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
+				925D13FF29FAC29B0024F0E5 /* UICollectionViewCell+.swift in Sources */,
 				5B422BA228676CF8001B6807 /* (null) in Sources */,
 				5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
@@ -1138,6 +1161,7 @@
 				5BA3893427F6B94F0010EAA1 /* SceneDelegate.swift in Sources */,
 				5B7EE87C2822D6FE007BC265 /* BaseTargetType.swift in Sources */,
 				5BB661622828340100D54353 /* Bundle+.swift in Sources */,
+				925D13FB29FABF220024F0E5 /* WalCategoryType.swift in Sources */,
 				5BD17420282CDDB500C77A95 /* MyInfoTableViewCell.swift in Sources */,
 				5BC2DD152868F55400AFCC29 /* ResignHeaderView.swift in Sources */,
 				5BA3895C27F6C23B0010EAA1 /* Protocol.swift in Sources */,
@@ -1152,6 +1176,7 @@
 				5BD1741E282CDD4F00C77A95 /* SettingAlarmViewController.swift in Sources */,
 				9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */,
 				5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */,
+				925D13F929F95FB00024F0E5 /* BaseResponse.swift in Sources */,
 				5BA3896E27F6C37B0010EAA1 /* NetworkResult.swift in Sources */,
 				5B3E2C9228E0300A000A7BA4 /* LoadingView.swift in Sources */,
 				E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */,
@@ -1159,7 +1184,6 @@
 				5BB80AB628A8394F0056E334 /* OnboardRequest.swift in Sources */,
 				5BC2DD062868E04B00AFCC29 /* CategoryButton.swift in Sources */,
 				5BC2DD132868F2DD00AFCC29 /* ResignTableViewCell.swift in Sources */,
-				928A2A3028A6339F0033FEC8 /* WALContentType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
