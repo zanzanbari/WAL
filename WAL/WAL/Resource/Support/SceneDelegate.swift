@@ -41,7 +41,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            }
 //        }
         
-        
         window?.rootViewController = MainViewController(viewModel: .init())
         window?.makeKeyAndVisible()
     }
