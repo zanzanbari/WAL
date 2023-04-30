@@ -72,26 +72,9 @@ final class MainViewController: UIViewController {
     
     // MARK: - Property
     
-    private var didTapCell: Bool = false {
+    private var isSelected: Bool = false {
         didSet {
-            if didTapCell {
-                [titleView, walImageView, contentLabel].forEach {
-                    $0.isHidden = true
-                }
-                
-                [walContentView, shareButton].forEach {
-                    $0.isHidden = false
-                }
-                
-            } else {
-                [titleView, walImageView, contentLabel].forEach {
-                    $0.isHidden = false
-                }
-                
-                [walContentView, shareButton].forEach {
-                    $0.isHidden = true
-                }
-            }
+            updateSelectedUI(isSelected)
         }
     }
     
@@ -222,7 +205,7 @@ final class MainViewController: UIViewController {
             .do(onNext: { [weak self] res in
                 self?.todayWalList = res
             })
-            .bind(to: walCollectionView.rx.items(cellIdentifier: MainItemCell.cellIdentifier, cellType: MainItemCell.self)) { index, data, cell in
+            .bind(to: walCollectionView.rx.items(cellIdentifier: MainItemCell.cellIdentifier, cellType: MainItemCell.self)) {  index, data, cell in
                 cell.setupData(data)
                 cell.isUserInteractionEnabled = data.getOpenStatus()
             }
@@ -261,7 +244,7 @@ final class MainViewController: UIViewController {
                 if let _res = res {
                     // TODO: 상태코드 별 분기처리 (error)
                 } else {
-                    owner.viewModel.input.reqTodayWal.accept(())
+                    owner.viewModel.handleWalState(todayWalList: owner.todayWalList)
                 }
             }
             .disposed(by: disposeBag)
@@ -334,11 +317,28 @@ final class MainViewController: UIViewController {
         }
     }
     
-    // MARK: - @objc
-    
-    @objc func didTap() {
-        self.didTapCell.toggle()
+    private func updateSelectedUI(_ isSelected: Bool) {
+        if isSelected {
+            [titleView, walImageView, contentLabel].forEach {
+                $0.isHidden = true
+            }
+            
+            [walContentView, shareButton].forEach {
+                $0.isHidden = false
+            }
+            
+        } else {
+            [titleView, walImageView, contentLabel].forEach {
+                $0.isHidden = false
+            }
+            
+            [walContentView, shareButton].forEach {
+                $0.isHidden = true
+            }
+        }
     }
+    
+    // MARK: - @objc
     
     @objc func getNotification() {
         setMainStatus()
@@ -359,27 +359,38 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         guard let cell = collectionView.cellForItem(at: indexPath) as? MainItemCell else { return true }
         let todayWal = todayWalList[indexPath.item]
         
+        // 왈소리를 보고 있는 상태라면
         if cell.isSelected {
-            didTapCell = false
+            // cell selected 상태를 false로 바꿔서 왈뿡이가 보이는(메인) 화면으로 전환
+            isSelected = false
             collectionView.deselectItem(at: indexPath, animated: false)
             return false
         } else {
-            didTapCell = true
+            // 왈뿡이를 보고 있는 상태라면 cell selected 상태를 true로 바꿔서 왈소리를 볼 수 있는 화면으로 전환
+            isSelected = true
             
+            // 왈소리가 있다면 표기, 없다면 "-" 표기
             if let _message = todayWal.message {
                 walContentView.content = _message
             } else {
                 walContentView.content = "-"
             }
             
+            // 왈소리의 유형에 따른 왈뿡이 UI 변화
             walContentView.walCategoryType = todayWal.getCategoryType()
             return true
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let _todayWalId = todayWalList[indexPath.item].todayWalId else { return }
-        viewModel.input.reqOpenWal.accept(_todayWalId)
+        let showStatus = todayWalList[indexPath.item].getShowStatus()
+        
+        // 사용자가 열어보지 않은 왈소리에 대해서만 API 호출
+        if !showStatus {
+            guard let _todayWalId = todayWalList[indexPath.item].todayWalId else { return }
+            viewModel.input.reqOpenWal.accept(_todayWalId)
+        }
+        
     }
     
 }

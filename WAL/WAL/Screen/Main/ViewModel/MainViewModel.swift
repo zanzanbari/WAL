@@ -57,7 +57,7 @@ final class MainViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func handleWalState(todayWalList: [TodayWal]?) {
+    func handleWalState(todayWalList: [TodayWal]?) {
         guard let _todayWalList = todayWalList else { return }
         
         var isShownCount: Int = 0
