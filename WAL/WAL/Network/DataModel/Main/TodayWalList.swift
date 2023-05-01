@@ -41,7 +41,7 @@ struct TodayWal: Codable {
     let timeType: String?
     let categoryType: String?
     let message: String?
-    let showStatus: String?
+    var showStatus: String?
     let openStatus: String?
     
     func getShowStatus() -> Bool {

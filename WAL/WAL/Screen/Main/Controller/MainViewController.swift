@@ -79,6 +79,8 @@ final class MainViewController: UIViewController {
     }
     
     private var todayWalList: [TodayWal] = []
+    private var selectedItemIndex: Int = 0
+    
     private let viewModel: MainViewModel
     private let disposeBag = DisposeBag()
     
@@ -244,6 +246,7 @@ final class MainViewController: UIViewController {
                 if let _res = res {
                     // TODO: 상태코드 별 분기처리 (error)
                 } else {
+                    owner.todayWalList[owner.selectedItemIndex].showStatus = "OPEN"
                     owner.viewModel.handleWalState(todayWalList: owner.todayWalList)
                 }
             }
@@ -388,6 +391,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         // 사용자가 열어보지 않은 왈소리에 대해서만 API 호출
         if !showStatus {
             guard let _todayWalId = todayWalList[indexPath.item].todayWalId else { return }
+            selectedItemIndex = indexPath.item
             viewModel.input.reqOpenWal.accept(_todayWalId)
         }
         
