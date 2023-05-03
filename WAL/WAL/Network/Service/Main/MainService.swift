@@ -12,7 +12,7 @@ enum MainService {
     case openTodayWal(todayWalId: Int)
 }
 
-extension MainService: TargetType {
+extension MainService: BaseTargetType {
     
     var path: String {
         switch self {
@@ -37,14 +37,6 @@ extension MainService: TargetType {
         case .todayWal, .openTodayWal:
             return .requestPlain
         }
-    }
-    
-    var baseURL: URL {
-        return URL(string: GeneralAPI.baseURL)!
-    }
-    
-    var sampleData: Data {
-        return Data()
     }
     
     var headers: [String : String]? {
