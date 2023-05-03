@@ -104,6 +104,7 @@
 		925D13FB29FABF220024F0E5 /* WalCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FA29FABF220024F0E5 /* WalCategoryType.swift */; };
 		925D13FD29FABF360024F0E5 /* AlarmTimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */; };
 		925D13FF29FAC29B0024F0E5 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FE29FAC29B0024F0E5 /* UICollectionViewCell+.swift */; };
+		926A2A132A02A85F005DDCEA /* MainSubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926A2A122A02A85F005DDCEA /* MainSubtitle.swift */; };
 		927519AF29815A6B0010022A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927519AE29815A6B0010022A /* MainViewModel.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
@@ -231,6 +232,7 @@
 		925D13FA29FABF220024F0E5 /* WalCategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalCategoryType.swift; sourceTree = "<group>"; };
 		925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTimeType.swift; sourceTree = "<group>"; };
 		925D13FE29FAC29B0024F0E5 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
+		926A2A122A02A85F005DDCEA /* MainSubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubtitle.swift; sourceTree = "<group>"; };
 		927519AE29815A6B0010022A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
@@ -769,6 +771,7 @@
 				9205E74B286EE4CF000F4B6D /* TodayWalList.swift */,
 				925D13FA29FABF220024F0E5 /* WalCategoryType.swift */,
 				925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */,
+				926A2A122A02A85F005DDCEA /* MainSubtitle.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */,
 				5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */,
 				9210071C2865CECE008DA060 /* DeleteHistoryResponse.swift in Sources */,
+				926A2A132A02A85F005DDCEA /* MainSubtitle.swift in Sources */,
 				E2A9B4DB28279F20007C2C95 /* DatePickerTableViewCell.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* WALDataType.swift in Sources */,
 				924B60FD28A7D1E4002804B1 /* WALStatus.swift in Sources */,

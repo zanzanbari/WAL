@@ -55,6 +55,12 @@ final class MainViewModel {
                 owner.requestOpenWal(id: res)
             }
             .disposed(by: disposeBag)
+        
+        input.reqSubtitle
+            .bind(with: self) { owner, _ in
+                owner.requestSubtitle()
+            }
+            .disposed(by: disposeBag)
     }
     
     func handleWalState(todayWalList: [TodayWal]?) {
@@ -130,6 +136,14 @@ extension MainViewModel {
         }
     }
     
+    private func requestSubtitle() {
+        MainAPI.shared.getMainSubtitle { [weak self] subtitle, statusCode in
+            guard let self = self else { return }
+            guard let _subtitle = subtitle?.todaySubtitle else { return }
+            self.output.subTitle.accept(_subtitle)
+        }
+    }
+    
 }
 
 // MARK: - ViewModel Structure
@@ -141,6 +155,7 @@ extension MainViewModel {
         let reqImageUrl = PublishRelay<(UIImage, String)>()
         let reqOpenWal = PublishRelay<Int>()
         let checkTime = PublishRelay<Int>()
+        let reqSubtitle = PublishRelay<Void>()
     }
     
     struct Output {
