@@ -7,9 +7,12 @@
 
 import Foundation
 
-// TODO: 구조체 네이밍 논의 (2023.04.27)
 struct GeneralAPI {
     private init() { }
-    static let baseURL = "http://15.165.167.252/api/v2"
+    static let baseURL = "http://15.165.167.252/api"
     static let contentType = "application/json"
+}
+
+extension GeneralAPI {
+    static let version2 = "/v2"
 }
