@@ -8,48 +8,40 @@
 import Moya
 
 enum MainService {
-    case main
-    case mainItem(param: Int)
+    case todayWal
+    case openTodayWal(todayWalId: Int)
 }
 
-extension MainService: TargetType {
+extension MainService: BaseTargetType {
     
     var path: String {
         switch self {
-        case .main:
-            return "/main"
-        case .mainItem(let param):
-            return "/main/\(param)"
+        case .todayWal:
+            return "/today-wal"
+        case .openTodayWal(let todayWalId):
+            return "/today-wal/\(todayWalId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .main:
+        case .todayWal:
             return .get
-        case .mainItem:
+        case .openTodayWal:
             return .patch
         }
     }
     
     var task: Task {
         switch self {
-        case .main, .mainItem:
+        case .todayWal, .openTodayWal:
             return .requestPlain
         }
     }
     
-    var baseURL: URL {
-        return URL(string: GeneralAPI.baseURL)!
-    }
-    
-    var sampleData: Data {
-        return Data()
-    }
-    
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": UserDefaultsHelper.standard.accesstoken ?? ""]
+                "Authorization": "Bearer"]
     }
 }
 

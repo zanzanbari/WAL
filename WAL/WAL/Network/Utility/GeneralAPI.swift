@@ -9,6 +9,10 @@ import Foundation
 
 struct GeneralAPI {
     private init() { }
-    static let baseURL = "http://15.165.74.139:8080/api/v1"
+    static let baseURL = "http://15.165.167.252/api"
     static let contentType = "application/json"
+}
+
+extension GeneralAPI {
+    static let version2 = "/v2"
 }

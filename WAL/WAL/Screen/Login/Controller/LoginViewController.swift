@@ -91,7 +91,7 @@ final class LoginViewController: UIViewController {
         } else {
             // 로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
             print("🛼 pushToHome() \(nickname)님, 로그인 후 온보딩 완료 후 메인뷰입니다.")
-            transition(MainViewController(), .presentFullNavigation)
+            transition(MainViewController(viewModel: .init()), .presentFullNavigation)
         }
     }
     

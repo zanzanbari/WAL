@@ -12,52 +12,94 @@ final class MainAPI {
     private let mainProvider = MoyaProvider<MainService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
     
-    public private(set) var mainData: GenericResponse<MainResponse>?
+    private(set) var mainData: TodayWalList?
+    
     private var refreshValue = 0
     
-    public func getMainData(completion: @escaping ((GenericResponse<MainResponse>?, Int?) -> ())) {
-        mainProvider.request(.main) { [weak self] result in
+    /// 메인 - 오늘의 왈소리 조회
+    func getMainData(completion: @escaping ((TodayWalList?, Int?) -> ())) {
+        
+        mainProvider.request(.todayWal) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let response):
                 do {
-                    self.mainData = try response.map(GenericResponse<MainResponse>?.self)
-                    guard let mainData = self.mainData else { return }
-                    completion(mainData, nil)
-                    if mainData.status == 401 {
-                        self.refreshValue += 1
-                        print("이것입니다 ===>>>", self.refreshValue)
-                        TokenManager.shared.refreshTokenAPI(401)
-                        self.getMainData(completion: completion)
+                    
+                    self.mainData = try response.map(TodayWalList.self)
+                    
+                    // 200
+                    if let _mainData = self.mainData {
+                        completion(_mainData, nil)
+                    } else {
+                        
+                        // 300 ~ 500
+                        if let _statusCase = self.mainData?.statusCase {
+                            switch _statusCase {
+                            case .unAuthorized:
+                                self.refreshValue += 1
+                                print("이것입니다 ===>>>", self.refreshValue)
+                                TokenManager.shared.refreshTokenAPI(401)
+                                self.getMainData(completion: completion)
+                            default:
+                                return
+                            }
+                            
+                            completion(nil, self.mainData?.statusCode)
+                        }
+                        
                     }
+                    
                 } catch(let err) {
                     print(err.localizedDescription, 500)
+                    completion(nil, 500)
                 }
+                
             case .failure(let err):
                 print(err.localizedDescription)
                 completion(nil, 500)
             }
         }
+        
     }
     
-    public func updateMainData(item: Int, completion: @escaping ((GenericResponse<MainResponse>?, Int?) -> ())) {
-        mainProvider.request(.mainItem(param: item)) { [weak self] result in
+    /// 메인 - 오늘의 왈소리 확인
+    func updateMainData(id: Int, completion: @escaping ((Void, Int?) -> ())) {
+        
+        mainProvider.request(.openTodayWal(todayWalId: id)) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let response):
                 do {
-                    self.mainData = try response.map(GenericResponse<MainResponse>?.self)
-                    guard let mainData = self.mainData else { return }
-                    completion(mainData, nil)
+                    
+                    // 300 ~ 500
+                    if let _statusCase = self.mainData?.statusCase {
+                        switch _statusCase {
+                        case .unAuthorized:
+                            self.refreshValue += 1
+                            print("이것입니다 ===>>>", self.refreshValue)
+                            TokenManager.shared.refreshTokenAPI(401)
+                            self.updateMainData(id: id, completion: completion)
+                        default:
+                            return
+                        }
+                    }
+                    
+                    completion((), nil)
+                    
+                    
                 } catch(let err) {
                     print(err.localizedDescription, 500)
+                    completion((), 500)
                 }
+                
             case .failure(let err):
                 print(err.localizedDescription)
-                completion(nil, 500)
+                completion((), 500)
             }
         }
+        
     }
+    
 }

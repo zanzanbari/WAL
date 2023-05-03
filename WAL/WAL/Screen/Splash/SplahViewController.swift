@@ -73,7 +73,7 @@ final class SplashViewController: BaseViewController {
                 } else {
                     // 액세스토큰 O -> 자동로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
                     print("🛼 scene() 자동로그인 후 온보딩 완료해서 메인뷰입니다.")
-                    let viewController = UINavigationController(rootViewController: MainViewController())
+                    let viewController = UINavigationController(rootViewController: MainViewController(viewModel: .init()))
                     viewController.modalPresentationStyle = .fullScreen
                     viewController.modalTransitionStyle = .crossDissolve
                     self.present(viewController, animated: false, completion: nil)

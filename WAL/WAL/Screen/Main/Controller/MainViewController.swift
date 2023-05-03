@@ -29,13 +29,13 @@ final class MainViewController: UIViewController {
         $0.setImage(WALIcon.btnSetting.image, for: .normal)
     }
     
-    private var titleView = MainTitleView()
+    private lazy var titleView = MainTitleView()
     
-    private var walImageView = UIImageView().then {
+    private lazy var walImageView = UIImageView().then {
         $0.contentMode = .scaleToFill
     }
     
-    private var contentLabel = UILabel().then {
+    private lazy var contentLabel = UILabel().then {
         $0.font = WALFont.body7.font
         $0.textColor = .gray100
         $0.numberOfLines = 0
@@ -43,15 +43,16 @@ final class MainViewController: UIViewController {
         $0.textAlignment = .center
     }
     
-    private var walCollectionView : UICollectionView = {
+    private lazy var walCollectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
-        layout.estimatedItemSize = .zero
+        layout.minimumLineSpacing = 9
+        layout.sectionInset = .zero
         
         return UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-            $0.backgroundColor = .clear
             $0.isScrollEnabled = false
+            $0.delegate = self
+            MainItemCell.register($0)
         }
     }()
     
@@ -71,57 +72,32 @@ final class MainViewController: UIViewController {
     
     // MARK: - Property
     
-    private let date = Date()
-    private let dateFormatter = DateFormatter().then {
-        $0.locale = Locale(identifier: "ko_kr")
-        $0.timeZone = TimeZone(abbreviation: "ko_kr")
-        $0.dateFormat = "HH"
-    }
-    
-    private var walStatus: WALStatus = .arrived {
+    private var isSelected: Bool = false {
         didSet {
-            walImageView.image = walStatus.walImage
-
-            contentLabel.text = walStatus.content
-            contentLabel.addLetterSpacing()
-            
-            switch walStatus {
-            case .sleeping:
-                walCollectionView.isHidden = true
-            case .arrived, .checkedAvailable, .checkedAll:
-                walCollectionView.isHidden = false
-            }
+            updateSelectedUI(isSelected)
         }
     }
     
-    private var didTapCell: Bool = false {
-        didSet {
-            if didTapCell {
-                [titleView, walImageView, contentLabel].forEach {
-                    $0.isHidden = true
-                }
-                
-                [walContentView, shareButton].forEach {
-                    $0.isHidden = false
-                }
-                
-            } else {
-                [titleView, walImageView, contentLabel].forEach {
-                    $0.isHidden = false
-                }
-                
-                [walContentView, shareButton].forEach {
-                    $0.isHidden = true
-                }
-            }
-        }
-    }
+    private var todayWalList: [TodayWal] = []
+    private var selectedItemIndex: Int = 0
     
-    private var dataCount: Int = 0
-    private var mainData = MainResponse(subtitle: "", todayWal: [])
-    
-    private let viewModel = MainViewModel()
+    private let viewModel: MainViewModel
     private let disposeBag = DisposeBag()
+    
+    // MARK: - Initializer
+    
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     // MARK: - Life Cycle
     
@@ -129,7 +105,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         setMainStatus()
-        getMainInfo()
+        viewModel.input.reqTodayWal.accept(())
         NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name.enterMain, object: nil)
     }
     
@@ -137,7 +113,9 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
-        bind()
+        rxBindOutput()
+        rxBindView()
+        rxBindInput()
     }
     
     // MARK: - Init UI
@@ -148,8 +126,6 @@ final class MainViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .white100
-        
-        setupCollectionView()
     }
     
     private func setupLayout() {
@@ -219,54 +195,142 @@ final class MainViewController: UIViewController {
     
     // MARK: - Bind
     
-    private func bind() {
-        shareButton.rx.tap
-            .withUnretained(self)
-            .bind { vc, _ in
-                let imageToShare = vc.walContentView.toImage()
+    private func rxBindOutput() {
+        
+        viewModel.output.todayWalCount
+            .bind(with: self) { owner, res in
+                owner.updateCollectionViewLayout(res)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.todayWal
+            .do(onNext: { [weak self] res in
+                self?.todayWalList = res
+            })
+            .bind(to: walCollectionView.rx.items(cellIdentifier: MainItemCell.cellIdentifier, cellType: MainItemCell.self)) {  index, data, cell in
+                cell.setupData(data)
+                cell.isUserInteractionEnabled = data.getOpenStatus()
+            }
+            .disposed(by: disposeBag)
+        
+        
+        viewModel.output.subTitle
+            .bind(with: self) { owner, res in
+//                owner.titleView.subTitle = res
+                owner.titleView.subTitle = "왈서브타이틀이들어갈영역입니다."
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.walStatus
+            .bind(with: self) { owner, res in
+                owner.walImageView.image = res.walImage
 
-                let activityItems : NSMutableArray = []
-                activityItems.add(imageToShare)
-
-                guard let url = vc.viewModel.saveImageOnPhone(image: imageToShare, image_name: "왈") else { return }
+                owner.contentLabel.text = res.content
+                owner.contentLabel.addLetterSpacing()
                 
-                let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                owner.walCollectionView.isHidden = res == .sleeping ? true : false
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.imageUrl
+            .bind(with: self) { owner, res in
+                guard let _url = res else { return }
+                let activityViewController = UIActivityViewController(activityItems: [_url], applicationActivities: nil)
                 activityViewController.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
-                
-                vc.present(activityViewController, animated: true, completion: nil)
+                owner.present(activityViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
         
-        addButton.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                guard let self = self else { return }
-                let viewController = CreateViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
+        viewModel.output.openWal
+            .bind(with: self) { owner, res in
+                if let _res = res {
+                    // TODO: 상태코드 별 분기처리 (error)
+                } else {
+                    owner.todayWalList[owner.selectedItemIndex].showStatus = "OPEN"
+                    owner.viewModel.handleWalState(todayWalList: owner.todayWalList)
+                }
             }
+            .disposed(by: disposeBag)
+    }
+    
+    private func rxBindView() {
+        shareButton
+            .rx
+            .tap
+            .preventDuplication()
+            .bind(with: self, onNext: { owner, _ in
+                owner.viewModel.input.reqImageUrl.accept((owner.walContentView.toImage(), "왈"))
+            })
             .disposed(by: disposeBag)
         
-        settingButton.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                guard let self = self else { return }
-                let viewController = SettingViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
-            }
+        addButton
+            .rx
+            .tap
+            .preventDuplication()
+            .bind(with: self, onNext: { owner, _ in
+                owner.navigationController?.pushViewController(CreateViewController(), animated: true)
+            })
             .disposed(by: disposeBag)
+        
+        settingButton
+            .rx
+            .tap
+            .preventDuplication()
+            .bind(with: self, onNext: { owner, _ in
+                self.navigationController?.pushViewController(SettingViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func rxBindInput() {
+        viewModel.input.reqTodayWal.accept(())
     }
     
     // MARK: - Custom Method
     
-    private func setupCollectionView() {
-        walCollectionView.delegate = self
-        walCollectionView.dataSource = self
-        
-        walCollectionView.register(MainItemCell.self, forCellWithReuseIdentifier: MainItemCell.cellIdentifier)
+    private func setMainStatus() {
+        if titleView.isHidden {
+            [titleView, walImageView, contentLabel].forEach {
+                $0.isHidden = false
+            }
+            
+            [walContentView, shareButton].forEach {
+                $0.isHidden = true
+            }
+        }
     }
     
-    private func setMainStatus() {
-        if titleView.isHidden == true {
+    private func updateCollectionViewLayout(_ todalWalCount: Int) {
+        var horizontalInset: CGFloat = 0.0
+        switch todalWalCount {
+        case 1:
+            horizontalInset = 149
+        case 2:
+            horizontalInset = 106
+        case 3:
+            horizontalInset = 63
+        case 4:
+            horizontalInset = 20
+        default:
+            return
+        }
+        
+        walCollectionView.snp.updateConstraints {
+            $0.leading.trailing.equalToSuperview().inset(horizontalInset)
+        }
+    }
+    
+    private func updateSelectedUI(_ isSelected: Bool) {
+        if isSelected {
+            [titleView, walImageView, contentLabel].forEach {
+                $0.isHidden = true
+            }
+            
+            [walContentView, shareButton].forEach {
+                $0.isHidden = false
+            }
+            
+        } else {
             [titleView, walImageView, contentLabel].forEach {
                 $0.isHidden = false
             }
@@ -279,191 +343,58 @@ final class MainViewController: UIViewController {
     
     // MARK: - @objc
     
-    @objc func didTap() {
-        self.didTapCell.toggle()
-    }
-    
     @objc func getNotification() {
         setMainStatus()
-        getMainInfo()
+        viewModel.input.reqTodayWal.accept(())
     }
 }
 
-extension MainViewController: UICollectionViewDelegateFlowLayout {
+// MARK: - UICollectionView Protocol
+
+extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = CGFloat(77)
         let cellHeight = collectionView.frame.height
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 9
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
-    }
-    
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MainItemCell else { return true }
+        let todayWal = todayWalList[indexPath.item]
         
+        // 왈소리를 보고 있는 상태라면
         if cell.isSelected {
-            didTapCell = false
+            // cell selected 상태를 false로 바꿔서 왈뿡이가 보이는(메인) 화면으로 전환
+            isSelected = false
             collectionView.deselectItem(at: indexPath, animated: false)
             return false
         } else {
-            didTapCell = true
-            walContentView.content = mainData.todayWal[indexPath.item].content
+            // 왈뿡이를 보고 있는 상태라면 cell selected 상태를 true로 바꿔서 왈소리를 볼 수 있는 화면으로 전환
+            isSelected = true
             
-            let walType = mainData.todayWal[indexPath.item].categoryID
-            walContentView.walContentType = WALContentType(rawValue: walType) ?? .fun
+            // 왈소리가 있다면 표기, 없다면 "-" 표기
+            if let _message = todayWal.message {
+                walContentView.content = _message
+            } else {
+                walContentView.content = "-"
+            }
+            
+            // 왈소리의 유형에 따른 왈뿡이 UI 변화
+            walContentView.walCategoryType = todayWal.getCategoryType()
             return true
         }
     }
-}
-
-extension MainViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataCount
-    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        updateMainData(item: indexPath.item)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainItemCell.cellIdentifier, for: indexPath) as? MainItemCell else { return UICollectionViewCell() }
-        cell.setupData(mainData.todayWal[indexPath.item])
+        let showStatus = todayWalList[indexPath.item].getShowStatus()
         
-        if mainData.todayWal[indexPath.item].canOpen {
-            cell.isUserInteractionEnabled = true
-        } else {
-            cell.isUserInteractionEnabled = false
+        // 사용자가 열어보지 않은 왈소리에 대해서만 API 호출
+        if !showStatus {
+            guard let _todayWalId = todayWalList[indexPath.item].todayWalId else { return }
+            selectedItemIndex = indexPath.item
+            viewModel.input.reqOpenWal.accept(_todayWalId)
         }
-
-        return cell
-    }
-}
-
-// MARK: - NetWork
-
-extension MainViewController {
-    func getMainInfo() {
-        MainAPI.shared.getMainData { [weak self] mainData, statusCode in
-            guard let self = self else { return }
-            guard let mainData = mainData else { return }
-            
-            DispatchQueue.main.async {
-                guard let data = mainData.data else { return }
-                self.mainData = data
-                self.dataCount = data.todayWal.count
-                
-                self.titleView.subTitle = data.subtitle
-                
-                self.walCollectionView.reloadData()
-                self.updateCollectionViewLayout(data.todayWal.count)
-                
-                var isShownCount: Int = 0
-                var canOpenCount: Int = 0
-                
-                for item in self.mainData.todayWal {
-                    if item.isShown {
-                        isShownCount += 1
-                    }
-                    
-                    if item.canOpen {
-                        canOpenCount += 1
-                    }
-                }
-                
-                if canOpenCount == 0 {
-                    guard let intDate = Int(self.dateFormatter.string(from: self.date)) else { return }
-                    
-                    if intDate >= 0 && intDate <= 7 {
-                        self.titleView.subTitle = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
-                        self.walStatus = .sleeping
-                    } else {
-                        self.walStatus = .checkedAvailable
-                    }
-                } else {
-                    if isShownCount == canOpenCount {
-                        if isShownCount == self.dataCount {
-                            self.walStatus = .checkedAll
-                        } else {
-                            self.walStatus = .checkedAvailable
-                        }
-                    } else {
-                        self.walStatus = .arrived
-                    }
-                }
-            }
-        }
+        
     }
     
-    private func updateCollectionViewLayout(_ todalWalCount: Int) {
-        if todalWalCount == 1 {
-            walCollectionView.snp.updateConstraints {
-                $0.leading.trailing.equalToSuperview().inset(149)
-            }
-        } else if todalWalCount == 2 {
-            walCollectionView.snp.updateConstraints {
-                $0.leading.trailing.equalToSuperview().inset(106)
-            }
-        } else if todalWalCount == 3 {
-            walCollectionView.snp.updateConstraints {
-                $0.leading.trailing.equalToSuperview().inset(63)
-            }
-        } else if todalWalCount == 4 {
-            walCollectionView.snp.updateConstraints {
-                $0.leading.trailing.equalToSuperview().inset(20)
-            }
-        }
-    }
-    
-    private func updateMainData(item: Int) {
-        MainAPI.shared.updateMainData(item: self.mainData.todayWal[item].id) { [weak self] mainData, error in
-            guard let self = self else { return }
-            guard let mainData = mainData else { return }
-            guard let data = mainData.data else { return }
-            
-            self.mainData = data
-            self.dataCount = data.todayWal.count
-            
-            DispatchQueue.main.async {
-                var isShownCount: Int = 0
-                var canOpenCount: Int = 0
-                
-                for item in self.mainData.todayWal {
-                    if item.isShown {
-                        isShownCount += 1
-                    }
-                    
-                    if item.canOpen {
-                        canOpenCount += 1
-                    }
-                }
-                
-                if canOpenCount == 0 {
-                    guard let currentTime = Int(self.dateFormatter.string(from: self.date)) else { return }
-                    
-                    if currentTime >= 0 && currentTime <= 7 {
-                        self.titleView.subTitle = "왈뿡이가 자는 시간이에요. 아침에 만나요!"
-                        self.walStatus = .sleeping
-                    } else {
-                        self.walStatus = .checkedAvailable
-                    }
-                } else {
-                    if isShownCount == canOpenCount {
-                        if isShownCount == self.dataCount {
-                            self.walStatus = .checkedAll
-                        } else {
-                            self.walStatus = .checkedAvailable
-                        }
-                    } else {
-                        self.walStatus = .arrived
-                    }
-                }
-            }
-        }
-    }
 }

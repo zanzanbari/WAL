@@ -89,7 +89,7 @@ final class OnboardCompleteViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupStartButton() {
-        let viewController = MainViewController()
+        let viewController = MainViewController(viewModel: .init())
         let transition = CATransition()
         transition.duration = 0.2
         transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)

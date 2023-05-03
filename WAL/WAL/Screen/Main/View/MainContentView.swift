@@ -67,9 +67,9 @@ final class MainContentView: UIView {
     
     // MARK: - Property
     
-    var walContentType: WALContentType = .fun {
+    var walCategoryType: WalCategoryType = .none {
         didSet {
-            imageView.image = walContentType.walImage
+            imageView.image = walCategoryType.walImage
         }
     }
     
