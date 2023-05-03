@@ -8,7 +8,7 @@
 import Foundation
 
 enum NetworkResult: Int {
-    case noen = -999
+    case none = -999
     
     case okay = 200
     case created = 201
