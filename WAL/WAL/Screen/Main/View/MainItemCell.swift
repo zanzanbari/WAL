@@ -19,7 +19,7 @@ protocol MainItemCellDelegate: AnyObject {
 final class MainItemCell: UICollectionViewCell {
     static var cellIdentifier: String { return String(describing: self) }
     
-    var imageView = UIImageView().then {
+    private var imageView = UIImageView().then {
         $0.image = WALIcon.imgPawInAtive.image
         $0.contentMode = .scaleAspectFit
         $0.isHidden = false
@@ -67,20 +67,19 @@ final class MainItemCell: UICollectionViewCell {
             delegate?.selectedCell(content: content)
             
             if isSelected {
+                contentView.layer.borderColor = type == .special ? UIColor.mint100.cgColor : UIColor.orange100.cgColor
+                imageView.image = type == .special ? WALIcon.imgPawSpecial.image : WALIcon.imgPawActive.image
+                imageView.isHidden = false
+                
                 if type == .special {
-                    contentView.layer.borderColor = UIColor.mint100.cgColor
                     specialAnimationView.isHidden = true
-                    imageView.image = WALIcon.imgPawSpecial.image
-                    imageView.isHidden = false
                 } else {
-                    contentView.layer.borderColor = UIColor.orange100.cgColor
                     defaultAnimationView.isHidden = true
-                    imageView.image = WALIcon.imgPawActive.image
-                    imageView.isHidden = false
                 }
             } else {
                 contentView.layer.borderColor = UIColor.gray400.cgColor
             }
+            
         }
     }
     
@@ -110,41 +109,10 @@ final class MainItemCell: UICollectionViewCell {
     
     func setupData(_ data: TodayWal) {
         let catetoryType = data.getCategoryType()
-        
-        switch catetoryType {
-        case .reservation:
-            type = .special
-        default:
-            type = .morning
-        }
+        type = catetoryType == .reservation ? .special : .morning
         
         if data.getOpenStatus() {
-            if data.getShowStatus() {
-                if type == .special {
-                    imageView.image = WALIcon.imgPawSpecial.image
-                } else {
-                    imageView.image = WALIcon.imgPawActive.image
-                }
-                
-                imageView.isHidden = false
-                defaultAnimationView.isHidden = true
-                specialAnimationView.isHidden = true
-            } else {
-                imageView.isHidden = true
-                if type == .special {
-                    specialAnimationView.isHidden = false
-                    specialAnimationView.play()
-                    
-                    defaultAnimationView.isHidden = true
-                    defaultAnimationView.stop()
-                } else {
-                    specialAnimationView.isHidden = true
-                    specialAnimationView.stop()
-                    
-                    defaultAnimationView.isHidden = false
-                    defaultAnimationView.play()
-                }
-            }
+            handleShowStatus(data.getShowStatus())
         } else {
             imageView.image = WALIcon.imgPawInAtive.image
         }
@@ -155,6 +123,27 @@ final class MainItemCell: UICollectionViewCell {
             content = "-"
         }
     }
+    
+    private func handleShowStatus(_ showStatus: Bool) {
+        if showStatus {
+            imageView.image = type == .special ? WALIcon.imgPawSpecial.image : WALIcon.imgPawActive.image
+            
+            imageView.isHidden = false
+            defaultAnimationView.isHidden = true
+            specialAnimationView.isHidden = true
+        } else {
+            imageView.isHidden = true
+            
+            specialAnimationView.isHidden = type == .special ? false : true
+            defaultAnimationView.isHidden = type == .special ? true : false
+            
+            if type == .special {
+                specialAnimationView.play()
+                defaultAnimationView.stop()
+            } else {
+                specialAnimationView.stop()
+                defaultAnimationView.play()
+            }
+        }
+    }
 }
-
-
