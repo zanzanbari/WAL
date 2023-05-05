@@ -15,26 +15,38 @@ final class AuthAPI {
     private let authProvider = MoyaProvider<AuthService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
     
-    private(set) var loginData: GenericResponse<Login>?
+    private(set) var loginData: Login?
     private(set) var logoutData: GenericResponse<Logout>?
     private(set) var reissueData: GenericResponse<Reissue>?
     
     // MARK: - POST 소셜로그인
     
-    func postSocialLogin(social: String,
-                         socialtoken: String,
-                         fcmtoken: String?,
-                         completion: @escaping ((GenericResponse<Login>?, Int?) -> ())) {
+    func postLogin(param: LoginRequest, completion: @escaping ((Login?, Int?) -> ())) {
         
-        authProvider.request(.social(social: social,
-                                     socialtoken: socialtoken,
-                                     fcmtoken: fcmtoken)) { result in
+        let param = LoginRequest(param.socialToken, param.socialType, param.fcmToken)
+        
+        authProvider.request(.login(param: param)) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.loginData = try response.map(GenericResponse<Login>?.self)
-                    guard let loginData = self.loginData else { return }
-                    completion(loginData, nil)
+                    if response.statusCode == 200 || response.statusCode == 201 {
+                        guard let accessHeader = response.request?.allHTTPHeaderFields?["Authorization"] else {
+                            return
+                        }
+                        guard let refreshHeader = response.request?.allHTTPHeaderFields?["Refresh-Token"] else {
+                            return
+                        }
+                        let accessToken = String(accessHeader.dropFirst("Bearer ".count))
+                        let refreshToken = String(refreshHeader.dropFirst("".count))
+                        
+                        UserDefaultsHelper.standard.accesstoken = accessToken
+                        UserDefaultsHelper.standard.refreshtoken = refreshToken
+                        
+                    } else {
+                        self.loginData = try response.map(Login?.self)
+                        guard let loginData = self.loginData else { return }
+                        completion(loginData, nil)
+                    }
                     
                 } catch(let err) {
                     print(err.localizedDescription, 500)
@@ -68,12 +80,12 @@ final class AuthAPI {
     }
     
     // MARK: - POST 회원탈퇴
-        
+    
     func postResign(social: String,
                     data: [String],
                     socialtoken: String,
                     completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
-       
+        
         let reason = ResignRequest.init(socialtoken, data)
         
         authProvider.request(.resign(social: social,

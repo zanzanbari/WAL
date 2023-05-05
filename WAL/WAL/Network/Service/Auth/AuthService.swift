@@ -8,7 +8,7 @@
 import Moya
 
 enum AuthService {
-    case social(social: String, socialtoken: String, fcmtoken: String?)
+    case login(param: LoginRequest)
     case logout
     case reissue
     case resign(social: String, param: ResignRequest)
@@ -18,7 +18,7 @@ extension AuthService: BaseTargetType {
     
     var path: String {
         switch self {
-        case .social(let social, _, _): return "/auth/\(social)/login"
+        case .login: return "/auth/login"
         case .logout: return "/auth/logout"
         case .reissue: return "/auth/reissue/token"
         case .resign(let social, _): return "/auth/\(social)/logout"
@@ -34,27 +34,19 @@ extension AuthService: BaseTargetType {
     
     var task: Task {
         switch self {
-        case .social(_, let socialtoken, let fcmtoken):
-            if let fcmtoken = fcmtoken {
-                return .requestParameters(
-                    parameters: ["socialtoken": socialtoken,
-                                 "fcmtoken": fcmtoken],
-                    encoding: URLEncoding.queryString)
-            } else {
-                return .requestParameters(
-                    parameters: ["socialtoken": socialtoken],
-                    encoding: URLEncoding.queryString)
-            }
-        case .logout, .reissue: return .requestPlain
+        case .login(let param):
+            return .requestJSONEncodable(param)
+        case .logout, .reissue:
+            return .requestPlain
         case .resign(_, let param):
             return .requestJSONEncodable(param)
         }
         
     }
     
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         switch self {
-        case .social:
+        case .login:
             return ["Content-Type": GeneralAPI.contentType]
         case .reissue:
             return ["Content-Type": GeneralAPI.contentType,
