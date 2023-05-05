@@ -104,7 +104,7 @@ final class MainAPI {
     }
     
     /// 메인 - 서브타이틀 조회
-    func getMainSubtitle(completion: @escaping ((MainSubtitle?, Int?) -> ())) {
+    func getMainSubtitle(completion: @escaping ((MainSubtitle?, NetworkResult?) -> ())) {
         
         mainProvider.request(.subtitle) { [weak self] result in
             guard let self = self else { return }
@@ -132,19 +132,19 @@ final class MainAPI {
                                 return
                             }
                             
-                            completion(nil, self.mainData?.statusCode)
+                            completion(nil, _statusCase)
                         }
                         
                     }
                     
                 } catch(let err) {
                     print(err.localizedDescription, 500)
-                    completion(nil, 500)
+                    completion(nil, NetworkResult.internalServerError)
                 }
                 
             case .failure(let err):
                 print(err.localizedDescription)
-                completion(nil, 500)
+                completion(nil, NetworkResult.internalServerError)
             }
         }
         
