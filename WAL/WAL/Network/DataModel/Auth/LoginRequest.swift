@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+// MARK: - LoginRequest
+
+struct LoginRequest: Codable {
+    let socialToken: String
+    let socialType: String
+    let fcmToken: String
+    
+    init(_ socialToken: String, _ socialType: String, _ fcmToken: String) {
+        self.socialToken = socialToken
+        self.socialType = socialType
+        self.fcmToken = fcmToken
+    }
+}
