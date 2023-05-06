@@ -25,7 +25,8 @@ final class SettingAPI {
     // MARK: - GET 유저 닉네임 조회하기
     
     func getUserInfo(completion: @escaping completion) {
-        settingProvider.request(.checkNickname) { result in
+        settingProvider.request(.checkNickname) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let response):
                 do {
@@ -47,16 +48,22 @@ final class SettingAPI {
     // MARK: - POST 유저 닉네임 수정하기
     
     func postUserInfo(nickname: String, completion: @escaping completion) {
-        settingProvider.request(.editNickname(nickname: Onboard(nickname: nickname))) { result in
+        settingProvider.request(.editNickname(nickname: nickname)) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let response):
-                do {
-                    self.userInfo = try response.map(UserInfo?.self)
-                    guard let userInfo = self.userInfo else { return }
-                    completion(userInfo, nil)
-                    
-                } catch(let error) {
-                    print(error.localizedDescription)
+                if response.statusCode == 204 {
+                    completion(nil, 204)
+                } else {
+                    do {
+                        self.userInfo = try response.map(UserInfo?.self)
+                        guard let userInfo = self.userInfo else { return }
+                        completion(userInfo, nil)
+                        
+                    } catch(let error) {
+                        print(error.localizedDescription)
+                        completion(nil, 500)
+                    }
                 }
                 
             case.failure(let error):

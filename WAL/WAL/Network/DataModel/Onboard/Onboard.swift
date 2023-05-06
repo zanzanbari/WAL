@@ -12,4 +12,3 @@ import Foundation
 struct Onboard: Codable {
     let nickname: String
 }
-
