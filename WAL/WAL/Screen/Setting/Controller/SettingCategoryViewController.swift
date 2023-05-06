@@ -157,7 +157,6 @@ extension SettingCategoryViewController {
         SettingAPI.shared.getCategory { [weak self] (data, status) in
             guard let self = self else { return }
             guard let data = data?.categoryInfo else { return }
-            print("🌈 카테고리 가져오기 서버통신 🌈", data)
             self.updateButtonStates(data: data)
         }
     }
