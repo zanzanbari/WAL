@@ -9,9 +9,8 @@ import Moya
 
 enum AuthService {
     case login(param: LoginRequest)
-    case logout
     case reissue
-    case resign(social: String, param: ResignRequest)
+    case resign(param: ResignRequest)
 }
 
 extension AuthService: BaseTargetType {
@@ -19,15 +18,13 @@ extension AuthService: BaseTargetType {
     var path: String {
         switch self {
         case .login: return "/auth/login"
-        case .logout: return "/auth/logout"
-        case .reissue: return "/auth/reissue/token"
-        case .resign(let social, _): return "/auth/\(social)/logout"
+        case .reissue: return "/auth/reissue"
+        case .resign: return "/user/me/resign"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .logout: return .get
         default: return .post
         }
     }
@@ -36,9 +33,9 @@ extension AuthService: BaseTargetType {
         switch self {
         case .login(let param):
             return .requestJSONEncodable(param)
-        case .logout, .reissue:
+        case .reissue:
             return .requestPlain
-        case .resign(_, let param):
+        case .resign(let param):
             return .requestJSONEncodable(param)
         }
         
@@ -54,7 +51,7 @@ extension AuthService: BaseTargetType {
                     "refreshtoken": UserDefaultsHelper.standard.refreshtoken ?? ""]
         default:
             return ["Content-Type": GeneralAPI.contentType,
-                    "accesstoken": UserDefaultsHelper.standard.accesstoken ?? ""]
+                    "Authorization": "Bearer \(UserDefaultsHelper.standard.accesstoken ?? "")"]
         }
     }
 }
