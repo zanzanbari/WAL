@@ -9,12 +9,16 @@ import Foundation
 
 // MARK: - UserCategory
 
-struct UserCategory: Codable {
-    let status: Int
-    let message: String
-    let data: UserCategoryData?
-}
-
-struct UserCategoryData: Codable {
-    let joke, compliment, condolence, scolding: Bool
+struct UserCategory: BaseResponse, Codable {
+    var statusCode: Int?
+    var message: String?
+    let categoryInfo: [String]?
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.statusCode = try container.decodeIfPresent(Int.self, forKey: .statusCode) ?? 0
+        self.message = try container.decodeIfPresent(String.self, forKey: .message) ?? ""
+        self.categoryInfo = try container.decodeIfPresent([String].self, forKey: .categoryInfo) ?? [""]
+    }
 }

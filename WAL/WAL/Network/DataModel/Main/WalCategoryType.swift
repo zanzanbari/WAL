@@ -10,13 +10,13 @@ import UIKit
 import WALKit
 
 /// 왈 타입
-enum WalCategoryType: String {
-    case none            = ""
+enum WalCategoryType: String, CaseIterable {
     case comedy          = "COMEDY"
     case fuss            = "FUSS"
     case comfort         = "COMFORT"
     case yell            = "YELL"
     case reservation     = "RESERVATION"
+    case none            = ""
     
     var categoryId: Int {
         switch self {

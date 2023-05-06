@@ -10,12 +10,12 @@ import UIKit
 import WALKit
 
 /// 시간 타입
-enum AlarmTimeType: String {
-    case none         = ""
+enum AlarmTimeType: String, CaseIterable {
     case morning      = "MORNING"
-    case night        = "NIGHT"
     case afternoon    = "AFTERNOON"
-    
+    case night        = "NIGHT"
+    case none         = ""
+
     var pawImage: UIImage? {
         switch self {
         case .none:   return WALIcon.imgPawSpecial.image
