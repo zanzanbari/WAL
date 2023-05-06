@@ -47,11 +47,10 @@ extension AuthService: BaseTargetType {
             return ["Content-Type": GeneralAPI.contentType]
         case .reissue:
             return ["Content-Type": GeneralAPI.contentType,
-                    "accesstoken": UserDefaultsHelper.standard.accesstoken ?? "",
-                    "refreshtoken": UserDefaultsHelper.standard.refreshtoken ?? ""]
+                    "Refresh-Token": UserDefaultsHelper.standard.refreshtoken ?? ""]
         default:
             return ["Content-Type": GeneralAPI.contentType,
-                    "Authorization": "Bearer \(UserDefaultsHelper.standard.accesstoken ?? "")"]
+                    "Authorization": UserDefaultsHelper.standard.accesstoken ?? ""]
         }
     }
 }
