@@ -179,10 +179,11 @@ final class EditNicknameViewController: BaseViewController {
     
     @objc private func touchupDoneButton() {
         guard let nickname = nicknameTextField.text else { return }
-        SettingAPI.shared.postUserInfo(nickname: nickname) { (userInfoData, nil) in
-            guard let userInfoData = userInfoData?.data else { return }
-            self.nickname = userInfoData.nickname
-            self.sendNicknameDelegate?.sendNickname(userInfoData.nickname)
+        SettingAPI.shared.postUserInfo(nickname: nickname) { [weak self] (userInfoData, nil) in
+            guard let self else { return }
+            guard let data = userInfoData?.nickname else { return }
+            self.nickname = data
+            self.sendNicknameDelegate?.sendNickname(data)
             self.configureLoadingView()
             DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                 self.loadingView.hide()

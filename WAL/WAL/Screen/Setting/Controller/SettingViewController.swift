@@ -205,11 +205,12 @@ extension SettingViewController {
     }
     
     func requestNickname() {
-        SettingAPI.shared.getUserInfo { (userInfo, nil) in
-            guard let userInfoData = userInfo?.data else { return }
-            print("🔶🔶🔶 ", userInfoData)
-            self.nickname = userInfoData.nickname
-            self.email = userInfoData.email
+        SettingAPI.shared.getUserInfo { [weak self] (userInfo, nil) in
+            guard let self else { return }
+            guard let data = userInfo?.nickname else { return }
+            print("🔶🔶🔶 ", data)
+            self.nickname = data
+//            self.email = data.email
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
