@@ -41,7 +41,6 @@ extension MainService: BaseTargetType {
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "Authorization": "Bearer"]
+                "Authorization": UserDefaultsHelper.standard.accesstoken ?? ""]
     }
 }
-
