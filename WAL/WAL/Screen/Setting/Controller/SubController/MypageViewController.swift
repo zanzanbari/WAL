@@ -19,7 +19,7 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     var nickname = ""
     var email = ""
     
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.mypage).then {
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.mypage).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
@@ -47,28 +47,28 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var loginSubtitleLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaultsHelper.standard.social == SocialType.kakao.rawValue {
-            $0.text = SocialType.kakao.login
-        } else if UserDefaultsHelper.standard.social == SocialType.apple.rawValue {
-            $0.text = SocialType.apple.login
+        if UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue {
+            $0.text = SocialType.KAKAO.login
+        } else if UserDefaultsHelper.standard.social == SocialType.APPLE.rawValue {
+            $0.text = SocialType.APPLE.login
         }
     }
     
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        if UserDefaultsHelper.standard.social == SocialType.kakao.rawValue {
+        if UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue {
             $0.text = email
-        } else if UserDefaultsHelper.standard.social == SocialType.apple.rawValue {
+        } else if UserDefaultsHelper.standard.social == SocialType.APPLE.rawValue {
             $0.text = "-"
         }
     }
     
-    private let logoutButton = MenuButton(0).then {
+    private lazy var logoutButton = MenuButton(0).then {
         $0.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
     }
     
-    private let resignButton = MenuButton(1).then {
+    private lazy var resignButton = MenuButton(1).then {
         $0.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
     }
 

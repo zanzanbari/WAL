@@ -15,8 +15,6 @@ final class SettingAlarmViewController: UIViewController {
     // MARK: - Properties
         
     private lazy var timeButtons = [morningButton, afternoonButton, nightButton]
-
-    private let setting = SettingData()
     
     private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingAlarm).then {
         $0.backgroundColor = .white100
@@ -47,10 +45,9 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private let loadingView = LoadingView()
-    
-    private let morningButton = TimeButton(0)
-    private let afternoonButton = TimeButton(1)
-    private let nightButton = TimeButton(2)
+    private let morningButton = TimeButton(.morning)
+    private let afternoonButton = TimeButton(.afternoon)
+    private let nightButton = TimeButton(.night)
     
     // MARK: - Life Cycle
     
@@ -124,6 +121,12 @@ final class SettingAlarmViewController: UIViewController {
         loadingView.play()
     }
     
+    private func updateButtonStates(data: [String]) {
+        for (button, type) in zip(timeButtons, AlarmTimeType.allCases) {
+            button.isSelected = data.contains(type.rawValue) ? true : false
+        }
+    }
+    
     private func showToastMessage() {
         let selectedButtons = timeButtons.filter { $0.isSelected }
         if selectedButtons.count < 1 {
@@ -156,12 +159,6 @@ final class SettingAlarmViewController: UIViewController {
 // MARK: - Network
 
 extension SettingAlarmViewController {
-    private func updateButtonStates(data: [String]) {
-        for (button, type) in zip(timeButtons, AlarmTimeType.allCases) {
-            button.isSelected = data.contains(type.rawValue) ? true : false
-        }
-    }
-    
     private func getAlarm() {
         SettingAPI.shared.getAlarm { [weak self] (data, status) in
             guard let self = self else { return }
@@ -172,7 +169,7 @@ extension SettingAlarmViewController {
     
     private func postAlarm() {
         let selectedButtons = timeButtons.filter { $0.isSelected }
-        let data = selectedButtons.map { $0.data.getTime(index: $0.tag) }
+        let data = selectedButtons.map { AlarmTimeType.allCases[$0.tag].rawValue }
         
         SettingAPI.shared.postAlarm(data: data) { [weak self] (data, status) in
             guard let self else { return }

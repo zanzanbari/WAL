@@ -14,9 +14,7 @@ final class SettingCategoryViewController: UIViewController {
     // MARK: - Properties
         
     private lazy var categoryButtons = [comedyButton, fussButton, comfortButton, yellButton]
-    
-    private let setting = SettingData()
-    
+        
     private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingCategory).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
@@ -36,14 +34,12 @@ final class SettingCategoryViewController: UIViewController {
     }
     
     private let loadingView = LoadingView()
-    
     private lazy var firstCategoryStackView = UIStackView()
     private lazy var secondCategoryStackView = UIStackView()
-    
-    private let comedyButton = CategoryButton(0)
-    private let fussButton = CategoryButton(1)
-    private let comfortButton = CategoryButton(2)
-    private let yellButton = CategoryButton(3)
+    private let comedyButton = CategoryButton(.comedy)
+    private let fussButton = CategoryButton(.fuss)
+    private let comfortButton = CategoryButton(.comfort)
+    private let yellButton = CategoryButton(.yell)
     
     // MARK: - Life Cycle
     
@@ -69,7 +65,6 @@ final class SettingCategoryViewController: UIViewController {
             $0.distribution = .fillEqually
             $0.spacing = 9
         }
-        
         categoryButtons.forEach {
             $0.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
         }
@@ -125,6 +120,12 @@ final class SettingCategoryViewController: UIViewController {
         loadingView.play()
     }
     
+    private func updateButtonStates(data: [String]) {
+        for (button, type) in zip(categoryButtons, WalCategoryType.allCases) {
+            button.isSelected = data.contains(type.rawValue) ? true : false
+        }
+    }
+    
     private func showToastMessage() {
         let selectedButtons = categoryButtons.filter { $0.isSelected }
         if selectedButtons.count < 1 {
@@ -147,23 +148,17 @@ final class SettingCategoryViewController: UIViewController {
 // MARK: - Network
 
 extension SettingCategoryViewController {
-    private func updateButtonStates(data: [String]) {
-        for (button, type) in zip(categoryButtons, WalCategoryType.allCases) {
-            button.isSelected = data.contains(type.rawValue) ? true : false
-        }
-    }
-    
     private func getCategory() {
         SettingAPI.shared.getCategory { [weak self] (data, status) in
             guard let self = self else { return }
             guard let data = data?.categoryInfo else { return }
-            self.updateButtonStates(data: data)
+            updateButtonStates(data: data)
         }
     }
     
     private func postCategory() {
         let selectedButtons = categoryButtons.filter { $0.isSelected }
-        let data = selectedButtons.map { $0.data.getCategory(index: $0.tag) }
+        let data = selectedButtons.map { WalCategoryType.allCases[$0.tag].rawValue }
         
         SettingAPI.shared.postCategory(data: data) { [weak self] (data, status) in
             guard let self = self else { return }

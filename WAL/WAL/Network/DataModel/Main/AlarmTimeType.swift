@@ -16,6 +16,15 @@ enum AlarmTimeType: String, CaseIterable {
     case night        = "NIGHT"
     case none         = ""
     
+    var timeId: Int {
+        switch self {
+        case .morning:   return 0
+        case .afternoon: return 1
+        case .night:     return 2
+        case .none:      return -999
+        }
+    }
+    
     var kor: String {
         switch self {
         case .morning:   return "아침"

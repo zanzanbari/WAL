@@ -9,7 +9,7 @@ import UIKit
 
 import WALKit
 
-class MenuButton: UIButton {
+final class MenuButton: UIButton {
     
     // MARK: - Property
     

@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class ResignHeaderView: UIView {
+final class ResignHeaderView: UIView {
 
     // MARK: - Life Cycle
     

@@ -18,7 +18,7 @@ final class ResignViewController: UIViewController {
     private var resignData = SettingData().resignRowData
     private var reasonData: [String] = []
     
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.resign).then {
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.resign).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -38,7 +38,7 @@ final class ResignViewController: UIViewController {
         $0.sectionHeaderHeight = UITableView.automaticDimension
     }
     
-    private let resignButton = WALPlainButton().then {
+    private lazy var resignButton = WALPlainButton().then {
         $0.title = "탈퇴"
         $0.isDisabled = true
         $0.addTarget(self, action: #selector(touchupResignButton), for: .touchUpInside)
@@ -95,22 +95,30 @@ final class ResignViewController: UIViewController {
     }
     
     @objc func touchupResignButton(_ sender: UIButton) {
-        AuthAPI.shared.postResign(social: UserDefaultsHelper.standard.social ?? "",
-                                  data: reasonData,
-                                  socialtoken: UserDefaultsHelper.standard.socialtoken ?? "") { [weak self] (resignData, err) in
-            guard let resignData = resignData else { return }
-            if resignData.status < 400 {
-                print("☘️-------회원탈퇴 서버 통신", resignData)
-                TokenManager.shared.pushToLoginView()
-                UserDefaultsHelper.standard.removeObject()
-            }
-        }
+        postResign()
     }
     
     @objc func touchupCheckButton(_ sender: UIButton) {
         resignData[sender.tag].select = !resignData[sender.tag].select
-        reasonData = resignData.filter({$0.select}).map { $0.menu }
+        reasonData = resignData.filter({$0.select}).map { $0.menu.rawValue }
         tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .none)
+    }
+}
+
+// MARK: - Network
+
+extension ResignViewController {
+    private func postResign() {
+        let param = ResignRequest(reasons: reasonData)
+        AuthAPI.shared.postResign(param: param) { (resignData, status) in
+            // TODO: - 탈퇴 현재 500 나와서 안되는 중... 아래 성공 204인 경우에 탈퇴처리
+            guard let status = status else { return }
+            if status == 204 {
+                print("탈퇴성공")
+//                TokenManager.shared.pushToLoginView()
+//                UserDefaultsHelper.standard.removeObject()
+            }
+        }
     }
 }
 

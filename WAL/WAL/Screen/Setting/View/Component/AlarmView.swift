@@ -10,7 +10,7 @@ import UIKit
 import Then
 import WALKit
 
-class AlarmView: UIView {
+final class AlarmView: UIView {
     
     // MARK: - Enum
     

@@ -19,9 +19,7 @@ final class CategoryButton: UIButton {
             ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
         }
     }
-    
-    let data = WalCategoryData()
-            
+                
     private let wallbbongImageView = UIImageView()
         
     private let categoryLabel = UILabel().then {
@@ -32,13 +30,10 @@ final class CategoryButton: UIButton {
     
     // MARK: - Initialize
     
-    init(_ index: Int) {
+    init(_ type: WalCategoryType) {
         super.init(frame: .zero)
-        configUI()
+        configUI(type: type)
         setupLayout()
-        categoryLabel.text = data.getCategoryLabel(index: index)
-        wallbbongImageView.image = data.getWallbbongImage(index: index)
-        tag = index
     }
     
     required init?(coder: NSCoder) {
@@ -47,10 +42,13 @@ final class CategoryButton: UIButton {
     
     // MARK: - InitUI
     
-    private func configUI() {
+    private func configUI(type: WalCategoryType) {
         makeRound(radius: 10)
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray400.cgColor
+        categoryLabel.text = type.kor
+        wallbbongImageView.image = type.walImage
+        tag = type.categoryId
     }
     
     private func setupLayout() {

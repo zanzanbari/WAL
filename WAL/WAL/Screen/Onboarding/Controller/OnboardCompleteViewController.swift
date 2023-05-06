@@ -32,7 +32,7 @@ final class OnboardCompleteViewController: UIViewController {
         $0.textAlignment = .center
     }
     
-    private let startButton = WALPlainButton().then {
+    private lazy var startButton = WALPlainButton().then {
         $0.title = Constant.OnboardComplete.start
         $0.isDisabled = false
         $0.addTarget(self, action: #selector(touchupStartButton), for: .touchUpInside)
