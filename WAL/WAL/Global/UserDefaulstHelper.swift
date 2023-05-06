@@ -22,6 +22,7 @@ final class UserDefaultsHelper {
         static let nickname = "nickname"
         static let complete = "complete"
         static let pushNoti = "toggle"
+        static let email = "email"
     }
     
     var accesstoken: String? {
@@ -78,6 +79,15 @@ final class UserDefaultsHelper {
         }
     }
     
+    var email: String? {
+        get {
+            return userDefaults.string(forKey: Key.email) ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: Key.email)
+        }
+    }
+    
     // default 값이 false임 설정을 따로 안해주면
     var complete: Bool {
         get {
@@ -106,6 +116,7 @@ final class UserDefaultsHelper {
         userDefaults.removeObject(forKey: Key.nickname)
         userDefaults.removeObject(forKey: Key.complete)
         userDefaults.removeObject(forKey: Key.pushNoti)
+        userDefaults.removeObject(forKey: Key.email)
     }
     
     // 로그아웃을 위해

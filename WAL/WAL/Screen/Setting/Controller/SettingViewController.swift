@@ -105,7 +105,6 @@ extension SettingViewController: UITableViewDelegate {
         case 0:
             let viewController = MypageViewController()
             transition(viewController)
-            viewController.email = email
             viewController.nickname = nickname
             viewController.sendNicknameDelegate = self
         case 1:
@@ -204,13 +203,11 @@ extension SettingViewController {
         }
     }
     
-    func requestNickname() {
+    private func requestNickname() {
         SettingAPI.shared.getUserInfo { [weak self] (userInfo, nil) in
             guard let self else { return }
             guard let data = userInfo?.nickname else { return }
-            print("🔶🔶🔶 ", data)
             self.nickname = data
-//            self.email = data.email
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

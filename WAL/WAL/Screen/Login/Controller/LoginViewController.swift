@@ -23,12 +23,12 @@ final class LoginViewController: UIViewController {
         $0.animate(withGIFNamed: Constant.Login.gif, loopCount: 5)
     }
     
-    private let kakaoButton = WALAuthButton(type: .kakao).then {
+    private lazy var kakaoButton = WALAuthButton(type: .kakao).then {
         $0.addTarget(self, action: #selector(touchupKakaoButton), for: .touchUpInside)
         $0.alpha = 0
     }
     
-    private let appleButton = WALAuthButton(type: .apple).then {
+    private lazy var appleButton = WALAuthButton(type: .apple).then {
         $0.addTarget(self, action: #selector(touchupAppleButton), for: .touchUpInside)
         $0.alpha = 0
     }
@@ -82,17 +82,21 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    // TODO: - 해결 연결 넘어가는 것 닉네임이 없음
     private func pushToHome() {
-        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
-        print(nickname, "LoginView 닉네임==================")
-        if nickname == "" {
-            print("🛼 pushToHome() 로그인 후 온보딩을 완료하지 않아 온보딩뷰입니다.")
-            transition(OnboardingViewController(), .presentFullNavigation)
-        } else {
-            // 로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
-            print("🛼 pushToHome() \(nickname)님, 로그인 후 온보딩 완료 후 메인뷰입니다.")
-            transition(MainViewController(viewModel: .init()), .presentFullNavigation)
-        }
+        print(#function)
+//        transition(OnboardingViewController(), .presentFullNavigation)
+        transition(MainViewController(viewModel: .init()), .presentFullNavigation)
+//        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
+//        print(nickname, "LoginView 닉네임==================")
+//        if nickname == "" {
+//            print("🛼 pushToHome() 로그인 후 온보딩을 완료하지 않아 온보딩뷰입니다.")
+//            transition(OnboardingViewController(), .presentFullNavigation)
+//        } else {
+//            // 로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
+//            print("🛼 pushToHome() \(nickname)님, 로그인 후 온보딩 완료 후 메인뷰입니다.")
+//            transition(MainViewController(viewModel: .init()), .presentFullNavigation)
+//        }
     }
     
     // MARK: - @objc
@@ -120,27 +124,24 @@ final class LoginViewController: UIViewController {
 // MARK: - Network
 
 extension LoginViewController {
-    func postSocialLogin(social: String, socialtoken: String, fcmtoken: String) {
-        AuthAPI.shared.postSocialLogin(social: social, socialtoken: socialtoken,
-            fcmtoken: fcmtoken) { [weak self] ( data, error) in
-                guard let self = self else { return }
-                if data!.status == 403 {
+    private func postLogin(socialToken: String, socialType: SocialType, fcmToken: String) {
+        let param = LoginRequest(socialToken, socialType.rawValue, fcmToken)
+        AuthAPI.shared.postLogin(param: param) { [weak self] ( data, error) in
+            guard let self = self else { return }
+            if let data = data {
+                if data.statusCode == 403 {
                     self.showAlert(title: Constant.Login.resign,
                                    message: nil,
                                    actions: [],
                                    cancelTitle: "확인",
                                    preferredStyle: .alert)
-                } else {
-                    guard let data = data,
-                          let accessData = data.data else { return }
-                    UserDefaultsHelper.standard.nickname = accessData.nickname
-                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
-                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
-                    UserDefaultsHelper.standard.socialtoken = socialtoken
-                    UserDefaultsHelper.standard.social = social
-                    self.pushToHome()
                 }
+            } else {
+                UserDefaultsHelper.standard.socialtoken = socialToken
+                UserDefaultsHelper.standard.social = socialType.rawValue
+                self.pushToHome()
             }
+        }
     }
 }
 
@@ -152,10 +153,9 @@ extension LoginViewController {
             guard let self = self else { return }
             UserApi.shared.me { (user, error) in
                 guard let oauthToken = oauthToken,
-                      let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-                self.postSocialLogin(social: SocialType.kakao.rawValue,
-                                     socialtoken: oauthToken.accessToken,
-                                     fcmtoken: fcmtoken)
+                      let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+                self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
+                UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
             }
         }
     }
@@ -165,10 +165,9 @@ extension LoginViewController {
             UserApi.shared.me { [weak self] (user, error) in
                 guard let self = self else { return }
                 guard let oauthToken = oauthToken,
-                      let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-                self.postSocialLogin(social: SocialType.kakao.rawValue,
-                                     socialtoken: oauthToken.accessToken,
-                                     fcmtoken: fcmtoken)
+                      let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+                self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
+                UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
             }
         }
     }
@@ -180,12 +179,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         if let identityToken = appleIDCredential.identityToken {
-            let tokenString = String(data: identityToken, encoding: .utf8)
-            guard let tokenString = tokenString,
-                  let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-            self.postSocialLogin(social: SocialType.apple.rawValue,
-                                 socialtoken: tokenString,
-                                 fcmtoken: fcmtoken)            
+            guard let tokenString = String(data: identityToken, encoding: .utf8),
+                  let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+            self.postLogin(socialToken: tokenString, socialType: .APPLE, fcmToken: fcmToken)
         }
     }
     

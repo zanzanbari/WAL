@@ -17,7 +17,6 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     weak var sendNicknameDelegate: SendNicknameDelegate?
     
     var nickname = ""
-    var email = ""
     
     private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.mypage).then {
         $0.backgroundColor = .white100
@@ -57,11 +56,7 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        if UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue {
-            $0.text = email
-        } else if UserDefaultsHelper.standard.social == SocialType.APPLE.rawValue {
-            $0.text = "-"
-        }
+        $0.text = UserDefaultsHelper.standard.email ?? "-"
     }
     
     private lazy var logoutButton = MenuButton(0).then {
