@@ -14,29 +14,31 @@ final class OnboardAPI {
     private let onboardProvider = MoyaProvider<OnboardService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
     
-    private(set) var onboardData: GenericResponse<Onboard>?
+    private(set) var onboard: UserInfo?
     
-    typealias completion = ((GenericResponse<Onboard>?, Int?) -> ())
+    typealias completion = ((UserInfo?, Int?) -> ())
     
     // MARK: - POST 온보딩
     
-    func postOnboardSetting(nickname: String,
-                                   category: CategoryType,
-                                   alarm: AlarmTime,
-                                   completion: @escaping completion) {
+    func postOnboard(nickname: String,
+                     category: [String],
+                     time: [String],
+                     completion: @escaping completion) {
         
-        let param = OnboardRequest.init(nickname, category, alarm)
+        let param = OnboardRequest.init(nickname: nickname, categoryTypes: category, timeTypes: time)
         
-        onboardProvider.request(.setInfo(param: param)) { result in
+        onboardProvider.request(.onboard(param)) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.onboardData = try response.map(GenericResponse<Onboard>?.self)
-                    guard let onboardData = self.onboardData else { return }
-                    completion(onboardData, nil)
+                    self.onboard = try response.map(UserInfo?.self)
+                    guard let onboard = self.onboard else { return }
+                    completion(onboard, nil)
+                    print("성공", response.statusCode, onboard.nickname)
                     
                 } catch(let err) {
-                    print(err.localizedDescription, 500)
+                    print(err.localizedDescription, 500, "실패")
+                    completion(nil, response.statusCode)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
