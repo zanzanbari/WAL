@@ -9,11 +9,18 @@ import UIKit
 
 import WALKit
 
-class CategoryButton: UIButton {
+final class CategoryButton: UIButton {
     
     // MARK: - Property
     
-    private let cardData = CardData()
+    override var isSelected: Bool {
+        didSet {
+            layer.borderColor = isSelected
+            ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        }
+    }
+    
+    let data = WalCategoryData()
             
     private let wallbbongImageView = UIImageView()
         
@@ -29,8 +36,9 @@ class CategoryButton: UIButton {
         super.init(frame: .zero)
         configUI()
         setupLayout()
-        categoryLabel.text = cardData.getCardLabel(index: index)
-        wallbbongImageView.image = cardData.getWallbbongImage(index: index)
+        categoryLabel.text = data.getCategoryLabel(index: index)
+        wallbbongImageView.image = data.getWallbbongImage(index: index)
+        tag = index
     }
     
     required init?(coder: NSCoder) {

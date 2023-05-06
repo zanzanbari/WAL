@@ -13,7 +13,14 @@ final class TimeButton: UIButton {
     
     // MARK: - Property
     
-    private let timeData = TimeData()
+    override var isSelected: Bool {
+        didSet {
+            layer.borderColor = isSelected
+            ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        }
+    }
+    
+    let data = AlarmTimeData()
             
     private let timeLabel = UILabel().then {
         $0.font = WALFont.body6.font
@@ -29,8 +36,9 @@ final class TimeButton: UIButton {
         super.init(frame: .zero)
         configUI()
         setupLayout()
-        timeLabel.text = timeData.getTimeLabel(index: index)
-        timeImageView.image = timeData.getTimeImage(index: index)
+        timeLabel.text = data.getTimeLabel(index: index)
+        timeImageView.image = data.getTimeImage(index: index)
+        tag = index
     }
     
     required init?(coder: NSCoder) {

@@ -9,6 +9,7 @@ import UIKit
 
 import WALKit
 
+// TODO: - 온보딩 세팅에서 해당 내용 수정하고 이 파일 버릴 것
 struct Time {
     var time: String
     var image: UIImage
@@ -20,19 +21,15 @@ struct Time {
 }
 
 struct TimeData {
-    let timeData = [Time("아침", WALIcon.icnMorning.image),
-                    Time("점심", WALIcon.icnLaunch.image),
-                    Time("저녁", WALIcon.icnEvening.image)]
-    
     func getTimeCount() -> Int {
-        return timeData.count
+        return 3
     }
     
     func getTimeLabel(index: Int) -> String {
-        return timeData[index].time
+        return AlarmTimeType.allCases[index].kor
     }
     
-    func getTimeImage(index: Int) -> UIImage {
-        return timeData[index].image
+    func getTimeImage(index: Int) -> UIImage? {
+        return AlarmTimeType.allCases[index].onboardImage
     }
 }

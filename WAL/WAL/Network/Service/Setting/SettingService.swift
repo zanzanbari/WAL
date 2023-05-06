@@ -11,9 +11,9 @@ enum SettingService {
     case checkNickname
     case checkAlarm
     case checkCategory
-    case editNickname(nickname: String)
-    case editAlarm(alarm: UserAlarmRequest)
-    case editCategory(category: UserCategoryRequest)
+    case editNickname(String)
+    case editAlarm(UserAlarmRequest)
+    case editCategory(UserCategoryRequest)
 }
 
 extension SettingService: BaseTargetType {
@@ -24,8 +24,8 @@ extension SettingService: BaseTargetType {
         case .checkAlarm: return "user/me/time"
         case .checkCategory: return "user/me/category"
         case .editNickname: return "/user/me/nickname/edit"
-        case .editAlarm: return "/user/info/time"
-        case .editCategory: return "/user/info/category"
+        case .editAlarm: return "/onboard/time/edit"
+        case .editCategory: return "/onboard/category/edit"
         }
     }
     
