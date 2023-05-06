@@ -15,6 +15,24 @@ enum AlarmTimeType: String, CaseIterable {
     case afternoon    = "AFTERNOON"
     case night        = "NIGHT"
     case none         = ""
+    
+    var kor: String {
+        switch self {
+        case .morning:   return "아침"
+        case .afternoon: return "점심"
+        case .night:     return "저녁"
+        case .none:      return ""
+        }
+    }
+    
+    var onboardImage: UIImage? {
+        switch self {
+        case .morning:   return WALIcon.icnMorning.image
+        case .afternoon: return WALIcon.icnLaunch.image
+        case .night:     return WALIcon.icnEvening.image
+        case .none:      return nil
+        }
+    }
 
     var pawImage: UIImage? {
         switch self {
@@ -30,5 +48,23 @@ enum AlarmTimeType: String, CaseIterable {
         default:
             return UIColor.orange100
         }
+    }
+}
+
+struct AlarmTimeData {
+    func getTimeCount() -> Int {
+        return 3
+    }
+    
+    func getTime(index: Int) -> String {
+        return AlarmTimeType.allCases[index].rawValue
+    }
+    
+    func getTimeLabel(index: Int) -> String {
+        return AlarmTimeType.allCases[index].kor
+    }
+    
+    func getTimeImage(index: Int) -> UIImage? {
+        return AlarmTimeType.allCases[index].onboardImage
     }
 }
