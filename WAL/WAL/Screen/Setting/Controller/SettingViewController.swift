@@ -75,10 +75,8 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     }
     
     private func setupTableView() {
-        tableView.register(MyInfoTableViewCell.self,
-                           forCellReuseIdentifier: MyInfoTableViewCell.identifier)
-        tableView.register(SettingTableViewCell.self,
-                           forCellReuseIdentifier: SettingTableViewCell.identifier)
+        MyInfoTableViewCell.register(tableView)
+        SettingTableViewCell.register(tableView)
     }
 
     // MARK: - @objc
