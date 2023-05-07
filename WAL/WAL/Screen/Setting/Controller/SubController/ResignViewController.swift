@@ -85,7 +85,7 @@ final class ResignViewController: UIViewController {
     }
     
     private func setupTableView() {
-        tableView.register(ResignTableViewCell.self, forCellReuseIdentifier: ResignTableViewCell.identifier)
+        ResignTableViewCell.register(tableView)
     }
    
     // MARK: - @objc
@@ -111,12 +111,11 @@ extension ResignViewController {
     private func postResign() {
         let param = ResignRequest(reasons: reasonData)
         AuthAPI.shared.postResign(param: param) { (resignData, status) in
-            // TODO: - 탈퇴 현재 500 나와서 안되는 중... 아래 성공 204인 경우에 탈퇴처리
             guard let status = status else { return }
             if status == 204 {
                 print("탈퇴성공")
-//                TokenManager.shared.pushToLoginView()
-//                UserDefaultsHelper.standard.removeObject()
+                TokenManager.shared.pushToLoginView()
+                UserDefaultsHelper.standard.removeObject()
             }
         }
     }
