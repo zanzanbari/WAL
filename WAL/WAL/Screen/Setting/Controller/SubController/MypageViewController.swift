@@ -46,17 +46,15 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var loginSubtitleLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue {
-            $0.text = SocialType.KAKAO.login
-        } else if UserDefaultsHelper.standard.social == SocialType.APPLE.rawValue {
-            $0.text = SocialType.APPLE.login
-        }
+        $0.text = UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue
+        ? SocialType.KAKAO.login : SocialType.APPLE.login
     }
     
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        $0.text = UserDefaultsHelper.standard.email ?? "-"
+        $0.text = UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue
+        ? UserDefaultsHelper.standard.email : "-"
     }
     
     private lazy var logoutButton = MenuButton(0).then {
@@ -175,5 +173,6 @@ extension MypageViewController {
     func sendNickname(_ nickname: String) {
         nicknameButton.setTitle(nickname, for: .normal)
         self.nickname = nickname
+        UserDefaultsHelper.standard.nickname = nickname
     }
 }
