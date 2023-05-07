@@ -61,21 +61,17 @@ final class AuthAPI {
         authProvider.request(.resign(param: param)) { result in
             switch result {
             case .success(let response):
-                if let statusCase = self.defaultData?.statusCase {
-                    switch statusCase {
-                    case .noContent:
-                        completion(nil, statusCase.rawValue)
-                    default:
-                        do {
-                            self.defaultData = try response.map(DefaultResponse?.self)
-                            guard let defaultData = self.defaultData else { return }
-                            completion(defaultData, nil)
-                        } catch {
-                            completion(nil, 500)
-                        }
-                    }
+                if response.statusCode == 204 {
+                    completion(nil, 204)
                 } else {
-                    completion(nil, response.statusCode)
+                    do {
+                        self.defaultData = try response.map(DefaultResponse?.self)
+                        guard let defaultData = self.defaultData else { return }
+                        completion(defaultData, nil)
+                    } catch(let err) {
+                        print(err.localizedDescription)
+                        completion(nil, 500)
+                    }
                 }
         
             case .failure(let err):
