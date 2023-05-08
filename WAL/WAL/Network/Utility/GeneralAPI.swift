@@ -10,7 +10,10 @@ import Foundation
 struct GeneralAPI {
     private init() { }
     static let baseURL = "http://15.165.167.252/api"
-    static let contentType = "application/json"
+    static let contentType = "Content-Type"
+    static let json = "application/json"
+    static let authentication = "Authorization"
+    static let refreshToken = "Refresh-Token"
 }
 
 extension GeneralAPI {

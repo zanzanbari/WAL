@@ -44,13 +44,13 @@ extension AuthService: BaseTargetType {
     var headers: [String: String]? {
         switch self {
         case .login:
-            return ["Content-Type": GeneralAPI.contentType]
+            return [GeneralAPI.contentType: GeneralAPI.json]
         case .reissue:
-            return ["Content-Type": GeneralAPI.contentType,
-                    "Refresh-Token": UserDefaultsHelper.standard.refreshtoken ?? ""]
+            return [GeneralAPI.contentType: GeneralAPI.json,
+                    GeneralAPI.refreshToken: UserDefaultsHelper.standard.refreshtoken ?? ""]
         default:
-            return ["Content-Type": GeneralAPI.contentType,
-                    "Authorization": UserDefaultsHelper.standard.accesstoken ?? ""]
+            return [GeneralAPI.contentType: GeneralAPI.json,
+                    GeneralAPI.authentication: UserDefaultsHelper.standard.accesstoken ?? ""]
         }
     }
 }
