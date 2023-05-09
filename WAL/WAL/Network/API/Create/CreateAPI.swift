@@ -11,9 +11,12 @@ import Moya
 
 final class CreateAPI {
     static let shared: CreateAPI = CreateAPI()
-    private let createProvider = MoyaProvider<CreateService>(plugins: [MoyaLoggerPlugin()])
     private init() {}
-    
+    private let createProvider = MoyaProvider<CreateService>(
+        session: Session(interceptor: Interceptor()),
+        plugins: [MoyaLoggerPlugin()]
+    )
+
     private(set) var reserveResponse: GenericResponse<Reserve>?
     private(set) var reservedDateResponse: GenericArrayResponse<String>?
     

@@ -11,9 +11,12 @@ import Moya
 
 final class OnboardAPI {
     static let shared: OnboardAPI = OnboardAPI()
-    private let onboardProvider = MoyaProvider<OnboardService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
-    
+    private let onboardProvider = MoyaProvider<OnboardService>(
+        session: Session(interceptor: Interceptor()),
+        plugins: [MoyaLoggerPlugin()]
+    )
+
     private(set) var onboard: UserInfo?
     
     typealias completion = ((UserInfo?, Int?) -> ())
@@ -34,7 +37,6 @@ final class OnboardAPI {
                     self.onboard = try response.map(UserInfo?.self)
                     guard let onboard = self.onboard else { return }
                     completion(onboard, nil)
-                    print("성공", response.statusCode, onboard.nickname)
                     
                 } catch(let err) {
                     print(err.localizedDescription, 500, "실패")

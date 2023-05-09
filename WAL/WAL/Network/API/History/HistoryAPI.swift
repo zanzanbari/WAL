@@ -11,8 +11,11 @@ import Moya
 
 final class HistoryAPI {
     static let shared: HistoryAPI = HistoryAPI()
-    private let historyProvider = MoyaProvider<HistoryService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
+    private let historyProvider = MoyaProvider<HistoryService>(
+        session: Session(interceptor: Interceptor()),
+        plugins: [MoyaLoggerPlugin()]
+    )
     
     public private(set) var historyData: GenericResponse<HistoryResponse>?
     public private(set) var cancelHistoryData: GenericResponse<DeleteHistoryResponse>?

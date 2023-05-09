@@ -10,9 +10,12 @@ import Foundation
 import Moya
 
 final class SettingAPI {
-    private init() { }
     static let shared = SettingAPI()
-    private let settingProvider = MoyaProvider<SettingService>(plugins: [MoyaLoggerPlugin()])
+    private init() { }
+    private let settingProvider = MoyaProvider<SettingService>(
+        session: Session(interceptor: Interceptor()),
+        plugins: [MoyaLoggerPlugin()]
+    )
     
     typealias completion = (UserInfo?, Int?) -> ()
     typealias alarmCompletion = (UserAlarm?, Int?) -> ()
@@ -34,9 +37,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.userInfo = try response.map(UserInfo?.self)
-                    guard let userInfo = self.userInfo else { return }
-                    completion(userInfo, nil)
-                    
+                    completion(self.userInfo, response.statusCode)
                 } catch(let error) {
                     print(error.localizedDescription)
                 }
@@ -57,9 +58,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.alarm = try response.map(UserAlarm?.self)
-                    guard let alarm = self.alarm else { return }
-                    completion(alarm, response.statusCode)
-                    
+                    completion(self.alarm, response.statusCode)
                 } catch(let error) {
                     print(error.localizedDescription)
                     completion(nil, response.statusCode)
@@ -80,9 +79,7 @@ final class SettingAPI {
             case .success(let response):
                 do {
                     self.category = try response.map(UserCategory?.self)
-                    guard let category = self.category else { return }
-                    completion(category, nil)
-                    
+                    completion(self.category, response.statusCode)
                 } catch(let error) {
                     print(error.localizedDescription)
                 }
@@ -101,21 +98,21 @@ final class SettingAPI {
             guard let self else { return }
             switch result {
             case .success(let response):
-                if response.statusCode == 204 {
+                switch response.statusCode {
+                case 204:
                     completion(nil, 204)
-                } else {
+                case 300...500:
                     do {
-                        self.userInfo = try response.map(UserInfo?.self)
-                        guard let userInfo = self.userInfo else { return }
-                        completion(userInfo, nil)
-                        
-                    } catch(let error) {
-                        print(error.localizedDescription)
+                        self.userInfo = try response.map(UserInfo.self)
+                        completion(self.userInfo, nil)
+                    } catch {
                         completion(nil, 500)
                     }
+                default:
+                    completion(nil, response.statusCode)
                 }
                 
-            case.failure(let error):
+            case .failure(let error):
                 print(error.localizedDescription)
                 completion(nil, 500)
             }
@@ -131,18 +128,19 @@ final class SettingAPI {
         settingProvider.request(.editAlarm(param)) { result in
             switch result {
             case .success(let response):
-                if response.statusCode == 204 {
+                switch response.statusCode {
+                case 204:
                     completion(nil, 204)
-                } else {
+                case 300...500:
                     do {
                         self.defaultResponse = try response.map(DefaultResponse?.self)
-                        guard let defaultResponse = self.defaultResponse else { return }
-                        completion(defaultResponse, nil)
-                        
+                        completion(self.defaultResponse, nil)
                     } catch(let error) {
                         print(error.localizedDescription)
                         completion(nil, 500)
                     }
+                default:
+                    completion(nil, response.statusCode)
                 }
                 
             case.failure(let error):
@@ -161,18 +159,19 @@ final class SettingAPI {
         settingProvider.request(.editCategory(param)) { result in
             switch result {
             case .success(let response):
-                if response.statusCode == 204 {
+                switch response.statusCode {
+                case 204:
                     completion(nil, 204)
-                } else {
+                case 300...500:
                     do {
                         self.category = try response.map(UserCategory?.self)
-                        guard let category = self.category else { return }
-                        completion(category, nil)
-                        
+                        completion(self.category, nil)
                     } catch(let error) {
                         print(error.localizedDescription)
                         completion(nil, 500)
                     }
+                default:
+                    completion(nil, response.statusCode)
                 }
                 
             case.failure(let error):
