@@ -58,14 +58,6 @@ final class MoyaLoggerPlugin: PluginType {
         log.append("5️⃣ Response Header:\n- AccessToken: \(accessHeader) \n\n- RefreshToken: \(refreshHeader)")
         log.append("\n\n============================================= END HTTP =============================================\n\n")
         print(log)
-        
-        switch statusCode {
-        case 401:
-            print("1-1. 앗! 액세스토큰이 만료됐으니 갱신API 호출할게요!")
-            TokenManager.shared.refreshTokenAPI(statusCode)
-        default:
-            return
-        }
     }
     
     func onFail(_ error: MoyaError) {
