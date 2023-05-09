@@ -53,8 +53,8 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        $0.text = UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue
-        ? UserDefaultsHelper.standard.email : "-"
+        let text = UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue ? UserDefaultsHelper.standard.email : "-"
+        $0.text = text
     }
     
     private lazy var logoutButton = MenuButton(0).then {

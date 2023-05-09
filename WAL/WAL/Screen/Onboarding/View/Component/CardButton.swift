@@ -15,8 +15,7 @@ final class CardButton: UIButton {
     
     override var isSelected: Bool {
         didSet {
-            layer.borderColor = isSelected
-            ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+            layer.borderColor = isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
         }
     }
                 
