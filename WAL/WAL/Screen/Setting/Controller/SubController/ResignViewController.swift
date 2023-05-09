@@ -110,11 +110,12 @@ final class ResignViewController: UIViewController {
 extension ResignViewController {
     private func postResign() {
         let param = ResignRequest(reasons: reasonData)
-        AuthAPI.shared.postResign(param: param) { (resignData, status) in
+        AuthAPI.shared.postResign(param: param) { [weak self] (resignData, status) in
+            guard let self else { return }
             guard let status = status else { return }
             if status == 204 {
                 print("탈퇴성공")
-                TokenManager.shared.pushToLoginView()
+                self.pushToLoginView()
                 UserDefaultsHelper.standard.removeObject()
             }
         }

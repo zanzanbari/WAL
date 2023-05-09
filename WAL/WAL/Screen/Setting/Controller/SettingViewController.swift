@@ -16,10 +16,9 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     // MARK: - Properties
     
     var nickname = ""
-    var email = ""
     private let setting = SettingData()
     
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.setting).then {
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.setting).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)

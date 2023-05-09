@@ -28,11 +28,8 @@ final class MyInfoTableViewCell: BaseTableViewCell {
     let socialTypeLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue {
-            $0.text = SocialType.KAKAO.login
-        } else if UserDefaultsHelper.standard.social == SocialType.APPLE.rawValue {
-            $0.text = SocialType.APPLE.login
-        }
+        $0.text = UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue ?
+        SocialType.KAKAO.login : SocialType.APPLE.login
     }
     
     private let infoLabel = UILabel().then {

@@ -63,3 +63,14 @@ extension UIViewController {
         transition(alert, .present)
     }
 }
+
+extension UIViewController {
+    func pushToLoginView() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let viewController = LoginViewController(viewModel: LoginViewModel())
+        sceneDelegate?.window?.rootViewController = viewController
+        sceneDelegate?.window?.makeKeyAndVisible()
+        UserDefaultsHelper.standard.removeAccessToken()
+    }
+}

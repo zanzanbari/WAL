@@ -12,10 +12,15 @@ import Gifu
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
+import RxSwift
 import Then
 import WALKit
 
 final class LoginViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
+    
+    private let viewModel: LoginViewModel
     
     // MARK: - Properties
     
@@ -33,6 +38,15 @@ final class LoginViewController: UIViewController {
         $0.alpha = 0
     }
     
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -40,6 +54,7 @@ final class LoginViewController: UIViewController {
         configUI()
         setupLayout()
         setLoginAnimation()
+        bindViewModel()
     }
     
     // MARK: - InitUI
@@ -80,6 +95,10 @@ final class LoginViewController: UIViewController {
             self.appleButton.alpha = 1
             self.kakaoButton.alpha = 1
         }
+    }
+    
+    private func bindViewModel() {
+        
     }
     
     // TODO: - 해결 연결 넘어가는 것 닉네임이 없음

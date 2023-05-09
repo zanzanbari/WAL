@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+import RxSwift
+
+final class LoginViewModel {
+    
+}
