@@ -41,9 +41,6 @@ final class MainAPI {
                         if let _statusCase = self.mainData?.statusCase {
                             switch _statusCase {
                             case .unAuthorized:
-//                                self.refreshValue += 1
-//                                print("이것입니다 ===>>>", self.refreshValue)
-//                                TokenManager.shared.refreshTokenAPI(401)
                                 self.getMainData(completion: completion)
                             default:
                                 return
@@ -81,9 +78,6 @@ final class MainAPI {
                     if let _statusCase = self.mainData?.statusCase {
                         switch _statusCase {
                         case .unAuthorized:
-//                            self.refreshValue += 1
-//                            print("이것입니다 ===>>>", self.refreshValue)
-//                            TokenManager.shared.refreshTokenAPI(401)
                             self.updateMainData(id: id, completion: completion)
                         default:
                             return
@@ -127,9 +121,6 @@ final class MainAPI {
                         if let _statusCase = self.subtitle?.statusCase {
                             switch _statusCase {
                             case .unAuthorized:
-                                self.refreshValue += 1
-                                print("이것입니다 ===>>>", self.refreshValue)
-                                TokenManager.shared.refreshTokenAPI(401)
                                 self.getMainSubtitle(completion: completion)
                             default:
                                 return
