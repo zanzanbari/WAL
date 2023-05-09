@@ -216,8 +216,7 @@ final class MainViewController: UIViewController {
         
         viewModel.output.subTitle
             .bind(with: self) { owner, res in
-//                owner.titleView.subTitle = res
-                owner.titleView.subTitle = "왈서브타이틀이들어갈영역입니다."
+                owner.titleView.subTitle = res
             }
             .disposed(by: disposeBag)
         
@@ -284,6 +283,7 @@ final class MainViewController: UIViewController {
     
     private func rxBindInput() {
         viewModel.input.reqTodayWal.accept(())
+        viewModel.input.reqSubtitle.accept(())
     }
     
     // MARK: - Custom Method

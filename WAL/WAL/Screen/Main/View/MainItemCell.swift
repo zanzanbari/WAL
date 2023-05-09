@@ -35,7 +35,7 @@ final class MainItemCell: UICollectionViewCell {
     
     private var content: String = ""
     
-    private var type: WALDataType = .morning
+    private var type: WalDataType = .morning
     
     weak var delegate: MainItemCellDelegate?
     

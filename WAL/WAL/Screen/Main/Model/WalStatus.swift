@@ -9,7 +9,7 @@ import UIKit
 
 import WALKit
 
-enum WALStatus {
+enum WalStatus {
     case sleeping
     case arrived
     case checkedAvailable
