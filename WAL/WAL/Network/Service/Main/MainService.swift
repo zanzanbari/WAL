@@ -10,6 +10,7 @@ import Moya
 enum MainService {
     case todayWal
     case openTodayWal(todayWalId: Int)
+    case subtitle
 }
 
 extension MainService: BaseTargetType {
@@ -20,12 +21,14 @@ extension MainService: BaseTargetType {
             return "/today-wal"
         case .openTodayWal(let todayWalId):
             return "/today-wal/\(todayWalId)"
+        case .subtitle:
+            return "/subtitle"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .todayWal:
+        case .todayWal, .subtitle:
             return .get
         case .openTodayWal:
             return .patch
@@ -34,7 +37,7 @@ extension MainService: BaseTargetType {
     
     var task: Task {
         switch self {
-        case .todayWal, .openTodayWal:
+        case .todayWal, .openTodayWal, .subtitle:
             return .requestPlain
         }
     }

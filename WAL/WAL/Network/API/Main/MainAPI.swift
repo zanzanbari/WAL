@@ -16,6 +16,7 @@ final class MainAPI {
     )
 
     private(set) var mainData: TodayWalList?
+    private(set) var subtitle: MainSubtitle?
     
     private var refreshValue = 0
     
@@ -105,4 +106,50 @@ final class MainAPI {
         
     }
     
+    /// 메인 - 서브타이틀 조회
+    func getMainSubtitle(completion: @escaping ((MainSubtitle?, NetworkResult?) -> ())) {
+        
+        mainProvider.request(.subtitle) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let response):
+                do {
+                    
+                    self.subtitle = try response.map(MainSubtitle.self)
+                    
+                    // 200
+                    if let _subtitle = self.subtitle {
+                        completion(_subtitle, nil)
+                    } else {
+                        
+                        // 300 ~ 500
+                        if let _statusCase = self.subtitle?.statusCase {
+                            switch _statusCase {
+                            case .unAuthorized:
+                                self.refreshValue += 1
+                                print("이것입니다 ===>>>", self.refreshValue)
+                                TokenManager.shared.refreshTokenAPI(401)
+                                self.getMainSubtitle(completion: completion)
+                            default:
+                                return
+                            }
+                            
+                            completion(nil, _statusCase)
+                        }
+                        
+                    }
+                    
+                } catch(let err) {
+                    print(err.localizedDescription, 500)
+                    completion(nil, NetworkResult.internalServerError)
+                }
+                
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(nil, NetworkResult.internalServerError)
+            }
+        }
+        
+    }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 import WALKit
 
-enum WALDataType {
+enum WalDataType {
     case morning
     case lunch
     case evening
