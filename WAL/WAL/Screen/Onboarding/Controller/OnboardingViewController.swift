@@ -158,15 +158,13 @@ extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate 
 extension OnboardingViewController {
     private func postOnboard() {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
-        // TODO: - 409 기존 유저라서 온보딩 세팅 확인 불가능
         OnboardAPI.shared.postOnboard(nickname: nickname,
                                       category: category,
                                       time: time) { [weak self] data, status in
             guard let self else { return }
-            guard let data = data else { return }
-            if data.statusCode == 201 {
+            guard let status = status else { return }
+            if status == 201 {
                 let viewController = OnboardCompleteViewController()
-                // 버튼 누른 경우 온보딩 설정 완료! -> 앞으로 앱 실행 시에 자동로그인 + 메인으로 화면 전환
                 UserDefaultsHelper.standard.complete = true
                 self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
