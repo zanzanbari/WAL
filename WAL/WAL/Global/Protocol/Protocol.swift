@@ -35,11 +35,11 @@ protocol SendNicknameDelegate: AnyObject {
 }
 
 protocol SendCategoryDelegate: OnboardingViewController {
-    func sendCategory(joke: Bool, compliment: Bool, condolence: Bool, scolding: Bool)
+    func sendCategory(data: [String])
 }
 
 protocol SendAlarmTimeDelegate: OnboardingViewController {
-    func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool)
+    func sendTime(data: [String])
 }
 
 protocol ResendWalDelegate: AnyObject{

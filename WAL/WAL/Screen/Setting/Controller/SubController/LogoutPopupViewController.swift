@@ -57,6 +57,6 @@ final class LogoutPopupViewController: UIViewController {
     }
     
     @objc func touchupOkButton() {
-        TokenManager.shared.pushToLoginView()
+        pushToLoginView()
     }
 }

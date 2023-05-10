@@ -17,7 +17,7 @@ final class ZanzanbariViewController: UIViewController {
     
     private let statusBarView = UIView()
     
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.zanzan).then {
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.zanzan).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -69,13 +69,11 @@ final class ZanzanbariViewController: UIViewController {
     
     private let buttonBackView = UIView()
     
-    private let sendOpinionButton = UIButton(type: .system).then {
+    private lazy var sendOpinionButton = UIButton(type: .system).then {
         $0.setTitle("팀 쟌쟌바리에게 의견 보내기", for: .normal)
         $0.setTitleColor(.black100, for: .normal)
         $0.titleLabel?.font = WALFont.body7.font
-        $0.addTarget(self,
-                     action: #selector(touchupSendOpinionButton),
-                     for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchupSendOpinionButton), for: .touchUpInside)
     }
     
     // MARK: - Life Cycle

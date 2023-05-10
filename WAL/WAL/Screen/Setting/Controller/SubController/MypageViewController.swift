@@ -17,9 +17,8 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     weak var sendNicknameDelegate: SendNicknameDelegate?
     
     var nickname = ""
-    var email = ""
     
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.mypage).then {
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.mypage).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
@@ -47,28 +46,22 @@ final class MypageViewController: UIViewController, SendNicknameDelegate {
     private lazy var loginSubtitleLabel = UILabel().then {
         $0.font = WALFont.body9.font
         $0.textColor = .gray100
-        if UserDefaultsHelper.standard.social == SocialType.kakao.rawValue {
-            $0.text = SocialType.kakao.login
-        } else if UserDefaultsHelper.standard.social == SocialType.apple.rawValue {
-            $0.text = SocialType.apple.login
-        }
+        let type = UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue ? SocialType.KAKAO : SocialType.APPLE
+        $0.text = type.login
     }
     
     private lazy var emailLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
-        if UserDefaultsHelper.standard.social == SocialType.kakao.rawValue {
-            $0.text = email
-        } else if UserDefaultsHelper.standard.social == SocialType.apple.rawValue {
-            $0.text = "-"
-        }
+        let text = UserDefaultsHelper.standard.social == SocialType.KAKAO.rawValue ? UserDefaultsHelper.standard.email : "-"
+        $0.text = text
     }
     
-    private let logoutButton = MenuButton(0).then {
+    private lazy var logoutButton = MenuButton(0).then {
         $0.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
     }
     
-    private let resignButton = MenuButton(1).then {
+    private lazy var resignButton = MenuButton(1).then {
         $0.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
     }
 
@@ -180,5 +173,6 @@ extension MypageViewController {
     func sendNickname(_ nickname: String) {
         nicknameButton.setTitle(nickname, for: .normal)
         self.nickname = nickname
+        UserDefaultsHelper.standard.nickname = nickname
     }
 }

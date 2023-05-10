@@ -13,8 +13,12 @@ final class CardButton: UIButton {
     
     // MARK: - Property
     
-    private let cardData = CardData()
-            
+    override var isSelected: Bool {
+        didSet {
+            layer.borderColor = isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        }
+    }
+                
     private let cardImageView = UIImageView()
     private let wallbbongImageView = UIImageView()
         
@@ -33,14 +37,10 @@ final class CardButton: UIButton {
     
     // MARK: - Initialize
     
-    init(_ index: Int) {
+    init(_ type: WalCategoryType) {
         super.init(frame: .zero)
-        configUI()
+        configUI(type: type)
         setupLayout()
-        categoryLabel.text = cardData.getCardLabel(index: index)
-        categorySubLabel.text = cardData.getCardSubLabel(index: index)
-        wallbbongImageView.image = cardData.getWallbbongImage(index: index)
-        cardImageView.image = cardData.getCardImage(index: index)
     }
     
     required init?(coder: NSCoder) {
@@ -49,10 +49,15 @@ final class CardButton: UIButton {
     
     // MARK: - InitUI
     
-    private func configUI() {
+    private func configUI(type: WalCategoryType) {
         makeRound(radius: 10)
         layer.borderWidth = 1
         layer.borderColor = UIColor.clear.cgColor
+        categoryLabel.text = type.kor
+        categorySubLabel.text = type.description
+        wallbbongImageView.image = type.walImage
+        cardImageView.image = type.cardImage
+        tag = type.categoryId
     }
     
     private func setupLayout() {

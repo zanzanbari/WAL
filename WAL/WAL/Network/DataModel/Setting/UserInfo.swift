@@ -9,19 +9,16 @@ import Foundation
 
 // MARK: - UserInfo
 
-struct UserInfo: Codable {
-    let status: Int
-    let message: String
-    let data: UserInfoData?
-}
-
-struct UserInfoData: Codable {
-    let nickname: String
-    let email: String
+struct UserInfo: BaseResponse, Codable {
+    var statusCode: Int?
+    var message: String?
+    let nickname: String?
     
     init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        nickname = (try? values.decode(String.self, forKey: .nickname)) ?? ""
-        email = (try? values.decode(String.self, forKey: .email)) ?? ""
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.statusCode = try container.decodeIfPresent(Int.self, forKey: .statusCode) ?? 0
+        self.message = try container.decodeIfPresent(String.self, forKey: .message) ?? ""
+        self.nickname = try container.decodeIfPresent(String.self, forKey: .nickname) ?? ""
     }
 }

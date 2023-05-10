@@ -16,19 +16,12 @@ final class OnboardingViewController: BaseViewController {
             
     private var currentRow: Int = 0
     private var didCurrentRow: Int = 0
-    
-    private var joke = false
-    private var compliment = false
-    private var condolence = false
-    private var scolding = false
-    
-    private var morning = false
-    private var afternoon = false
-    private var night = false
-    
+    private var category: [String] = []
+    private var time: [String] = []
+
     private let loadingView = LoadingView()
                 
-    private let navigationBar = WALNavigationBar(title: nil).then {
+    private lazy var navigationBar = WALNavigationBar(title: nil).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -74,9 +67,7 @@ final class OnboardingViewController: BaseViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar,
-                          topView,
-                          collectionView])
+        view.addSubviews([navigationBar, topView, collectionView])
         topView.addSubview(pageControl)
         
         navigationBar.snp.makeConstraints { make in
@@ -112,15 +103,9 @@ final class OnboardingViewController: BaseViewController {
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(
-            OnboardingCollectionViewCell.self,
-            forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
-        collectionView.register(
-            CategoryCollectionViewCell.self,
-            forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
-        collectionView.register(
-            AlarmCollectionViewCell.self,
-            forCellWithReuseIdentifier: AlarmCollectionViewCell.identifier)
+        OnboardingCollectionViewCell.register(collectionView)
+        CategoryCollectionViewCell.register(collectionView)
+        AlarmCollectionViewCell.register(collectionView)
     }
     
     // MARK: - @objc
@@ -152,26 +137,40 @@ final class OnboardingViewController: BaseViewController {
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
-        let categoryType = CategoryType(joke, compliment, condolence, scolding)
-        let alarmTime = AlarmTime(morning, afternoon, night)
+        postOnboard()
+    }
+}
+
+// MARK: - Delegate
+
+extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate {
+    func sendCategory(data: [String]) {
+        category = data
+    }
+    
+    func sendTime(data: [String]) {
+        time = data
+    }
+}
+
+// MARK: - Network
+
+extension OnboardingViewController {
+    private func postOnboard() {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
-        OnboardAPI.shared.postOnboardSetting(nickname: nickname,
-                                             category: categoryType,
-                                             alarm: alarmTime) { [weak self] (onboardData, err) in
-            guard let onboardData = onboardData else { return }
-            guard let self = self else { return }
-            if onboardData.status < 400 {
-                print("☘️--------온보딩 서버 통신 완료", onboardData)
+        OnboardAPI.shared.postOnboard(nickname: nickname,
+                                      category: category,
+                                      time: time) { [weak self] data, status in
+            guard let self else { return }
+            guard let status = status else { return }
+            if status == 201 {
                 let viewController = OnboardCompleteViewController()
-                // 버튼 누른 경우 온보딩 설정 완료! -> 앞으로 앱 실행 시에 자동로그인 + 메인으로 화면 전환
                 UserDefaultsHelper.standard.complete = true
                 self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                     self.loadingView.hide()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
-            } else {
-                print("☘️--------온보딩 서버 통신 실패로 인해 화면 전환 실패")
             }
         }
     }
@@ -262,25 +261,5 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
-    }
-}
-
-// MARK: - Delegate
-
-extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate {
-    func sendCategory(joke: Bool,
-                      compliment: Bool,
-                      condolence: Bool,
-                      scolding: Bool) {
-        self.joke = joke
-        self.compliment = compliment
-        self.condolence = condolence
-        self.scolding = scolding
-    }
-    
-    func sendAlarmTime(morning: Bool, afternoon: Bool, night: Bool) {
-        self.morning = morning
-        self.afternoon = afternoon
-        self.night = night
     }
 }

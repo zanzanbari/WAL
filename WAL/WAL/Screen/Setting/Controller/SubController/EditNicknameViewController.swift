@@ -179,14 +179,25 @@ final class EditNicknameViewController: BaseViewController {
     
     @objc private func touchupDoneButton() {
         guard let nickname = nicknameTextField.text else { return }
-        SettingAPI.shared.postUserInfo(nickname: nickname) { (userInfoData, nil) in
-            guard let userInfoData = userInfoData?.data else { return }
-            self.nickname = userInfoData.nickname
-            self.sendNicknameDelegate?.sendNickname(userInfoData.nickname)
-            self.configureLoadingView()
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                self.loadingView.hide()
-                self.dismiss(animated: false)
+        patchNickname(nickname)
+    }
+}
+
+// MARK: - Network {
+
+extension EditNicknameViewController {
+    private func patchNickname(_ nickname: String) {
+        SettingAPI.shared.postUserInfo(nickname: nickname) { [weak self] (data, status) in
+            guard let self else { return }
+            guard let status = status else { return }
+            if status == 204 {
+                self.nickname = nickname
+                self.sendNicknameDelegate?.sendNickname(nickname)
+                self.configureLoadingView()
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.loadingView.hide()
+                    self.dismiss(animated: false)
+                }
             }
         }
         self.view.endEditing(true)

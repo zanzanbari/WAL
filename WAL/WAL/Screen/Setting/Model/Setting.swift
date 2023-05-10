@@ -22,11 +22,31 @@ struct Setting {
 
 // MARK: - 탈퇴뷰에 사용되는 모델
 
+enum Reason: String {
+    case DO_NOT_LIKE = "DO_NOT_LIKE"
+    case WANT_NEW_ACCOUNT = "WANT_NEW_ACCOUNT"
+    case PROTECT_PERSONAL_INFO = "PROTECT_PERSONAL_INFO"
+    case INFREQUENTLY_USED = "INFREQUENTLY_USED"
+    
+    var kor: String {
+        switch self {
+        case .DO_NOT_LIKE:
+            return "왈소리가 마음에 들지 않아요"
+        case .WANT_NEW_ACCOUNT:
+            return "새로운 계정을 만들고 싶어요"
+        case .PROTECT_PERSONAL_INFO:
+            return "개인 정보를 보호하고 싶어요"
+        case .INFREQUENTLY_USED:
+            return "사용 빈도수가 적어요"
+        }
+    }
+}
+
 struct ResignSetting {
-    var menu: String
+    var menu: Reason
     var select: Bool
     
-    init(menu: String, select: Bool) {
+    init(menu: Reason, select: Bool) {
         self.menu = menu
         self.select = select
     }
@@ -46,10 +66,10 @@ struct SettingData {
     ]
     
     var resignRowData = [
-        ResignSetting(menu: "왈소리가 마음에 들지 않아요", select: false),
-        ResignSetting(menu: "새로운 계정을 만들고 싶어요", select: false),
-        ResignSetting(menu: "개인 정보를 보호하고 싶어요", select: false),
-        ResignSetting(menu: "사용 빈도수가 적어요", select: false)
+        ResignSetting(menu: Reason.DO_NOT_LIKE, select: false),
+        ResignSetting(menu: Reason.WANT_NEW_ACCOUNT, select: false),
+        ResignSetting(menu: Reason.PROTECT_PERSONAL_INFO, select: false),
+        ResignSetting(menu: Reason.INFREQUENTLY_USED, select: false)
     ]
     
     var mypageRowData = [
@@ -74,7 +94,7 @@ struct SettingData {
     }
     
     func getResignMenuLabel(_ data: [ResignSetting], _ index: Int) -> String {
-        return data[index].menu
+        return data[index].menu.kor
     }
     
     func getCheckButton(_ data: [ResignSetting], _ index: Int) -> Bool {

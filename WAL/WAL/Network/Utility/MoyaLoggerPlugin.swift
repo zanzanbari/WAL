@@ -20,15 +20,15 @@ final class MoyaLoggerPlugin: PluginType {
         }
         let url = httpRequest.description
         let method = httpRequest.httpMethod ?? "unknown method"
-        var log = "----------------------------------------------------\n1️⃣[\(method)] \(url)\n----------------------------------------------------\n"
-        log.append("2️⃣API: \(target)\n")
+        var log = "====================================================================\n\n1️⃣ [\(method)] \(url)\n\n\n"
+        log.append("2️⃣ API: \(target)\n")
         if let headers = httpRequest.allHTTPHeaderFields, !headers.isEmpty {
             log.append("header: \(headers)\n")
         }
         if let body = httpRequest.httpBody, let bodyString = String(bytes: body, encoding: String.Encoding.utf8) {
             log.append("\(bodyString)\n")
         }
-        log.append("------------------- END \(method) -------------------")
+        log.append("\n\n============================================= END: \(method) =============================================\n\n")
         print(log)
     }
     
@@ -46,23 +46,18 @@ final class MoyaLoggerPlugin: PluginType {
         let request = response.request
         let url = request?.url?.absoluteString ?? "nil"
         let statusCode = response.statusCode
-        var log = "------------------- 네트워크 통신 성공했는가? -------------------"
-        log.append("\n3️⃣[\(statusCode)] \(url)\n----------------------------------------------------\n")
-        log.append("response: \n")
+        var log = "========================================= 네트워크 통신 성공했는가? =========================================\n"
+        log.append("\n3️⃣ [StatusCode: \(statusCode)] \(url)\n\n")
         if let reString = String(bytes: response.data, encoding: String.Encoding.utf8) {
-            log.append("4️⃣\(reString)\n")
+            log.append("4️⃣ Response: \n\(reString)\n")
         }
-        print("5️⃣[\(statusCode)]\n")
-        log.append("============================================= END HTTP =============================================\n\n")
-        print(log)
-        
-        switch statusCode {
-        case 401:
-            print("1-1. 앗! 액세스토큰이 만료됐으니 갱신API 호출할게요!")
-            TokenManager.shared.refreshTokenAPI(statusCode)
-        default:
+        guard let accessHeader = response.response?.allHeaderFields["Authorization"] as? String,
+              let refreshHeader = response.response?.allHeaderFields["Refresh-Token"] as? String else {
             return
         }
+        log.append("5️⃣ Response Header:\n- AccessToken: \(accessHeader) \n\n- RefreshToken: \(refreshHeader)")
+        log.append("\n\n============================================= END HTTP =============================================\n\n")
+        print(log)
     }
     
     func onFail(_ error: MoyaError) {

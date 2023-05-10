@@ -13,8 +13,12 @@ final class TimeButton: UIButton {
     
     // MARK: - Property
     
-    private let timeData = TimeData()
-            
+    override var isSelected: Bool {
+        didSet {
+            layer.borderColor = isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        }
+    }
+                
     private let timeLabel = UILabel().then {
         $0.font = WALFont.body6.font
         $0.textColor = .black100
@@ -25,12 +29,10 @@ final class TimeButton: UIButton {
     
     // MARK: - Initialize
     
-    init(_ index: Int) {
+    init(_ type: AlarmTimeType) {
         super.init(frame: .zero)
-        configUI()
+        configUI(type: type)
         setupLayout()
-        timeLabel.text = timeData.getTimeLabel(index: index)
-        timeImageView.image = timeData.getTimeImage(index: index)
     }
     
     required init?(coder: NSCoder) {
@@ -39,10 +41,13 @@ final class TimeButton: UIButton {
     
     // MARK: - InitUI
     
-    private func configUI() {
+    private func configUI(type: AlarmTimeType) {
         makeRound(radius: 10)
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray400.cgColor
+        timeLabel.text = type.kor
+        timeImageView.image = type.onboardImage
+        tag = type.timeId
     }
     
     private func setupLayout() {

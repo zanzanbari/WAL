@@ -12,10 +12,15 @@ import Gifu
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
+import RxSwift
 import Then
 import WALKit
 
 final class LoginViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
+    
+    private let viewModel: LoginViewModel
     
     // MARK: - Properties
     
@@ -23,14 +28,23 @@ final class LoginViewController: UIViewController {
         $0.animate(withGIFNamed: Constant.Login.gif, loopCount: 5)
     }
     
-    private let kakaoButton = WALAuthButton(type: .kakao).then {
+    private lazy var kakaoButton = WALAuthButton(type: .kakao).then {
         $0.addTarget(self, action: #selector(touchupKakaoButton), for: .touchUpInside)
         $0.alpha = 0
     }
     
-    private let appleButton = WALAuthButton(type: .apple).then {
+    private lazy var appleButton = WALAuthButton(type: .apple).then {
         $0.addTarget(self, action: #selector(touchupAppleButton), for: .touchUpInside)
         $0.alpha = 0
+    }
+    
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Life Cycle
@@ -40,6 +54,7 @@ final class LoginViewController: UIViewController {
         configUI()
         setupLayout()
         setLoginAnimation()
+        bindViewModel()
     }
     
     // MARK: - InitUI
@@ -82,6 +97,11 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    private func bindViewModel() {
+        
+    }
+    
+    // TODO: - 해결 연결 넘어가는 것 닉네임이 없음
     private func pushToHome() {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         print(nickname, "LoginView 닉네임==================")
@@ -120,27 +140,24 @@ final class LoginViewController: UIViewController {
 // MARK: - Network
 
 extension LoginViewController {
-    func postSocialLogin(social: String, socialtoken: String, fcmtoken: String) {
-        AuthAPI.shared.postSocialLogin(social: social, socialtoken: socialtoken,
-            fcmtoken: fcmtoken) { [weak self] ( data, error) in
-                guard let self = self else { return }
-                if data!.status == 403 {
+    private func postLogin(socialToken: String, socialType: SocialType, fcmToken: String) {
+        let param = LoginRequest(socialToken, socialType.rawValue, fcmToken)
+        AuthAPI.shared.postLogin(param: param) { [weak self] ( data, error) in
+            guard let self = self else { return }
+            if let data = data {
+                if data.statusCode == 401 {
                     self.showAlert(title: Constant.Login.resign,
                                    message: nil,
                                    actions: [],
                                    cancelTitle: "확인",
                                    preferredStyle: .alert)
-                } else {
-                    guard let data = data,
-                          let accessData = data.data else { return }
-                    UserDefaultsHelper.standard.nickname = accessData.nickname
-                    UserDefaultsHelper.standard.accesstoken = accessData.accesstoken
-                    UserDefaultsHelper.standard.refreshtoken = accessData.refreshtoken
-                    UserDefaultsHelper.standard.socialtoken = socialtoken
-                    UserDefaultsHelper.standard.social = social
-                    self.pushToHome()
                 }
+            } else {
+                UserDefaultsHelper.standard.socialtoken = socialToken
+                UserDefaultsHelper.standard.social = socialType.rawValue
+                self.pushToHome()
             }
+        }
     }
 }
 
@@ -152,10 +169,9 @@ extension LoginViewController {
             guard let self = self else { return }
             UserApi.shared.me { (user, error) in
                 guard let oauthToken = oauthToken,
-                      let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-                self.postSocialLogin(social: SocialType.kakao.rawValue,
-                                     socialtoken: oauthToken.accessToken,
-                                     fcmtoken: fcmtoken)
+                      let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+                self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
+                UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
             }
         }
     }
@@ -165,10 +181,9 @@ extension LoginViewController {
             UserApi.shared.me { [weak self] (user, error) in
                 guard let self = self else { return }
                 guard let oauthToken = oauthToken,
-                      let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-                self.postSocialLogin(social: SocialType.kakao.rawValue,
-                                     socialtoken: oauthToken.accessToken,
-                                     fcmtoken: fcmtoken)
+                      let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+                self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
+                UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
             }
         }
     }
@@ -180,12 +195,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         if let identityToken = appleIDCredential.identityToken {
-            let tokenString = String(data: identityToken, encoding: .utf8)
-            guard let tokenString = tokenString,
-                  let fcmtoken = UserDefaultsHelper.standard.fcmtoken else { return }
-            self.postSocialLogin(social: SocialType.apple.rawValue,
-                                 socialtoken: tokenString,
-                                 fcmtoken: fcmtoken)            
+            guard let tokenString = String(data: identityToken, encoding: .utf8),
+                  let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+            self.postLogin(socialToken: tokenString, socialType: .APPLE, fcmToken: fcmToken)
         }
     }
     

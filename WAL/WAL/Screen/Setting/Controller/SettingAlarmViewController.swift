@@ -13,12 +13,10 @@ import WALKit
 final class SettingAlarmViewController: UIViewController {
     
     // MARK: - Properties
+        
+    private lazy var timeButtons = [morningButton, afternoonButton, nightButton]
     
-    private var alarmBeforeChange = AlarmTime.init(false, false, false)
-    
-    private let setting = SettingData()
-    
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingAlarm).then {
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingAlarm).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -47,16 +45,15 @@ final class SettingAlarmViewController: UIViewController {
     }
     
     private let loadingView = LoadingView()
-    
-    private let morningButton = TimeButton(0)
-    private let afternoonButton = TimeButton(1)
-    private let nightButton = TimeButton(2)
+    private let morningButton = TimeButton(.morning)
+    private let afternoonButton = TimeButton(.afternoon)
+    private let nightButton = TimeButton(.night)
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestAlarm()
+        getAlarm()
         configUI()
         setupLayout()
     }
@@ -70,14 +67,14 @@ final class SettingAlarmViewController: UIViewController {
     private func configUI() {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         view.backgroundColor = .white100
-        [morningButton, afternoonButton, nightButton].forEach {
+        timeButtons.forEach {
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
     }
     
     private func setupLayout() {
         view.addSubviews([navigationBar, firstView, backView, titleLabel, alarmButtonStackView])
-        alarmButtonStackView.addArrangedSubviews([morningButton, afternoonButton, nightButton])
+        alarmButtonStackView.addArrangedSubviews(timeButtons)
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -106,7 +103,7 @@ final class SettingAlarmViewController: UIViewController {
             make.height.equalTo(104)
         }
         
-        [morningButton, afternoonButton, nightButton].forEach {
+        timeButtons.forEach {
             $0.snp.makeConstraints { make in
                 make.height.equalTo(104)
             }
@@ -124,10 +121,15 @@ final class SettingAlarmViewController: UIViewController {
         loadingView.play()
     }
     
+    private func updateButtonStates(data: [String]) {
+        for (button, type) in zip(timeButtons, AlarmTimeType.allCases) {
+            button.isSelected = data.contains(type.rawValue) ? true : false
+        }
+    }
+    
     private func showToastMessage() {
-        if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
-            afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
-            nightButton.layer.borderColor == UIColor.gray400.cgColor {
+        let selectedButtons = timeButtons.filter { $0.isSelected }
+        if selectedButtons.count < 1 {
             showToast(message: Constant.Toast.selectOneMore)
         }
     }
@@ -135,19 +137,11 @@ final class SettingAlarmViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        if morningButton.layer.borderColor == UIColor.gray400.cgColor &&
-            afternoonButton.layer.borderColor == UIColor.gray400.cgColor &&
-            nightButton.layer.borderColor == UIColor.gray400.cgColor {
-            //            showToast(message: "1개 이상 선택해주세요")
-        } else {
-            postAlarm()
-        }
+        postAlarm()
     }
     
-    @objc func touchupButton(sender: UIButton) {
+    @objc func touchupButton(sender: TimeButton) {
         sender.isSelected = !sender.isSelected
-        sender.layer.borderColor = sender.isSelected ?
-        UIColor.orange100.cgColor : UIColor.gray400.cgColor
         showToastMessage()
     }
     
@@ -165,50 +159,30 @@ final class SettingAlarmViewController: UIViewController {
 // MARK: - Network
 
 extension SettingAlarmViewController {
-    private func buttonBorderColor(_ button: UIButton, _ userTimeData: Bool) {
-        button.isSelected = userTimeData
-        button.layer.borderColor = button.isSelected ?
-        UIColor.orange100.cgColor : UIColor.gray400.cgColor
-    }
-    
-    private func requestAlarm() {
-        SettingAPI.shared.getUserAlarm { [weak self] (userAlarmData, nil) in
+    private func getAlarm() {
+        SettingAPI.shared.getAlarm { [weak self] (data, status) in
             guard let self = self else { return }
-            guard let userAlarmData = userAlarmData?.data else { return }
-            print("🥰 알림시간 값 가져오기 🥰", userAlarmData)
-            self.buttonBorderColor(self.morningButton, userAlarmData.morning)
-            self.buttonBorderColor(self.afternoonButton, userAlarmData.afternoon)
-            self.buttonBorderColor(self.nightButton, userAlarmData.night)
-            self.alarmBeforeChange = AlarmTime(userAlarmData.morning, userAlarmData.afternoon, userAlarmData.night)
+            guard let data = data?.timeInfo else { return }
+            updateButtonStates(data: data)
         }
     }
     
     private func postAlarm() {
-        SettingAPI.shared.postUserAlarm(data: [
-            alarmBeforeChange,
-            AlarmTime(morningButton.isSelected, afternoonButton.isSelected, nightButton.isSelected)]) { [weak self] (userAlarmData, nil) in
-                guard let self = self else { return }
-                guard let userAlarm = userAlarmData,
-                      let userAlarmData = userAlarm.data else { return }
-                if userAlarm.status < 400 {
-                    print("🥰 알림시간 수정 서버 통신 🥰", userAlarmData)
-                    self.morningButton.isSelected = userAlarmData.morning
-                    self.afternoonButton.isSelected = userAlarmData.afternoon
-                    self.nightButton.isSelected = userAlarmData.night
-                    if self.alarmBeforeChange.morning == self.morningButton.isSelected &&
-                        self.alarmBeforeChange.afternoon == self.afternoonButton.isSelected &&
-                        self.alarmBeforeChange.night == self.nightButton.isSelected {
-                        self.transition(self, .pop)
-                    } else {
-                        self.configureLoadingView()
-                        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                            self.loadingView.hide()
-                            self.transition(self, .pop)
-                        }
-                    }
-                } else {
-                    print("🥰 알림시간 수정 서버 통신 실패로 화면전환 실패")
+        let selectedButtons = timeButtons.filter { $0.isSelected }
+        let data = selectedButtons.map { AlarmTimeType.allCases[$0.tag].rawValue }
+        
+        SettingAPI.shared.postAlarm(data: data) { [weak self] (data, status) in
+            guard let self else { return }
+            guard let status = status else { return }
+            if status == 204 {
+                self.configureLoadingView()
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.loadingView.hide()
+                    self.transition(self, .pop)
                 }
+                
+                // TODO: - 수정 전 값과 같으면 로티 X
             }
+        }
     }
 }

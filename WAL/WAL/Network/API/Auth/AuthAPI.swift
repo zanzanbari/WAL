@@ -12,84 +12,76 @@ import KakaoSDKAuth
 
 final class AuthAPI {
     static let shared = AuthAPI()
-    private let authProvider = MoyaProvider<AuthService>(plugins: [MoyaLoggerPlugin()])
     private init() { }
+    private lazy var authProvider = MoyaProvider<AuthService>(
+        session: Session(interceptor: Interceptor()),
+        plugins: [MoyaLoggerPlugin()]
+    )
+
+    typealias completion = (DefaultResponse?, Int?) -> ()
     
-    private(set) var loginData: GenericResponse<Login>?
-    private(set) var logoutData: GenericResponse<Logout>?
-    private(set) var reissueData: GenericResponse<Reissue>?
+    private(set) var defaultData: DefaultResponse?
     
     // MARK: - POST 소셜로그인
     
-    func postSocialLogin(social: String,
-                         socialtoken: String,
-                         fcmtoken: String?,
-                         completion: @escaping ((GenericResponse<Login>?, Int?) -> ())) {
+    func postLogin(param: LoginRequest, completion: @escaping completion) {
         
-        authProvider.request(.social(social: social,
-                                     socialtoken: socialtoken,
-                                     fcmtoken: fcmtoken)) { result in
+        let param = LoginRequest(param.socialToken, param.socialType, param.fcmToken)
+        
+        authProvider.request(.login(param: param)) { result in
             switch result {
             case .success(let response):
-                do {
-                    self.loginData = try response.map(GenericResponse<Login>?.self)
-                    guard let loginData = self.loginData else { return }
-                    completion(loginData, nil)
+                if response.statusCode == 200 || response.statusCode == 201 {
+                    guard let accessHeader = response.response?.allHeaderFields[GeneralAPI.authentication] as? String,
+                          let refreshHeader = response.response?.allHeaderFields[GeneralAPI.refreshToken] as? String else {
+                        completion(nil, nil)
+                        return
+                    }
+                    let accessToken = String(accessHeader.dropFirst("".count))
+                    let refreshToken = String(refreshHeader.dropFirst("".count))
+                    UserDefaultsHelper.standard.accesstoken = accessToken
+                    UserDefaultsHelper.standard.refreshtoken = refreshToken
+                    completion(nil, nil)
                     
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
+                } else {
+                    do {
+                        let loginData = try response.map(DefaultResponse.self)
+                        completion(loginData, nil)
+                    } catch {
+                        completion(nil, 500)
+                    }
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, 500)
-            }
-        }
-    }
-    
-    // MARK: - GET 로그아웃
-    
-    func getLogout(completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
-        authProvider.request(.logout) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    self.logoutData = try response.map(GenericResponse<Logout>?.self)
-                    guard let logoutData = self.logoutData else { return }
-                    completion(logoutData, nil)
-                    
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure:
                 completion(nil, 500)
             }
         }
     }
     
     // MARK: - POST 회원탈퇴
+    
+    func postResign(param: ResignRequest, completion: @escaping completion) {
         
-    func postResign(social: String,
-                    data: [String],
-                    socialtoken: String,
-                    completion: @escaping ((GenericResponse<Logout>?, Int?) -> ())) {
-       
-        let reason = ResignRequest.init(socialtoken, data)
+        let param = ResignRequest(reasons: param.reasons)
         
-        authProvider.request(.resign(social: social,
-                                     param: reason)) { result in
+        authProvider.request(.resign(param: param)) { result in
             switch result {
             case .success(let response):
-                do {
-                    self.logoutData = try response.map(GenericResponse<Logout>?.self)
-                    guard let logoutData = self.logoutData else { return }
-                    completion(logoutData, nil)
-                    
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
+                switch response.statusCode {
+                case 204:
+                    completion(nil, 204)
+                case 300...500:
+                    do {
+                        let defaultData = try response.map(DefaultResponse?.self)
+                        completion(defaultData, nil)
+                    } catch {
+                        print(error.localizedDescription)
+                        completion(nil, 500)
+                    }
+                default:
+                    completion(nil, response.statusCode)
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure(let error):
+                print(error.localizedDescription)
                 completion(nil, 500)
             }
         }
@@ -97,17 +89,26 @@ final class AuthAPI {
     
     // MARK: - POST 토큰 재발급
     
-    func postReissue(completion: @escaping ((GenericResponse<Reissue>?, Int?) -> ())) {
+    func postReissue(completion: @escaping completion) {
         authProvider.request(.reissue) { result in
             switch result {
             case .success(let response):
-                do {
-                    self.reissueData = try response.map(GenericResponse<Reissue>?.self)
-                    guard let reissueData = self.reissueData else { return }
-                    completion(reissueData, nil)
-                    
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
+                switch response.statusCode {
+                case 200:
+                    guard let accessHeader = response.response?.allHeaderFields[GeneralAPI.authentication] as? String else {
+                        completion(nil, nil)
+                        return
+                    }
+                    let accessToken = String(accessHeader.dropFirst("".count))
+                    UserDefaultsHelper.standard.accesstoken = accessToken
+                    completion(nil, nil)
+                default:
+                    do {
+                        let reissueData = try response.map(DefaultResponse.self)
+                        completion(reissueData, nil)
+                    } catch {
+                        completion(nil, 500)
+                    }
                 }
             case .failure(let err):
                 print(err.localizedDescription)

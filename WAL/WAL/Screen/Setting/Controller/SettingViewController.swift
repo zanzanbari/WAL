@@ -16,10 +16,9 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     // MARK: - Properties
     
     var nickname = ""
-    var email = ""
     private let setting = SettingData()
     
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.setting).then {
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.setting).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -75,10 +74,8 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     }
     
     private func setupTableView() {
-        tableView.register(MyInfoTableViewCell.self,
-                           forCellReuseIdentifier: MyInfoTableViewCell.identifier)
-        tableView.register(SettingTableViewCell.self,
-                           forCellReuseIdentifier: SettingTableViewCell.identifier)
+        MyInfoTableViewCell.register(tableView)
+        SettingTableViewCell.register(tableView)
     }
 
     // MARK: - @objc
@@ -105,7 +102,6 @@ extension SettingViewController: UITableViewDelegate {
         case 0:
             let viewController = MypageViewController()
             transition(viewController)
-            viewController.email = email
             viewController.nickname = nickname
             viewController.sendNicknameDelegate = self
         case 1:
@@ -204,12 +200,11 @@ extension SettingViewController {
         }
     }
     
-    func requestNickname() {
-        SettingAPI.shared.getUserInfo { (userInfo, nil) in
-            guard let userInfoData = userInfo?.data else { return }
-            print("🔶🔶🔶 ", userInfoData)
-            self.nickname = userInfoData.nickname
-            self.email = userInfoData.email
+    private func requestNickname() {
+        SettingAPI.shared.getUserInfo { [weak self] (userInfo, nil) in
+            guard let self else { return }
+            guard let data = userInfo?.nickname else { return }
+            self.nickname = data
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

@@ -8,14 +8,14 @@
 import Moya
 
 enum OnboardService {
-    case setInfo(param: OnboardRequest)
+    case onboard(OnboardRequest)
 }
 
 extension OnboardService: BaseTargetType {
     
     var path: String {
         switch self {
-        case .setInfo: return "/user/set-info"
+        case .onboard: return "/onboard"
         }
     }
     
@@ -27,7 +27,7 @@ extension OnboardService: BaseTargetType {
     
     var task: Task {
         switch self {
-        case .setInfo(let param):
+        case .onboard(let param):
             return .requestJSONEncodable(param)
         }
     }

@@ -9,12 +9,16 @@ import UIKit
 
 import WALKit
 
-class CategoryButton: UIButton {
+final class CategoryButton: UIButton {
     
     // MARK: - Property
     
-    private let cardData = CardData()
-            
+    override var isSelected: Bool {
+        didSet {
+            layer.borderColor = isSelected ? UIColor.orange100.cgColor : UIColor.gray400.cgColor
+        }
+    }
+                
     private let wallbbongImageView = UIImageView()
         
     private let categoryLabel = UILabel().then {
@@ -25,12 +29,10 @@ class CategoryButton: UIButton {
     
     // MARK: - Initialize
     
-    init(_ index: Int) {
+    init(_ type: WalCategoryType) {
         super.init(frame: .zero)
-        configUI()
+        configUI(type: type)
         setupLayout()
-        categoryLabel.text = cardData.getCardLabel(index: index)
-        wallbbongImageView.image = cardData.getWallbbongImage(index: index)
     }
     
     required init?(coder: NSCoder) {
@@ -39,10 +41,13 @@ class CategoryButton: UIButton {
     
     // MARK: - InitUI
     
-    private func configUI() {
+    private func configUI(type: WalCategoryType) {
         makeRound(radius: 10)
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray400.cgColor
+        categoryLabel.text = type.kor
+        wallbbongImageView.image = type.walImage
+        tag = type.categoryId
     }
     
     private func setupLayout() {

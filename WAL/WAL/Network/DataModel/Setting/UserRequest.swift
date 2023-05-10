@@ -8,9 +8,9 @@
 import Foundation
 
 struct UserAlarmRequest: Codable {
-    let data: [AlarmTime]
+    let timeTypes: [String]
 }
 
 struct UserCategoryRequest: Codable {
-    let data: [CategoryType]
+    let categoryTypes: [String]
 }

@@ -13,7 +13,7 @@ final class SettingAlarmCollectionViewCell: UICollectionViewCell {
         
     // MARK: - Property
     
-    private var timeData = TimeData()
+    private var data = AlarmTimeData()
     
     override var isSelected: Bool {
         didSet {
@@ -79,7 +79,7 @@ final class SettingAlarmCollectionViewCell: UICollectionViewCell {
     // MARK: - setupData
     
     func setupData(index: Int) {
-        titleLabel.text = timeData.getTimeLabel(index: index)
-        timeImageView.image = timeData.getTimeImage(index: index)
+        titleLabel.text = data.getTimeLabel(index: index)
+        timeImageView.image = data.getTimeImage(index: index)
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import WALKit
 import Then
 
-class ZanzanView: UIView {
+final class ZanzanView: UIView {
     
     // MARK: - Enum
     

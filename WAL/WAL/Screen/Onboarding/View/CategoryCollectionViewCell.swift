@@ -18,6 +18,8 @@ final class CategoryCollectionViewCell: BaseCollectionViewCell {
         
     private var barWidth: CGFloat = 0
                 
+    private lazy var categoryButtons = [comedyButton, fussButton, comfortButton, yellButton]
+    
     private let titleLabel = UILabel().then {
         $0.font = WALFont.title2.font
         $0.textAlignment = .center
@@ -45,10 +47,10 @@ final class CategoryCollectionViewCell: BaseCollectionViewCell {
         $0.distribution = .equalSpacing
     }
     
-    private let jokeButton = CardButton(0)
-    private let complimentButton = CardButton(1)
-    private let condolenceButton = CardButton(2)
-    private let scoldingButton = CardButton(3)
+    private let comedyButton = CardButton(.comedy)
+    private let fussButton = CardButton(.fuss)
+    private let comfortButton = CardButton(.comfort)
+    private let yellButton = CardButton(.yell)
     
     lazy var slideBackView = UIView().then {
         $0.backgroundColor = .gray500
@@ -79,7 +81,7 @@ final class CategoryCollectionViewCell: BaseCollectionViewCell {
     private func configUI() {
         contentView.backgroundColor = .white100
         barWidth = (contentView.frame.width-61*2)/4
-        [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
+        categoryButtons.forEach {
             $0.categorySubLabel.addLetterSpacing()
             $0.addTarget(self, action: #selector(touchupButton(sender:)), for: .touchUpInside)
         }
@@ -89,8 +91,7 @@ final class CategoryCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubviews([titleLabel, subtitleLabel, slideBackView, nextButton])
         contentView.addSubview(scrollView)
         scrollView.addSubview(cardButtonStackView)
-        cardButtonStackView.addArrangedSubviews([
-            jokeButton, complimentButton, condolenceButton, scoldingButton])
+        cardButtonStackView.addArrangedSubviews(categoryButtons)
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(UIScreen.main.hasNotch ? 16 : 23)
@@ -102,7 +103,7 @@ final class CategoryCollectionViewCell: BaseCollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
-        [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
+        categoryButtons.forEach {
             $0.snp.makeConstraints { make in
                 make.width.equalTo(contentView.frame.width-61*2)
                 make.height.equalTo(
@@ -168,19 +169,14 @@ final class CategoryCollectionViewCell: BaseCollectionViewCell {
     
     @objc func touchupButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.layer.borderColor = sender.isSelected ? UIColor.orange100.cgColor : UIColor.clear.cgColor
         
-        nextButton.isDisabled =
-        jokeButton.layer.borderColor == UIColor.clear.cgColor &&
-        complimentButton.layer.borderColor == UIColor.clear.cgColor &&
-        condolenceButton.layer.borderColor == UIColor.clear.cgColor &&
-        scoldingButton.layer.borderColor == UIColor.clear.cgColor ? true : false
-
-        sendCategoryDelegate?.sendCategory(
-            joke: jokeButton.isSelected,
-            compliment: complimentButton.isSelected,
-            condolence: condolenceButton.isSelected,
-            scolding: scoldingButton.isSelected)
+        let isSelected = categoryButtons.allSatisfy { $0.layer.borderColor == UIColor.clear.cgColor }
+        nextButton.isDisabled = isSelected
+        
+        let selectedButtons = categoryButtons.filter { $0.isSelected }
+        let data = selectedButtons.map { WalCategoryType.allCases[$0.tag].rawValue }
+        
+        sendCategoryDelegate?.sendCategory(data: data)
     }
 }
 

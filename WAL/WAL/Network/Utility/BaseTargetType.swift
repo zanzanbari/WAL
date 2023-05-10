@@ -20,9 +20,13 @@ extension BaseTargetType {
         return Data()
     }
     
+    var validationType: ValidationType {
+        return .successCodes
+    }
+    
     var headers: [String : String]? {
-        return ["Content-Type": GeneralAPI.contentType,
-                "accesstoken": UserDefaultsHelper.standard.accesstoken ?? ""]
+        return [GeneralAPI.contentType: GeneralAPI.json,
+                GeneralAPI.authentication: UserDefaultsHelper.standard.accesstoken ?? ""]
     }
 }
 

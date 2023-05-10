@@ -12,12 +12,10 @@ import WALKit
 final class SettingCategoryViewController: UIViewController {
     
     // MARK: - Properties
-    
-    private var categoryBeforeChange = CategoryType.init(false, false, false, false)
-    
-    private let setting = SettingData()
-    
-    private let navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingCategory).then {
+        
+    private lazy var categoryButtons = [comedyButton, fussButton, comfortButton, yellButton]
+        
+    private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingCategory).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
@@ -36,20 +34,18 @@ final class SettingCategoryViewController: UIViewController {
     }
     
     private let loadingView = LoadingView()
-    
     private lazy var firstCategoryStackView = UIStackView()
     private lazy var secondCategoryStackView = UIStackView()
-    
-    private let jokeButton = CategoryButton(0)
-    private let complimentButton = CategoryButton(1)
-    private let condolenceButton = CategoryButton(2)
-    private let scoldingButton = CategoryButton(3)
+    private let comedyButton = CategoryButton(.comedy)
+    private let fussButton = CategoryButton(.fuss)
+    private let comfortButton = CategoryButton(.comfort)
+    private let yellButton = CategoryButton(.yell)
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestCategory()
+        getCategory()
         configUI()
         setupLayout()
     }
@@ -69,24 +65,15 @@ final class SettingCategoryViewController: UIViewController {
             $0.distribution = .fillEqually
             $0.spacing = 9
         }
-        
-        [jokeButton,
-         complimentButton,
-         condolenceButton,
-         scoldingButton].forEach {
+        categoryButtons.forEach {
             $0.addTarget(self, action: #selector(touchupButton(_:)), for: .touchUpInside)
         }
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar,
-                          titleLabel,
-                          subtitleLabel,
-                          firstCategoryStackView,
-                          secondCategoryStackView])
-        
-        firstCategoryStackView.addArrangedSubviews([jokeButton, complimentButton])
-        secondCategoryStackView.addArrangedSubviews([condolenceButton, scoldingButton])
+        view.addSubviews([navigationBar, titleLabel, subtitleLabel, firstCategoryStackView, secondCategoryStackView])
+        firstCategoryStackView.addArrangedSubviews([comedyButton, fussButton])
+        secondCategoryStackView.addArrangedSubviews([comfortButton, yellButton])
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -115,7 +102,7 @@ final class SettingCategoryViewController: UIViewController {
             make.height.equalTo(163)
         }
         
-        [jokeButton, complimentButton, condolenceButton, scoldingButton].forEach {
+        categoryButtons.forEach {
             $0.snp.makeConstraints { make in
                 make.height.equalTo(163)
             }
@@ -133,11 +120,15 @@ final class SettingCategoryViewController: UIViewController {
         loadingView.play()
     }
     
+    private func updateButtonStates(data: [String]) {
+        for (button, type) in zip(categoryButtons, WalCategoryType.allCases) {
+            button.isSelected = data.contains(type.rawValue) ? true : false
+        }
+    }
+    
     private func showToastMessage() {
-        if jokeButton.layer.borderColor == UIColor.gray400.cgColor &&
-            complimentButton.layer.borderColor == UIColor.gray400.cgColor &&
-            condolenceButton.layer.borderColor == UIColor.gray400.cgColor &&
-            scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
+        let selectedButtons = categoryButtons.filter { $0.isSelected }
+        if selectedButtons.count < 1 {
             showToast(message: Constant.Toast.selectOneMore)
         }
     }
@@ -145,20 +136,11 @@ final class SettingCategoryViewController: UIViewController {
     // MARK: - @objc
     
     @objc func touchupBackButton() {
-        if jokeButton.layer.borderColor == UIColor.gray400.cgColor &&
-            complimentButton.layer.borderColor == UIColor.gray400.cgColor &&
-            condolenceButton.layer.borderColor == UIColor.gray400.cgColor &&
-            scoldingButton.layer.borderColor == UIColor.gray400.cgColor {
-            //            showToast(message: "1개 이상 선택해주세요")
-        } else {
-            postCategory()
-        }
+        postCategory()
     }
     
     @objc func touchupButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        sender.layer.borderColor = sender.isSelected ?
-        UIColor.orange100.cgColor : UIColor.gray400.cgColor
         showToastMessage()
     }
 }
@@ -166,55 +148,30 @@ final class SettingCategoryViewController: UIViewController {
 // MARK: - Network
 
 extension SettingCategoryViewController {
-    private func buttonBorderColor(_ button: UIButton, _ userCategoryData: Bool) {
-        button.isSelected = userCategoryData
-        button.layer.borderColor = button.isSelected ?
-        UIColor.orange100.cgColor : UIColor.gray400.cgColor
-    }
-    
-    private func requestCategory() {
-        SettingAPI.shared.getUserCategory { [weak self] (userCategoryData, nil) in
+    private func getCategory() {
+        SettingAPI.shared.getCategory { [weak self] (data, status) in
             guard let self = self else { return }
-            guard let userCategory = userCategoryData?.data else { return }
-            print("🌈 카테고리 가져오기 서버통신 🌈")
-            self.buttonBorderColor(self.jokeButton, userCategory.joke)
-            self.buttonBorderColor(self.complimentButton, userCategory.compliment)
-            self.buttonBorderColor(self.condolenceButton, userCategory.condolence)
-            self.buttonBorderColor(self.scoldingButton, userCategory.scolding)
-            self.categoryBeforeChange = CategoryType(
-                userCategory.joke, userCategory.compliment, userCategory.scolding, userCategory.condolence)
+            guard let data = data?.categoryInfo else { return }
+            updateButtonStates(data: data)
         }
     }
     
     private func postCategory() {
-        SettingAPI.shared.postUserCategory(data: [
-            categoryBeforeChange,
-            CategoryType(jokeButton.isSelected, complimentButton.isSelected,
-                         scoldingButton.isSelected, condolenceButton.isSelected)]) { [weak self] (userCategory, nil) in
-                             guard let self = self else { return }
-                             guard let userCategory = userCategory,
-                                   let userCategoryData = userCategory.data else { return }
-                             if userCategory.status < 400 {
-                                 print("🌈 카테고리 수정 서버 통신 🌈", userCategoryData)
-                                 self.jokeButton.isSelected = userCategoryData.joke
-                                 self.complimentButton.isSelected = userCategoryData.compliment
-                                 self.condolenceButton.isSelected = userCategoryData.condolence
-                                 self.scoldingButton.isSelected = userCategoryData.scolding
-                                 if self.categoryBeforeChange.joke == self.jokeButton.isSelected &&
-                                        self.categoryBeforeChange.compliment == self.complimentButton.isSelected &&
-                                        self.categoryBeforeChange.condolence == self.condolenceButton.isSelected &&
-                                        self.categoryBeforeChange.scolding == self.scoldingButton.isSelected {
-                                     self.transition(self, .pop)
-                                 } else {
-                                     self.configureLoadingView()
-                                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                                         self.loadingView.hide()
-                                         self.transition(self, .pop)
-                                     }
-                                 }
-                             } else {
-                                 print("🌈 카테고리 수정 서버 통신 실패로 화면전환 실패")
-                             }
-                         }
+        let selectedButtons = categoryButtons.filter { $0.isSelected }
+        let data = selectedButtons.map { WalCategoryType.allCases[$0.tag].rawValue }
+        
+        SettingAPI.shared.postCategory(data: data) { [weak self] (data, status) in
+            guard let self = self else { return }
+            guard let status = status else { return }
+            if status == 204 {
+                self.configureLoadingView()
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.loadingView.hide()
+                    self.transition(self, .pop)
+                }
+                
+                // TODO: - 수정 전 값과 같으면 로티 X
+            }
+        }
     }
 }

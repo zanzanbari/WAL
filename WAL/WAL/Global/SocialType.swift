@@ -9,14 +9,14 @@ import Foundation
 
 @frozen
 enum SocialType: String {
-    case kakao
-    case apple
+    case KAKAO
+    case APPLE
     
     var login: String {
         switch self {
-        case .kakao:
+        case .KAKAO:
             return "카카오 계정으로 로그인"
-        case .apple:
+        case .APPLE:
             return "애플 계정으로 로그인"
         }
     }
