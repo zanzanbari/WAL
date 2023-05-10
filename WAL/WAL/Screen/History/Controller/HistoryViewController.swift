@@ -279,7 +279,7 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let resendAction = UIContextualAction(style: .normal, title: "재전송") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            self.resendWalDelegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].content)")
+            self.resendWalDelegate?.resendToCreate(self, walsound: "\(self.completeData[indexPath.row].message)")
             self.presentingViewController?.dismiss(animated: true)
             success(true)
         }
@@ -385,13 +385,13 @@ extension HistoryViewController {
             guard let historyData = historyData else {
                 return
             }
-            if let sendingData = historyData.data?.sendingData {
+            if let sendingData = historyData.data?.notDoneData {
                 self.sendingData = sendingData
                 for _ in 0 ..< sendingData.count {
                     self.selectedIndices.append([-1,-1])
                 }
             }
-            if let completeData = historyData.data?.completeData {
+            if let completeData = historyData.data?.doneData {
                 self.completeData = completeData
                 for _ in 0 ..< completeData.count {
                     self.selectedIndices.append([-1,-1])
@@ -410,13 +410,13 @@ extension HistoryViewController {
             guard let historyData = historyData else {
                 return
             }
-            if let sendingData = historyData.data?.sendingData {
+            if let sendingData = historyData.data?.notDoneData {
                 self.sendingData = sendingData
                 for _ in 0 ..< sendingData.count {
                     self.selectedIndices.append([-1,-1])
                 }
             }
-            if let completeData = historyData.data?.completeData {
+            if let completeData = historyData.data?.doneData {
                 self.completeData = completeData
                 for _ in 0 ..< completeData.count {
                     self.selectedIndices.append([-1,-1])

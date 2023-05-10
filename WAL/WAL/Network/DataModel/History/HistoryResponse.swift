@@ -10,28 +10,26 @@ import Foundation
 // MARK: - HistoryResponse
 
 struct HistoryResponse: Codable {
-    let sendingData, completeData: [HistoryData]
+    let notDoneData, doneData: [HistoryData]
 }
 
 // MARK: - Datum
 
 struct HistoryData: Codable {
-    let postID: Int
-    let sendingDate, content, reserveAt, sendDueDate: String
-    let hidden: Bool?
+    let reservationID: Int
+    let message, detail, showStatus, reservedAt: String
     
     enum CodingKeys: String, CodingKey {
-        case postID = "postId"
-        case sendingDate, content, reserveAt, sendDueDate, hidden
+        case reservationID = "reservationId"
+        case message, detail, showStatus, reservedAt
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        postID = (try? values.decode(Int.self, forKey: .postID)) ?? 0
-        sendingDate = (try? values.decode(String.self, forKey: .sendingDate)) ?? ""
-        content = (try? values.decode(String.self, forKey: .content)) ?? ""
-        reserveAt = (try? values.decode(String.self, forKey: .reserveAt)) ?? ""
-        sendDueDate = (try? values.decode(String.self, forKey: .sendDueDate)) ?? ""
-        hidden = (try? values.decode(Bool.self, forKey: .hidden)) ?? false
+        reservationID = (try? values.decode(Int.self, forKey: .reservationID)) ?? 0
+        message = (try? values.decode(String.self, forKey: .message)) ?? ""
+        detail = (try? values.decode(String.self, forKey: .detail)) ?? ""
+        showStatus = (try? values.decode(String.self, forKey: .showStatus)) ?? ""
+        reservedAt = (try? values.decode(String.self, forKey: .reservedAt)) ?? ""
     }
 }

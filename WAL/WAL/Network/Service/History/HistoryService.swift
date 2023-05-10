@@ -17,7 +17,7 @@ extension HistoryService: TargetType {
     var path: String {
         switch self {
         case.history:
-            return "/reserve"
+            return "/reservation/history"
         case .cancelReserve(let postId):
             return "/reserve/\(postId)"
         case .deleteReserve(let postId):

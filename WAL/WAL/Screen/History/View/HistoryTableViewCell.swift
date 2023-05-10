@@ -228,9 +228,15 @@ class HistoryTableViewCell: UITableViewCell {
     }
     
     internal func setData(_ data: HistoryData) {
-        postId = data.postID
+        postId = data.reservationID
         
-        isContentHidden = data.hidden ?? false
+        if data.showStatus == "OPEN" {
+            isContentHidden = false
+            coverView.isHidden = false
+        } else {
+            isContentHidden = true
+            coverView.isHidden = true
+        }
         
         let calendar = Calendar.current
         let currentDate = Date()
@@ -239,15 +245,15 @@ class HistoryTableViewCell: UITableViewCell {
         func days(from date: Date) -> Int {
             return (calendar.dateComponents([.day], from: currentDate, to: date).day ?? 0) + 1
         }
-        daysCount = days(from: data.sendDueDate.toDate() ?? currentDate)
+        daysCount = days(from: data.reservedAt.toDate() ?? currentDate)
         
         dDayLabel.text = "D-\(daysCount)"
         
-        sendingDateLabel.text = "\(data.sendingDate)"
+        sendingDateLabel.text = "\(data.detail)"
         
-        contentLabel.text = data.content
+        contentLabel.text = data.message
         
-        reserveAtLabel.text = "\(data.reserveAt)"
+        reserveAtLabel.text = "\(data.reservedAt)"
         
         [sendingDateLabel, contentLabel, reserveAtLabel].forEach {
             $0.addLetterSpacing()
@@ -257,6 +263,6 @@ class HistoryTableViewCell: UITableViewCell {
         contentLabel.numberOfLines = 1
         contentLabel.lineBreakMode = .byTruncatingTail
         
-        coverView.isHidden = data.hidden ?? false ? false : true
+//        coverView.isHidden = data.hidden ?? false ? false : true
     }
 }
