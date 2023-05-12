@@ -13,15 +13,15 @@ enum HistoryService {
     case deleteReserve(postId: Int)
 }
 
-extension HistoryService: TargetType {
+extension HistoryService: BaseTargetType {
     var path: String {
         switch self {
         case.history:
             return "/reservation/history"
         case .cancelReserve(let postId):
-            return "/reserve/\(postId)"
+            return "/reservation/\(postId)/cancel"
         case .deleteReserve(let postId):
-            return "/reserve/completed/\(postId)"
+            return "/reservation/history/\(postId)/remove"
         }
     }
     
@@ -29,7 +29,9 @@ extension HistoryService: TargetType {
         switch self {
         case .history:
             return .get
-        case .cancelReserve, .deleteReserve:
+        case .cancelReserve:
+            return .post
+        case .deleteReserve:
             return .delete
         }
     }
@@ -41,16 +43,8 @@ extension HistoryService: TargetType {
         }
     }
     
-    var baseURL: URL {
-        return URL(string: GeneralAPI.baseURL)!
-    }
-    
-    var sampleData: Data {
-        return Data()
-    }
-    
     var headers: [String : String]? {
         return ["Content-Type": "application/json",
-                "accesstoken": UserDefaultsHelper.standard.accesstoken ?? ""]
+                "Authorization": UserDefaultsHelper.standard.accesstoken ?? ""]
     }
 }

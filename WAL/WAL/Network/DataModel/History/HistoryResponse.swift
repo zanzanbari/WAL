@@ -9,8 +9,16 @@ import Foundation
 
 // MARK: - HistoryResponse
 
-struct HistoryResponse: Codable {
-    let notDoneData, doneData: [HistoryData]
+struct HistoryResponse: BaseResponse, Codable {
+    
+    var statusCode: Int?
+    var message: String?
+    
+    let notDoneData, doneData: [HistoryData]?
+    
+    var statusCase: NetworkResult? {
+        return NetworkResult(rawValue: statusCode ?? -999)
+    }
 }
 
 // MARK: - Datum
@@ -31,5 +39,18 @@ struct HistoryData: Codable {
         detail = (try? values.decode(String.self, forKey: .detail)) ?? ""
         showStatus = (try? values.decode(String.self, forKey: .showStatus)) ?? ""
         reservedAt = (try? values.decode(String.self, forKey: .reservedAt)) ?? ""
+    }
+}
+
+/// 왈소리 조회 상태 (사용자가 보았는지)
+enum HistoryWalShowStatus: String {
+    case open     = "OPEN"
+    case closed   = "CLOSED"
+    
+    var status: Bool {
+        switch self {
+        case .open:      return true
+        case .closed:    return false
+        }
     }
 }

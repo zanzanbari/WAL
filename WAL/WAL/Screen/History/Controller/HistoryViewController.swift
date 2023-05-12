@@ -385,13 +385,13 @@ extension HistoryViewController {
             guard let historyData = historyData else {
                 return
             }
-            if let sendingData = historyData.data?.notDoneData {
+            if let sendingData = historyData.notDoneData {
                 self.sendingData = sendingData
                 for _ in 0 ..< sendingData.count {
                     self.selectedIndices.append([-1,-1])
                 }
             }
-            if let completeData = historyData.data?.doneData {
+            if let completeData = historyData.doneData {
                 self.completeData = completeData
                 for _ in 0 ..< completeData.count {
                     self.selectedIndices.append([-1,-1])
@@ -410,13 +410,13 @@ extension HistoryViewController {
             guard let historyData = historyData else {
                 return
             }
-            if let sendingData = historyData.data?.notDoneData {
+            if let sendingData = historyData.notDoneData {
                 self.sendingData = sendingData
                 for _ in 0 ..< sendingData.count {
                     self.selectedIndices.append([-1,-1])
                 }
             }
-            if let completeData = historyData.data?.doneData {
+            if let completeData = historyData.doneData {
                 self.completeData = completeData
                 for _ in 0 ..< completeData.count {
                     self.selectedIndices.append([-1,-1])

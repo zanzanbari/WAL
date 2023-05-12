@@ -17,16 +17,16 @@ final class HistoryAPI {
         plugins: [MoyaLoggerPlugin()]
     )
     
-    public private(set) var historyData: GenericResponse<HistoryResponse>?
+    public private(set) var historyData: HistoryResponse?
     public private(set) var cancelHistoryData: GenericResponse<DeleteHistoryResponse>?
     public private(set) var deleteHistoryData: GenericResponse<DeleteHistoryResponse>?
     
-    public func getHistoryData(completion: @escaping ((GenericResponse<HistoryResponse>?, Int?) -> ())) {
+    public func getHistoryData(completion: @escaping ((HistoryResponse?, Int?) -> ())) {
         historyProvider.request(.history) { result in
             switch result {
             case .success(let response):
                 do {
-                    self.historyData = try response.map(GenericResponse<HistoryResponse>?.self)
+                    self.historyData = try response.map(HistoryResponse?.self)
                     guard let historyData = self.historyData else { return }
                     completion(historyData, nil)
                     

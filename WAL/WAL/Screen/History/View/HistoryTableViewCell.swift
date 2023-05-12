@@ -229,13 +229,12 @@ class HistoryTableViewCell: UITableViewCell {
     
     internal func setData(_ data: HistoryData) {
         postId = data.reservationID
-        
         if data.showStatus == "OPEN" {
             isContentHidden = false
-            coverView.isHidden = false
+            coverView.isHidden = true
         } else {
             isContentHidden = true
-            coverView.isHidden = true
+            coverView.isHidden = false
         }
         
         let calendar = Calendar.current
