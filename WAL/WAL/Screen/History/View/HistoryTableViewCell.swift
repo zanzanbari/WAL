@@ -252,7 +252,8 @@ class HistoryTableViewCell: UITableViewCell {
         
         contentLabel.text = data.message
         
-        reserveAtLabel.text = "\(data.reservedAt)"
+        var details = data.reservedAt.components(separatedBy:".")
+        reserveAtLabel.text = "\(details[0])"
         
         [sendingDateLabel, contentLabel, reserveAtLabel].forEach {
             $0.addLetterSpacing()
