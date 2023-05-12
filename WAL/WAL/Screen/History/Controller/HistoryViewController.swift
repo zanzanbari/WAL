@@ -173,14 +173,14 @@ final class HistoryViewController: UIViewController {
         self.presentingViewController?.dismiss(animated: true)
     }
     
-    func showActionSheet(type: ActionSheetType, postId: Int) {
+    func showActionSheet(type: ActionSheetType, reservationId: Int) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
-            self.deleteHistoryInfo(postId: postId)
+            self.deleteHistoryInfo(reservationId: reservationId)
         })
         
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: { action in
-            self.cancelHistoryInfo(postId: postId)
+            self.cancelHistoryInfo(reservationId: reservationId)
         })
         
         let closeAction = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
@@ -296,7 +296,7 @@ extension HistoryViewController: UITableViewDelegate {
         
         let cancelAction = UIContextualAction(style: .normal, title: "예약 취소") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-                self.showActionSheet(type: .reserve, postId: cell.postId)
+                self.showActionSheet(type: .reserve, reservationId: cell.postId)
             }
             success(true)
         }
@@ -312,7 +312,7 @@ extension HistoryViewController: UITableViewDelegate {
         
         let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             if let cell = self.historyTableView.cellForRow(at: indexPath) as? HistoryTableViewCell {
-                self.showActionSheet(type: .delete, postId: cell.postId)
+                self.showActionSheet(type: .delete, reservationId: cell.postId)
             }
             success(true)
         }
@@ -430,8 +430,8 @@ extension HistoryViewController {
         }
     }
     
-    func cancelHistoryInfo(postId: Int) {
-        HistoryAPI.shared.cancelHistoryData(postId: postId) { cancelHistoryData, err in
+    func cancelHistoryInfo(reservationId: Int) {
+        HistoryAPI.shared.cancelHistoryData(reservationId: reservationId) { cancelHistoryData, err in
             guard let cancelHistoryData = cancelHistoryData else {
                 return
             }
@@ -440,8 +440,8 @@ extension HistoryViewController {
         }
     }
     
-    func deleteHistoryInfo(postId: Int) {
-        HistoryAPI.shared.deleteHistoryData(postId: postId) { deleteHistoryData, err in
+    func deleteHistoryInfo(reservationId: Int) {
+        HistoryAPI.shared.deleteHistoryData(reservationId: reservationId) { deleteHistoryData, err in
             guard let deleteHistoryData = deleteHistoryData else {
                 return
             }

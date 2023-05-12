@@ -9,8 +9,8 @@ import Moya
 
 enum HistoryService {
     case history
-    case cancelReserve(postId: Int)
-    case deleteReserve(postId: Int)
+    case cancelReserve(reservationId: Int)
+    case deleteReserve(reservationId: Int)
 }
 
 extension HistoryService: BaseTargetType {
@@ -18,10 +18,10 @@ extension HistoryService: BaseTargetType {
         switch self {
         case.history:
             return "/reservation/history"
-        case .cancelReserve(let postId):
-            return "/reservation/\(postId)/cancel"
-        case .deleteReserve(let postId):
-            return "/reservation/history/\(postId)/remove"
+        case .cancelReserve(let reservationId):
+            return "/reservation/\(reservationId)/cancel"
+        case .deleteReserve(let reservationId):
+            return "/reservation/history/\(reservationId)/remove"
         }
     }
     

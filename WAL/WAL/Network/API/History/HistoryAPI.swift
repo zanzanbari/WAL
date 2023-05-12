@@ -18,8 +18,8 @@ final class HistoryAPI {
     )
     
     public private(set) var historyData: HistoryResponse?
-    public private(set) var cancelHistoryData: GenericResponse<DeleteHistoryResponse>?
-    public private(set) var deleteHistoryData: GenericResponse<DeleteHistoryResponse>?
+    public private(set) var cancelHistoryData: DefaultResponse?
+    public private(set) var deleteHistoryData: DefaultResponse?
     
     public func getHistoryData(completion: @escaping ((HistoryResponse?, Int?) -> ())) {
         historyProvider.request(.history) { result in
@@ -40,12 +40,13 @@ final class HistoryAPI {
         }
     }
     
-    public func cancelHistoryData(postId: Int, completion: @escaping ((GenericResponse<DeleteHistoryResponse>?, Int?) -> ())) {
-        historyProvider.request(.cancelReserve(postId: postId)) { result in
+    public func cancelHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
+        historyProvider.request(.cancelReserve(reservationId: reservationId)) { result in
             switch result {
             case .success(let response):
+                print("✅")
                 do {
-                    self.cancelHistoryData = try response.map(GenericResponse<DeleteHistoryResponse>?.self)
+                    self.cancelHistoryData = try response.map(DefaultResponse?.self)
                     guard let cancelHistoryData = self.cancelHistoryData else { return }
                     completion(cancelHistoryData, nil)
                     
@@ -59,15 +60,15 @@ final class HistoryAPI {
         }
     }
     
-    public func deleteHistoryData(postId: Int, completion: @escaping ((GenericResponse<DeleteHistoryResponse>?, Int?) -> ())) {
-        historyProvider.request(.deleteReserve(postId: postId)) { result in
+    public func deleteHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
+        historyProvider.request(.deleteReserve(reservationId: reservationId)) { result in
             switch result {
             case .success(let response):
+                print("✅")
                 do {
-                    self.deleteHistoryData = try response.map(GenericResponse<DeleteHistoryResponse>?.self)
+                    self.deleteHistoryData = try response.map(DefaultResponse?.self)
                     guard let deleteHistoryData = self.deleteHistoryData else { return }
                     completion(deleteHistoryData, nil)
-                    
                 } catch(let err) {
                     print(err.localizedDescription, 500)
                 }
