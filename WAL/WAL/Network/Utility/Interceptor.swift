@@ -21,11 +21,12 @@ final class Interceptor: RequestInterceptor {
             return
         }
         
+        // 액세스 토큰이 없는 상황 조건 추가
         guard statusCode == 401 else {
             /// 401이 아닌 다른 에러는 retry하지 않고 Error 방출 -> 토큰 만료 이슈가 아니기 때문
             completion(.doNotRetryWithError(error))
             return
-        }
+        }        
         
         AuthAPI.shared.postReissue { data, status in
             switch data?.statusCode {

@@ -104,7 +104,7 @@ final class LoginViewController: UIViewController {
     // TODO: - 해결 연결 넘어가는 것 닉네임이 없음
     private func pushToHome() {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
-        print(nickname, "LoginView 닉네임==================")
+        print("LoginView 닉네임 : \(nickname)==================")
         if nickname == "" {
             print("🛼 pushToHome() 로그인 후 온보딩을 완료하지 않아 온보딩뷰입니다.")
             transition(OnboardingViewController(), .presentFullNavigation)
@@ -142,16 +142,15 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     private func postLogin(socialToken: String, socialType: SocialType, fcmToken: String) {
         let param = LoginRequest(socialToken, socialType.rawValue, fcmToken)
-        AuthAPI.shared.postLogin(param: param) { [weak self] ( data, error) in
+        AuthAPI.shared.postLogin(param: param) { [weak self] ( data, status) in
             guard let self = self else { return }
-            if let data = data {
-                if data.statusCode == 401 {
-                    self.showAlert(title: Constant.Login.resign,
-                                   message: nil,
-                                   actions: [],
-                                   cancelTitle: "확인",
-                                   preferredStyle: .alert)
-                }
+            guard let status = status else { return }
+            if status == 403 {
+                self.showAlert(title: Constant.Login.resign,
+                               message: nil,
+                               actions: [],
+                               cancelTitle: "확인",
+                               preferredStyle: .alert)
             } else {
                 UserDefaultsHelper.standard.socialtoken = socialToken
                 UserDefaultsHelper.standard.social = socialType.rawValue

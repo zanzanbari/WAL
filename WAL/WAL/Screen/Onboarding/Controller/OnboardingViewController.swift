@@ -16,6 +16,7 @@ final class OnboardingViewController: BaseViewController {
             
     private var currentRow: Int = 0
     private var didCurrentRow: Int = 0
+    private var nickname: String = ""
     private var category: [String] = []
     private var time: [String] = []
 
@@ -107,9 +108,9 @@ final class OnboardingViewController: BaseViewController {
         CategoryCollectionViewCell.register(collectionView)
         AlarmCollectionViewCell.register(collectionView)
     }
-    
+
     // MARK: - @objc
-    
+        
     @objc func touchupBackButton() {
         if currentRow == 1 {
             collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .right, animated: true)
@@ -133,7 +134,7 @@ final class OnboardingViewController: BaseViewController {
     
     @objc func changeNickname(_ notification: Notification) {
         guard let nickname = notification.userInfo?["nickname"] as? String else { return }
-        UserDefaultsHelper.standard.nickname = nickname
+        self.nickname = nickname
     }
     
     @objc func touchupCompleteButton(_ sender: UIButton) {
@@ -157,7 +158,6 @@ extension OnboardingViewController: SendCategoryDelegate, SendAlarmTimeDelegate 
 
 extension OnboardingViewController {
     private func postOnboard() {
-        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         OnboardAPI.shared.postOnboard(nickname: nickname,
                                       category: category,
                                       time: time) { [weak self] data, status in
@@ -165,6 +165,8 @@ extension OnboardingViewController {
             guard let status = status else { return }
             if status == 201 {
                 let viewController = OnboardCompleteViewController()
+                // TODO: - 메인 진입할 때
+                UserDefaultsHelper.standard.nickname = nickname
                 UserDefaultsHelper.standard.complete = true
                 self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
