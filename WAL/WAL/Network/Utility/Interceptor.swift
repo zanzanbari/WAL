@@ -13,8 +13,13 @@ final class Interceptor: RequestInterceptor {
     /// adapt : request 전 추가작업을 진행하게 도와주는 함수이나 우리는 필요없음
 
     /// response에 따라 수행할 작업을 지정 - 통신 실패시 retry 할 수 있음
-    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+    func retry(_ request: Request,
+               for session: Session,
+               dueTo error: Error,
+               completion: @escaping (RetryResult) -> Void
+    ) {
         guard let statusCode = request.response?.statusCode,
+              request.retryCount < 4,
               !(200..<300).contains(statusCode)
         else {
             completion(.doNotRetry)
