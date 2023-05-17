@@ -25,11 +25,11 @@ struct HistoryResponse: BaseResponse, Codable {
 
 struct HistoryData: Codable {
     let reservationID: Int
-    let message, detail, showStatus, reservedAt: String
+    let message, detail, showStatus, reservedAt, sendingDate: String
     
     enum CodingKeys: String, CodingKey {
         case reservationID = "reservationId"
-        case message, detail, showStatus, reservedAt
+        case message, detail, showStatus, reservedAt, sendingDate
     }
     
     init(from decoder: Decoder) throws {
@@ -39,6 +39,7 @@ struct HistoryData: Codable {
         detail = (try? values.decode(String.self, forKey: .detail)) ?? ""
         showStatus = (try? values.decode(String.self, forKey: .showStatus)) ?? ""
         reservedAt = (try? values.decode(String.self, forKey: .reservedAt)) ?? ""
+        sendingDate = (try? values.decode(String.self, forKey: .sendingDate)) ?? ""
     }
 }
 

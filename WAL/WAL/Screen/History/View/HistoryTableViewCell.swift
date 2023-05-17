@@ -241,10 +241,11 @@ class HistoryTableViewCell: UITableViewCell {
         let currentDate = Date()
         var daysCount:Int = 0
   
+        let sendingDate = data.sendingDate.components(separatedBy:".")
         func days(from date: Date) -> Int {
             return (calendar.dateComponents([.day], from: currentDate, to: date).day ?? 0) + 1
         }
-        daysCount = days(from: data.reservedAt.toDate() ?? currentDate)
+        daysCount = days(from: sendingDate[0].toDate() ?? currentDate)
         
         dDayLabel.text = "D-\(daysCount)"
         
@@ -252,7 +253,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         contentLabel.text = data.message
         
-        var details = data.reservedAt.components(separatedBy:".")
+        let details = data.reservedAt.components(separatedBy:".")
         reserveAtLabel.text = "\(details[0])"
         
         [sendingDateLabel, contentLabel, reserveAtLabel].forEach {
