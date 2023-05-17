@@ -43,7 +43,7 @@ final class OnboardAPI {
                     completion(nil, response.statusCode)
                 }
             case .failure(let error):
-                print(error.localizedDescription, "postOnboard")
+                print(error.localizedDescription)
                 completion(nil, error.response?.statusCode)
             }
         }

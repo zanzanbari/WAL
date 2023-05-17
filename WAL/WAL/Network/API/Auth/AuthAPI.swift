@@ -46,7 +46,7 @@ final class AuthAPI {
                 } else {
                     do {
                         let loginData = try response.map(DefaultResponse.self)
-                        completion(loginData, loginData.statusCode)
+                        completion(loginData, response.statusCode)
                     } catch(let error) {
                         print(error.localizedDescription)
                         completion(nil, response.statusCode)
