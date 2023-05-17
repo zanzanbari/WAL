@@ -166,13 +166,15 @@ extension OnboardingViewController {
             if status == 201 {
                 let viewController = OnboardCompleteViewController()
                 // TODO: - 메인 진입할 때
-                UserDefaultsHelper.standard.nickname = nickname
                 UserDefaultsHelper.standard.complete = true
+                UserDefaultsHelper.standard.nickname = nickname
                 self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                     self.loadingView.hide()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
+            } else {
+                self.showToast(message: "상태코드: \(status)")
             }
         }
     }

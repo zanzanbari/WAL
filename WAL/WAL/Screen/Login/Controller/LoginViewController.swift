@@ -145,6 +145,7 @@ extension LoginViewController {
         AuthAPI.shared.postLogin(param: param) { [weak self] ( data, status) in
             guard let self = self else { return }
             guard let status = status else { return }
+            self.showToast(message: "상태코드: \(status)")
             if status == 403 {
                 self.showAlert(title: Constant.Login.resign,
                                message: nil,

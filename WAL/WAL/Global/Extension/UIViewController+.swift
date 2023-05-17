@@ -22,9 +22,9 @@ extension UIViewController {
     }
     
     func showToast(message : String) {
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75,
-                                               y: self.view.frame.size.height-106,
-                                               width: 150, height: 33)).then {
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2-125,
+                                               y: self.view.frame.size.height-50,
+                                               width: 250, height: 33)).then {
             $0.backgroundColor = .black100.withAlphaComponent(0.6)
             $0.backgroundColor = .black100.withAlphaComponent(0.6)
             $0.textColor = .white100
