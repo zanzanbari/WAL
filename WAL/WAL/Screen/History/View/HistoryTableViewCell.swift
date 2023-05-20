@@ -229,13 +229,18 @@ class HistoryTableViewCell: UITableViewCell {
     
     internal func setData(_ data: HistoryData) {
         postId = data.reservationID
-        if data.showStatus == "OPEN" {
-            isContentHidden = false
-            coverView.isHidden = true
-        } else {
-            isContentHidden = true
-            coverView.isHidden = false
+extension UITableViewCell {
+        enum ContentShowStatus: String {
+                case open          = "OPEN"
+                case closed       = "CLOSED"
         }
+}
+
+.....
+
+        let showStatus = ContentShowStatus(rawValue: data.showStatus) ?? .open
+        isContentHidden = showStatus == .open ? false : true
+        coverView.isHidden = showStatus == .open ? true : false 
         
         let calendar = Calendar.current
         let currentDate = Date()
