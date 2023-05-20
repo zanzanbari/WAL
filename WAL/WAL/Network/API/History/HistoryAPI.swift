@@ -70,7 +70,7 @@ final class HistoryAPI {
                     guard let deleteHistoryData = self.deleteHistoryData else { return }
                     completion(deleteHistoryData, nil)
                 } catch(let err) {
-                    print(err.localizedDescription, err.response.statusCode)
+                    print(err.localizedDescription)
                 }
             case .failure(let err):
                 print(err.localizedDescription)

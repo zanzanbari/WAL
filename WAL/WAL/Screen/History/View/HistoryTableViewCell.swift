@@ -229,38 +229,30 @@ class HistoryTableViewCell: UITableViewCell {
     
     internal func setData(_ data: HistoryData) {
         postId = data.reservationID
-extension UITableViewCell {
-        enum ContentShowStatus: String {
-                case open          = "OPEN"
-                case closed       = "CLOSED"
-        }
-}
-
-.....
-
+        
         let showStatus = ContentShowStatus(rawValue: data.showStatus) ?? .open
         isContentHidden = showStatus == .open ? false : true
-        coverView.isHidden = showStatus == .open ? true : false 
+        coverView.isHidden = showStatus == .open ? true : false
         
         let calendar = Calendar.current
         let currentDate = Date()
         var daysCount:Int = 0
-  
+
         let sendingDate = data.sendingDate.components(separatedBy:".")
         func days(from date: Date) -> Int {
             return (calendar.dateComponents([.day], from: currentDate, to: date).day ?? 0) + 1
         }
         daysCount = days(from: sendingDate[0].toDate() ?? currentDate)
-        
+
         dDayLabel.text = "D-\(daysCount)"
-        
+
         sendingDateLabel.text = "\(data.detail)"
-        
+
         contentLabel.text = data.message
-        
+
         let details = data.reservedAt.components(separatedBy:".")
         reserveAtLabel.text = "\(details[0])"
-        
+
         [sendingDateLabel, contentLabel, reserveAtLabel].forEach {
             $0.addLetterSpacing()
             $0.textAlignment = .left
@@ -270,5 +262,12 @@ extension UITableViewCell {
         contentLabel.lineBreakMode = .byTruncatingTail
         
 //        coverView.isHidden = data.hidden ?? false ? false : true
+    }
+}
+
+extension HistoryTableViewCell {
+    enum ContentShowStatus: String {
+        case open          = "OPEN"
+        case closed       = "CLOSED"
     }
 }
