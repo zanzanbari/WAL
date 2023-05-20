@@ -12,27 +12,32 @@ import Moya
 final class CreateAPI {
     static let shared: CreateAPI = CreateAPI()
     private init() {}
+    
     private let createProvider = MoyaProvider<CreateService>(
         session: Session(interceptor: Interceptor()),
         plugins: [MoyaLoggerPlugin()]
     )
-
-    private(set) var reserveResponse: GenericResponse<Reserve>?
-    private(set) var reservedDateResponse: GenericArrayResponse<String>?
+    
+    private(set) var reserveResponse: DefaultResponse?
+    private(set) var reservedDateResponse: ReservedDateResponse?
     
     func getReservedDate(completion: @escaping(([String]?, NetworkResult?) -> ())) {
-        createProvider.request(.reservedDate) { result in
+        createProvider.request(.reservedDate) { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let response):
                 do {
-                    self.reservedDateResponse = try response.map(GenericArrayResponse<String>?.self)
-                    guard let response = self.reservedDateResponse, let data = response.data else {
+                    self.reservedDateResponse = try response.map(ReservedDateResponse.self)
+                    
+                    guard let reservedDateResponse = self.reservedDateResponse, let reservedDates = reservedDateResponse.reserveDates else {
                         completion(nil, .nullValue)
                         return
                     }
-                    completion(data, nil)
+                    completion(reservedDates, nil)
                 } catch(let error) {
                     print(error.localizedDescription)
+                    completion(nil, .internalServerError)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -41,20 +46,21 @@ final class CreateAPI {
         }
     }
     
-    func postReservation(reserve: Reserve, completion: @escaping((GenericResponse<Reserve>?, NetworkResult?) -> ())) {
-        createProvider.request(.reserve(body: reserve)) { result in
+    func postReservation(reserve: Reserve, completion: @escaping((Void, NetworkResult?) -> ())) {
+        createProvider.request(.reserve(body: reserve)) { [self] result in
             switch result {
-            case .success(let response):
+            case .success(_):
                 do {
-                    self.reserveResponse = try response.map(GenericResponse<Reserve>?.self)
-                    guard let reserveData = self.reserveResponse else { return }
-                    completion(reserveData, nil)
+                    if self.reserveResponse?.statusCase == nil {
+                        completion((), .created)
+                    }
                 } catch(let error) {
                     print(error.localizedDescription)
+                    completion((), reserveResponse?.statusCase)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
-                completion(nil, .internalServerError)
+                completion((), .internalServerError)
             }
         }
     }

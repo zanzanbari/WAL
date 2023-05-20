@@ -267,21 +267,19 @@ class CreateViewController: UIViewController {
         timeFormatter.dateFormat = "a hh:mm"
         timeFormatter.locale = Locale(identifier: "ko")
         
-        let date = dateFormatter.string(from: datePickerData.date ?? Date())
+        var date = dateFormatter.string(from: datePickerData.date ?? Date())
         var time = timeFormatter.string(from: datePickerData.time ?? Date())
+        
         viewController.date = "\(date) \(time)"
         
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         timeFormatter.dateFormat = "HH:mm:ss"
+        date = dateFormatter.string(from: datePickerData.date ?? Date())
         time = timeFormatter.string(from: datePickerData.time ?? Date())
         
-        let reservationData = Reserve(content: walSoundTextView.text, date: date, time: time, hide: isSelectedHideHistory)
+        let reservationData = Reserve(message: walSoundTextView.text, localDate: date, localTime: time, showStatus: isSelectedHideHistory ? "CLOSED" : "OPEN")
         
-        postReservation(data: reservationData)
-        self.configureLoadingView()
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            self.loadingView.hide()
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+        postReservation(data: reservationData, viewController)
     }
     
     @objc private func touchUpInformationButton() {
@@ -496,16 +494,27 @@ extension CreateViewController: UITableViewDataSource {
 
 extension CreateViewController {
     private func getReservedDate() {
-        CreateAPI.shared.getReservedDate { data, error in
+        CreateAPI.shared.getReservedDate { data, statusCase in
             guard let reservedDates = data else { return }
             self.reservedDates = reservedDates
         }
     }
     
-    private func postReservation(data: Reserve) {
-        CreateAPI.shared.postReservation(reserve: data) { data, error in
-            guard let data = data else { return }
-            print(data)
+    private func postReservation(data: Reserve, _ viewController: CreateFinishedViewController) {
+        CreateAPI.shared.postReservation(reserve: data) { [weak self] _, statusCase in
+            guard let self else { return }
+            guard let statusCase = statusCase else { return }
+            
+            switch statusCase {
+            case .created:
+                self.configureLoadingView()
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    self.loadingView.hide()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+            default:
+                return
+            }
         }
     }
 }

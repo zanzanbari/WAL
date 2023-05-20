@@ -16,9 +16,9 @@ extension CreateService: BaseTargetType {
     var path: String {
         switch self {
         case.reservedDate:
-            return "/reserve/datepicker"
+            return "/reservation/calender"
         case .reserve:
-            return "/reserve"
+            return "/reservation/register"
         }
     }
     
@@ -39,7 +39,7 @@ extension CreateService: BaseTargetType {
     }
     
     var headers: [String : String]? {
-        return ["Content-Type": "application/json",
-                "accesstoken": UserDefaultsHelper.standard.accesstoken ?? ""]
+        return [GeneralAPI.contentType: GeneralAPI.json,
+                GeneralAPI.authentication: UserDefaultsHelper.standard.accesstoken ?? ""]
     }
 }

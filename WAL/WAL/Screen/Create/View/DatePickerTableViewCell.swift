@@ -27,6 +27,7 @@ class DatePickerTableViewCell: UITableViewCell {
         $0.tintColor = .mint100
         $0.locale = Locale(identifier: "ko-KR")
         $0.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
+        $0.addTarget(self, action: #selector(handleDatePickerTap), for: .editingDidBegin)
     }
     
     var datePickerType: DatePickerType = .none {
@@ -105,6 +106,10 @@ class DatePickerTableViewCell: UITableViewCell {
         } else {
             sendDate?(selectedDate, false)
         }
+    }
+    
+    @objc func handleDatePickerTap() {
+        datePicker.resignFirstResponder()
     }
     
     //MARK: - Custom Method
