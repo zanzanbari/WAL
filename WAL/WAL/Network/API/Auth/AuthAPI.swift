@@ -41,18 +41,20 @@ final class AuthAPI {
                     let refreshToken = String(refreshHeader.dropFirst("".count))
                     UserDefaultsHelper.standard.accesstoken = accessToken
                     UserDefaultsHelper.standard.refreshtoken = refreshToken
-                    completion(nil, nil)
-                    
+                    completion(nil, response.statusCode)
+
                 } else {
                     do {
                         let loginData = try response.map(DefaultResponse.self)
-                        completion(loginData, nil)
-                    } catch {
-                        completion(nil, 500)
+                        completion(loginData, response.statusCode)
+                    } catch(let error) {
+                        print(error.localizedDescription)
+                        completion(nil, response.statusCode)
                     }
                 }
-            case .failure:
-                completion(nil, 500)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(nil, error.response?.statusCode)
             }
         }
     }

@@ -65,6 +65,7 @@ final class MoyaLoggerPlugin: PluginType {
             onSucceed(response)
             return
         }
+        print("3️⃣ [실패 StatusCode] : ", error.response?.statusCode)
         var log = "네트워크 오류"
         log.append("<-- \(error.errorCode)\n")
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")

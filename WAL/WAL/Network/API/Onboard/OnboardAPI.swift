@@ -38,13 +38,13 @@ final class OnboardAPI {
                     guard let onboard = self.onboard else { return }
                     completion(onboard, nil)
                     
-                } catch(let err) {
-                    print(err.localizedDescription, 500, "실패")
+                } catch(let error) {
+                    print(error.localizedDescription)
                     completion(nil, response.statusCode)
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, 500)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(nil, error.response?.statusCode)
             }
         }
     }
