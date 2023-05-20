@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "lottie-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/airbnb/lottie-ios.git",
-      "state" : {
-        "revision" : "440a6eebb8a8ae9c773e9a3e21021b72a74ffbb7",
-        "version" : "4.1.2"
-      }
-    },
-    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit",
@@ -33,7 +24,7 @@
       "location" : "https://github.com/zanzanbari/WALKit.git",
       "state" : {
         "branch" : "develop",
-        "revision" : "06d6fd74266ef61944743327bc7b550534ae7cc6"
+        "revision" : "31eaa8614c9e330f7e0c54d54e95aed1fc66e536"
       }
     }
   ],

@@ -9,29 +9,49 @@ import Foundation
 
 // MARK: - HistoryResponse
 
-struct HistoryResponse: Codable {
-    let sendingData, completeData: [HistoryData]
+struct HistoryResponse: BaseResponse, Codable {
+    
+    var statusCode: Int?
+    var message: String?
+    
+    let notDoneData, doneData: [HistoryData]?
+    
+    var statusCase: NetworkResult? {
+        return NetworkResult(rawValue: statusCode ?? -999)
+    }
 }
 
 // MARK: - Datum
 
 struct HistoryData: Codable {
-    let postID: Int
-    let sendingDate, content, reserveAt, sendDueDate: String
-    let hidden: Bool?
+    let reservationID: Int
+    let message, detail, showStatus, reservedAt, sendingDate: String
     
     enum CodingKeys: String, CodingKey {
-        case postID = "postId"
-        case sendingDate, content, reserveAt, sendDueDate, hidden
+        case reservationID = "reservationId"
+        case message, detail, showStatus, reservedAt, sendingDate
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        postID = (try? values.decode(Int.self, forKey: .postID)) ?? 0
+        reservationID = (try? values.decode(Int.self, forKey: .reservationID)) ?? 0
+        message = (try? values.decode(String.self, forKey: .message)) ?? ""
+        detail = (try? values.decode(String.self, forKey: .detail)) ?? ""
+        showStatus = (try? values.decode(String.self, forKey: .showStatus)) ?? ""
+        reservedAt = (try? values.decode(String.self, forKey: .reservedAt)) ?? ""
         sendingDate = (try? values.decode(String.self, forKey: .sendingDate)) ?? ""
-        content = (try? values.decode(String.self, forKey: .content)) ?? ""
-        reserveAt = (try? values.decode(String.self, forKey: .reserveAt)) ?? ""
-        sendDueDate = (try? values.decode(String.self, forKey: .sendDueDate)) ?? ""
-        hidden = (try? values.decode(Bool.self, forKey: .hidden)) ?? false
+    }
+}
+
+/// 왈소리 조회 상태 (사용자가 보았는지)
+enum HistoryWalShowStatus: String {
+    case open     = "OPEN"
+    case closed   = "CLOSED"
+    
+    var status: Bool {
+        switch self {
+        case .open:      return true
+        case .closed:    return false
+        }
     }
 }
