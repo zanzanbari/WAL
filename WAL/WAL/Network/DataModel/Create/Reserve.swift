@@ -8,8 +8,8 @@
 import Foundation
 
 struct Reserve: Codable {
-    let content: String
-    let date: String
-    let time: String
-    let hide: Bool
+    let message: String
+    let localDate: String
+    let localTime: String
+    let showStatus: String
 }

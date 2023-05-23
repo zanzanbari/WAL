@@ -122,6 +122,7 @@
 		E213130528608077001238F3 /* CreateInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E213130428608077001238F3 /* CreateInformationViewController.swift */; };
 		E23FF600287FF7B0004016DC /* CreateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FF5FF287FF7B0004016DC /* CreateAPI.swift */; };
 		E23FF602287FF7C3004016DC /* CreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FF601287FF7C3004016DC /* CreateService.swift */; };
+		E27716802A0A0B4C0033B370 /* ReservedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E277167F2A0A0B4C0033B370 /* ReservedDate.swift */; };
 		E281B4D1282D6BDB005667FD /* WALCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281B4D0282D6BDB005667FD /* WALCreateView.swift */; };
 		E281B4D5282D7198005667FD /* CreateFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */; };
 		E2A9B4D928279D89007C2C95 /* ReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */; };
@@ -251,6 +252,7 @@
 		E213130428608077001238F3 /* CreateInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInformationViewController.swift; sourceTree = "<group>"; };
 		E23FF5FF287FF7B0004016DC /* CreateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAPI.swift; sourceTree = "<group>"; };
 		E23FF601287FF7C3004016DC /* CreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateService.swift; sourceTree = "<group>"; };
+		E277167F2A0A0B4C0033B370 /* ReservedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedDate.swift; sourceTree = "<group>"; };
 		E281B4D0282D6BDB005667FD /* WALCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALCreateView.swift; sourceTree = "<group>"; };
 		E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFinishedViewController.swift; sourceTree = "<group>"; };
 		E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTableViewCell.swift; sourceTree = "<group>"; };
@@ -884,6 +886,7 @@
 			isa = PBXGroup;
 			children = (
 				E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */,
+				E2CD8B0528219B57009277C3 /* CreateViewController.swift */,
 				E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */,
 				E281B4D0282D6BDB005667FD /* WALCreateView.swift */,
 				E2FD851628782CEC00335667 /* WALPopupView.swift */,
@@ -894,7 +897,6 @@
 		E2CD8B0428219AC5009277C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E2CD8B0528219B57009277C3 /* CreateViewController.swift */,
 				E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */,
 				E213130428608077001238F3 /* CreateInformationViewController.swift */,
 				E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */,
@@ -922,6 +924,7 @@
 			isa = PBXGroup;
 			children = (
 				E2AF3E3F28800B610059C21A /* Reserve.swift */,
+				E277167F2A0A0B4C0033B370 /* ReservedDate.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -1105,6 +1108,7 @@
 				E23FF600287FF7B0004016DC /* CreateAPI.swift in Sources */,
 				5BA3895827F6C2260010EAA1 /* WalDataType.swift in Sources */,
 				927D10F6282110AA001AEB78 /* HistoryTableViewCell.swift in Sources */,
+				E27716802A0A0B4C0033B370 /* ReservedDate.swift in Sources */,
 				5BA3896927F6C2930010EAA1 /* AuthAPI.swift in Sources */,
 				5B020D3D281F31910057F9B7 /* CategoryCollectionViewCell.swift in Sources */,
 				9205E747286EE1A4000F4B6D /* MainService.swift in Sources */,
