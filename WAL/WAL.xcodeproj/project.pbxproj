@@ -86,7 +86,6 @@
 		5BD17424282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */; };
 		5BD35860289D45D60066C804 /* ZanzanbariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */; };
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
-		5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
@@ -113,6 +112,7 @@
 		92B152D02954569800918A3B /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B152CF2954569800918A3B /* MainTitleView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
+		92C885962A20FBDC00F802DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92C885952A20FBDC00F802DB /* GoogleService-Info.plist */; };
 		92D87F8128C37EED009AAFE5 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92D87F8028C37EED009AAFE5 /* login500.gif */; };
 		92F4F1EC29FBFE6F00F33394 /* ObservableType+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
@@ -212,7 +212,6 @@
 		5BD17423282CEBEC00C77A95 /* SettingAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BD3585F289D45D60066C804 /* ZanzanbariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanbariViewController.swift; sourceTree = "<group>"; };
 		5BD35863289D482E0066C804 /* ZanzanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanView.swift; sourceTree = "<group>"; };
-		5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BECCA8E286A43B800DD70A3 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		5BFC216028B920F100E4F65A /* Transition+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+.swift"; sourceTree = "<group>"; };
 		9205E746286EE1A4000F4B6D /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
@@ -240,6 +239,7 @@
 		92B152CF2954569800918A3B /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
 		92C1B84C28633FB500F97D75 /* mintPaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mintPaw.json; sourceTree = "<group>"; };
 		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
+		92C885952A20FBDC00F802DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92D87F8028C37EED009AAFE5 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login500.gif; sourceTree = "<group>"; };
 		92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+.swift"; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
@@ -405,7 +405,7 @@
 		5BA3893027F6B94F0010EAA1 /* WAL */ = {
 			isa = PBXGroup;
 			children = (
-				5BE2E5FB28572C8E0053AF4C /* GoogleService-Info.plist */,
+				92C885952A20FBDC00F802DB /* GoogleService-Info.plist */,
 				92322AAD28049C2C002E281F /* WAL.entitlements */,
 				5BA3894527F6C01D0010EAA1 /* Network */,
 				5BA3894627F6C03A0010EAA1 /* Global */,
@@ -1002,11 +1002,11 @@
 				5B3E2C9428E0314B000A7BA4 /* loading.json in Resources */,
 				92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */,
 				5BA3893E27F6B9540010EAA1 /* (null) in Resources */,
-				5BE2E5FC28572C8E0053AF4C /* GoogleService-Info.plist in Resources */,
 				E2082F6E281E7EB700576135 /* Pretendard-Medium.otf in Resources */,
 				92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */,
 				92D87F8128C37EED009AAFE5 /* login500.gif in Resources */,
 				5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */,
+				92C885962A20FBDC00F802DB /* GoogleService-Info.plist in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
 				5BC58098289D332C0095F8E4 /* login.json in Resources */,
