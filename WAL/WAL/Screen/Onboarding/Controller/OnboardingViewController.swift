@@ -163,20 +163,34 @@ extension OnboardingViewController {
                                       time: time) { [weak self] data, status in
             guard let self else { return }
             guard let status = status else { return }
-            if status == 201 {
-                let viewController = OnboardCompleteViewController()
-                // TODO: - 메인 진입할 때
-                UserDefaultsHelper.standard.complete = true
-                UserDefaultsHelper.standard.nickname = nickname
-                self.configureLoadingView()
-                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    self.loadingView.hide()
-                    self.navigationController?.pushViewController(viewController, animated: true)
-                }
-            } else {
+            
+            let networkResult = NetworkResult(rawValue: status) ?? .none
+            
+            switch networkResult {
+            case .created:
+                self.pushToOnboardComplete()
+            case .conflict:
+                self.showToast(message: "이미 온보딩 설정을 완료한 유저입니다.")
+                self.pushToOnboardComplete()
+            default:
                 self.showToast(message: "상태코드: \(status)")
             }
+            
         }
+    }
+    
+    private func pushToOnboardComplete() {
+        let viewController = OnboardCompleteViewController()
+        
+        configureLoadingView()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.loadingView.hide()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        UserDefaultsHelper.standard.complete = true
+        UserDefaultsHelper.standard.nickname = nickname
     }
 }
 

@@ -13,7 +13,7 @@ final class OnboardAPI {
     static let shared: OnboardAPI = OnboardAPI()
     private init() { }
     private let onboardProvider = MoyaProvider<OnboardService>(
-        session: Session(interceptor: Interceptor()),
+//        session: Session(interceptor: Interceptor()),
         plugins: [MoyaLoggerPlugin()]
     )
 
@@ -36,7 +36,7 @@ final class OnboardAPI {
                 do {
                     self.onboard = try response.map(UserInfo?.self)
                     guard let onboard = self.onboard else { return }
-                    completion(onboard, nil)
+                    completion(onboard, 201)
                     
                 } catch(let error) {
                     print(error.localizedDescription)

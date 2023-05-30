@@ -111,15 +111,13 @@ final class MainViewModel {
         case 0:
             guard let intDate = Int(timeFormatter.string(from: date)) else { return }
             
-//            if intDate >= 0 && intDate <= 7 {
-//                output.subTitle.accept("왈뿡이가 자는 시간이에요. 아침에 만나요!")
-//                output.walStatus.accept(.sleeping)
-//            } else {
-//                output.walStatus.accept(.checkedAvailable)
-//            }
+            if intDate >= 0 && intDate <= 7 {
+                output.subTitle.accept("왈뿡이가 자는 시간이에요. 아침에 만나요!")
+                output.walStatus.accept(.sleeping)
+            } else {
+                output.walStatus.accept(.checkedAvailable)
+            }
             
-            // TODO: - Remove
-            output.walStatus.accept(.checkedAvailable)
         default:
             if isShownCount == canOpenCount {
                 output.walStatus.accept(isShownCount == output.todayWalCount.value ? .checkedAll : .checkedAvailable)
