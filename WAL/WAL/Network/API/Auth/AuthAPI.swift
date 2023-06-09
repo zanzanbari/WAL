@@ -53,7 +53,7 @@ final class AuthAPI {
                     }
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print("[소셜로그인] DEBUG: - \(error.localizedDescription)")
                 completion(nil, error.response?.statusCode)
             }
         }
@@ -68,23 +68,10 @@ final class AuthAPI {
         authProvider.request(.resign(param: param)) { result in
             switch result {
             case .success(let response):
-                switch response.statusCode {
-                case 204:
-                    completion(nil, 204)
-                case 300...500:
-                    do {
-                        let defaultData = try response.map(DefaultResponse?.self)
-                        completion(defaultData, nil)
-                    } catch {
-                        print(error.localizedDescription)
-                        completion(nil, 500)
-                    }
-                default:
-                    completion(nil, response.statusCode)
-                }
+                completion(nil, response.statusCode)
             case .failure(let error):
-                print(error.localizedDescription)
-                completion(nil, 500)
+                print("[회원탈퇴] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
@@ -95,26 +82,19 @@ final class AuthAPI {
         authProvider.request(.reissue) { result in
             switch result {
             case .success(let response):
-                switch response.statusCode {
-                case 200:
-                    guard let accessHeader = response.response?.allHeaderFields[GeneralAPI.authentication] as? String else {
-                        completion(nil, 200)
-                        return
-                    }
-                    let accessToken = String(accessHeader.dropFirst("".count))
-                    UserDefaultsHelper.standard.accesstoken = accessToken
-                    completion(nil, nil)
-                default:
-                    do {
-                        let reissueData = try response.map(DefaultResponse.self)
-                        completion(reissueData, nil)
-                    } catch {
-                        completion(nil, response.statusCode)
-                    }
+                
+                guard let accessHeader = response.response?.allHeaderFields[GeneralAPI.authentication] as? String else {
+                    completion(nil, response.statusCode)
+                    return
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, err.response?.statusCode)
+                
+                let accessToken = String(accessHeader.dropFirst("".count))
+                UserDefaultsHelper.standard.accesstoken = accessToken
+                completion(nil, response.statusCode)
+                
+            case .failure(let error):
+                print("[토큰 재발급] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
