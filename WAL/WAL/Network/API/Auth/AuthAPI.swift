@@ -14,7 +14,7 @@ final class AuthAPI {
     static let shared = AuthAPI()
     private init() { }
     private lazy var authProvider = MoyaProvider<AuthService>(
-        session: Session(interceptor: Interceptor()),
+//        session: Session(interceptor: Interceptor()),
         plugins: [MoyaLoggerPlugin()]
     )
 
@@ -98,7 +98,7 @@ final class AuthAPI {
                 switch response.statusCode {
                 case 200:
                     guard let accessHeader = response.response?.allHeaderFields[GeneralAPI.authentication] as? String else {
-                        completion(nil, nil)
+                        completion(nil, 200)
                         return
                     }
                     let accessToken = String(accessHeader.dropFirst("".count))
@@ -109,12 +109,12 @@ final class AuthAPI {
                         let reissueData = try response.map(DefaultResponse.self)
                         completion(reissueData, nil)
                     } catch {
-                        completion(nil, 500)
+                        completion(nil, response.statusCode)
                     }
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion(nil, 500)
+                completion(nil, err.response?.statusCode)
             }
         }
     }

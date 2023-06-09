@@ -14,7 +14,7 @@ final class CreateAPI {
     private init() {}
     
     private let createProvider = MoyaProvider<CreateService>(
-        session: Session(interceptor: Interceptor()),
+//        session: Session(interceptor: Interceptor()),
         plugins: [MoyaLoggerPlugin()]
     )
     

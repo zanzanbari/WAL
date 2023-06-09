@@ -13,7 +13,7 @@ final class HistoryAPI {
     static let shared: HistoryAPI = HistoryAPI()
     private init() { }
     private let historyProvider = MoyaProvider<HistoryService>(
-        session: Session(interceptor: Interceptor()),
+//        session: Session(interceptor: Interceptor()),
         plugins: [MoyaLoggerPlugin()]
     )
     

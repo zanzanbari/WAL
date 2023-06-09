@@ -13,7 +13,7 @@ final class SettingAPI {
     static let shared = SettingAPI()
     private init() { }
     private let settingProvider = MoyaProvider<SettingService>(
-        session: Session(interceptor: Interceptor()),
+//        session: Session(interceptor: Interceptor()),
         plugins: [MoyaLoggerPlugin()]
     )
     
