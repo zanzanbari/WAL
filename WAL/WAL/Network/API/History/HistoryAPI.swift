@@ -21,60 +21,65 @@ final class HistoryAPI {
     public private(set) var cancelHistoryData: DefaultResponse?
     public private(set) var deleteHistoryData: DefaultResponse?
     
-    public func getHistoryData(completion: @escaping ((HistoryResponse?, Int?) -> ())) {
-        historyProvider.request(.history) { result in
+   func getHistoryData(completion: @escaping ((HistoryResponse?, Int?) -> ())) {
+        historyProvider.request(.history) { [weak self] result in
+            guard let _self = self else { return }
+            
             switch result {
             case .success(let response):
                 do {
-                    self.historyData = try response.map(HistoryResponse?.self)
-                    guard let historyData = self.historyData else { return }
-                    completion(historyData, nil)
-                    
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
+                    _self.historyData = try response.map(HistoryResponse?.self)
+                    guard let historyData = _self.historyData else { return }
+                    completion(historyData, response.statusCode)
+                } catch(let error) {
+                    print(error.localizedDescription)
+                    completion(nil, response.statusCode)
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, 500)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(nil, error.response?.statusCode)
             }
         }
     }
     
-    public func cancelHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
-        historyProvider.request(.cancelReserve(reservationId: reservationId)) { result in
+    func cancelHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
+        historyProvider.request(.cancelReserve(reservationId: reservationId)) { [weak self] result in
+            guard let _self = self else { return }
+            
             switch result {
             case .success(let response):
-                print("✅")
                 do {
-                    self.cancelHistoryData = try response.map(DefaultResponse?.self)
-                    guard let cancelHistoryData = self.cancelHistoryData else { return }
-                    completion(cancelHistoryData, nil)
-                    
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
+                    _self.cancelHistoryData = try response.map(DefaultResponse?.self)
+                    guard let cancelHistoryData = _self.cancelHistoryData else { return }
+                    completion(cancelHistoryData, response.statusCode)
+                } catch(let error) {
+                    print(error.localizedDescription)
+                    completion(nil, response.statusCode)
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, 500)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(nil, error.response?.statusCode)
             }
         }
     }
     
-    public func deleteHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
-        historyProvider.request(.deleteReserve(reservationId: reservationId)) { result in
+    func deleteHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
+        historyProvider.request(.deleteReserve(reservationId: reservationId)) { [weak self] result in
+            guard let _self = self else { return }
+            
             switch result {
             case .success(let response):
-                print("✅")
                 do {
-                    self.deleteHistoryData = try response.map(DefaultResponse?.self)
-                    guard let deleteHistoryData = self.deleteHistoryData else { return }
-                    completion(deleteHistoryData, nil)
-                } catch(let err) {
-                    print(err.localizedDescription)
+                    _self.deleteHistoryData = try response.map(DefaultResponse?.self)
+                    guard let deleteHistoryData = _self.deleteHistoryData else { return }
+                    completion(deleteHistoryData, response.statusCode)
+                } catch(let error) {
+                    print(error.localizedDescription)
+                    completion(nil, response.statusCode)
                 }
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, 500)
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(nil, error.response?.statusCode)
             }
         }
     }
