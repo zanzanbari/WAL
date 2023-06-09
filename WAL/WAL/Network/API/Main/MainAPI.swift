@@ -53,7 +53,6 @@ final class MainAPI {
     func updateMainData(id: Int, completion: @escaping ((Void, Int?) -> ())) {
         
         mainProvider.request(.openTodayWal(todayWalId: id)) { [weak self] result in
-            guard let self = self else { return }
             
             switch result {
             case .success(_):
