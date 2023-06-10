@@ -16,6 +16,7 @@ final class MainViewModel {
     
     private(set) var input = Input()
     private(set) var output = Output()
+    private(set) var errorResult = ErrorResult()
     
     // MARK: - Properties
     
@@ -111,15 +112,12 @@ final class MainViewModel {
         case 0:
             guard let intDate = Int(timeFormatter.string(from: date)) else { return }
             
-//            if intDate >= 0 && intDate <= 7 {
-//                output.subTitle.accept("왈뿡이가 자는 시간이에요. 아침에 만나요!")
-//                output.walStatus.accept(.sleeping)
-//            } else {
-//                output.walStatus.accept(.checkedAvailable)
-//            }
-            
-            // TODO: - REMOVE
-            output.walStatus.accept(.checkedAvailable)
+            if intDate >= 0 && intDate <= 7 {
+                output.subTitle.accept("왈뿡이가 자는 시간이에요. 아침에 만나요!")
+                output.walStatus.accept(.sleeping)
+            } else {
+                output.walStatus.accept(.checkedAvailable)
+            }
             
         default:
             if isShownCount == canOpenCount {
@@ -204,6 +202,7 @@ extension MainViewModel {
             case .unAuthorized:
                 _self.requestRefreshToken(requestType: .todayWal, id: nil)
             default:
+                _self.errorResult.reqTodayWal.accept(networkResult)
                 print("[MAIN] DEBUG: - \(_statusCode)")
             }
         }
@@ -285,10 +284,10 @@ extension MainViewModel {
 
 extension MainViewModel {
     
-    enum Error {
-        case reqTodayWal
-        case reqTodayWalOpen
-        case reqSubtitle
+    struct ErrorResult {
+        let reqTodayWal = PublishRelay<NetworkResult>()
+        let reqTodayWalOpen = PublishRelay<NetworkResult>()
+        let reqSubtitle = PublishRelay<NetworkResult>()
     }
     
     struct Input {

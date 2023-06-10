@@ -84,6 +84,8 @@ final class MainViewController: UIViewController {
     private let viewModel: MainViewModel
     private let disposeBag = DisposeBag()
     
+    typealias ErrorInfo<T> = (error: Error, type: T?)
+    
     // MARK: - Initializer
     
     init(viewModel: MainViewModel) {
@@ -116,6 +118,7 @@ final class MainViewController: UIViewController {
         rxBindOutput()
         rxBindView()
         rxBindInput()
+//        rxBindOutputError()
     }
     
     // MARK: - Init UI
@@ -300,6 +303,26 @@ final class MainViewController: UIViewController {
     private func rxBindInput() {
         viewModel.input.reqTodayWal.accept(())
         viewModel.input.reqSubtitle.accept(())
+    }
+    
+    private func rxBindOutputError() {
+        viewModel.errorResult.reqTodayWal
+            .do(onNext: { networkResult in
+                CustomIndicator.showLoading()
+            })
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self) { owner, networkResult in
+                
+                switch networkResult {
+                case .okay:
+                    CustomIndicator.hideLoading()
+                default:
+                    break
+                }
+                
+                owner.showToast(message: "\(networkResult) error")
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Custom Method
