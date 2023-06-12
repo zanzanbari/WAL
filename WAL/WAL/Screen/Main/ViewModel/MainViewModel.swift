@@ -202,9 +202,9 @@ extension MainViewModel {
             case .unAuthorized:
                 _self.requestRefreshToken(requestType: .todayWal, id: nil)
             default:
-                _self.errorResult.reqTodayWal.accept(networkResult)
                 print("[MAIN] DEBUG: - \(_statusCode)")
             }
+            _self.errorResult.reqTodayWal.accept(networkResult)
         }
     }
     
