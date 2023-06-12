@@ -22,7 +22,7 @@ final class MainAPI {
     func getMainData(completion: @escaping ((TodayWalList?, Int?) -> ())) {
         
         mainProvider.request(.todayWal) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             
             switch result {
             case .success(let response):
@@ -52,7 +52,7 @@ final class MainAPI {
     /// 메인 - 오늘의 왈소리 확인
     func updateMainData(id: Int, completion: @escaping ((Void, Int?) -> ())) {
         
-        mainProvider.request(.openTodayWal(todayWalId: id)) { [weak self] result in
+        mainProvider.request(.openTodayWal(todayWalId: id)) { result in
             
             switch result {
             case .success(_):
@@ -71,7 +71,7 @@ final class MainAPI {
     func getMainSubtitle(completion: @escaping ((MainSubtitle?, Int?) -> ())) {
         
         mainProvider.request(.subtitle) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             
             switch result {
             case .success(let response):
