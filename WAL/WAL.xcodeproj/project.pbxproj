@@ -100,6 +100,7 @@
 		925D13FB29FABF220024F0E5 /* WalCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FA29FABF220024F0E5 /* WalCategoryType.swift */; };
 		925D13FD29FABF360024F0E5 /* AlarmTimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */; };
 		925D13FF29FAC29B0024F0E5 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FE29FAC29B0024F0E5 /* UICollectionViewCell+.swift */; };
+		926480FF2A34BB91007DEC0B /* CustomIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926480FE2A34BB91007DEC0B /* CustomIndicator.swift */; };
 		926A2A132A02A85F005DDCEA /* MainSubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926A2A122A02A85F005DDCEA /* MainSubtitle.swift */; };
 		926A2A152A054BF9005DDCEA /* MainSubtitleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926A2A142A054BF9005DDCEA /* MainSubtitleStatus.swift */; };
 		927519AF29815A6B0010022A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927519AE29815A6B0010022A /* MainViewModel.swift */; };
@@ -227,6 +228,7 @@
 		925D13FA29FABF220024F0E5 /* WalCategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalCategoryType.swift; sourceTree = "<group>"; };
 		925D13FC29FABF360024F0E5 /* AlarmTimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTimeType.swift; sourceTree = "<group>"; };
 		925D13FE29FAC29B0024F0E5 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
+		926480FE2A34BB91007DEC0B /* CustomIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIndicator.swift; sourceTree = "<group>"; };
 		926A2A122A02A85F005DDCEA /* MainSubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubtitle.swift; sourceTree = "<group>"; };
 		926A2A142A054BF9005DDCEA /* MainSubtitleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubtitleStatus.swift; sourceTree = "<group>"; };
 		927519AE29815A6B0010022A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3E2C9128E0300A000A7BA4 /* LoadingView.swift */,
+				926480FE2A34BB91007DEC0B /* CustomIndicator.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				5BB26D30286646AA00257837 /* Reissue.swift in Sources */,
 				5B020D37281EAF020057F9B7 /* String+.swift in Sources */,
 				92B152D02954569800918A3B /* MainTitleView.swift in Sources */,
+				926480FF2A34BB91007DEC0B /* CustomIndicator.swift in Sources */,
 				5BC2DD092868E71700AFCC29 /* MypageViewController.swift in Sources */,
 				5BD17416282CDCDE00C77A95 /* AlarmView.swift in Sources */,
 				E23FF600287FF7B0004016DC /* CreateAPI.swift in Sources */,
@@ -1321,7 +1325,7 @@
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
@@ -1358,7 +1362,7 @@
 				CODE_SIGN_ENTITLEMENTS = WAL/WAL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;

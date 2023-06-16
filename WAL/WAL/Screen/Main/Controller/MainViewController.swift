@@ -84,6 +84,8 @@ final class MainViewController: UIViewController {
     private let viewModel: MainViewModel
     private let disposeBag = DisposeBag()
     
+    typealias ErrorInfo<T> = (error: Error, type: T?)
+    
     // MARK: - Initializer
     
     init(viewModel: MainViewModel) {
@@ -116,6 +118,7 @@ final class MainViewController: UIViewController {
         rxBindOutput()
         rxBindView()
         rxBindInput()
+//        rxBindOutputError()
     }
     
     // MARK: - Init UI
@@ -241,12 +244,28 @@ final class MainViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.output.openWal
-            .bind(with: self) { owner, res in
-                if let _res = res {
-                    // TODO: 상태코드 별 분기처리 (error)
-                } else {
+            .compactMap { NetworkResult(rawValue: $0) ?? NetworkResult.none }
+            .bind(with: self) { owner, networkResult in
+                
+                switch networkResult {
+                case .okay:
                     owner.todayWalList[owner.selectedItemIndex].showStatus = "OPEN"
                     owner.viewModel.handleWalState(todayWalList: owner.todayWalList)
+                default:
+                    owner.showToast(message: "Error : \(networkResult)")
+                }
+                
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.socialTokenExpired
+            .bind(with: self) { owner, expired in
+                switch expired {
+                case true:
+                    // 소셜토큰이 만료 > 로그인 화면으로 이동 (재로그인)
+                    owner.pushToLoginView()
+                case false:
+                    break
                 }
             }
             .disposed(by: disposeBag)
@@ -284,6 +303,26 @@ final class MainViewController: UIViewController {
     private func rxBindInput() {
         viewModel.input.reqTodayWal.accept(())
         viewModel.input.reqSubtitle.accept(())
+    }
+    
+    private func rxBindOutputError() {
+        viewModel.errorResult.reqTodayWal
+            .do(onNext: { networkResult in
+                CustomIndicator.showLoading()
+            })
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self) { owner, networkResult in
+                
+                switch networkResult {
+                case .okay:
+                    CustomIndicator.hideLoading()
+                default:
+                    break
+                }
+                
+                owner.showToast(message: "\(networkResult) error")
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Custom Method
@@ -392,7 +431,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         if !showStatus {
             guard let _todayWalId = todayWalList[indexPath.item].todayWalId else { return }
             selectedItemIndex = indexPath.item
-            viewModel.input.reqOpenWal.accept(_todayWalId)
+            viewModel.input.reqTodayWalOpen.accept(_todayWalId)
         }
         
     }

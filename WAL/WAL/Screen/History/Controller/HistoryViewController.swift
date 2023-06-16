@@ -381,72 +381,103 @@ extension HistoryViewController: HistoryCompleteHeaderViewDelegate {
 
 extension HistoryViewController {
     func getHistoryInfo() {
-        HistoryAPI.shared.getHistoryData { historyData, err in
-            guard let historyData = historyData else {
-                return
-            }
-            if let sendingData = historyData.notDoneData {
-                self.sendingData = sendingData
-                for _ in 0 ..< sendingData.count {
-                    self.selectedIndices.append([-1,-1])
+        HistoryAPI.shared.getHistoryData { [weak self] historyData, statusCode in
+            guard let self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                guard let historyData = historyData else { return }
+                
+                if let sendingData = historyData.notDoneData {
+                    self.sendingData = sendingData
+                    for _ in 0 ..< sendingData.count {
+                        self.selectedIndices.append([-1,-1])
+                    }
                 }
-            }
-            if let completeData = historyData.doneData {
-                self.completeData = completeData
-                for _ in 0 ..< completeData.count {
-                    self.selectedIndices.append([-1,-1])
+                
+                if let completeData = historyData.doneData {
+                    self.completeData = completeData
+                    for _ in 0 ..< completeData.count {
+                        self.selectedIndices.append([-1,-1])
+                    }
                 }
+                
+                DispatchQueue.main.async {
+                    self.checkHistoryData()
+                    self.historyTableView.reloadData()
+                }
+                
+            default:
+                self.showToast(message: "Error: \(_statusCode)")
             }
-            DispatchQueue.main.async {
-                self.checkHistoryData()
-                self.historyTableView.reloadData()
-            }
+            
         }
     }
     
     func getHistoryInfoAfterDelete() {
         selectedIndices = []
-        HistoryAPI.shared.getHistoryData { historyData, err in
-            guard let historyData = historyData else {
-                return
-            }
-            if let sendingData = historyData.notDoneData {
-                self.sendingData = sendingData
-                for _ in 0 ..< sendingData.count {
-                    self.selectedIndices.append([-1,-1])
-                }
-            }
-            if let completeData = historyData.doneData {
-                self.completeData = completeData
-                for _ in 0 ..< completeData.count {
-                    self.selectedIndices.append([-1,-1])
-                }
-            }
+        HistoryAPI.shared.getHistoryData { [weak self] historyData, statusCode in
+            guard let self else { return }
+            guard let _statusCode = statusCode else { return }
             
-            DispatchQueue.main.async {
-                self.checkHistoryData()
-                self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                guard let historyData = historyData else { return }
+                if let sendingData = historyData.notDoneData {
+                    self.sendingData = sendingData
+                    for _ in 0 ..< sendingData.count {
+                        self.selectedIndices.append([-1,-1])
+                    }
+                }
+                if let completeData = historyData.doneData {
+                    self.completeData = completeData
+                    for _ in 0 ..< completeData.count {
+                        self.selectedIndices.append([-1,-1])
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.checkHistoryData()
+                    self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
+                }
+            default:
+                self.showToast(message: "Error: \(_statusCode)")
             }
         }
     }
     
     func cancelHistoryInfo(reservationId: Int) {
-        HistoryAPI.shared.cancelHistoryData(reservationId: reservationId) { cancelHistoryData, err in
-            guard let cancelHistoryData = cancelHistoryData else {
-                return
+        HistoryAPI.shared.cancelHistoryData(reservationId: reservationId) { [weak self] cancelHistoryData, statusCode in
+            guard let self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .noContent:
+                self.getHistoryInfoAfterDelete()
+            default:
+                self.showToast(message: "Error: \(_statusCode)")
             }
-            print(cancelHistoryData)
-            self.getHistoryInfoAfterDelete()
+            
         }
     }
     
     func deleteHistoryInfo(reservationId: Int) {
-        HistoryAPI.shared.deleteHistoryData(reservationId: reservationId) { deleteHistoryData, err in
-            guard let deleteHistoryData = deleteHistoryData else {
-                return
+        HistoryAPI.shared.deleteHistoryData(reservationId: reservationId) { [weak self] deleteHistoryData, statusCode in
+            guard let self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .noContent:
+                self.getHistoryInfoAfterDelete()
+            default:
+                self.showToast(message: "Error: \(_statusCode)")
             }
-            print(deleteHistoryData)
-            self.getHistoryInfoAfterDelete()
         }
     }
+    
 }

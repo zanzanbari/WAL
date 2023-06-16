@@ -11,54 +11,39 @@ final class MainAPI {
     static let shared: MainAPI = MainAPI()
     private init() { }
     private let mainProvider = MoyaProvider<MainService>(
-        session: Session(interceptor: Interceptor()),
+//        session: Session(interceptor: Interceptor()),
         plugins: [MoyaLoggerPlugin()]
     )
 
     private(set) var mainData: TodayWalList?
     private(set) var subtitle: MainSubtitle?
     
-    private var refreshValue = 0
-    
     /// 메인 - 오늘의 왈소리 조회
     func getMainData(completion: @escaping ((TodayWalList?, Int?) -> ())) {
         
         mainProvider.request(.todayWal) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             
             switch result {
             case .success(let response):
                 do {
-                    
                     self.mainData = try response.map(TodayWalList.self)
                     
                     // 200
                     if let _mainData = self.mainData {
-                        completion(_mainData, nil)
+                        completion(_mainData, 200)
                     } else {
-                        
-                        // 300 ~ 500
-                        if let _statusCase = self.mainData?.statusCase {
-                            switch _statusCase {
-                            case .unAuthorized:
-                                self.getMainData(completion: completion)
-                            default:
-                                return
-                            }
-                            
-                            completion(nil, self.mainData?.statusCode)
-                        }
-                        
+                        completion(nil, response.statusCode)
                     }
                     
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
-                    completion(nil, 500)
+                } catch(let error) {
+                    print(error.localizedDescription)
+                    completion(nil, response.statusCode)
                 }
                 
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, 500)
+            case .failure(let error):
+                print("[오늘의 왈소리 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
         
@@ -67,78 +52,40 @@ final class MainAPI {
     /// 메인 - 오늘의 왈소리 확인
     func updateMainData(id: Int, completion: @escaping ((Void, Int?) -> ())) {
         
-        mainProvider.request(.openTodayWal(todayWalId: id)) { [weak self] result in
-            guard let self = self else { return }
+        mainProvider.request(.openTodayWal(todayWalId: id)) { result in
             
             switch result {
-            case .success(let response):
-                do {
-                    
-                    // 300 ~ 500
-                    if let _statusCase = self.mainData?.statusCase {
-                        switch _statusCase {
-                        case .unAuthorized:
-                            self.updateMainData(id: id, completion: completion)
-                        default:
-                            return
-                        }
-                    }
-                    
-                    completion((), nil)
-                    
-                    
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
-                    completion((), 500)
-                }
+            case .success(_):
+                completion((), 200)
                 
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion((), 500)
+            case .failure(let error):
+                print("[오늘의 왈소리 확인] DEBUG: - \(error.localizedDescription)")
+                completion((), error.response?.statusCode)
             }
+            
         }
         
     }
     
     /// 메인 - 서브타이틀 조회
-    func getMainSubtitle(completion: @escaping ((MainSubtitle?, NetworkResult?) -> ())) {
+    func getMainSubtitle(completion: @escaping ((MainSubtitle?, Int?) -> ())) {
         
         mainProvider.request(.subtitle) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             
             switch result {
             case .success(let response):
                 do {
-                    
                     self.subtitle = try response.map(MainSubtitle.self)
-                    
-                    // 200
-                    if let _subtitle = self.subtitle {
-                        completion(_subtitle, nil)
-                    } else {
-                        
-                        // 300 ~ 500
-                        if let _statusCase = self.subtitle?.statusCase {
-                            switch _statusCase {
-                            case .unAuthorized:
-                                self.getMainSubtitle(completion: completion)
-                            default:
-                                return
-                            }
-                            
-                            completion(nil, _statusCase)
-                        }
-                        
-                    }
-                    
-                } catch(let err) {
-                    print(err.localizedDescription, 500)
-                    completion(nil, NetworkResult.internalServerError)
+                    completion(self.subtitle, 200)
+                } catch(let error) {
+                    print(error.localizedDescription)
+                    completion(nil, response.statusCode)
                 }
                 
-            case .failure(let err):
-                print(err.localizedDescription)
-                completion(nil, NetworkResult.internalServerError)
+            case .failure(let error):
+                print("[서브 타이틀 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
         

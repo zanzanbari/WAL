@@ -142,17 +142,20 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     private func postLogin(socialToken: String, socialType: SocialType, fcmToken: String) {
         let param = LoginRequest(socialToken, socialType.rawValue, fcmToken)
-        AuthAPI.shared.postLogin(param: param) { [weak self] ( data, status) in
+        AuthAPI.shared.postLogin(param: param) { [weak self] (data, statusCode) in
             guard let self = self else { return }
-            guard let status = status else { return }
-            self.showToast(message: "상태코드: \(status)")
-            if status == 403 {
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            
+            switch networkResult {
+            case .forbidden:
                 self.showAlert(title: Constant.Login.resign,
                                message: nil,
                                actions: [],
                                cancelTitle: "확인",
                                preferredStyle: .alert)
-            } else {
+            default:
                 UserDefaultsHelper.standard.socialtoken = socialToken
                 UserDefaultsHelper.standard.social = socialType.rawValue
                 self.pushToHome()

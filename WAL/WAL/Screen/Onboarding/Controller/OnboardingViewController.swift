@@ -160,11 +160,11 @@ extension OnboardingViewController {
     private func postOnboard() {
         OnboardAPI.shared.postOnboard(nickname: nickname,
                                       category: category,
-                                      time: time) { [weak self] data, status in
+                                      time: time) { [weak self] data, statusCode in
             guard let self else { return }
-            guard let status = status else { return }
+            guard let _statusCode = statusCode else { return }
             
-            let networkResult = NetworkResult(rawValue: status) ?? .none
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             
             switch networkResult {
             case .created:
@@ -173,7 +173,7 @@ extension OnboardingViewController {
                 self.showToast(message: "이미 온보딩 설정을 완료한 유저입니다.")
                 self.pushToOnboardComplete()
             default:
-                self.showToast(message: "상태코드: \(status)")
+                self.showToast(message: "Error: \(_statusCode)")
             }
             
         }

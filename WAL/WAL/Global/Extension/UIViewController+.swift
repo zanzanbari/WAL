@@ -65,6 +65,7 @@ extension UIViewController {
 }
 
 extension UIViewController {
+    /// 로그인 화면으로 이동 (소셜 토큰 만료 등)
     func pushToLoginView() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
@@ -72,5 +73,22 @@ extension UIViewController {
         sceneDelegate?.window?.rootViewController = viewController
         sceneDelegate?.window?.makeKeyAndVisible()
         UserDefaultsHelper.standard.removeAccessToken()
+    }
+}
+
+extension UIViewController {
+    /// 네트워크 연결 유실 시 alert 
+    func showNetworkAlert() {
+        let errorTitle = "네트워크 연결"
+        let errorMsg = "네트워크 연결상태를\n확인 후 다시 시도해 주세요."
+        
+        let alert = UIAlertController(title: errorTitle, message: errorMsg, preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+            exit(0)
+        }
+        
+        alert.addAction(defaultAction)
+        present(alert, animated: true)
     }
 }

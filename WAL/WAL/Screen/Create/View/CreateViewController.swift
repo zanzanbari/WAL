@@ -519,7 +519,8 @@ extension CreateViewController {
     }
 }
 
-//MARK: - Protocol
+// MARK: - Protocol
+
 extension CreateViewController: ResendWalDelegate {
     func resendToCreate(_ vc: UIViewController, walsound: String) {
         walSoundTextView.text = walsound

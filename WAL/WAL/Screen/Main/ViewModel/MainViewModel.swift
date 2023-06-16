@@ -16,6 +16,7 @@ final class MainViewModel {
     
     private(set) var input = Input()
     private(set) var output = Output()
+    private(set) var errorResult = ErrorResult()
     
     // MARK: - Properties
     
@@ -56,7 +57,7 @@ final class MainViewModel {
             }
             .disposed(by: disposeBag)
         
-        input.reqOpenWal
+        input.reqTodayWalOpen
             .bind(with: self) { owner, res in
                 owner.requestOpenWal(id: res)
             }
@@ -170,40 +171,110 @@ final class MainViewModel {
     
 }
 
-// MARK: - API Request
+// MARK: - Enums
 
 extension MainViewModel {
     
+    enum MainRequestType {
+        case todayWal
+        case todayWalOpen
+        case subtitle
+    }
+    
+}
+
+// MARK: - API Request
+
+extension MainViewModel {
+    /// 오늘의 왈소리 GET
     private func requestTodayWal() {
         MainAPI.shared.getMainData { [weak self] mainData, statusCode in
-            guard let self = self else { return }
-            guard let _todayWalInfo = mainData?.todayWalInfo else { return }
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
             
-            self.output.todayWal.accept(_todayWalInfo)
-            self.output.todayWalCount.accept(_todayWalInfo.count)
-            self.handleWalState(todayWalList: _todayWalInfo)
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                guard let _todayWalInfo = mainData?.todayWalInfo else { return }
+                _self.output.todayWal.accept(_todayWalInfo)
+                _self.output.todayWalCount.accept(_todayWalInfo.count)
+                _self.handleWalState(todayWalList: _todayWalInfo)
+            case .unAuthorized:
+                _self.requestRefreshToken(requestType: .todayWal, id: nil)
+            default:
+                print("[MAIN] DEBUG: - \(_statusCode)")
+            }
+            _self.errorResult.reqTodayWal.accept(networkResult)
         }
     }
     
+    /// 왈소리 확인 PATCH
     private func requestOpenWal(id: Int) {
         MainAPI.shared.updateMainData(id: id) { [weak self] _, statusCode in
-            guard let self = self else { return }
-            self.output.openWal.accept(statusCode)
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                _self.output.openWal.accept(_statusCode)
+            case .unAuthorized:
+                _self.requestRefreshToken(requestType: .todayWalOpen, id: nil)
+            default:
+                print("[MAIN] DEBUG: - \(_statusCode)")
+            }
         }
     }
     
+    /// 오늘의 서브타이틀 GET
     private func requestSubtitle() {
-        MainAPI.shared.getMainSubtitle { [weak self] subtitle, statusCase in
-            guard let self = self else { return }
+        MainAPI.shared.getMainSubtitle { [weak self] subtitle, statusCode in
+            guard let _self = self else { return }
             guard let _subtitle = subtitle?.todaySubtitle else { return }
+            guard let _statusCode = statusCode else { return }
             
-            guard let _statusCase = statusCase else {
-                self.setSubtitleToUserDefaults(date: Date(), subtitle: _subtitle)
-                self.output.subTitle.accept(_subtitle)
-                return
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                _self.setSubtitleToUserDefaults(date: Date(), subtitle: _subtitle)
+                _self.output.subTitle.accept(_subtitle)
+            case .unAuthorized:
+                _self.requestRefreshToken(requestType: .subtitle, id: nil)
+            default:
+                print("[MAIN] DEBUG: - \(_statusCode)")
             }
+        }
+    }
+    
+    /// 토큰만료 시 재발급
+    private func requestRefreshToken(requestType: MainRequestType, id: Int?) {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
             
-            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                // 재발급 성공 시 다시 함수 호출
+                _self.requestAPI(requestType: requestType, id: id)
+            case .unAuthorized:
+                // 소셜 토큰 만료 시 로그인 화면으로 이동
+                _self.output.socialTokenExpired.accept(true)
+            default:
+                break
+            }
+        }
+    }
+    
+    private func requestAPI(requestType: MainRequestType, id: Int?) {
+        switch requestType {
+        case .todayWal:
+            requestTodayWal()
+        case .todayWalOpen:
+            guard let _id = id else { return }
+            requestOpenWal(id: _id)
+        case .subtitle:
+            requestSubtitle()
         }
     }
     
@@ -213,16 +284,18 @@ extension MainViewModel {
 
 extension MainViewModel {
     
-    enum Error {
-        case reqSubtitle
+    struct ErrorResult {
+        let reqTodayWal = PublishRelay<NetworkResult>()
+        let reqTodayWalOpen = PublishRelay<NetworkResult>()
+        let reqSubtitle = PublishRelay<NetworkResult>()
     }
     
     struct Input {
         let reqTodayWal = PublishRelay<Void>()
-        let reqImageUrl = PublishRelay<(UIImage, String)>()
-        let reqOpenWal = PublishRelay<Int>()
-        let checkTime = PublishRelay<Int>()
+        let reqTodayWalOpen = PublishRelay<Int>()
         let reqSubtitle = PublishRelay<Void>()
+        let reqImageUrl = PublishRelay<(UIImage, String)>()
+        let checkTime = PublishRelay<Int>()
     }
     
     struct Output {
@@ -230,8 +303,11 @@ extension MainViewModel {
         let todayWalCount = BehaviorRelay<Int>(value: 0)
         let subTitle = BehaviorRelay<String>(value: "")
         let walStatus = PublishRelay<WalStatus>()
+        let openWal = PublishRelay<Int>()
         let imageUrl = PublishRelay<URL?>()
-        let openWal = PublishRelay<Int?>()
+        
+        /// 소셜 토큰 만료 시
+        let socialTokenExpired = PublishRelay<Bool>()
     }
     
 }
