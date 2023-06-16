@@ -42,44 +42,30 @@ final class HistoryAPI {
         }
     }
     
-    func cancelHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
+    func cancelHistoryData(reservationId: Int, completion: @escaping ((Void, Int?) -> ())) {
         historyProvider.request(.cancelReserve(reservationId: reservationId)) { [weak self] result in
             guard let _self = self else { return }
             
             switch result {
             case .success(let response):
-                do {
-                    _self.cancelHistoryData = try response.map(DefaultResponse?.self)
-                    guard let cancelHistoryData = _self.cancelHistoryData else { return }
-                    completion(cancelHistoryData, response.statusCode)
-                } catch(let error) {
-                    print(error.localizedDescription)
-                    completion(nil, response.statusCode)
-                }
+                completion((), response.statusCode)
             case .failure(let error):
                 print(error.localizedDescription)
-                completion(nil, error.response?.statusCode)
+                completion((), error.response?.statusCode)
             }
         }
     }
     
-    func deleteHistoryData(reservationId: Int, completion: @escaping ((DefaultResponse?, Int?) -> ())) {
+    func deleteHistoryData(reservationId: Int, completion: @escaping ((Void, Int?) -> ())) {
         historyProvider.request(.deleteReserve(reservationId: reservationId)) { [weak self] result in
             guard let _self = self else { return }
             
             switch result {
             case .success(let response):
-                do {
-                    _self.deleteHistoryData = try response.map(DefaultResponse?.self)
-                    guard let deleteHistoryData = _self.deleteHistoryData else { return }
-                    completion(deleteHistoryData, response.statusCode)
-                } catch(let error) {
-                    print(error.localizedDescription)
-                    completion(nil, response.statusCode)
-                }
+                completion((), response.statusCode)
             case .failure(let error):
                 print(error.localizedDescription)
-                completion(nil, error.response?.statusCode)
+                completion((), error.response?.statusCode)
             }
         }
     }

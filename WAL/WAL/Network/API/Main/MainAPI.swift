@@ -36,14 +36,14 @@ final class MainAPI {
                         completion(nil, response.statusCode)
                     }
                     
-                } catch(let err) {
-                    print(err.localizedDescription)
+                } catch(let error) {
+                    print(error.localizedDescription)
                     completion(nil, response.statusCode)
                 }
                 
-            case .failure(let err):
-                print("[오늘의 왈소리 조회] DEBUG: - \(err.localizedDescription)")
-                completion(nil, err.response?.statusCode)
+            case .failure(let error):
+                print("[오늘의 왈소리 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
         
@@ -58,9 +58,9 @@ final class MainAPI {
             case .success(_):
                 completion((), 200)
                 
-            case .failure(let err):
-                print("[오늘의 왈소리 확인] DEBUG: - \(err.localizedDescription)")
-                completion((), err.response?.statusCode)
+            case .failure(let error):
+                print("[오늘의 왈소리 확인] DEBUG: - \(error.localizedDescription)")
+                completion((), error.response?.statusCode)
             }
             
         }
@@ -78,14 +78,14 @@ final class MainAPI {
                 do {
                     self.subtitle = try response.map(MainSubtitle.self)
                     completion(self.subtitle, 200)
-                } catch(let err) {
-                    print(err.localizedDescription)
+                } catch(let error) {
+                    print(error.localizedDescription)
                     completion(nil, response.statusCode)
                 }
                 
-            case .failure(let err):
-                print("[서브 타이틀 조회] DEBUG: - \(err.localizedDescription)")
-                completion(nil, err.response?.statusCode)
+            case .failure(let error):
+                print("[서브 타이틀 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
         

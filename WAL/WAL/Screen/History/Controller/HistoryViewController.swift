@@ -456,9 +456,7 @@ extension HistoryViewController {
             
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             switch networkResult {
-            case .okay:
-                guard let cancelHistoryData = cancelHistoryData else { return }
-                print("[cancelHistoryData] DEBUG: - \(cancelHistoryData)")
+            case .noContent:
                 self.getHistoryInfoAfterDelete()
             default:
                 self.showToast(message: "Error: \(_statusCode)")
@@ -474,9 +472,7 @@ extension HistoryViewController {
             
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             switch networkResult {
-            case .okay:
-                guard let deleteHistoryData = deleteHistoryData else { return }
-                print("[deleteHistoryData] DEBUG: - \(deleteHistoryData)")
+            case .noContent:
                 self.getHistoryInfoAfterDelete()
             default:
                 self.showToast(message: "Error: \(_statusCode)")

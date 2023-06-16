@@ -8,18 +8,30 @@
 import Foundation
 
 enum NetworkResult: Int {
-    case none = -999
+    case none                   = -999
     
-    case okay = 200
-    case created = 201
-    case noContent = 204
-    case badRequest = 400
-    case unAuthorized = 401
-    case nullValue = 402
-    case forbidden = 403
-    case notFound = 404
-    case conflict = 409
-    case internalServerError = 500
-    case serviceUnavailable = 503
-    case dbError = 600
+    /// 성공 200
+    case okay                   = 200
+    /// 생성 201
+    case created                = 201
+    /// 204
+    case noContent              = 204
+    /// 400
+    case badRequest             = 400
+    /// 401 (토큰만료)
+    case unAuthorized           = 401
+    /// 402
+    case nullValue              = 402
+    /// 403
+    case forbidden              = 403
+    /// 404 (User X)
+    case notFound               = 404
+    /// 409
+    case conflict               = 409
+    /// 5000
+    case internalServerError    = 500
+    /// 503
+    case serviceUnavailable     = 503
+    /// 600
+    case dbError                = 600
 }
