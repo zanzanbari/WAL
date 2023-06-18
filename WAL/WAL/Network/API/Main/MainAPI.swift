@@ -10,10 +10,7 @@ import Moya
 final class MainAPI {
     static let shared: MainAPI = MainAPI()
     private init() { }
-    private let mainProvider = MoyaProvider<MainService>(
-//        session: Session(interceptor: Interceptor()),
-        plugins: [MoyaLoggerPlugin()]
-    )
+    private let mainProvider = MoyaProvider<MainService>(plugins: [MoyaLoggerPlugin()])
 
     private(set) var mainData: TodayWalList?
     private(set) var subtitle: MainSubtitle?
@@ -31,7 +28,7 @@ final class MainAPI {
                     
                     // 200
                     if let _mainData = self.mainData {
-                        completion(_mainData, 200)
+                        completion(_mainData, response.statusCode)
                     } else {
                         completion(nil, response.statusCode)
                     }
@@ -77,7 +74,7 @@ final class MainAPI {
             case .success(let response):
                 do {
                     self.subtitle = try response.map(MainSubtitle.self)
-                    completion(self.subtitle, 200)
+                    completion(self.subtitle, response.statusCode)
                 } catch(let error) {
                     print(error.localizedDescription)
                     completion(nil, response.statusCode)
