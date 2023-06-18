@@ -98,15 +98,6 @@ class CreateViewController: UIViewController {
         $0.dataSource = self
     }
     
-    private let toastMessageLabel = UILabel().then {
-        $0.text = "이미 왈소리를 보냈어요"
-        $0.font = WALKit.WALFont.body8.font
-        $0.textColor = .white100
-        $0.textAlignment = .center
-        $0.backgroundColor = .black100.withAlphaComponent(0.6)
-        $0.makeRound(radius: 16.5)
-    }
-    
     private lazy var sendButton = UIButton().then {
         $0.titleLabel?.font = WALFont.body2.font
         $0.setTitle("보내기", for: .normal)
