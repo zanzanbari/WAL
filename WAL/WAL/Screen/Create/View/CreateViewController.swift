@@ -501,11 +501,12 @@ extension CreateViewController {
     }
     
     private func postReservation(data: Reserve, _ viewController: CreateFinishedViewController) {
-        CreateAPI.shared.postReservation(reserve: data) { [weak self] _, statusCase in
+        CreateAPI.shared.postReservation(reserve: data) { [weak self] _, statusCode in
             guard let self else { return }
-            guard let statusCase = statusCase else { return }
+            guard let statusCode else { return }
             
-            switch statusCase {
+            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+            switch networkResult {
             case .created:
                 self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
@@ -513,6 +514,7 @@ extension CreateViewController {
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
             default:
+                self.showToast(message: "Error : \(statusCode)")
                 return
             }
         }

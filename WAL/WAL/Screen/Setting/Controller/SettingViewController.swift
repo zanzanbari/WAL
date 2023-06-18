@@ -201,10 +201,10 @@ extension SettingViewController {
     }
     
     private func requestNickname() {
-        SettingAPI.shared.getUserInfo { [weak self] (userInfo, nil) in
+        SettingAPI.shared.getUserInfo { [weak self] (data, statusCode) in
             guard let self else { return }
-            guard let data = userInfo?.nickname else { return }
-            self.nickname = data
+            guard let nickname = data?.nickname else { return }
+            self.nickname = nickname
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
