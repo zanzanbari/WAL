@@ -12,10 +12,7 @@ import Moya
 final class HistoryAPI {
     static let shared: HistoryAPI = HistoryAPI()
     private init() { }
-    private let historyProvider = MoyaProvider<HistoryService>(
-//        session: Session(interceptor: Interceptor()),
-        plugins: [MoyaLoggerPlugin()]
-    )
+    private let historyProvider = MoyaProvider<HistoryService>(plugins: [MoyaLoggerPlugin()])
     
     public private(set) var historyData: HistoryResponse?
     public private(set) var cancelHistoryData: DefaultResponse?
@@ -43,9 +40,7 @@ final class HistoryAPI {
     }
     
     func cancelHistoryData(reservationId: Int, completion: @escaping ((Void, Int?) -> ())) {
-        historyProvider.request(.cancelReserve(reservationId: reservationId)) { [weak self] result in
-            guard let _self = self else { return }
-            
+        historyProvider.request(.cancelReserve(reservationId: reservationId)) { result in
             switch result {
             case .success(let response):
                 completion((), response.statusCode)
@@ -57,9 +52,7 @@ final class HistoryAPI {
     }
     
     func deleteHistoryData(reservationId: Int, completion: @escaping ((Void, Int?) -> ())) {
-        historyProvider.request(.deleteReserve(reservationId: reservationId)) { [weak self] result in
-            guard let _self = self else { return }
-            
+        historyProvider.request(.deleteReserve(reservationId: reservationId)) { result in
             switch result {
             case .success(let response):
                 completion((), response.statusCode)

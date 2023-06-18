@@ -12,55 +12,48 @@ import Moya
 final class CreateAPI {
     static let shared: CreateAPI = CreateAPI()
     private init() {}
-    
-    private let createProvider = MoyaProvider<CreateService>(
-//        session: Session(interceptor: Interceptor()),
-        plugins: [MoyaLoggerPlugin()]
-    )
+    private let createProvider = MoyaProvider<CreateService>(plugins: [MoyaLoggerPlugin()])
     
     private(set) var reserveResponse: DefaultResponse?
     private(set) var reservedDateResponse: ReservedDateResponse?
     
-    func getReservedDate(completion: @escaping(([String]?, NetworkResult?) -> ())) {
+    func getReservedDate(completion: @escaping(([String]?, Int?) -> ())) {
         createProvider.request(.reservedDate) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             
             switch result {
             case .success(let response):
                 do {
                     self.reservedDateResponse = try response.map(ReservedDateResponse.self)
                     
-                    guard let reservedDateResponse = self.reservedDateResponse, let reservedDates = reservedDateResponse.reserveDates else {
-                        completion(nil, .nullValue)
+                    guard let reservedDateResponse = self.reservedDateResponse,
+                          let reservedDates = reservedDateResponse.reserveDates else {
+                        completion(nil, nil)
                         return
                     }
+                    
                     completion(reservedDates, nil)
                 } catch(let error) {
                     print(error.localizedDescription)
-                    completion(nil, .internalServerError)
+                    completion(nil, response.statusCode)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
-                completion(nil, .internalServerError)
+                print("[예약 날짜 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
     
-    func postReservation(reserve: Reserve, completion: @escaping((Void, NetworkResult?) -> ())) {
+    func postReservation(reserve: Reserve, completion: @escaping((Void, Int?) -> ())) {
         createProvider.request(.reserve(body: reserve)) { [self] result in
             switch result {
-            case .success(_):
-                do {
-                    if self.reserveResponse?.statusCase == nil {
-                        completion((), .created)
-                    }
-                } catch(let error) {
-                    print(error.localizedDescription)
-                    completion((), reserveResponse?.statusCase)
+            case .success(let response):
+                if self.reserveResponse?.statusCase == nil {
+                    completion((), response.statusCode)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
-                completion((), .internalServerError)
+                print("[예약 POST] DEBUG: - \(error.localizedDescription)")
+                completion((), error.response?.statusCode)
             }
         }
     }

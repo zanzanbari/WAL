@@ -12,10 +12,7 @@ import Moya
 final class SettingAPI {
     static let shared = SettingAPI()
     private init() { }
-    private let settingProvider = MoyaProvider<SettingService>(
-//        session: Session(interceptor: Interceptor()),
-        plugins: [MoyaLoggerPlugin()]
-    )
+    private let settingProvider = MoyaProvider<SettingService>(plugins: [MoyaLoggerPlugin()])
     
     typealias completion = (UserInfo?, Int?) -> ()
     typealias alarmCompletion = (UserAlarm?, Int?) -> ()
@@ -39,12 +36,13 @@ final class SettingAPI {
                     self.userInfo = try response.map(UserInfo?.self)
                     completion(self.userInfo, response.statusCode)
                 } catch(let error) {
-                    print(error.localizedDescription)
+                    print("[유저 닉네임 조회] DEBUG: - \(error.localizedDescription)")
+                    completion(nil, nil)
                 }
                 
             case.failure(let error):
-                print(error.localizedDescription)
-                completion(nil, 500)
+                print("[유저 닉네임 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
@@ -60,13 +58,13 @@ final class SettingAPI {
                     self.alarm = try response.map(UserAlarm?.self)
                     completion(self.alarm, response.statusCode)
                 } catch(let error) {
-                    print(error.localizedDescription)
+                    print("[알림 시간 조회] DEBUG: - \(error.localizedDescription)")
                     completion(nil, response.statusCode)
                 }
                 
             case.failure(let error):
-                print(error.localizedDescription)
-                completion(nil, 500)
+                print("[알림 시간 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
@@ -81,12 +79,13 @@ final class SettingAPI {
                     self.category = try response.map(UserCategory?.self)
                     completion(self.category, response.statusCode)
                 } catch(let error) {
-                    print(error.localizedDescription)
+                    print("[카테고리 조회] DEBUG: - \(error.localizedDescription)")
+                    completion(nil, response.statusCode)
                 }
                 
             case.failure(let error):
-                print(error.localizedDescription)
-                completion(nil, 500)
+                print("[카테고리 조회] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
@@ -98,23 +97,11 @@ final class SettingAPI {
             guard let self else { return }
             switch result {
             case .success(let response):
-                switch response.statusCode {
-                case 204:
-                    completion(nil, 204)
-                case 300...500:
-                    do {
-                        self.userInfo = try response.map(UserInfo.self)
-                        completion(self.userInfo, nil)
-                    } catch {
-                        completion(nil, 500)
-                    }
-                default:
-                    completion(nil, response.statusCode)
-                }
+                completion(nil, response.statusCode)
                 
             case .failure(let error):
-                print(error.localizedDescription)
-                completion(nil, 500)
+                print("[유저 닉네임 수정] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
@@ -128,24 +115,11 @@ final class SettingAPI {
         settingProvider.request(.editAlarm(param)) { result in
             switch result {
             case .success(let response):
-                switch response.statusCode {
-                case 204:
-                    completion(nil, 204)
-                case 300...500:
-                    do {
-                        self.defaultResponse = try response.map(DefaultResponse?.self)
-                        completion(self.defaultResponse, nil)
-                    } catch(let error) {
-                        print(error.localizedDescription)
-                        completion(nil, 500)
-                    }
-                default:
-                    completion(nil, response.statusCode)
-                }
+                completion(nil, response.statusCode)
                 
             case.failure(let error):
-                print(error.localizedDescription)
-                completion(nil, 500)
+                print("[알림 시간 수정] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
@@ -159,24 +133,11 @@ final class SettingAPI {
         settingProvider.request(.editCategory(param)) { result in
             switch result {
             case .success(let response):
-                switch response.statusCode {
-                case 204:
-                    completion(nil, 204)
-                case 300...500:
-                    do {
-                        self.category = try response.map(UserCategory?.self)
-                        completion(self.category, nil)
-                    } catch(let error) {
-                        print(error.localizedDescription)
-                        completion(nil, 500)
-                    }
-                default:
-                    completion(nil, response.statusCode)
-                }
+                completion(nil, response.statusCode)
                 
             case.failure(let error):
-                print(error.localizedDescription)
-                completion(nil, 500)
+                print("[카테고리 수정] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
             }
         }
     }
