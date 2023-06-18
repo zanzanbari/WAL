@@ -409,6 +409,9 @@ extension HistoryViewController {
                     self.historyTableView.reloadData()
                 }
                 
+            case .notFound:
+                break
+                
             default:
                 self.showToast(message: "Error: \(_statusCode)")
             }
