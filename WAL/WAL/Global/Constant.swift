@@ -40,6 +40,7 @@ enum Constant {
     enum Login {
         static let gif = "login500"
         static let resign = "탈퇴 후 24시간 내 재가입 불가합니다."
+        static let nickname = "DEFAULT"
     }
     
     enum OnboardComplete {
