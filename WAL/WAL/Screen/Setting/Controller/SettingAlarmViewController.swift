@@ -160,10 +160,19 @@ final class SettingAlarmViewController: UIViewController {
 
 extension SettingAlarmViewController {
     private func getAlarm() {
-        SettingAPI.shared.getAlarm { [weak self] (data, status) in
-            guard let self = self else { return }
+        SettingAPI.shared.getAlarm { [weak self] (data, statusCode) in
+            guard let self else { return }
             guard let data = data?.timeInfo else { return }
-            self.updateButtonStates(data: data)
+            guard let statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                self.updateButtonStates(data: data)
+            default:
+                self.showToast(message: "Error : \(statusCode)")
+            }
+            
         }
     }
     
@@ -171,10 +180,13 @@ extension SettingAlarmViewController {
         let selectedButtons = timeButtons.filter { $0.isSelected }
         let data = selectedButtons.map { AlarmTimeType.allCases[$0.tag].rawValue }
         
-        SettingAPI.shared.postAlarm(data: data) { [weak self] (data, status) in
+        SettingAPI.shared.postAlarm(data: data) { [weak self] (data, statusCode) in
             guard let self else { return }
-            guard let status = status else { return }
-            if status == 204 {
+            guard let statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+            switch networkResult {
+            case .noContent:
                 self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                     self.loadingView.hide()
@@ -182,6 +194,9 @@ extension SettingAlarmViewController {
                 }
                 
                 // TODO: - 수정 전 값과 같으면 로티 X
+                
+            default:
+                self.showToast(message: "Error : \(statusCode)")
             }
         }
     }

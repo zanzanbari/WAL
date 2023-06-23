@@ -187,10 +187,13 @@ final class EditNicknameViewController: BaseViewController {
 
 extension EditNicknameViewController {
     private func patchNickname(_ nickname: String) {
-        SettingAPI.shared.postUserInfo(nickname: nickname) { [weak self] (data, status) in
+        SettingAPI.shared.postUserInfo(nickname: nickname) { [weak self] (data, statusCode) in
             guard let self else { return }
-            guard let status = status else { return }
-            if status == 204 {
+            guard let statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+            switch networkResult {
+            case .noContent:
                 self.nickname = nickname
                 self.sendNicknameDelegate?.sendNickname(nickname)
                 self.configureLoadingView()
@@ -198,6 +201,10 @@ extension EditNicknameViewController {
                     self.loadingView.hide()
                     self.dismiss(animated: false)
                 }
+            default:
+                print("[MAIN] DEBUG: - \(statusCode)")
+                self.showToast(message: "Error : \(networkResult)")
+                break
             }
         }
         self.view.endEditing(true)

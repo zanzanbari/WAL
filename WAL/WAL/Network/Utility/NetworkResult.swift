@@ -10,28 +10,28 @@ import Foundation
 enum NetworkResult: Int {
     case none                   = -999
     
-    /// 성공 200
+    /// 상태코드 200
     case okay                   = 200
-    /// 생성 201
+    /// 상태코드 201
     case created                = 201
-    /// 204
+    /// 상태코드 204
     case noContent              = 204
-    /// 400
+    /// 상태코드 400
     case badRequest             = 400
-    /// 401 (토큰만료)
+    /// 상태코드 401 
     case unAuthorized           = 401
-    /// 402
+    /// 상태코드 402
     case nullValue              = 402
-    /// 403
+    /// 상태코드 403
     case forbidden              = 403
-    /// 404 (User X)
+    /// 상태코드 404
     case notFound               = 404
-    /// 409
+    /// 상태코드 409
     case conflict               = 409
-    /// 5000
+    /// 상태코드 500
     case internalServerError    = 500
-    /// 503
+    /// 상태코드 503
     case serviceUnavailable     = 503
-    /// 600
+    /// 상태코드 600
     case dbError                = 600
 }
