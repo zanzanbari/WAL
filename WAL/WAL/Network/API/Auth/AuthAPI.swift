@@ -38,7 +38,14 @@ final class AuthAPI {
                 let refreshToken = String(refreshHeader.dropFirst("".count))
                 UserDefaultsHelper.standard.accesstoken = accessToken
                 UserDefaultsHelper.standard.refreshtoken = refreshToken
-                completion(nil, response.statusCode)
+                
+                do {
+                    let loginData = try response.map(DefaultResponse.self)
+                    completion(loginData, response.statusCode)
+                } catch(let error) {
+                    print("[소셜로그인] DEBUG: - \(error.localizedDescription)")
+                    completion(nil, response.statusCode)
+                }
                 
             case .failure(let error):
                 print("[소셜로그인] DEBUG: - \(error.localizedDescription)")
