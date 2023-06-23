@@ -50,7 +50,6 @@ class CreateInformationViewController: UIViewController {
     private let descriptionLabel = UILabel().then {
         $0.text = """
                     ・ 선택한 날짜에 1개의 왈소리만 보낼 수 있어요
-                    ・ 내가 보낸 왈소리에는 음성이 없어요
                     ・ 보낸 왈소리는 히스토리에서 확인 가능해요
                   """
         $0.font = WALKit.WALFont.body9.font

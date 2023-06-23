@@ -160,17 +160,22 @@ extension SettingCategoryViewController {
         let selectedButtons = categoryButtons.filter { $0.isSelected }
         let data = selectedButtons.map { WalCategoryType.allCases[$0.tag].rawValue }
         
-        SettingAPI.shared.postCategory(data: data) { [weak self] (data, status) in
-            guard let self = self else { return }
-            guard let status = status else { return }
-            if status == 204 {
+        SettingAPI.shared.postCategory(data: data) { [weak self] (data, statusCode) in
+            guard let self else { return }
+            guard let statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+            switch networkResult {
+            case .noContent:
                 self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                     self.loadingView.hide()
                     self.transition(self, .pop)
                 }
-                
-                // TODO: - 수정 전 값과 같으면 로티 X
+            
+            default:
+                self.showToast(message: "Error : \(statusCode)")
+                return
             }
         }
     }

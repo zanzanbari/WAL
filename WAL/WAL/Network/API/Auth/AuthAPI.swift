@@ -13,10 +13,7 @@ import KakaoSDKAuth
 final class AuthAPI {
     static let shared = AuthAPI()
     private init() { }
-    private lazy var authProvider = MoyaProvider<AuthService>(
-//        session: Session(interceptor: Interceptor()),
-        plugins: [MoyaLoggerPlugin()]
-    )
+    private lazy var authProvider = MoyaProvider<AuthService>(plugins: [MoyaLoggerPlugin()])
 
     typealias completion = (DefaultResponse?, Int?) -> ()
     
@@ -31,27 +28,18 @@ final class AuthAPI {
         authProvider.request(.login(param: param)) { result in
             switch result {
             case .success(let response):
-                if response.statusCode == 200 || response.statusCode == 201 {
-                    guard let accessHeader = response.response?.allHeaderFields[GeneralAPI.authentication] as? String,
-                          let refreshHeader = response.response?.allHeaderFields[GeneralAPI.refreshToken] as? String else {
-                        completion(nil, nil)
-                        return
-                    }
-                    let accessToken = String(accessHeader.dropFirst("".count))
-                    let refreshToken = String(refreshHeader.dropFirst("".count))
-                    UserDefaultsHelper.standard.accesstoken = accessToken
-                    UserDefaultsHelper.standard.refreshtoken = refreshToken
+                guard let accessHeader = response.response?.allHeaderFields[GeneralAPI.authentication] as? String,
+                      let refreshHeader = response.response?.allHeaderFields[GeneralAPI.refreshToken] as? String else {
                     completion(nil, response.statusCode)
-
-                } else {
-                    do {
-                        let loginData = try response.map(DefaultResponse.self)
-                        completion(loginData, response.statusCode)
-                    } catch(let error) {
-                        print(error.localizedDescription)
-                        completion(nil, response.statusCode)
-                    }
+                    return
                 }
+                
+                let accessToken = String(accessHeader.dropFirst("".count))
+                let refreshToken = String(refreshHeader.dropFirst("".count))
+                UserDefaultsHelper.standard.accesstoken = accessToken
+                UserDefaultsHelper.standard.refreshtoken = refreshToken
+                completion(nil, response.statusCode)
+                
             case .failure(let error):
                 print("[소셜로그인] DEBUG: - \(error.localizedDescription)")
                 completion(nil, error.response?.statusCode)
