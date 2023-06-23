@@ -90,7 +90,6 @@ final class LoginViewController: UIViewController {
         UIView.animate(withDuration: 1, delay: 0.5) {
             self.logoImageView.transform = CGAffineTransform(translationX: 0, y: -80)
         }
-        
         UIView.animate(withDuration: 1, delay: 0.5) {
             self.appleButton.alpha = 1
             self.kakaoButton.alpha = 1
@@ -101,16 +100,11 @@ final class LoginViewController: UIViewController {
         
     }
     
-    // TODO: - 해결 연결 넘어가는 것 닉네임이 없음
     private func pushToHome() {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
-        print("LoginView 닉네임 : \(nickname)==================")
-        if nickname == "" {
-            print("🛼 pushToHome() 로그인 후 온보딩을 완료하지 않아 온보딩뷰입니다.")
+        if nickname == Constant.Login.nickname {
             transition(OnboardingViewController(), .presentFullNavigation)
         } else {
-            // 로그인 -> 완료버튼을 눌러서 서버통신 성공인 경우에 -> 메인화면으로 이동
-            print("🛼 pushToHome() \(nickname)님, 로그인 후 온보딩 완료 후 메인뷰입니다.")
             transition(MainViewController(viewModel: .init()), .presentFullNavigation)
         }
     }
@@ -144,18 +138,14 @@ extension LoginViewController {
         let param = LoginRequest(socialToken, socialType.rawValue, fcmToken)
         AuthAPI.shared.postLogin(param: param) { [weak self] (data, statusCode) in
             guard let self = self else { return }
+            guard let _data = data else { return }
             guard let _statusCode = statusCode else { return }
             
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             
             switch networkResult {
-            case .forbidden:
-                self.showAlert(title: Constant.Login.resign,
-                               message: nil,
-                               actions: [],
-                               cancelTitle: "확인",
-                               preferredStyle: .alert)
             default:
+                UserDefaultsHelper.standard.nickname = _data.nickname
                 UserDefaultsHelper.standard.socialtoken = socialToken
                 UserDefaultsHelper.standard.social = socialType.rawValue
                 self.pushToHome()
