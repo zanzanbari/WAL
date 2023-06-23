@@ -13,7 +13,8 @@ import WALKit
 final class SettingAlarmViewController: UIViewController {
     
     // MARK: - Properties
-        
+    
+    private var previousAlarm: [String] = []
     private lazy var timeButtons = [morningButton, afternoonButton, nightButton]
     
     private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingAlarm).then {
@@ -169,34 +170,35 @@ extension SettingAlarmViewController {
             switch networkResult {
             case .okay:
                 self.updateButtonStates(data: data)
+                self.previousAlarm = data
             default:
                 self.showToast(message: "Error : \(statusCode)")
             }
-            
         }
     }
     
     private func postAlarm() {
         let selectedButtons = timeButtons.filter { $0.isSelected }
-        let data = selectedButtons.map { AlarmTimeType.allCases[$0.tag].rawValue }
-        
-        SettingAPI.shared.postAlarm(data: data) { [weak self] (data, statusCode) in
-            guard let self else { return }
-            guard let statusCode else { return }
-            
-            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
-            switch networkResult {
-            case .noContent:
-                self.configureLoadingView()
-                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    self.loadingView.hide()
-                    self.transition(self, .pop)
+        let selectedAlarm = selectedButtons.map { AlarmTimeType.allCases[$0.tag].rawValue }
+        if selectedAlarm.sorted() == previousAlarm.sorted() {
+            self.transition(self, .pop)
+            return
+        } else {
+            SettingAPI.shared.postAlarm(data: selectedAlarm) { [weak self] (data, statusCode) in
+                guard let self else { return }
+                guard let statusCode else { return }
+                
+                let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+                switch networkResult {
+                case .noContent:
+                    self.configureLoadingView()
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        self.loadingView.hide()
+                        self.transition(self, .pop)
+                    }
+                default:
+                    self.showToast(message: "Error : \(statusCode)")
                 }
-                
-                // TODO: - 수정 전 값과 같으면 로티 X
-                
-            default:
-                self.showToast(message: "Error : \(statusCode)")
             }
         }
     }
