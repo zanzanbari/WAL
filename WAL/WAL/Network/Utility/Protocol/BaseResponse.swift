@@ -22,10 +22,12 @@ extension BaseResponse {
 struct DefaultResponse: BaseResponse {
     var statusCode: Int?
     var message: String?
+    var nickname: String?
     
     enum CodingKeys: String, CodingKey {
         case statusCode
         case message
+        case nickname
     }
     
     init(from decoder: Decoder) throws {
@@ -33,5 +35,6 @@ struct DefaultResponse: BaseResponse {
         
         self.statusCode = try container.decodeIfPresent(Int.self, forKey: .statusCode) ?? 0
         self.message = try container.decodeIfPresent(String.self, forKey: .message) ?? ""
+        self.nickname = try container.decodeIfPresent(String.self, forKey: .nickname) ?? ""
     }
 }
