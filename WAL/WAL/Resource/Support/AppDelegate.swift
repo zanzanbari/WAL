@@ -48,20 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) { }
     
-    
-    func application(application: UIApplication,
-                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
 }
@@ -70,20 +62,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        Messaging.messaging().token { fcmToken, error in
-            if let error = error {
-                print("Error fetching FCM registration token: \(error)")
-            } else if let fcmToken = fcmToken {
-                let dataDict: [String: String] = ["token": fcmToken]
-                NotificationCenter.default.post(
-                    name: .fcmToken,
-                    object: nil,
-                    userInfo: dataDict)
-                print("💾 - 푸쉬알림토큰임 : \(fcmToken)")
-                UserDefaultsHelper.standard.fcmtoken = fcmToken
-            }
-        }
-        print("Firebase registration token: \(String(describing: fcmToken))")
+        print("🙏🏻 FCM Token : \(String(describing: fcmToken)) 🙏🏻")
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+            name: .fcmToken,
+            object: nil,
+            userInfo: dataDict
+        )
+        UserDefaultsHelper.standard.fcmtoken = fcmToken
     }
 }
 
