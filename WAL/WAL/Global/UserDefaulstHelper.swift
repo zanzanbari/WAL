@@ -112,7 +112,6 @@ final class UserDefaultsHelper {
         userDefaults.removeObject(forKey: Key.refreshtoken)
         userDefaults.removeObject(forKey: Key.socialtoken)
         userDefaults.removeObject(forKey: Key.social)
-        userDefaults.removeObject(forKey: Key.fcmtoken)
         userDefaults.removeObject(forKey: Key.nickname)
         userDefaults.removeObject(forKey: Key.complete)
         userDefaults.removeObject(forKey: Key.pushNoti)

@@ -12,9 +12,10 @@ import WALKit
 final class SettingCategoryViewController: UIViewController {
     
     // MARK: - Properties
-        
+    
+    private var previousCategory: [String] = []
     private lazy var categoryButtons = [comedyButton, fussButton, comfortButton, yellButton]
-        
+    
     private lazy var navigationBar = WALNavigationBar(title: Constant.NavigationTitle.settingCategory).then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
@@ -149,33 +150,45 @@ final class SettingCategoryViewController: UIViewController {
 
 extension SettingCategoryViewController {
     private func getCategory() {
-        SettingAPI.shared.getCategory { [weak self] (data, status) in
+        SettingAPI.shared.getCategory { [weak self] (data, statusCode) in
             guard let self = self else { return }
             guard let data = data?.categoryInfo else { return }
-            self.updateButtonStates(data: data)
+            guard let statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                self.updateButtonStates(data: data)
+                self.previousCategory = data
+            default:
+                self.showToast(message: "Error : \(statusCode)")
+            }
         }
     }
     
     private func postCategory() {
         let selectedButtons = categoryButtons.filter { $0.isSelected }
-        let data = selectedButtons.map { WalCategoryType.allCases[$0.tag].rawValue }
-        
-        SettingAPI.shared.postCategory(data: data) { [weak self] (data, statusCode) in
-            guard let self else { return }
-            guard let statusCode else { return }
-            
-            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
-            switch networkResult {
-            case .noContent:
-                self.configureLoadingView()
-                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    self.loadingView.hide()
-                    self.transition(self, .pop)
+        let selectedCategory = selectedButtons.map { WalCategoryType.allCases[$0.tag].rawValue }
+        if selectedCategory.sorted() == previousCategory.sorted() {
+            self.transition(self, .pop)
+            return
+        } else {
+            SettingAPI.shared.postCategory(data: selectedCategory) { [weak self] (data, statusCode) in
+                guard let self else { return }
+                guard let statusCode else { return }
+                
+                let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+                switch networkResult {
+                case .noContent:
+                    self.configureLoadingView()
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        self.loadingView.hide()
+                        self.transition(self, .pop)
+                    }
+                default:
+                    self.showToast(message: "Error : \(statusCode)")
+                    return
                 }
-            
-            default:
-                self.showToast(message: "Error : \(statusCode)")
-                return
             }
         }
     }

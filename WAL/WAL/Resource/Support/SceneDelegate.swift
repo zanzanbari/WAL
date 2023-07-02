@@ -18,28 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         guard let accesstoken = UserDefaultsHelper.standard.accesstoken else { return }
-        print("SceneDelegate", nickname, accesstoken)
         
-        if nickname != "" && accesstoken != "" {
-            // 닉네임O, 액세스토큰O -> 자동로그인 -> 메인
-            print("- 자동로그인 후 온보딩 완료해서 메인뷰.")
+        if nickname != Constant.Login.nickname && accesstoken != "" { ///닉네임O, 액세스토큰O -> 자동로그인 -> 메인
             window?.rootViewController = UINavigationController(rootViewController: MainViewController(viewModel: .init()))
-        } else if nickname == "" && accesstoken != "" {
-            // 닉네임X, 액세스토큰O -> 온보딩
-            print("- 자동로그인 후 온보딩을 완료하지 않아서 온보딩뷰.")
+        } else if nickname == Constant.Login.nickname && accesstoken != "" { ///닉네임X, 액세스토큰O -> 온보딩
             window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
-        } else if nickname == "" && accesstoken == "" {
-            // 닉네임X, 액세스토큰X -> 로그인
-            print("- 가입이 완료되지 않아 로그인뷰.")
-            window?.rootViewController = LoginViewController(viewModel: LoginViewModel())
-        } else if nickname != "" && accesstoken == "" {
-            // 닉네임O, 액세스토큰X -> 로그인
+        } else { /// 로그인
             window?.rootViewController = LoginViewController(viewModel: LoginViewModel())
         }
-        
         window?.makeKeyAndVisible()
     }
     
