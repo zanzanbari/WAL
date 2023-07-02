@@ -15,6 +15,7 @@
 		5B020D4328219C2F0057F9B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B020D4228219C2F0057F9B7 /* LoginViewController.swift */; };
 		5B058E522A04C80000F156F6 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B058E512A04C80000F156F6 /* LoginRequest.swift */; };
 		5B058E542A07663D00F156F6 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B058E532A07663D00F156F6 /* UITableViewCell+.swift */; };
+		5B174ABF2A516A8B00ED8120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B174ABE2A516A8B00ED8120 /* GoogleService-Info.plist */; };
 		5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A2AA828572EF300CC9088 /* KeyInfo.plist */; };
 		5B2D675828B0ADA3006A0E70 /* ResignRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D675728B0ADA3006A0E70 /* ResignRequest.swift */; };
 		5B348A1E281E402B006FEFDA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */; };
@@ -113,7 +114,6 @@
 		92B152D02954569800918A3B /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B152CF2954569800918A3B /* MainTitleView.swift */; };
 		92C1B84E28633FB500F97D75 /* mintPaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84C28633FB500F97D75 /* mintPaw.json */; };
 		92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C1B84D28633FB500F97D75 /* orangePaw.json */; };
-		92C885962A20FBDC00F802DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92C885952A20FBDC00F802DB /* GoogleService-Info.plist */; };
 		92D87F8128C37EED009AAFE5 /* login500.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92D87F8028C37EED009AAFE5 /* login500.gif */; };
 		92F4F1EC29FBFE6F00F33394 /* ObservableType+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */; };
 		E2082F6B281E7EB700576135 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2082F67281E7EB700576135 /* Pretendard-Bold.otf */; };
@@ -144,6 +144,7 @@
 		5B020D4228219C2F0057F9B7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B058E512A04C80000F156F6 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		5B058E532A07663D00F156F6 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		5B174ABE2A516A8B00ED8120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B1A2AA828572EF300CC9088 /* KeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = KeyInfo.plist; sourceTree = "<group>"; };
 		5B2D675728B0ADA3006A0E70 /* ResignRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignRequest.swift; sourceTree = "<group>"; };
 		5B348A1D281E402B006FEFDA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -241,7 +242,6 @@
 		92B152CF2954569800918A3B /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
 		92C1B84C28633FB500F97D75 /* mintPaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mintPaw.json; sourceTree = "<group>"; };
 		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
-		92C885952A20FBDC00F802DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92D87F8028C37EED009AAFE5 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login500.gif; sourceTree = "<group>"; };
 		92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+.swift"; sourceTree = "<group>"; };
 		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
@@ -408,8 +408,8 @@
 		5BA3893027F6B94F0010EAA1 /* WAL */ = {
 			isa = PBXGroup;
 			children = (
-				92C885952A20FBDC00F802DB /* GoogleService-Info.plist */,
 				92322AAD28049C2C002E281F /* WAL.entitlements */,
+				5B174ABE2A516A8B00ED8120 /* GoogleService-Info.plist */,
 				5BA3894527F6C01D0010EAA1 /* Network */,
 				5BA3894627F6C03A0010EAA1 /* Global */,
 				5BA3894827F6C0750010EAA1 /* Screen */,
@@ -1009,7 +1009,7 @@
 				92C1B84F28633FB500F97D75 /* orangePaw.json in Resources */,
 				92D87F8128C37EED009AAFE5 /* login500.gif in Resources */,
 				5B1A2AA928572EF300CC9088 /* KeyInfo.plist in Resources */,
-				92C885962A20FBDC00F802DB /* GoogleService-Info.plist in Resources */,
+				5B174ABF2A516A8B00ED8120 /* GoogleService-Info.plist in Resources */,
 				E2082F6C281E7EB700576135 /* Pretendard-SemiBold.otf in Resources */,
 				E2082F6D281E7EB700576135 /* Pretendard-Regular.otf in Resources */,
 				5BC58098289D332C0095F8E4 /* login.json in Resources */,
