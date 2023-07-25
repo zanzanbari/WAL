@@ -107,7 +107,6 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         setMainStatus()
-        viewModel.input.reqTodayWal.accept(())
         NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name.enterMain, object: nil)
     }
     
@@ -385,6 +384,7 @@ final class MainViewController: UIViewController {
     @objc func getNotification() {
         setMainStatus()
         viewModel.input.reqTodayWal.accept(())
+        viewModel.input.reqSubtitle.accept(())
     }
 }
 
