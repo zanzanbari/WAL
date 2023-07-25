@@ -20,13 +20,6 @@ final class MainViewModel {
     
     // MARK: - Properties
     
-    private let date = Date()
-    private let timeFormatter = DateFormatter().then {
-        $0.locale = Locale(identifier: "ko_kr")
-        $0.timeZone = TimeZone(abbreviation: "ko_kr")
-        $0.dateFormat = "HH"
-    }
-    
     private let dateFormatter = DateFormatter().then {
         $0.locale = Locale(identifier: "ko_kr")
         $0.timeZone = TimeZone(abbreviation: "ko_kr")
@@ -110,7 +103,14 @@ final class MainViewModel {
         
         switch canOpenCount {
         case 0:
-            guard let intDate = Int(timeFormatter.string(from: date)) else { return }
+            
+            let timeFormatter = DateFormatter().then {
+                $0.locale = Locale(identifier: "ko_kr")
+                $0.timeZone = TimeZone(abbreviation: "ko_kr")
+                $0.dateFormat = "HH"
+            }
+            
+            guard let intDate = Int(timeFormatter.string(from: Date())) else { return }
             
             if intDate >= 0 && intDate <= 7 {
                 output.subTitle.accept("왈뿡이가 자는 시간이에요. 아침에 만나요!")
