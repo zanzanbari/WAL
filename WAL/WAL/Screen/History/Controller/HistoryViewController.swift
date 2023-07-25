@@ -56,6 +56,10 @@ final class HistoryViewController: UIViewController {
     weak var resendWalDelegate: ResendWalDelegate?
     weak var refreshDelegate: RefreshDelegate?
     
+    let calendar = Calendar.current
+    let currentDate = Date()
+    var daysCount: Int = 0
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -195,6 +199,10 @@ final class HistoryViewController: UIViewController {
         }
         optionMenu.addAction(closeAction)
         self.present(optionMenu, animated: true)
+    }
+
+    func days(from date: Date) -> Int {
+        return (calendar.dateComponents([.day], from: currentDate, to: date).day ?? 0) + 1
     }
 }
 
@@ -392,13 +400,23 @@ extension HistoryViewController {
                 
                 if let sendingData = historyData.notDoneData {
                     self.sendingData = sendingData
-                    for _ in 0 ..< sendingData.count {
-                        self.selectedIndices.append([-1,-1])
+                    // MARK: if date is later than today
+                    
+                    for index in 0 ..< sendingData.count {
+                        let date = sendingData[index].sendingDate.components(separatedBy:".")
+                        daysCount = days(from: date[0].toDate() ?? currentDate)
+                        print(daysCount)
+                        
+                        if daysCount < 0 {
+                            completeData.append(sendingData[index])
+                        } else {
+                            self.selectedIndices.append([-1,-1])
+                        }
                     }
                 }
                 
                 if let completeData = historyData.doneData {
-                    self.completeData = completeData
+                    self.completeData.append(contentsOf: completeData)
                     for _ in 0 ..< completeData.count {
                         self.selectedIndices.append([-1,-1])
                     }
@@ -431,12 +449,22 @@ extension HistoryViewController {
                 guard let historyData = historyData else { return }
                 if let sendingData = historyData.notDoneData {
                     self.sendingData = sendingData
-                    for _ in 0 ..< sendingData.count {
-                        self.selectedIndices.append([-1,-1])
+                    // MARK: if date is later than today
+                    
+                    for index in 0 ..< sendingData.count {
+                        let date = sendingData[index].sendingDate.components(separatedBy:".")
+                        daysCount = days(from: date[0].toDate() ?? currentDate)
+                        print(daysCount)
+                        
+                        if daysCount < 0 {
+                            completeData.append(sendingData[index])
+                        } else {
+                            self.selectedIndices.append([-1,-1])
+                        }
                     }
                 }
                 if let completeData = historyData.doneData {
-                    self.completeData = completeData
+                    self.completeData.append(contentsOf: completeData)
                     for _ in 0 ..< completeData.count {
                         self.selectedIndices.append([-1,-1])
                     }
