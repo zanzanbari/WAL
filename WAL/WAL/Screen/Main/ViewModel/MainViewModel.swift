@@ -20,12 +20,6 @@ final class MainViewModel {
     
     // MARK: - Properties
     
-    private let dateFormatter = DateFormatter().then {
-        $0.locale = Locale(identifier: "ko_kr")
-        $0.timeZone = TimeZone(abbreviation: "ko_kr")
-        $0.dateFormat = "yyyy-MM-dd"
-    }
-    
     private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
@@ -65,8 +59,14 @@ final class MainViewModel {
                     return
                 }
                 
+                let dateFormatter = DateFormatter().then {
+                    $0.locale = Locale(identifier: "ko_kr")
+                    $0.timeZone = TimeZone(abbreviation: "ko_kr")
+                    $0.dateFormat = "yyyy-MM-dd"
+                }
+                
                 // 메인에 진입했을 때 왈소리를 조회한 날짜와 이전에 조회한(UserDefaults에 저장) 날짜를 비교해서
-                if owner.dateFormatter.string(from: _subtitleStatus.date) == owner.dateFormatter.string(from: Date()) {
+                if dateFormatter.string(from: _subtitleStatus.date) == dateFormatter.string(from: Date()) {
                     
                     
                     if owner.getSubtitleFromUserDefaults()?.subtitle == "" {
@@ -150,7 +150,7 @@ final class MainViewModel {
             let data = try encoder.encode(subtitle)
             UserDefaults.standard.set(data, forKey: "mainSubtitle")
         } catch {
-            print(error)
+            print("[MAIN] DEBUG: - UserDefaults SET \(error)")
         }
     }
     
@@ -162,7 +162,8 @@ final class MainViewModel {
                 let subtitle = try decoder.decode(MainSubtitleStatus.self, from: data)
                 return subtitle
             } catch {
-                print(error)
+                print("[MAIN] DEBUG: - UserDefaults GET \(error)")
+                return nil
             }
         }
         
@@ -301,7 +302,7 @@ extension MainViewModel {
     struct Output {
         let todayWal = PublishRelay<[TodayWal]>()
         let todayWalCount = BehaviorRelay<Int>(value: 0)
-        let subTitle = BehaviorRelay<String>(value: "")
+        let subTitle = PublishRelay<String>()
         let walStatus = PublishRelay<WalStatus>()
         let openWal = PublishRelay<Int>()
         let imageUrl = PublishRelay<URL?>()

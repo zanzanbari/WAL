@@ -215,11 +215,11 @@ final class MainViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        
         viewModel.output.subTitle
-            .bind(with: self) { owner, res in
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self, onNext: { owner, res in
                 owner.titleView.subTitle = res
-            }
+            })
             .disposed(by: disposeBag)
         
         viewModel.output.walStatus
