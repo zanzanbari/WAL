@@ -7,6 +7,9 @@
 
 import UIKit
 
+import KakaoSDKAuth
+import KakaoSDKCommon
+import KakaoSDKUser
 import Then
 import WALKit
 
@@ -108,6 +111,17 @@ final class ResignViewController: UIViewController {
 // MARK: - Network
 
 extension ResignViewController {
+    private func kakaoUnlink() {
+        UserApi.shared.unlink {(error) in
+            if let error = error {
+                print("unlink()", error)
+            }
+            else {
+                print("unlink() success.")
+            }
+        }
+    }
+    
     private func postResign() {
         let param = ResignRequest(reasons: reasonData)
         AuthAPI.shared.postResign(param: param) { [weak self] (resignData, statusCode) in
@@ -117,6 +131,7 @@ extension ResignViewController {
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             switch networkResult {
             case .noContent:
+                _self.kakaoUnlink()
                 _self.pushToLoginView()
                 UserDefaultsHelper.standard.removeObject()
             case .unAuthorized:
