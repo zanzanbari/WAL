@@ -11,16 +11,6 @@ import WALKit
 
 final class MainTitleView: UIView {
     
-    // MARK: - Property
-    
-    var subTitle: String = "" {
-        didSet {
-            subTitleLabel.text = subTitle
-            subTitleLabel.addLetterSpacing()
-            subTitleLabel.textAlignment = .left
-        }
-    }
-    
     // MARK: - UI Property
     
     private var titleLabel = UILabel().then {
@@ -65,4 +55,14 @@ final class MainTitleView: UIView {
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
     }
+}
+
+extension MainTitleView {
+    
+    func setupData(subTitle: String) {
+        subTitleLabel.text = subTitle
+        subTitleLabel.addLetterSpacing()
+        subTitleLabel.textAlignment = .left
+    }
+    
 }

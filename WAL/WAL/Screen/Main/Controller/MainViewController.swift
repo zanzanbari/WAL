@@ -107,6 +107,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         configNavigationUI()
         setMainStatus()
+        rxBindInput()
         NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name.enterMain, object: nil)
     }
     
@@ -117,7 +118,7 @@ final class MainViewController: UIViewController {
         rxBindOutput()
         rxBindView()
         rxBindInput()
-//        rxBindOutputError()
+        rxBindOutputError()
     }
     
     // MARK: - Init UI
@@ -218,7 +219,9 @@ final class MainViewController: UIViewController {
         viewModel.output.subTitle
             .asDriver(onErrorDriveWith: .empty())
             .drive(with: self, onNext: { owner, res in
-                owner.titleView.subTitle = res
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    owner.titleView.setupData(subTitle: res)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -316,10 +319,10 @@ final class MainViewController: UIViewController {
                 case .okay:
                     CustomIndicator.hideLoading()
                 default:
+                    owner.showToast(message: "\(networkResult) error")
                     break
                 }
                 
-                owner.showToast(message: "\(networkResult) error")
             }
             .disposed(by: disposeBag)
     }

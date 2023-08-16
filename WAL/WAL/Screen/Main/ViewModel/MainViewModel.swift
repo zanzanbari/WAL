@@ -68,14 +68,13 @@ final class MainViewModel {
                 // 메인에 진입했을 때 왈소리를 조회한 날짜와 이전에 조회한(UserDefaults에 저장) 날짜를 비교해서
                 if dateFormatter.string(from: _subtitleStatus.date) == dateFormatter.string(from: Date()) {
                     
-                    
-                    if owner.getSubtitleFromUserDefaults()?.subtitle == "" {
+                    if _subtitleStatus.subtitle == "" {
                         owner.requestSubtitle()
                         return
+                    } else {
+                        // 같은 날이라면 이전에 저장된 subtitle을 보여주고
+                        owner.output.subTitle.accept(_subtitleStatus.subtitle)
                     }
-                    
-                    // 같은 날이라면 이전에 저장된 subtitle을 보여주고
-                    owner.output.subTitle.accept(_subtitleStatus.subtitle)
                     
                 } else {
                     // 다른 날이라면 매일 갱신되어야 하므로 새로 API 요청
@@ -150,6 +149,7 @@ final class MainViewModel {
             let data = try encoder.encode(subtitle)
             UserDefaults.standard.set(data, forKey: "mainSubtitle")
         } catch {
+            UserDefaults.standard.set("", forKey: "mainSubtitle")
             print("[MAIN] DEBUG: - UserDefaults SET \(error)")
         }
     }
