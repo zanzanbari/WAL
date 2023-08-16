@@ -474,6 +474,8 @@ extension HistoryViewController {
                     self.checkHistoryData()
                     self.historyTableView.reloadData()
                 }
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .getHistoryInfo, id: nil)
                 
             case .notFound:
                 break
@@ -522,6 +524,8 @@ extension HistoryViewController {
                     self.checkHistoryData()
                     self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
                 }
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .getHistoryInfoAfterDelete, id: nil)
             default:
                 self.showToast(message: "Error: \(_statusCode)")
             }
@@ -537,6 +541,8 @@ extension HistoryViewController {
             switch networkResult {
             case .noContent:
                 self.getHistoryInfoAfterDelete()
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .cancelHistoryInfo, id: reservationId)
             default:
                 self.showToast(message: "Error: \(_statusCode)")
             }
@@ -553,6 +559,8 @@ extension HistoryViewController {
             switch networkResult {
             case .noContent:
                 self.getHistoryInfoAfterDelete()
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .deleteHistoryInfo, id: reservationId)
             default:
                 self.showToast(message: "Error: \(_statusCode)")
             }
