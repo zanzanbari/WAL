@@ -111,19 +111,36 @@ extension ResignViewController {
     private func postResign() {
         let param = ResignRequest(reasons: reasonData)
         AuthAPI.shared.postResign(param: param) { [weak self] (resignData, statusCode) in
-            guard let self else { return }
+            guard let _self = self else { return }
             guard let _statusCode = statusCode else { return }
             
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
-            
             switch networkResult {
             case .noContent:
-                self.pushToLoginView()
+                _self.pushToLoginView()
                 UserDefaultsHelper.standard.removeObject()
+            case .unAuthorized:
+                _self.requestRefreshToken()
             default:
-                self.showToast(message: "Error: \(_statusCode)")
+                _self.showToast(message: "Error: \(_statusCode)")
             }
+        }
+    }
+    
+    private func requestRefreshToken() {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
             
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                _self.postResign()
+            case .unAuthorized:
+                _self.pushToLoginView()
+            default:
+                break
+            }
         }
     }
 }

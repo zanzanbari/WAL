@@ -188,28 +188,48 @@ final class EditNicknameViewController: BaseViewController {
 extension EditNicknameViewController {
     private func patchNickname(_ nickname: String) {
         SettingAPI.shared.postUserInfo(nickname: nickname) { [weak self] (data, statusCode) in
-            guard let self else { return }
+            guard let _self = self else { return }
             guard let statusCode else { return }
             
             let networkResult = NetworkResult(rawValue: statusCode) ?? .none
             switch networkResult {
             case .noContent:
-                self.nickname = nickname
-                self.sendNicknameDelegate?.sendNickname(nickname)
-                self.configureLoadingView()
+                _self.nickname = nickname
+                _self.sendNicknameDelegate?.sendNickname(nickname)
+                _self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    self.loadingView.hide()
-                    self.dismiss(animated: false)
+                    _self.loadingView.hide()
+                    _self.dismiss(animated: false)
                 }
+            case .unAuthorized:
+                _self.requestRefreshToken()
             default:
-                print("[MAIN] DEBUG: - \(statusCode)")
-                self.showToast(message: "Error : \(networkResult)")
+                _self.showToast(message: "Error : \(networkResult), \(statusCode)")
                 break
             }
         }
         self.view.endEditing(true)
     }
+    
+    private func requestRefreshToken() {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                guard let nickname = _self.nicknameTextField.text else { return }
+                _self.patchNickname(nickname)
+            case .unAuthorized:
+                _self.pushToLoginView()
+            default:
+                break
+            }
+        }
+    }
 }
+
 
 // MARK: - UITextFieldDelegate
 
