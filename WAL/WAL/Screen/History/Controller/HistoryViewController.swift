@@ -385,6 +385,19 @@ extension HistoryViewController: HistoryCompleteHeaderViewDelegate {
     }
 }
 
+// MARK: - Enums
+
+extension HistoryViewController {
+    
+    enum HistoryRequestType {
+        case getHistoryInfo
+        case getHistoryInfoAfterDelete
+        case cancelHistoryInfo
+        case deleteHistoryInfo
+    }
+    
+}
+
 // MARK: - Network
 
 extension HistoryViewController {
