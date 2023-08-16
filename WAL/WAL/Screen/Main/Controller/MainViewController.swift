@@ -118,7 +118,7 @@ final class MainViewController: UIViewController {
         rxBindOutput()
         rxBindView()
         rxBindInput()
-        rxBindOutputError()
+//        rxBindOutputError()
     }
     
     // MARK: - Init UI
