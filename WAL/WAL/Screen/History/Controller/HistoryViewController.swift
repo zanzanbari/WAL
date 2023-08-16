@@ -385,9 +385,57 @@ extension HistoryViewController: HistoryCompleteHeaderViewDelegate {
     }
 }
 
+// MARK: - Enums
+
+extension HistoryViewController {
+    
+    enum HistoryRequestType {
+        case getHistoryInfo
+        case getHistoryInfoAfterDelete
+        case cancelHistoryInfo
+        case deleteHistoryInfo
+    }
+    
+}
+
 // MARK: - Network
 
 extension HistoryViewController {
+    /// 토큰만료 시 재발급
+    private func requestRefreshToken(requestType: HistoryRequestType, id: Int?) {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                // 재발급 성공 시 다시 함수 호출
+                _self.requestAPI(requestType: requestType, id: id)
+            case .unAuthorized:
+                // 소셜 토큰 만료 시 로그인 화면으로 이동
+                _self.pushToLoginView()
+            default:
+                break
+            }
+        }
+    }
+    
+    private func requestAPI(requestType: HistoryRequestType, id: Int?) {
+        switch requestType {
+        case .getHistoryInfo:
+            getHistoryInfo()
+        case .getHistoryInfoAfterDelete:
+            getHistoryInfoAfterDelete()
+        case .cancelHistoryInfo:
+            guard let _id = id else { return }
+            cancelHistoryInfo(reservationId: _id)
+        case .deleteHistoryInfo:
+            guard let _id = id else { return }
+            deleteHistoryInfo(reservationId: _id)
+        }
+    }
+    
     func getHistoryInfo() {
         HistoryAPI.shared.getHistoryData { [weak self] historyData, statusCode in
             guard let self else { return }
@@ -426,6 +474,8 @@ extension HistoryViewController {
                     self.checkHistoryData()
                     self.historyTableView.reloadData()
                 }
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .getHistoryInfo, id: nil)
                 
             case .notFound:
                 break
@@ -474,6 +524,8 @@ extension HistoryViewController {
                     self.checkHistoryData()
                     self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
                 }
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .getHistoryInfoAfterDelete, id: nil)
             default:
                 self.showToast(message: "Error: \(_statusCode)")
             }
@@ -489,6 +541,8 @@ extension HistoryViewController {
             switch networkResult {
             case .noContent:
                 self.getHistoryInfoAfterDelete()
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .cancelHistoryInfo, id: reservationId)
             default:
                 self.showToast(message: "Error: \(_statusCode)")
             }
@@ -505,6 +559,8 @@ extension HistoryViewController {
             switch networkResult {
             case .noContent:
                 self.getHistoryInfoAfterDelete()
+            case .unAuthorized:
+                self.requestRefreshToken(requestType: .deleteHistoryInfo, id: reservationId)
             default:
                 self.showToast(message: "Error: \(_statusCode)")
             }
