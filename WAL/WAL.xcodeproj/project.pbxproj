@@ -889,7 +889,6 @@
 			isa = PBXGroup;
 			children = (
 				E2A9B4D828279D89007C2C95 /* ReservationTableViewCell.swift */,
-				E2CD8B0528219B57009277C3 /* CreateViewController.swift */,
 				E2A9B4DA28279F20007C2C95 /* DatePickerTableViewCell.swift */,
 				E281B4D0282D6BDB005667FD /* WALCreateView.swift */,
 				E2FD851628782CEC00335667 /* WALPopupView.swift */,
@@ -900,6 +899,7 @@
 		E2CD8B0428219AC5009277C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E2CD8B0528219B57009277C3 /* CreateViewController.swift */,
 				E281B4D4282D7198005667FD /* CreateFinishedViewController.swift */,
 				E213130428608077001238F3 /* CreateInformationViewController.swift */,
 				E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */,

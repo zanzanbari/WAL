@@ -250,27 +250,7 @@ class CreateViewController: UIViewController {
     }
     
     @objc private func touchUpSendButton() {
-        let viewController = CreateFinishedViewController()
-        let dateFormatter = DateFormatter()
-        let timeFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy. MM. dd"
-        timeFormatter.dateFormat = "a hh:mm"
-        timeFormatter.locale = Locale(identifier: "ko")
-        
-        var date = dateFormatter.string(from: datePickerData.date ?? Date())
-        var time = timeFormatter.string(from: datePickerData.time ?? Date())
-        
-        viewController.date = "\(date) \(time)"
-        
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        timeFormatter.dateFormat = "HH:mm:ss"
-        date = dateFormatter.string(from: datePickerData.date ?? Date())
-        time = timeFormatter.string(from: datePickerData.time ?? Date())
-        
-        let reservationData = Reserve(message: walSoundTextView.text, localDate: date, localTime: time, showStatus: isSelectedHideHistory ? "CLOSED" : "OPEN")
-        
-        postReservation(data: reservationData, viewController)
+        postReservation()
     }
     
     @objc private func touchUpInformationButton() {
@@ -484,28 +464,93 @@ extension CreateViewController: UITableViewDataSource {
 //MARK: - Network
 
 extension CreateViewController {
-    private func getReservedDate() {
-        CreateAPI.shared.getReservedDate { data, statusCase in
-            guard let reservedDates = data else { return }
-            self.reservedDates = reservedDates
+    
+    enum CreatingRequestType {
+        case getReservedDate
+        case postReservation
+    }
+    
+    private func requestRefreshToken(requestType: CreatingRequestType) {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                _self.requestAPI(requestType: requestType)
+            case .unAuthorized:
+                _self.pushToLoginView()
+            default:
+                break
+            }
         }
     }
     
-    private func postReservation(data: Reserve, _ viewController: CreateFinishedViewController) {
-        CreateAPI.shared.postReservation(reserve: data) { [weak self] _, statusCode in
-            guard let self else { return }
-            guard let statusCode else { return }
+    private func requestAPI(requestType: CreatingRequestType) {
+        switch requestType {
+        case .getReservedDate:
+            getReservedDate()
+        case .postReservation:
+            postReservation()
+        }
+    }
+    
+    private func getReservedDate() {
+        CreateAPI.shared.getReservedDate { data, statusCode in
+            guard let reservedDates = data else { return }
+            if let _statusCode = statusCode {
+                let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+                switch networkResult {
+                case .unAuthorized:
+                    self.requestRefreshToken(requestType: .getReservedDate)
+                default:
+                    self.showToast(message: "Error : \(_statusCode)")
+                    return
+                }
+            } else {
+                self.reservedDates = reservedDates
+            }
+        }
+    }
+    
+    private func postReservation() {
+        let viewController = CreateFinishedViewController()
+        let dateFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy. MM. dd"
+        timeFormatter.dateFormat = "a hh:mm"
+        timeFormatter.locale = Locale(identifier: "ko")
+        
+        var date = dateFormatter.string(from: datePickerData.date ?? Date())
+        var time = timeFormatter.string(from: datePickerData.time ?? Date())
+        
+        viewController.date = "\(date) \(time)"
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        timeFormatter.dateFormat = "HH:mm:ss"
+        date = dateFormatter.string(from: datePickerData.date ?? Date())
+        time = timeFormatter.string(from: datePickerData.time ?? Date())
+        
+        let reservationData = Reserve(message: walSoundTextView.text, localDate: date, localTime: time, showStatus: isSelectedHideHistory ? "CLOSED" : "OPEN")
+        
+        CreateAPI.shared.postReservation(reserve: reservationData) { [weak self] _, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
             
-            let networkResult = NetworkResult(rawValue: statusCode) ?? .none
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             switch networkResult {
             case .created:
-                self.configureLoadingView()
+                _self.configureLoadingView()
                 DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    self.loadingView.hide()
-                    self.navigationController?.pushViewController(viewController, animated: true)
+                    _self.loadingView.hide()
+                    _self.navigationController?.pushViewController(viewController, animated: true)
                 }
+            case .unAuthorized:
+                _self.requestRefreshToken(requestType: .postReservation)
             default:
-                self.showToast(message: "Error : \(statusCode)")
+                _self.showToast(message: "Error : \(_statusCode)")
                 return
             }
         }
