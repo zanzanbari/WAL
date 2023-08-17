@@ -171,6 +171,8 @@ extension SettingAlarmViewController {
             case .okay:
                 self.updateButtonStates(data: data)
                 self.previousAlarm = data
+            case .unAuthorized:
+                self.requestRefreshToken(apiType: "get")
             default:
                 self.showToast(message: "Error : \(statusCode)")
             }
@@ -196,9 +198,27 @@ extension SettingAlarmViewController {
                         self.loadingView.hide()
                         self.transition(self, .pop)
                     }
+                case .unAuthorized:
+                    self.requestRefreshToken(apiType: "post")
                 default:
                     self.showToast(message: "Error : \(statusCode)")
                 }
+            }
+        }
+    }
+    
+    private func requestRefreshToken(apiType: String) {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                apiType == "getAlarm" ? _self.getAlarm() : _self.postAlarm()
+            case .unAuthorized:
+                _self.pushToLoginView()
+            default:
+                break
             }
         }
     }
