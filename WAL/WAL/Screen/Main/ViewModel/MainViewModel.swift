@@ -120,7 +120,7 @@ final class MainViewModel {
             
         default:
             if isShownCount == canOpenCount {
-                output.walStatus.accept(isShownCount == output.todayWalCount.value ? .checkedAll : .checkedAvailable)
+                output.walStatus.accept(isShownCount == _todayWalList.count ? .checkedAll : .checkedAvailable)
             } else {
                 output.walStatus.accept(.arrived)
             }
@@ -197,9 +197,8 @@ extension MainViewModel {
             switch networkResult {
             case .okay:
                 guard let _todayWalInfo = mainData?.todayWalInfo else { return }
-                _self.output.todayWal.accept(_todayWalInfo)
-                _self.output.todayWalCount.accept(_todayWalInfo.count)
                 _self.handleWalState(todayWalList: _todayWalInfo)
+                _self.output.todayWal.accept(_todayWalInfo)
             case .unAuthorized:
                 _self.requestRefreshToken(requestType: .todayWal, id: nil)
             default:
@@ -301,7 +300,6 @@ extension MainViewModel {
     
     struct Output {
         let todayWal = PublishRelay<[TodayWal]>()
-        let todayWalCount = BehaviorRelay<Int>(value: 0)
         let subTitle = PublishRelay<String>()
         let walStatus = PublishRelay<WalStatus>()
         let openWal = PublishRelay<Int>()

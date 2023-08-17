@@ -102,10 +102,13 @@ final class LoginViewController: UIViewController {
     
     private func pushToHome() {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
+        
         if nickname == Constant.Login.nickname {
             transition(OnboardingViewController(), .presentFullNavigation)
         } else {
-            transition(MainViewController(viewModel: .init()), .presentFullNavigation)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.transition(MainViewController(), .presentFullNavigation)
+            }
         }
     }
     
