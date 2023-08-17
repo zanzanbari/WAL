@@ -202,11 +202,38 @@ extension SettingViewController {
     
     private func requestNickname() {
         SettingAPI.shared.getUserInfo { [weak self] (data, statusCode) in
-            guard let self else { return }
-            guard let nickname = data?.nickname else { return }
-            self.nickname = nickname
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                guard let nickname = data?.nickname else { return }
+                _self.nickname = nickname
+                DispatchQueue.main.async {
+                    _self.tableView.reloadData()
+                }
+            case .unAuthorized:
+                _self.requestRefreshToken()
+            default:
+                _self.showToast(message: "Error \(_statusCode)")
+            }
+        }
+    }
+    
+    private func requestRefreshToken() {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                _self.requestNickname()
+            case .unAuthorized:
+                _self.pushToLoginView()
+            default:
+                break
             }
         }
     }

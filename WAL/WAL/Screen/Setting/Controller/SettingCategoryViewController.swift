@@ -160,6 +160,8 @@ extension SettingCategoryViewController {
             case .okay:
                 self.updateButtonStates(data: data)
                 self.previousCategory = data
+            case .unAuthorized:
+                self.requestRefreshToken(apiType: "get")
             default:
                 self.showToast(message: "Error : \(statusCode)")
             }
@@ -185,10 +187,28 @@ extension SettingCategoryViewController {
                         self.loadingView.hide()
                         self.transition(self, .pop)
                     }
+                case .unAuthorized:
+                    self.requestRefreshToken(apiType: "post")
                 default:
                     self.showToast(message: "Error : \(statusCode)")
                     return
                 }
+            }
+        }
+    }
+    
+    private func requestRefreshToken(apiType: String) {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                apiType == "get" ? _self.getCategory() : _self.postCategory()
+            case .unAuthorized:
+                _self.pushToLoginView()
+            default:
+                break
             }
         }
     }

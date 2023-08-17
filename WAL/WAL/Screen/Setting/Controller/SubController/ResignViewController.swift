@@ -7,6 +7,9 @@
 
 import UIKit
 
+import KakaoSDKAuth
+import KakaoSDKCommon
+import KakaoSDKUser
 import Then
 import WALKit
 
@@ -108,22 +111,51 @@ final class ResignViewController: UIViewController {
 // MARK: - Network
 
 extension ResignViewController {
+    private func kakaoUnlink() {
+        UserApi.shared.unlink {(error) in
+            if let error = error {
+                print("unlink()", error)
+            }
+            else {
+                print("unlink() success.")
+            }
+        }
+    }
+    
     private func postResign() {
         let param = ResignRequest(reasons: reasonData)
         AuthAPI.shared.postResign(param: param) { [weak self] (resignData, statusCode) in
-            guard let self else { return }
+            guard let _self = self else { return }
             guard let _statusCode = statusCode else { return }
             
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
-            
             switch networkResult {
             case .noContent:
-                self.pushToLoginView()
+                _self.kakaoUnlink()
+                _self.pushToLoginView()
                 UserDefaultsHelper.standard.removeObject()
+            case .unAuthorized:
+                _self.requestRefreshToken()
             default:
-                self.showToast(message: "Error: \(_statusCode)")
+                _self.showToast(message: "Error: \(_statusCode)")
             }
+        }
+    }
+    
+    private func requestRefreshToken() {
+        AuthAPI.shared.postReissue { [weak self] response, statusCode in
+            guard let _self = self else { return }
+            guard let _statusCode = statusCode else { return }
             
+            let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
+            switch networkResult {
+            case .okay:
+                _self.postResign()
+            case .unAuthorized:
+                _self.pushToLoginView()
+            default:
+                break
+            }
         }
     }
 }
