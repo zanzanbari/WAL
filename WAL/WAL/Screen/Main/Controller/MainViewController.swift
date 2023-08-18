@@ -81,15 +81,14 @@ final class MainViewController: UIViewController {
     private var todayWalList: [TodayWal] = []
     private var selectedItemIndex: Int = 0
     
-    private let viewModel: MainViewModel
+    private let viewModel: MainViewModel = MainViewModel()
     private let disposeBag = DisposeBag()
     
     typealias ErrorInfo<T> = (error: Error, type: T?)
     
     // MARK: - Initializer
     
-    init(viewModel: MainViewModel) {
-        self.viewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -108,7 +107,6 @@ final class MainViewController: UIViewController {
         configNavigationUI()
         setMainStatus()
         rxBindInput()
-        NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name.enterMain, object: nil)
     }
     
     override func viewDidLoad() {
@@ -117,8 +115,9 @@ final class MainViewController: UIViewController {
         setupLayout()
         rxBindOutput()
         rxBindView()
-        rxBindInput()
-//        rxBindOutputError()
+//        rxBindInput()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getNotification), name: NSNotification.Name.enterMain, object: nil)
     }
     
     // MARK: - Init UI
@@ -200,20 +199,29 @@ final class MainViewController: UIViewController {
     
     private func rxBindOutput() {
         
-        viewModel.output.todayWalCount
-            .bind(with: self) { owner, res in
-                owner.updateCollectionViewLayout(res)
-            }
-            .disposed(by: disposeBag)
-        
         viewModel.output.todayWal
             .do(onNext: { [weak self] res in
                 self?.todayWalList = res
+                self?.updateCollectionViewLayout(res.count)
             })
             .bind(to: walCollectionView.rx.items(cellIdentifier: MainItemCell.cellIdentifier, cellType: MainItemCell.self)) {  index, data, cell in
                 cell.setupData(data)
                 cell.isUserInteractionEnabled = data.getOpenStatus()
             }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.walStatus
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self, onNext: { owner, res in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    owner.walImageView.image = res.walImage
+                    
+                    owner.contentLabel.text = res.content
+                    owner.contentLabel.addLetterSpacing()
+                    
+                    owner.walCollectionView.isHidden = res == .sleeping ? true : false
+                }
+            })
             .disposed(by: disposeBag)
         
         viewModel.output.subTitle
@@ -223,17 +231,6 @@ final class MainViewController: UIViewController {
                     owner.titleView.setupData(subTitle: res)
                 }
             })
-            .disposed(by: disposeBag)
-        
-        viewModel.output.walStatus
-            .bind(with: self) { owner, res in
-                owner.walImageView.image = res.walImage
-
-                owner.contentLabel.text = res.content
-                owner.contentLabel.addLetterSpacing()
-                
-                owner.walCollectionView.isHidden = res == .sleeping ? true : false
-            }
             .disposed(by: disposeBag)
         
         viewModel.output.imageUrl
@@ -305,26 +302,6 @@ final class MainViewController: UIViewController {
     private func rxBindInput() {
         viewModel.input.reqTodayWal.accept(())
         viewModel.input.reqSubtitle.accept(())
-    }
-    
-    private func rxBindOutputError() {
-        viewModel.errorResult.reqTodayWal
-            .do(onNext: { networkResult in
-                CustomIndicator.showLoading()
-            })
-            .asDriver(onErrorDriveWith: .empty())
-            .drive(with: self) { owner, networkResult in
-                
-                switch networkResult {
-                case .okay:
-                    CustomIndicator.hideLoading()
-                default:
-                    owner.showToast(message: "\(networkResult) error")
-                    break
-                }
-                
-            }
-            .disposed(by: disposeBag)
     }
     
     // MARK: - Custom Method

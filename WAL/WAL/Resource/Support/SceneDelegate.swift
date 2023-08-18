@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let accesstoken = UserDefaultsHelper.standard.accesstoken else { return }
         
         if nickname != Constant.Login.nickname && accesstoken != "" { ///닉네임O, 액세스토큰O -> 자동로그인 -> 메인
-            window?.rootViewController = UINavigationController(rootViewController: MainViewController(viewModel: .init()))
+            window?.rootViewController = UINavigationController(rootViewController: MainViewController())
         } else if nickname == Constant.Login.nickname && accesstoken != "" { ///닉네임X, 액세스토큰O -> 온보딩
             window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         } else { /// 로그인
@@ -37,9 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneWillResignActive(_ scene: UIScene) { }
     
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        NotificationCenter.default.post(name: NSNotification.Name.enterMain, object: nil)
-    }
+    func sceneWillEnterForeground(_ scene: UIScene) { }
     
     func sceneDidEnterBackground(_ scene: UIScene) { }
     

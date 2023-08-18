@@ -214,7 +214,7 @@ extension SettingAlarmViewController {
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             switch networkResult {
             case .okay:
-                apiType == "getAlarm" ? _self.getAlarm() : _self.postAlarm()
+                apiType == "get" ? _self.getAlarm() : _self.postAlarm()
             case .unAuthorized:
                 _self.pushToLoginView()
             default:

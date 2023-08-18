@@ -102,10 +102,11 @@ final class LoginViewController: UIViewController {
     
     private func pushToHome() {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
+        
         if nickname == Constant.Login.nickname {
             transition(OnboardingViewController(), .presentFullNavigation)
         } else {
-            transition(MainViewController(viewModel: .init()), .presentFullNavigation)
+            transition(MainViewController(), .presentFullNavigation)
         }
     }
     
@@ -143,12 +144,15 @@ extension LoginViewController {
             
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             
+            UserDefaultsHelper.standard.nickname = _data.nickname
+            UserDefaultsHelper.standard.socialtoken = socialToken
+            UserDefaultsHelper.standard.social = socialType.rawValue
+            
             switch networkResult {
-            default:
-                UserDefaultsHelper.standard.nickname = _data.nickname
-                UserDefaultsHelper.standard.socialtoken = socialToken
-                UserDefaultsHelper.standard.social = socialType.rawValue
+            case .okay, .created: // 200, 201
                 self.pushToHome()
+            default:
+                self.showToast(message: "Error: \(_statusCode)")
             }
         }
     }
@@ -161,25 +165,34 @@ extension LoginViewController {
         UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
             guard let self = self else { return }
             UserApi.shared.me { (user, error) in
-                guard let oauthToken = oauthToken,
-                      let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
-                self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
-                UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
+                if let error = error {
+                    self.showToast(message: "Error: \(error.localizedDescription)")
+                } else {
+                    guard let oauthToken = oauthToken,
+                          let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+                    self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
+                    UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
+                }
             }
         }
     }
     
     private func loginWithKakaoWeb() {
-        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-            UserApi.shared.me { [weak self] (user, error) in
-                guard let self = self else { return }
-                guard let oauthToken = oauthToken,
-                      let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
-                self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
-                UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
+        UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
+            guard let self = self else { return }
+            UserApi.shared.me { (user, error) in
+                if let error = error {
+                    self.showToast(message: "Error: \(error.localizedDescription)")
+                } else {
+                    guard let oauthToken = oauthToken,
+                          let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
+                    self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
+                    UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
+                }
             }
         }
     }
+    
 }
 
 // MARK: - Apple Login
