@@ -149,7 +149,7 @@ extension LoginViewController {
             UserDefaultsHelper.standard.social = socialType.rawValue
             
             switch networkResult {
-            case .okay:
+            case .okay, .created:
                 self.pushToHome()
             default:
                 self.showToast(message: "Error: \(_statusCode)")
