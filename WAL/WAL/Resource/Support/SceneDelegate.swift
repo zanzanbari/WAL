@@ -37,9 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneWillResignActive(_ scene: UIScene) { }
     
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        NotificationCenter.default.post(name: NSNotification.Name.enterMain, object: nil)
-    }
+    func sceneWillEnterForeground(_ scene: UIScene) { }
     
     func sceneDidEnterBackground(_ scene: UIScene) { }
     
