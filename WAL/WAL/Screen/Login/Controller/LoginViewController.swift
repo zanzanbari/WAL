@@ -106,9 +106,7 @@ final class LoginViewController: UIViewController {
         if nickname == Constant.Login.nickname {
             transition(OnboardingViewController(), .presentFullNavigation)
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.transition(MainViewController(), .presentFullNavigation)
-            }
+            self.transition(MainViewController(), .presentFullNavigation)
         }
     }
     
@@ -146,12 +144,15 @@ extension LoginViewController {
             
             let networkResult = NetworkResult(rawValue: _statusCode) ?? .none
             
+            UserDefaultsHelper.standard.nickname = _data.nickname
+            UserDefaultsHelper.standard.socialtoken = socialToken
+            UserDefaultsHelper.standard.social = socialType.rawValue
+            
             switch networkResult {
-            default:
-                UserDefaultsHelper.standard.nickname = _data.nickname
-                UserDefaultsHelper.standard.socialtoken = socialToken
-                UserDefaultsHelper.standard.social = socialType.rawValue
+            case .okay:
                 self.pushToHome()
+            default:
+                self.showToast(message: "Error: \(_statusCode)")
             }
         }
     }
@@ -163,7 +164,22 @@ extension LoginViewController {
     private func loginWithKakaoApp() {
         UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
             guard let self = self else { return }
-            UserApi.shared.me { (user, error) in
+            self.requestLogin(with: oauthToken)
+        }
+    }
+    
+    private func loginWithKakaoWeb() {
+        UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
+            guard let self = self else { return }
+            self.requestLogin(with: oauthToken)
+        }
+    }
+    
+    private func requestLogin(with oauthToken: OAuthToken?) {
+        UserApi.shared.me { (user, error) in
+            if let error = error {
+                self.showToast(message: "Error: \(error.localizedDescription)")
+            } else {
                 guard let oauthToken = oauthToken,
                       let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
                 self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
@@ -172,17 +188,6 @@ extension LoginViewController {
         }
     }
     
-    private func loginWithKakaoWeb() {
-        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
-            UserApi.shared.me { [weak self] (user, error) in
-                guard let self = self else { return }
-                guard let oauthToken = oauthToken,
-                      let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }
-                self.postLogin(socialToken: oauthToken.accessToken, socialType: .KAKAO, fcmToken: fcmToken)
-                UserDefaultsHelper.standard.email = user?.kakaoAccount?.email
-            }
-        }
-    }
 }
 
 // MARK: - Apple Login
