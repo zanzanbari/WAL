@@ -21,11 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let nickname = UserDefaultsHelper.standard.nickname else { return }
         guard let accesstoken = UserDefaultsHelper.standard.accesstoken else { return }
         
-        if nickname != Constant.Login.nickname && accesstoken != "" { ///닉네임O, 액세스토큰O -> 자동로그인 -> 메인
+        if nickname != Constant.Login.nickname && accesstoken != "" { // 닉네임O, 액세스토큰O -> 자동로그인 -> 메인
             window?.rootViewController = UINavigationController(rootViewController: MainViewController())
-        } else if nickname == Constant.Login.nickname && accesstoken != "" { ///닉네임X, 액세스토큰O -> 온보딩
+        } else if nickname == Constant.Login.nickname && accesstoken != "" { // 닉네임X, 액세스토큰O -> 온보딩
             window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
-        } else { /// 로그인
+        } else { // 로그인
             window?.rootViewController = LoginViewController(viewModel: LoginViewModel())
         }
         window?.makeKeyAndVisible()
@@ -33,7 +33,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneDidDisconnect(_ scene: UIScene) { }
     
-    func sceneDidBecomeActive(_ scene: UIScene) { }
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        // 앱이 백그라운드에서 active 상태로 완전히 전환될 때 로직 수행
+
+        guard let nickname = UserDefaultsHelper.standard.nickname else { return }
+        guard let accesstoken = UserDefaultsHelper.standard.accesstoken else { return }
+        
+        if nickname != Constant.Login.nickname && accesstoken != "" {
+            NotificationCenter.default.post(name: NSNotification.Name.enterMain, object: nil)
+        }
+    }
     
     func sceneWillResignActive(_ scene: UIScene) { }
     
