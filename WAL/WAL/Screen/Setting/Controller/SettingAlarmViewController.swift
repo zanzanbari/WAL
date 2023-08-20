@@ -9,7 +9,6 @@ import UIKit
 
 import Then
 import WALKit
-import UserNotifications
 
 final class SettingAlarmViewController: UIViewController {
     
