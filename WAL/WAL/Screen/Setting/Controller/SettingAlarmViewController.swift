@@ -57,8 +57,9 @@ final class SettingAlarmViewController: UIViewController {
         getAlarm()
         configUI()
         setupLayout()
+        NotificationCenter.default.addObserver(self, selector: #selector(checkNotificationStatus), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
@@ -152,8 +153,27 @@ final class SettingAlarmViewController: UIViewController {
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
-        UserDefaultsHelper.standard.pushNoti = toggle.isOn
-        firstView.toggleSwitch.isOn = UserDefaultsHelper.standard.pushNoti
+    }
+    
+    @objc func checkNotificationStatus() {
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            guard let _self = self else { return }
+            
+            switch settings.authorizationStatus {
+            case .authorized:
+                UserDefaultsHelper.standard.pushNoti = true
+                DispatchQueue.main.async {
+                    _self.firstView.toggleSwitch.isOn = true
+                }
+            case .denied:
+                UserDefaultsHelper.standard.pushNoti = false
+                DispatchQueue.main.async {
+                    _self.firstView.toggleSwitch.isOn = false
+                }
+            default:
+                break
+            }
+        }
     }
 }
 
