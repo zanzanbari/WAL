@@ -9,6 +9,7 @@ import UIKit
 
 import Then
 import WALKit
+import UserNotifications
 
 final class SettingAlarmViewController: UIViewController {
     
@@ -57,6 +58,16 @@ final class SettingAlarmViewController: UIViewController {
         getAlarm()
         configUI()
         setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkPushNotification { [weak self] isAuthorized in
+            guard let _self = self else { return }
+            UserDefaultsHelper.standard.pushNoti = isAuthorized
+            DispatchQueue.main.async {
+                _self.firstView.toggleSwitch.isOn = isAuthorized
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -135,6 +146,13 @@ final class SettingAlarmViewController: UIViewController {
         }
     }
     
+    private func checkPushNotification(completion: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            let isAuthorized = settings.authorizationStatus == .authorized
+            completion(isAuthorized)
+        }
+    }
+    
     // MARK: - @objc
     
     @objc func touchupBackButton() {
@@ -152,8 +170,6 @@ final class SettingAlarmViewController: UIViewController {
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
-        UserDefaultsHelper.standard.pushNoti = toggle.isOn
-        firstView.toggleSwitch.isOn = UserDefaultsHelper.standard.pushNoti
     }
 }
 
