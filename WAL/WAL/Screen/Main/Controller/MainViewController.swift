@@ -358,11 +358,11 @@ final class MainViewController: UIViewController {
     // MARK: - @objc
     
     @objc func getNotification() {
-        setMainStatus()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             self.viewModel.input.reqTodayWal.accept(())
             self.viewModel.input.reqSubtitle.accept(())
         }
+        setMainStatus()
     }
 }
 
