@@ -312,6 +312,7 @@ final class MainViewController: UIViewController {
                 $0.isHidden = true
             }
         }
+        walCollectionView.reloadData()
     }
     
     private func updateCollectionViewLayout(_ todalWalCount: Int) {
