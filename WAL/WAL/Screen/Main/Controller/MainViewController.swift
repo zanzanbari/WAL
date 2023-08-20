@@ -213,23 +213,19 @@ final class MainViewController: UIViewController {
         viewModel.output.walStatus
             .asDriver(onErrorDriveWith: .empty())
             .drive(with: self, onNext: { owner, res in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    owner.walImageView.image = res.walImage
-                    
-                    owner.contentLabel.text = res.content
-                    owner.contentLabel.addLetterSpacing()
-                    
-                    owner.walCollectionView.isHidden = res == .sleeping ? true : false
-                }
+                owner.walImageView.image = res.walImage
+                
+                owner.contentLabel.text = res.content
+                owner.contentLabel.addLetterSpacing()
+                
+                owner.walCollectionView.isHidden = res == .sleeping ? true : false
             })
             .disposed(by: disposeBag)
         
         viewModel.output.subTitle
             .asDriver(onErrorDriveWith: .empty())
             .drive(with: self, onNext: { owner, res in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    owner.titleView.setupData(subTitle: res)
-                }
+                owner.titleView.setupData(subTitle: res)
             })
             .disposed(by: disposeBag)
         
