@@ -166,7 +166,7 @@ extension LoginViewController {
             guard let self = self else { return }
             UserApi.shared.me { (user, error) in
                 if let error = error {
-                    self.showToast(message: "Error: \(error.localizedDescription)")
+                    self.showToast(message: "\(error.localizedDescription)")
                 } else {
                     guard let oauthToken = oauthToken,
                           let fcmToken = UserDefaultsHelper.standard.fcmtoken else { return }

@@ -195,7 +195,7 @@ extension SettingViewController: UITableViewDataSource {
 extension SettingViewController {
     func sendNickname(_ nickname: String) {
         self.nickname = nickname
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             self.tableView.reloadData()
         }
     }
@@ -210,7 +210,7 @@ extension SettingViewController {
             case .okay:
                 guard let nickname = data?.nickname else { return }
                 _self.nickname = nickname
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     _self.tableView.reloadData()
                 }
             case .unAuthorized:

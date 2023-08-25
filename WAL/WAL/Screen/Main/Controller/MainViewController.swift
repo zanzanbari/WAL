@@ -225,7 +225,9 @@ final class MainViewController: UIViewController {
         viewModel.output.subTitle
             .asDriver(onErrorDriveWith: .empty())
             .drive(with: self, onNext: { owner, res in
-                owner.titleView.setupData(subTitle: res)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    owner.titleView.setupData(subTitle: res)
+                }
             })
             .disposed(by: disposeBag)
         

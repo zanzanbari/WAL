@@ -470,7 +470,7 @@ extension HistoryViewController {
                     }
                 }
                 
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.checkHistoryData()
                     self.historyTableView.reloadData()
                 }
@@ -520,7 +520,7 @@ extension HistoryViewController {
                     }
                 }
                 
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.checkHistoryData()
                     self.historyTableView.reloadSections(IndexSet(0...1), with: .none)
                 }
