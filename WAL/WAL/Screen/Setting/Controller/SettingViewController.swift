@@ -164,22 +164,19 @@ extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: MyInfoTableViewCell.identifier, for: indexPath) as? MyInfoTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyInfoTableViewCell.identifier, for: indexPath) as? MyInfoTableViewCell
             else { return UITableViewCell() }
             cell.nicknameLabel.text = nickname
             cell.selectionStyle = .none
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
             cell.menuLabel.text = setting.getMenuLabel(setting.firstRowData, indexPath.row)
             configureCellBackgroundColor(cell)
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
             cell.setupData(index: indexPath.row)
             configureCellBackgroundColor(cell)
