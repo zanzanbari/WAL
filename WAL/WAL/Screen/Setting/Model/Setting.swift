@@ -13,10 +13,7 @@ struct Setting {
     
     init(menu: String, subMenu: String? = nil) {
         self.menu = menu
-
-        if let subMenu = subMenu {
-            self.subMenu = subMenu
-        }
+        self.subMenu = subMenu
     }
 }
 
@@ -58,12 +55,7 @@ struct SettingData {
         Setting(menu: "왈소리 유형")
     ]
     
-    var secondRowData = [
-        Setting(menu: "왈이 궁금해요"),
-        Setting(menu: "공지사항"),
-        Setting(menu: "서비스 이용 약관"),
-        Setting(menu: "버전 정보", subMenu: "1.0.0")
-    ]
+    var secondRowData: [Setting]
     
     var resignRowData = [
         ResignSetting(menu: Reason.DO_NOT_LIKE, select: false),
@@ -76,6 +68,25 @@ struct SettingData {
         Setting(menu: "로그아웃"),
         Setting(menu: "왈 탈퇴")
     ]
+    
+    init() {
+        if let info = Bundle.main.infoDictionary,
+           let currentVersion = info["CFBundleShortVersionString"] as? String {
+            self.secondRowData = [
+                Setting(menu: "왈이 궁금해요"),
+                Setting(menu: "공지사항"),
+                Setting(menu: "서비스 이용 약관"),
+                Setting(menu: "버전 정보", subMenu: currentVersion)
+            ]
+        } else {
+            self.secondRowData = [
+                Setting(menu: "왈이 궁금해요"),
+                Setting(menu: "공지사항"),
+                Setting(menu: "서비스 이용 약관"),
+                Setting(menu: "버전 정보")
+            ]
+        }
+    }
     
     func getSettingCount(_ data: [Setting]) -> Int {
         return data.count
