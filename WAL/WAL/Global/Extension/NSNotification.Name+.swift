@@ -13,4 +13,7 @@ extension NSNotification.Name {
     static let renewToken = Notification.Name("renewToken")
     
     static let enterMain = NSNotification.Name("EnterMain")
+    
+    static let walTextViewTapped = NSNotification.Name("WalTextViewTapped")
+    static let walTextViewReturn = NSNotification.Name("WalTextViewReturn")
 }
