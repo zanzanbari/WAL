@@ -59,7 +59,7 @@ final class SettingTableViewCell: BaseTableViewCell {
     // MARK: - Custom Method
 
     func setupData(index: Int) {
-        menuLabel.text = setting.getMenuLabel(setting.secondRowData, index)
-        subMenuLabel.text = setting.getSubMenuLabel(setting.secondRowData, index)
+        menuLabel.text = setting.getMenuLabel(setting.infoRowData, index)
+        subMenuLabel.text = setting.getSubMenuLabel(setting.infoRowData, index)
     }
 }
