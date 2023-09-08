@@ -22,6 +22,10 @@ final class WalCreatorViewController: UIViewController {
         $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
     }
     
+    private lazy var navigationBackView = UIView().then {
+        $0.backgroundColor = .white100
+    }
+    
     /*
      상단 설명 화면
      - 왈뿡이 이미지
@@ -169,28 +173,38 @@ final class WalCreatorViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([guideBackView, navigationBar, walInputBackView, sendButton])
+        view.addSubviews([guideBackView, navigationBackView, navigationBar, walInputBackView, sendButton])
+        guideBackView.snp.makeConstraints {
+            $0.bottom.equalTo(walInputBackView.snp.top)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(389)
+        }
+        navigationBackView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(91)
+        }
         navigationBar.snp.makeConstraints {
             $0.top.trailing.equalTo(view.layoutMarginsGuide)
             $0.leading.equalToSuperview().inset(4)
         }
-        guideBackView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(389)
-        }
         walInputBackView.snp.makeConstraints {
-            $0.top.equalTo(guideBackView.snp.bottom)
+            $0.top.equalTo(navigationBar.snp.bottom).offset(298)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(sendButton.snp.top)
         }
         sendButton.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(Layouts.horizontalMargin)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
         
         setupGuideViewLayout()
         setupInputViewLayout()
         
+        NSLayoutConstraint.activate([
+            view.keyboardLayoutGuide.topAnchor.constraint(
+                equalTo: sendButton.bottomAnchor,
+                constant: 16
+            )
+        ])
     }
     
     /// 왈소리 크리에이터 Guide UI Layout
@@ -262,7 +276,7 @@ final class WalCreatorViewController: UIViewController {
     }
     
     private func setTextField() {
-//        typeTextField.delegate = self
+        walTypeTextField.delegate = self
         
         walTypeTextField.tintColor = .clear
         walTypeTextField.inputView = walTypePickerView
@@ -285,20 +299,21 @@ final class WalCreatorViewController: UIViewController {
     }
     
     private func keyboardUp() {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
             self.walInputBackView.snp.remakeConstraints {
                 $0.top.equalTo(self.navigationBar.snp.bottom)
                 $0.horizontalEdges.equalToSuperview()
                 $0.bottom.equalTo(self.sendButton.snp.top)
             }
+            
             self.walInputBackView.superview?.layoutIfNeeded()
         })
     }
     
     private func keyboardDown() {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
             self.walInputBackView.snp.remakeConstraints {
-                $0.top.equalTo(self.guideBackView.snp.bottom)
+                $0.top.equalTo(self.navigationBar.snp.bottom).offset(298)
                 $0.horizontalEdges.equalToSuperview()
                 $0.bottom.equalTo(self.sendButton.snp.top)
             }
@@ -318,6 +333,8 @@ final class WalCreatorViewController: UIViewController {
     
     @objc func touchUpDoneButton() {
         self.view.endEditing(true)
+        keyboardDown()
+        walTypeTextField.layer.borderColor = UIColor.gray400.cgColor
     }
     
 }
@@ -328,6 +345,17 @@ extension WalCreatorViewController {
     
     enum Layouts {
         static let horizontalMargin = 20
+    }
+    
+}
+
+// MARK: - UITextField Delegate
+
+extension WalCreatorViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        keyboardUp()
+        walTypeTextField.layer.borderColor = UIColor.orange100.cgColor
     }
     
 }
