@@ -112,6 +112,10 @@ extension SettingViewController: UITableViewDelegate {
                 let viewController = SettingCategoryViewController()
                 transition(viewController)
             }
+        case 2:
+            print("여기 주석 처리 해제해주세요~ SettingVC 116번 줄")
+//            let viewController = WalCreatorViewController()
+//            transition(viewController)
         default:
             if indexPath.row == 0 {
                 let viewController = ZanzanbariViewController()
@@ -139,7 +143,7 @@ extension SettingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 1, 2: return 10
+        case 1, 2, 3: return 10
         default: return 0
         }
     }
@@ -149,14 +153,15 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return setting.getSettingCount(setting.firstRowData)
-        case 2: return setting.getSettingCount(setting.secondRowData)
+        case 1: return setting.getSettingCount(setting.settingRowData)
+        case 2: return setting.getSettingCount(setting.creatorRowData)
+        case 3: return setting.getSettingCount(setting.infoRowData)
         default: return 0
         }
     }
@@ -169,13 +174,13 @@ extension SettingViewController: UITableViewDataSource {
             cell.nicknameLabel.text = nickname
             cell.selectionStyle = .none
             return cell
-        case 1:
+        case 1, 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
-            cell.menuLabel.text = setting.getMenuLabel(setting.firstRowData, indexPath.row)
+            cell.menuLabel.text = setting.getMenuLabel(indexPath.section == 1 ? setting.settingRowData : setting.creatorRowData, indexPath.row)
             configureCellBackgroundColor(cell)
             return cell
-        case 2:
+        case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell
             else { return UITableViewCell() }
             cell.setupData(index: indexPath.row)

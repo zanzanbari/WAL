@@ -50,12 +50,16 @@ struct ResignSetting {
 }
 
 struct SettingData {
-    var firstRowData = [
+    var settingRowData = [
         Setting(menu: "알림"),
         Setting(menu: "왈소리 유형")
     ]
     
-    var secondRowData: [Setting]
+    var creatorRowData = [
+        Setting(menu: "왈소리 크리에이터")
+    ]
+    
+    var infoRowData: [Setting]
     
     var resignRowData = [
         ResignSetting(menu: Reason.DO_NOT_LIKE, select: false),
@@ -72,14 +76,14 @@ struct SettingData {
     init() {
         if let info = Bundle.main.infoDictionary,
            let currentVersion = info["CFBundleShortVersionString"] as? String {
-            self.secondRowData = [
+            self.infoRowData = [
                 Setting(menu: "왈이 궁금해요"),
                 Setting(menu: "공지사항"),
                 Setting(menu: "서비스 이용 약관"),
                 Setting(menu: "버전 정보", subMenu: currentVersion)
             ]
         } else {
-            self.secondRowData = [
+            self.infoRowData = [
                 Setting(menu: "왈이 궁금해요"),
                 Setting(menu: "공지사항"),
                 Setting(menu: "서비스 이용 약관"),
