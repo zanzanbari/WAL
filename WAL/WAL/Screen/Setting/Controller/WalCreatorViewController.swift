@@ -37,7 +37,8 @@ final class WalCreatorViewController: UIViewController {
     }
     
     private lazy var guideImageView = UIImageView().then {
-        $0.backgroundColor = .mint100
+        $0.image = WALIcon.icnCreate.image
+        $0.contentMode = .scaleToFill
     }
     
     private lazy var guideTitleLabel = UILabel().then {
@@ -97,24 +98,33 @@ final class WalCreatorViewController: UIViewController {
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 10
         $0.delegate = self
+        $0.tintColor = .orange100
     }
     
-    private let placeholderLabel = UILabel().then {
+    private lazy var placeholderLabel = UILabel().then {
         $0.textColor = .gray300
         $0.font = WALFont.body5.font
         $0.text = "내가 받을 왈소리를 작성해주세요"
     }
     
-    private let countLabel = UILabel().then {
+    private lazy var countLabel = UILabel().then {
         $0.textColor = .gray200
         $0.font = WALFont.body8.font
         $0.text = "0"
     }
     
-    private let maximumCountLabel = UILabel().then {
+    private lazy var maximumCountLabel = UILabel().then {
         $0.textColor = .gray200
         $0.font = WALFont.body8.font
         $0.text = "/50"
+    }
+    
+    private lazy var countStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.spacing = 0
+        $0.addArrangedSubviews([countLabel, maximumCountLabel])
     }
     
     private lazy var sendButton = WALPlainButton().then {
@@ -128,9 +138,15 @@ final class WalCreatorViewController: UIViewController {
         $0.alpha = 0
     }
     
+    private lazy var walTypePickerView = UIPickerView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.autoresizingMask = .flexibleWidth
+        $0.backgroundColor = .gray500
+    }
+    
     // MARK: - Property
     
-    private lazy var walTypePickerView = UIPickerView()
     private var walType: [WalCategoryType] = [.comedy, .fuss, .comfort, .yell]
     
     // MARK: - Initializer
@@ -151,7 +167,6 @@ final class WalCreatorViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
-        setPickerView()
         setTextField()
         setToolbar()
     }
@@ -173,7 +188,12 @@ final class WalCreatorViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([guideBackView, navigationBackView, navigationBar, walInputBackView, sendButton])
+        view.addSubviews([guideBackView,
+                          navigationBackView,
+                          navigationBar,
+                          walInputBackView,
+                          sendButton])
+        
         guideBackView.snp.makeConstraints {
             $0.bottom.equalTo(walInputBackView.snp.top)
             $0.horizontalEdges.equalToSuperview()
@@ -212,10 +232,11 @@ final class WalCreatorViewController: UIViewController {
         guideBackView.addSubviews([guideImageView,
                                    guideTitleLabel,
                                    guideSubtitleLabel])
+        
         guideImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(110)
-            $0.width.equalTo(132)
-            $0.height.equalTo(121)
+            $0.width.equalTo(188)
+            $0.height.equalTo(122)
             $0.centerX.equalToSuperview()
         }
         
@@ -226,13 +247,18 @@ final class WalCreatorViewController: UIViewController {
         
         guideSubtitleLabel.snp.makeConstraints {
             $0.top.equalTo(guideTitleLabel.snp.bottom).offset(11)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(Layouts.horizontalMargin)
         }
     }
     
     /// 왈소리 유형/컨텐츠 입력 UI Layout 
     private func setupInputViewLayout() {
-        walInputBackView.addSubviews([walTypeTitleLabel, walTypeTextField, walTextTitleLabel, walTextView])
+        walInputBackView.addSubviews([walTypeTitleLabel,
+                                      walTypeTextField,
+                                      walTextTitleLabel,
+                                      walTextView,
+                                      countStackView])
+        
         walTypeTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(26)
             $0.leading.equalToSuperview().inset(Layouts.horizontalMargin)
@@ -249,6 +275,10 @@ final class WalCreatorViewController: UIViewController {
             $0.top.equalTo(walTextTitleLabel.snp.bottom).offset(17)
             $0.horizontalEdges.equalToSuperview().inset(Layouts.horizontalMargin)
             $0.height.equalTo(99)
+        }
+        countStackView.snp.makeConstraints {
+            $0.bottom.equalTo(walTextView.snp.bottom).inset(10)
+            $0.trailing.equalTo(walTextView.snp.trailing).inset(17)
         }
     }
     
@@ -268,11 +298,6 @@ final class WalCreatorViewController: UIViewController {
         
         sendButton.backgroundColor = isCotentFull ? .orange100 : .gray400
         sendButton.isEnabled = isCotentFull
-    }
-    
-    private func setPickerView() {
-        walTypePickerView.delegate = self
-        walTypePickerView.dataSource = self
     }
     
     private func setTextField() {
@@ -344,6 +369,7 @@ final class WalCreatorViewController: UIViewController {
 extension WalCreatorViewController {
     
     enum Layouts {
+        /// 좌/우
         static let horizontalMargin = 20
     }
     
@@ -382,9 +408,9 @@ extension WalCreatorViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         countLabel.text = "\(walTextView.text.count)"
         
-        countLabel.textColor = walTextView.text.count >= 100 ? .orange100 : .gray200
+        countLabel.textColor = walTextView.text.count >= 50 ? .orange100 : .gray200
         
-        if walTextView.text.count > 100 {
+        if walTextView.text.count > 50 {
             walTextView.deleteBackward()
         }
         
@@ -413,12 +439,35 @@ extension WalCreatorViewController: UIPickerViewDelegate, UIPickerViewDataSource
         return walType.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return walType[row].kor
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let label = (view as? UILabel) ?? UILabel()
+        
+        label.textAlignment = .center
+        
+        if pickerView.selectedRow(inComponent: component) == row {
+            label.attributedText = NSAttributedString(string: walType[row].kor,
+                                                      attributes: [NSAttributedString.Key.font: WALFont.body2.font,
+                                                                   NSAttributedString.Key.foregroundColor: UIColor.orange100])
+        } else {
+            label.attributedText = NSAttributedString(string: walType[row].kor,
+                                                      attributes: [NSAttributedString.Key.font: WALFont.body2.font,
+                                                                   NSAttributedString.Key.foregroundColor: UIColor.gray100])
+        }
+        
+        return label
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 44
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return 200
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         walTypeTextField.text = walType[row].kor
+        pickerView.reloadAllComponents()
     }
     
 }
