@@ -113,9 +113,8 @@ extension SettingViewController: UITableViewDelegate {
                 transition(viewController)
             }
         case 2:
-            print("여기 주석 처리 해제해주세요~ SettingVC 116번 줄")
-//            let viewController = WalCreatorViewController()
-//            transition(viewController)
+            let viewController = WalCreatorViewController()
+            transition(viewController)
         default:
             if indexPath.row == 0 {
                 let viewController = ZanzanbariViewController()
