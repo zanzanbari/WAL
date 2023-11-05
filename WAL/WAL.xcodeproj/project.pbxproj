@@ -96,6 +96,7 @@
 		9213AD042865A93A009B6002 /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD032865A93A009B6002 /* HistoryResponse.swift */; };
 		9213AD072865AB67009B6002 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD062865AB67009B6002 /* HistoryService.swift */; };
 		9213AD0A2865ADBC009B6002 /* HistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213AD092865ADBC009B6002 /* HistoryAPI.swift */; };
+		921D34DD2AF6472A00419B3E /* WalCreatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D34DC2AF6472A00419B3E /* WalCreatorViewModel.swift */; };
 		924B60FD28A7D1E4002804B1 /* WalStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B60FC28A7D1E4002804B1 /* WalStatus.swift */; };
 		925D13F929F95FB00024F0E5 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13F829F95FB00024F0E5 /* BaseResponse.swift */; };
 		925D13FB29FABF220024F0E5 /* WalCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D13FA29FABF220024F0E5 /* WalCategoryType.swift */; };
@@ -224,6 +225,7 @@
 		9213AD032865A93A009B6002 /* HistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResponse.swift; sourceTree = "<group>"; };
 		9213AD062865AB67009B6002 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
 		9213AD092865ADBC009B6002 /* HistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAPI.swift; sourceTree = "<group>"; };
+		921D34DC2AF6472A00419B3E /* WalCreatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalCreatorViewModel.swift; sourceTree = "<group>"; };
 		92322AAD28049C2C002E281F /* WAL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WAL.entitlements; sourceTree = "<group>"; };
 		924B60FC28A7D1E4002804B1 /* WalStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalStatus.swift; sourceTree = "<group>"; };
 		925D13F829F95FB00024F0E5 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -695,6 +697,7 @@
 				5BD17417282CDD0200C77A95 /* Model */,
 				5BD17414282CDCCD00C77A95 /* View */,
 				5BD1741A282CDD1C00C77A95 /* Controller */,
+				921D34DB2AF6470B00419B3E /* ViewModel */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -793,6 +796,14 @@
 				9213AD092865ADBC009B6002 /* HistoryAPI.swift */,
 			);
 			path = History;
+			sourceTree = "<group>";
+		};
+		921D34DB2AF6470B00419B3E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				921D34DC2AF6472A00419B3E /* WalCreatorViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		925D13F729F95F920024F0E5 /* Protocol */ = {
@@ -1095,6 +1106,7 @@
 				5BA3896727F6C28C0010EAA1 /* AuthService.swift in Sources */,
 				5BC2DD042868DCCE00AFCC29 /* SettingCategoryViewController.swift in Sources */,
 				925D13FD29FABF360024F0E5 /* AlarmTimeType.swift in Sources */,
+				921D34DD2AF6472A00419B3E /* WalCreatorViewModel.swift in Sources */,
 				5BC2DD0D2868E75100AFCC29 /* ResignViewController.swift in Sources */,
 				5B44E57F28A6BCED000ABF0C /* SettingService.swift in Sources */,
 				927519AF29815A6B0010022A /* MainViewModel.swift in Sources */,

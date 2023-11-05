@@ -39,6 +39,11 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configNavigationUI()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
@@ -49,12 +54,16 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - InitUI
     
+    private func configNavigationUI() {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     private func configUI() {
         view.backgroundColor = .white100
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar, tableView, backView])
+        view.addSubviews([navigationBar, backView, tableView])
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)

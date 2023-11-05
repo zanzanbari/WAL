@@ -384,6 +384,11 @@ extension WalCreatorViewController: UITextFieldDelegate {
         walTypeTextField.layer.borderColor = UIColor.orange100.cgColor
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        keyboardDown()
+        walTypeTextField.layer.borderColor = UIColor.gray400.cgColor
+    }
+    
 }
 
 // MARK: - UITextView Delegate
