@@ -25,8 +25,7 @@ final class SettingAPI {
     private(set) var alarm: UserAlarm?
     private(set) var category: UserCategory?
     
-    // MARK: - GET 유저 닉네임 조회하기
-    
+    /// 닉네임 조회하기 (GET)
     func getUserInfo(completion: @escaping completion) {
         settingProvider.request(.checkNickname) { [weak self] result in
             guard let self else { return }
@@ -47,8 +46,7 @@ final class SettingAPI {
         }
     }
     
-    // MARK: - GET 알림 시간 조회하기
-    
+    /// 알림 시간 조회하기 (GET)
     func getAlarm(completion: @escaping alarmCompletion) {
         settingProvider.request(.checkAlarm) { [weak self] result in
             guard let self else { return }
@@ -69,8 +67,7 @@ final class SettingAPI {
         }
     }
     
-    // MARK: - GET 카테고리 조회하기
-    
+    /// 카테고리 조회하기 (GET)
     func getCategory(completion: @escaping categoryCompletion) {
         settingProvider.request(.checkCategory) { result in
             switch result {
@@ -90,8 +87,7 @@ final class SettingAPI {
         }
     }
     
-    // MARK: - POST 유저 닉네임 수정하기
-    
+    /// 유저 닉네임 수정하기 (POST)
     func postUserInfo(nickname: String, completion: @escaping completion) {
         settingProvider.request(.editNickname(nickname)) { [weak self] result in
             guard let self else { return }
@@ -106,8 +102,7 @@ final class SettingAPI {
         }
     }
     
-    // MARK: - POST 알림 시간 수정하기
-    
+    /// 알림 시간 수정하기 (POST)
     func postAlarm(data: [String], completion: @escaping defaultCompletion) {
         
         let param = UserAlarmRequest(timeTypes: data)
@@ -124,8 +119,7 @@ final class SettingAPI {
         }
     }
     
-    // MARK: - POST 카테고리 수정하기
-    
+    /// 카테고리 수정하기 (POST)
     func postCategory(data: [String], completion: @escaping categoryCompletion) {
         
         let param = UserCategoryRequest(categoryTypes: data)
@@ -141,4 +135,18 @@ final class SettingAPI {
             }
         }
     }
+    
+    /// 왈소리 만들기 (POST)
+    func postWal(param: WalCreatorRequest, completion: @escaping defaultCompletion) {
+        settingProvider.request(.walCreator(param)) { result in
+            switch result {
+            case .success(let response):
+                completion(nil, response.statusCode)
+            case .failure(let error):
+                print("[왈소리 만들기] DEBUG: - \(error.localizedDescription)")
+                completion(nil, error.response?.statusCode)
+            }
+        }
+    }
+    
 }

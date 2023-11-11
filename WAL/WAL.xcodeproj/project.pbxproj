@@ -105,6 +105,7 @@
 		926480FF2A34BB91007DEC0B /* CustomIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926480FE2A34BB91007DEC0B /* CustomIndicator.swift */; };
 		926A2A132A02A85F005DDCEA /* MainSubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926A2A122A02A85F005DDCEA /* MainSubtitle.swift */; };
 		926A2A152A054BF9005DDCEA /* MainSubtitleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926A2A142A054BF9005DDCEA /* MainSubtitleStatus.swift */; };
+		926E1BBB2AF77761003BE5AF /* WalCreatorRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926E1BBA2AF77761003BE5AF /* WalCreatorRequest.swift */; };
 		927519AF29815A6B0010022A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927519AE29815A6B0010022A /* MainViewModel.swift */; };
 		927D10EE28210F81001AEB78 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10ED28210F81001AEB78 /* HistoryViewController.swift */; };
 		927D10F028210FD1001AEB78 /* HistoryReserveHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */; };
@@ -235,6 +236,7 @@
 		926480FE2A34BB91007DEC0B /* CustomIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIndicator.swift; sourceTree = "<group>"; };
 		926A2A122A02A85F005DDCEA /* MainSubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubtitle.swift; sourceTree = "<group>"; };
 		926A2A142A054BF9005DDCEA /* MainSubtitleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubtitleStatus.swift; sourceTree = "<group>"; };
+		926E1BBA2AF77761003BE5AF /* WalCreatorRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalCreatorRequest.swift; sourceTree = "<group>"; };
 		927519AE29815A6B0010022A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		927D10ED28210F81001AEB78 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		927D10EF28210FD1001AEB78 /* HistoryReserveHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReserveHeaderView.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				5B44E58528A6C846000ABF0C /* UserAlarm.swift */,
 				5B44E58728A6C881000ABF0C /* UserCategory.swift */,
 				5B44E58928A6D044000ABF0C /* UserRequest.swift */,
+				926E1BBA2AF77761003BE5AF /* WalCreatorRequest.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1157,6 +1160,7 @@
 				5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */,
 				925D13FF29FAC29B0024F0E5 /* UICollectionViewCell+.swift in Sources */,
 				5B422BA228676CF8001B6807 /* (null) in Sources */,
+				926E1BBB2AF77761003BE5AF /* WalCreatorRequest.swift in Sources */,
 				5B44E58A28A6D044000ABF0C /* UserRequest.swift in Sources */,
 				5BB6616828285A5B00D54353 /* TimeButton.swift in Sources */,
 				5BD17419282CDD0A00C77A95 /* Setting.swift in Sources */,
