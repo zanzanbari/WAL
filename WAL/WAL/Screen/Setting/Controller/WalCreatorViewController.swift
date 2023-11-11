@@ -54,7 +54,7 @@ final class WalCreatorViewController: UIViewController {
     
     private lazy var guideSubtitleLabel = UILabel().then {
         $0.textColor = .black100
-        $0.font = WALFont.body10.font
+        $0.font = WALFont.body9.font
         $0.text = """
                   하지만 주의하세요, 이 왈소리는 언제, 누구에게 도착할지
                   아무도 몰라요! 그때까지 긴장을 늦추지 마세요.
