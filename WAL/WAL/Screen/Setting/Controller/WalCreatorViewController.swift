@@ -19,7 +19,6 @@ final class WalCreatorViewController: UIViewController {
     private lazy var navigationBar = WALNavigationBar(title: "왈소리 크리에이터").then {
         $0.backgroundColor = .white100
         $0.leftIcon = WALIcon.btnBack.image
-        $0.leftBarButton.addTarget(self, action: #selector(touchupBackButton), for: .touchUpInside)
     }
     
     private lazy var navigationBackView = UIView().then {
@@ -130,7 +129,6 @@ final class WalCreatorViewController: UIViewController {
     private lazy var sendButton = WALPlainButton().then {
         $0.title = "보내기"
         $0.isDisabled = true
-        $0.addTarget(self, action: #selector(touchUpSendButton), for: .touchUpInside)
     }
     
     // 로딩 뷰
@@ -148,6 +146,10 @@ final class WalCreatorViewController: UIViewController {
     // MARK: - Property
     
     private var walType: [WalCategoryType] = [.comedy, .fuss, .comfort, .yell]
+    private var selectedWalType: WalCategoryType = .comedy
+    
+    private let viewModel = WalCreatorViewModel()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Initializer
     
@@ -165,10 +167,14 @@ final class WalCreatorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configUI()
         setupLayout()
         setTextField()
         setToolbar()
+        
+        rxBindOutput()
+        rxBindView()
     }
     
     // MARK: - Init UI
@@ -282,6 +288,49 @@ final class WalCreatorViewController: UIViewController {
         }
     }
     
+    // MARK: - RxBind
+    
+    private func rxBindOutput() {
+        viewModel.output.wal
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self) { owner, result in
+                switch result {
+                case .created:
+                    owner.navigationController?.popViewController(animated: true)
+                default:
+                    owner.navigationController?.popViewController(animated: true)
+                    return
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func rxBindView() {
+        navigationBar.leftBarButton
+            .rx
+            .tap
+            .preventDuplication()
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self) { owner, _ in
+                owner.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        sendButton
+            .rx
+            .tap
+            .preventDuplication()
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(with: self) { owner, _ in
+                owner.viewModel.input.postWal.accept((owner.selectedWalType, owner.walTextView.text))
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func rxBindInput() {
+        
+    }
+    
     // MARK: - Custom Method
     
     private func configLoadingView() {
@@ -347,14 +396,6 @@ final class WalCreatorViewController: UIViewController {
     }
     
     // MARK: - @objc
-    
-    @objc func touchupBackButton() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func touchUpSendButton() {
-        print("SERVER 연결")
-    }
     
     @objc func touchUpDoneButton() {
         self.view.endEditing(true)
@@ -453,6 +494,7 @@ extension WalCreatorViewController: UIPickerViewDelegate, UIPickerViewDataSource
             label.attributedText = NSAttributedString(string: walType[row].kor,
                                                       attributes: [NSAttributedString.Key.font: WALFont.body2.font,
                                                                    NSAttributedString.Key.foregroundColor: UIColor.orange100])
+            selectedWalType = walType[row]
         } else {
             label.attributedText = NSAttributedString(string: walType[row].kor,
                                                       attributes: [NSAttributedString.Key.font: WALFont.body2.font,
