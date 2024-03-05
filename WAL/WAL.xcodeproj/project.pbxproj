@@ -89,6 +89,7 @@
 		5BD35864289D482E0066C804 /* ZanzanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD35863289D482E0066C804 /* ZanzanView.swift */; };
 		5BECCA8F286A43B800DD70A3 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECCA8E286A43B800DD70A3 /* MenuButton.swift */; };
 		5BFC216128B920F100E4F65A /* Transition+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC216028B920F100E4F65A /* Transition+.swift */; };
+		8BCE0D41B3098CD6561A0A6A /* Pods_WAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F77078850A1D74BCA6A0A06 /* Pods_WAL.framework */; };
 		9205E747286EE1A4000F4B6D /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E746286EE1A4000F4B6D /* MainService.swift */; };
 		9205E749286EE1AD000F4B6D /* MainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E748286EE1AD000F4B6D /* MainAPI.swift */; };
 		9205E74C286EE4CF000F4B6D /* TodayWalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E74B286EE4CF000F4B6D /* TodayWalList.swift */; };
@@ -135,7 +136,6 @@
 		E2CD8B0628219B57009277C3 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CD8B0528219B57009277C3 /* CreateViewController.swift */; };
 		E2FD851728782CEC00335667 /* WALPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD851628782CEC00335667 /* WALPopupView.swift */; };
 		E2FD851B2878648400335667 /* CreateBackPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD851A2878648400335667 /* CreateBackPopupViewController.swift */; };
-		EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -219,6 +219,8 @@
 		5BD35863289D482E0066C804 /* ZanzanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZanzanView.swift; sourceTree = "<group>"; };
 		5BECCA8E286A43B800DD70A3 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		5BFC216028B920F100E4F65A /* Transition+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+.swift"; sourceTree = "<group>"; };
+		7A7CC4FC3E46D9AAB039E37B /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
+		8F77078850A1D74BCA6A0A06 /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9205E746286EE1A4000F4B6D /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		9205E748286EE1AD000F4B6D /* MainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAPI.swift; sourceTree = "<group>"; };
 		9205E74B286EE4CF000F4B6D /* TodayWalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWalList.swift; sourceTree = "<group>"; };
@@ -250,9 +252,7 @@
 		92C1B84D28633FB500F97D75 /* orangePaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orangePaw.json; sourceTree = "<group>"; };
 		92D87F8028C37EED009AAFE5 /* login500.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = login500.gif; sourceTree = "<group>"; };
 		92F4F1EB29FBFE6F00F33394 /* ObservableType+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+.swift"; sourceTree = "<group>"; };
-		A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
-		A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WAL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.debug.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.debug.xcconfig"; sourceTree = "<group>"; };
+		9F3F3AB380320F31763FAD50 /* Pods-WAL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WAL.release.xcconfig"; path = "Target Support Files/Pods-WAL/Pods-WAL.release.xcconfig"; sourceTree = "<group>"; };
 		E2082F67281E7EB700576135 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "WAL/Resource/Font/Pretendard-Bold.otf"; sourceTree = SOURCE_ROOT; };
 		E2082F68281E7EB700576135 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "WAL/Resource/Font/Pretendard-SemiBold.otf"; sourceTree = SOURCE_ROOT; };
 		E2082F69281E7EB700576135 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "WAL/Resource/Font/Pretendard-Regular.otf"; sourceTree = SOURCE_ROOT; };
@@ -277,8 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B66CF4528E2A3B0009ED52F /* WALKit in Frameworks */,
-				EE5FE777E457C8D83E0EA3AA /* Pods_WAL.framework in Frameworks */,
 				5B66CF4B28E2A6F9009ED52F /* Gifu in Frameworks */,
+				8BCE0D41B3098CD6561A0A6A /* Pods_WAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,16 +288,16 @@
 		39F9685198E6E6F0F00BF62A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */,
-				A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */,
+				7A7CC4FC3E46D9AAB039E37B /* Pods-WAL.debug.xcconfig */,
+				9F3F3AB380320F31763FAD50 /* Pods-WAL.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		4BBA73BC44D4E4FD58B9BC75 /* Frameworks */ = {
+		3E441B71E172B831F7A24411 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A45DE1C4B22D6C02074F52AE /* Pods_WAL.framework */,
+				8F77078850A1D74BCA6A0A06 /* Pods_WAL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -400,7 +400,7 @@
 				5BA3893027F6B94F0010EAA1 /* WAL */,
 				5BA3892F27F6B94F0010EAA1 /* Products */,
 				39F9685198E6E6F0F00BF62A /* Pods */,
-				4BBA73BC44D4E4FD58B9BC75 /* Frameworks */,
+				3E441B71E172B831F7A24411 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -956,11 +956,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BA3894227F6B9540010EAA1 /* Build configuration list for PBXNativeTarget "WAL" */;
 			buildPhases = (
-				A3120CCE326C712212982ADA /* [CP] Check Pods Manifest.lock */,
+				ED9811350A2182AA71920B91 /* [CP] Check Pods Manifest.lock */,
 				5BA3892A27F6B94F0010EAA1 /* Sources */,
 				5BA3892B27F6B94F0010EAA1 /* Frameworks */,
 				5BA3892C27F6B94F0010EAA1 /* Resources */,
-				FD71476FDAD290C854C4F2FF /* [CP] Embed Pods Frameworks */,
+				316140184BE054ED7C5872DC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1039,7 +1039,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A3120CCE326C712212982ADA /* [CP] Check Pods Manifest.lock */ = {
+		316140184BE054ED7C5872DC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED9811350A2182AA71920B91 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1059,23 +1076,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD71476FDAD290C854C4F2FF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WAL/Pods-WAL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1219,7 +1219,6 @@
 /* Begin XCBuildConfiguration section */
 		5BA3894027F6B9540010EAA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1281,7 +1280,6 @@
 		};
 		5BA3894127F6B9540010EAA1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1337,7 +1335,7 @@
 		};
 		5BA3894327F6B9540010EAA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7BA0DA013E76151B21F1E1C /* Pods-WAL.debug.xcconfig */;
+			baseConfigurationReference = 7A7CC4FC3E46D9AAB039E37B /* Pods-WAL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1347,6 +1345,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PU64TS56AD;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = PU64TS56AD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WAL/Resource/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "왈";
@@ -1366,6 +1365,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruheekim.WAL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.ruheekim.WAL";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.ruheekim.WAL";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1374,7 +1374,7 @@
 		};
 		5BA3894427F6B9540010EAA1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A101EF048E52F697C5B1B99D /* Pods-WAL.release.xcconfig */;
+			baseConfigurationReference = 9F3F3AB380320F31763FAD50 /* Pods-WAL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
