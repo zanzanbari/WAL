@@ -57,7 +57,7 @@ class HistoryTableViewCell: UITableViewCell {
     
     var dDayLabel = UILabel().then {
         $0.text = "D-6"
-        $0.font = WALFont.body8.font
+        $0.font = WALFont.body10.font
         $0.textColor = .mint100
     }
     

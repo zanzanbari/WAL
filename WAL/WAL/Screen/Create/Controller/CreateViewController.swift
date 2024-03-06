@@ -282,10 +282,10 @@ class CreateViewController: UIViewController {
     //MARK: - CustomMethod
     
     private func setSendButton() {
-        let isCotentFull = walSoundTextView.text.count > 0 && datePickerData.date != nil && datePickerData.time != nil
+        let isContentFull = walSoundTextView.text.count > 0 && datePickerData.date != nil && datePickerData.time != nil
         
-        sendButton.backgroundColor = isCotentFull ? .orange100 : .gray400
-        sendButton.isEnabled = isCotentFull
+        sendButton.backgroundColor = isContentFull ? .orange100 : .gray400
+        sendButton.isEnabled = isContentFull
     }
     
     private func scroll(_ datePickerType: DatePickerType) {

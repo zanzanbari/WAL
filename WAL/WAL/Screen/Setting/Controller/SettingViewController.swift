@@ -39,6 +39,11 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configNavigationUI()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
@@ -49,12 +54,16 @@ final class SettingViewController: UIViewController, SendNicknameDelegate {
     
     // MARK: - InitUI
     
+    private func configNavigationUI() {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     private func configUI() {
         view.backgroundColor = .white100
     }
     
     private func setupLayout() {
-        view.addSubviews([navigationBar, tableView, backView])
+        view.addSubviews([navigationBar, backView, tableView])
         
         navigationBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -113,9 +122,8 @@ extension SettingViewController: UITableViewDelegate {
                 transition(viewController)
             }
         case 2:
-            print("여기 주석 처리 해제해주세요~ SettingVC 116번 줄")
-//            let viewController = WalCreatorViewController()
-//            transition(viewController)
+            let viewController = WalCreatorViewController()
+            transition(viewController)
         default:
             if indexPath.row == 0 {
                 let viewController = ZanzanbariViewController()

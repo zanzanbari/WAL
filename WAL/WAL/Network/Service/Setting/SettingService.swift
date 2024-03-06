@@ -14,6 +14,7 @@ enum SettingService {
     case editNickname(String)
     case editAlarm(UserAlarmRequest)
     case editCategory(UserCategoryRequest)
+    case walCreator(WalCreatorRequest)
 }
 
 extension SettingService: BaseTargetType {
@@ -26,6 +27,7 @@ extension SettingService: BaseTargetType {
         case .editNickname: return "/user/me/nickname/edit"
         case .editAlarm: return "/onboard/time/edit"
         case .editCategory: return "/onboard/category/edit"
+        case .walCreator: return "/censor/create"
         }
     }
     
@@ -33,7 +35,7 @@ extension SettingService: BaseTargetType {
         switch self {
         case .checkNickname, .checkAlarm, .checkCategory: return .get
         case .editNickname: return .patch
-        case .editAlarm, .editCategory: return .post
+        case .editAlarm, .editCategory, .walCreator: return .post
         }
     }
     
@@ -46,6 +48,8 @@ extension SettingService: BaseTargetType {
         case .editAlarm(let param):
             return .requestJSONEncodable(param)
         case .editCategory(let param):
+            return .requestJSONEncodable(param)
+        case .walCreator(let param):
             return .requestJSONEncodable(param)
         }
     }
